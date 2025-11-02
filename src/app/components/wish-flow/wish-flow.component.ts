@@ -32,6 +32,7 @@ export class WishFlowComponent {
   
   // Share tracking
   hasShared = false;
+  showViralShare = false;
 
   // Current wish being processed
   currentWish?: Wish;
@@ -300,6 +301,11 @@ It is a **real digital temple of faith and devotion**.
       setTimeout(() => {
         this.showOfferingAnimation = false;
       }, 5000);
+      
+      // Show viral share prompt after 2 seconds
+      setTimeout(() => {
+        this.showViralShare = true;
+      }, 2000);
     } catch (error) {
       console.error('Error activating wish:', error);
       alert('Failed to submit wish. Please try again.');
@@ -479,6 +485,20 @@ It is a **real digital temple of faith and devotion**.
    */
   getNewBlessing(): void {
     this.currentBlessing = this.blessingsService.getRandomBlessing();
+  }
+
+  /**
+   * Handle viral share prompt close
+   */
+  onViralShareClose(): void {
+    this.showViralShare = false;
+  }
+
+  /**
+   * Handle when user shares the temple
+   */
+  onViralShared(): void {
+    console.log('User shared the temple from wish flow!');
   }
 
   /**

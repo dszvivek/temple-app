@@ -1,0 +1,100 @@
+<div *ngIf="isOpen" 
+     class="modal-backdrop" 
+     @backdropAnimation
+     (click)="onBackdropClick($event)"
+     (keydown)="onKeydown($event)"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="diya-modal-title"
+     aria-modal="true">
+  
+  <div class="modal-container" @modalAnimation>
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h2 id="diya-modal-title" class="modal-title">
+        {{ lang.t('diya.modalTitle') }}
+      </h2>
+      <button 
+        class="close-button"
+        (click)="close()"
+        [attr.aria-label]="lang.t('devMode.close')"
+        type="button">
+        ✕
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <p class="modal-description">
+        {{ lang.t('diya.modalDescription') }}
+      </p>
+
+      <form (ngSubmit)="onSubmit()" #diyaForm="ngForm">
+        <!-- Name Input -->
+        <div class="form-group">
+          <label for="diya-name" class="form-label">
+            {{ lang.t('diya.nameLabel') }} <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="text"
+            id="diya-name"
+            name="name"
+            [(ngModel)]="name"
+            [maxlength]="maxLength"
+            [placeholder]="lang.t('diya.namePlaceholder')"
+            class="form-input"
+            [class.input-error]="errorMessage && !name.trim()"
+            [class.input-success]="successMessage"
+            required
+            autofocus
+            [disabled]="isSubmitting">
+          
+          <!-- Character Counter -->
+          <div class="char-counter" [class.char-limit-close]="remainingChars < 5">
+            {{ name.length }} / {{ maxLength }} {{ lang.t('diya.charCounter') }}
+            <span *ngIf="remainingChars < 5" class="text-orange-500">
+              ({{ remainingChars }} {{ lang.t('diya.remaining') }})
+            </span>
+          </div>
+        </div>
+
+        <!-- Success Message -->
+        <div *ngIf="successMessage" class="message message-success">
+          <span class="message-icon">✓</span>
+          {{ successMessage }}
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="message message-error">
+          <span class="message-icon">!</span>
+          {{ errorMessage }}
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="modal-actions">
+          <button 
+            type="button"
+            class="btn btn-secondary"
+            (click)="close()"
+            [disabled]="isSubmitting">
+            {{ lang.t('diya.cancel') }}
+          </button>
+          <button 
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!isValidName || isSubmitting">
+            <span *ngIf="!isSubmitting">{{ lang.t('diya.lightDiya') }}</span>
+            <span *ngIf="isSubmitting">{{ lang.t('diya.lighting') }}</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <p class="info-text">
+          💡 <strong>{{ lang.t('diya.noteTitle') }}</strong> {{ lang.t('diya.noteDescription') }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

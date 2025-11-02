@@ -19,6 +19,16 @@ export interface Translations {
     supportOptional: string;
   };
   
+  // Onboarding Welcome
+  onboarding: {
+    welcomeRitual: string;
+    step1: string;
+    step2: string;
+    step3: string;
+    enterTemple: string;
+    skipIntro: string;
+  };
+  
   // Audio Player
   audio: {
     title: string;
@@ -49,6 +59,17 @@ export interface Translations {
     statusMessage: string;
     scheduleInfo: string;
     durationInfo: string;
+  };
+  
+  // Viral Share Flow
+  viralShare: {
+    title: string;
+    subtitle: string;
+    description: string;
+    shareButton: string;
+    skipButton: string;
+    blessing: string;
+    shareCount: string;
   };
   
   // Wish Flow
@@ -191,6 +212,53 @@ export interface Translations {
     updateButton: string;
   };
   
+  // Diya Feature
+  diya: {
+    lightButton: string;
+    modalTitle: string;
+    modalDescription: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    charCounter: string;
+    remaining: string;
+    cancel: string;
+    lightDiya: string;
+    lighting: string;
+    noteTitle: string;
+    noteDescription: string;
+    diyaLit: string;
+    diyas: string;
+    hoursRemaining: string;
+    minutesRemaining: string;
+    timeRemaining: string;
+  };
+
+  // Developer Mode
+  devMode: {
+    title: string;
+    close: string;
+    templeHoursTitle: string;
+    overrideTemple: string;
+    forceOpen: string;
+    templeOpenStatus: string;
+    templeClosedStatus: string;
+    hourlyChalisa: string;
+    overrideChalisa: string;
+    forcePlay: string;
+    chalisaPlayingStatus: string;
+    chalisaStoppedStatus: string;
+    enableAudioFirst: string;
+    scheduledChants: string;
+    triggerChants: string;
+    triggerChantInfo: string;
+    debugging: string;
+    showDebugLogs: string;
+    quickInfo: string;
+    toggleDevMode: string;
+    changesPersist: string;
+    refreshToSee: string;
+  };
+
   // Common
   common: {
     jaiHanuman: string;
@@ -213,7 +281,7 @@ export class LanguageService {
       home: {
   welcomeTitle: 'श्री हनुमान जी की कृपा में आपका हार्दिक स्वागत',
   welcomeSubtitle: 'अपनी मनोकामना प्रकट करें, भक्ति भाव से प्रार्थना करें और पवनपुत्र श्री हनुमान जी की दिव्य कृपा पाएं',
-  makeWish: 'अपनी मनोकामना व्यक्त करें',
+  makeWish: 'श्री हनुमान को अपनी मनोकामना अर्पित करें 🪔',
   aboutTemple: 'मंदिर का परिचय',
   supportTitle: 'इस सेवा का समर्थन करें',
   supportMessage: 'यदि आपको यह सेवा उपयोगी लगी हो और आप इसके रखरखाव में सहयोग करना चाहें, तो योगदान का स्वागत है।',
@@ -221,10 +289,19 @@ export class LanguageService {
   supportOptional: 'पूर्णतः स्वैच्छिक - सेवा सभी के लिए निःशुल्क रहेगी',
       },
       
+      onboarding: {
+        welcomeRitual: '🙏 पावन स्वागत अनुष्ठान',
+        step1: '🔔 घंटी बजाएं और मंदिर में प्रवेश करें',
+        step2: '🪔 दीप जलाएं और प्रणाम करें',
+        step3: '🌺 श्री हनुमान को पुष्प अर्पित करें',
+        enterTemple: 'मंदिर में प्रवेश करें',
+        skipIntro: 'छोड़ें',
+      },
+      
       audio: {
   title: 'हनुमान चालीसा',
   subtitle: 'हर घंटे पावन पाठ',
-  enableButton: 'घंटेवार जप चालू करें',
+  enableButton: 'हनुमान चालीसा स्वतः चलाएं – अपने घर को आशीर्वाद दें',
   enableHint: 'ऑटो-प्ले हेतु आवश्यक—ब्राउज़र सुरक्षा नीति',
   automaticChanting: 'स्वचालित घंटेवार जप',
   liveSync: 'लाइव सिंक:',
@@ -250,6 +327,16 @@ export class LanguageService {
         statusMessage: 'हनुमान चालीसा हर घंटे सुबह 5 बजे से शाम 7 बजे तक चलती है',
         scheduleInfo: 'हर घंटे की शुरुआत में ऑडियो चलता है (सुबह 5 बजे से शाम 7 बजे तक)',
         durationInfo: 'अवधि: प्रति सत्र 8 मिनट 32 सेकंड',
+      },
+      
+      viralShare: {
+        title: '🌟 विशेष आशीर्वाद प्राप्त करें',
+        subtitle: 'इस मंदिर को 3 भक्तों के साथ साझा करें',
+        description: 'जब आप इस पावन मंदिर के बारे में अपने 3 प्रियजनों को बताते हैं, तो आपकी भक्ति और मनोकामना की शक्ति कई गुना बढ़ जाती है। आशीर्वाद बांटना ही आशीर्वाद पाना है। 🙏',
+        shareButton: '📱 3 भक्तों के साथ साझा करें',
+        skipButton: 'अभी नहीं',
+        blessing: '✨ धन्यवाद! श्री हनुमान की विशेष कृपा आप पर बनी रहे',
+        shareCount: 'आपने {{ count }} लोगों के साथ साझा किया है',
       },
       
       wish: {
@@ -393,6 +480,51 @@ export class LanguageService {
   loading: 'कृपया प्रतीक्षा करें...',
   error: 'त्रुटि',
       },
+      
+      diya: {
+        lightButton: 'दीया जलाएं',
+        modalTitle: '🪔 किसी के लिए दीया जलाएं',
+        modalDescription: 'अपने प्रियजनों के लिए श्री हनुमान मंदिर में एक आभासी दीया जलाएं। दीया आपकी भक्ति और प्रार्थनाओं के प्रतीक के रूप में 24 घंटे तक जलता रहेगा।',
+        nameLabel: 'व्यक्ति का नाम',
+        namePlaceholder: 'नाम दर्ज करें (जैसे, अम्मा, पापा, प्रिया)',
+        charCounter: 'अक्षर',
+        remaining: 'शेष',
+        cancel: 'रद्द करें',
+        lightDiya: '🪔 दीया जलाएं',
+        lighting: 'जला रहे हैं...',
+        noteTitle: 'नोट:',
+        noteDescription: 'आपका दीया 24 घंटे तक जलता रहेगा और फिर स्वचालित रूप से समाप्त हो जाएगा। सभी दीये केवल आपके उपकरण में स्थानीय रूप से संग्रहीत हैं।',
+        diyaLit: 'दीया जलाया गया',
+        diyas: 'दीये जलाए गए',
+        hoursRemaining: 'घंटे शेष',
+        minutesRemaining: 'मिनट शेष',
+        timeRemaining: 'समय शेष',
+      },
+      
+      devMode: {
+        title: '🔧 डेवलपर नियंत्रण',
+        close: 'बंद करें',
+        templeHoursTitle: '⏰ मंदिर समय (सुबह 5 बजे - शाम 7 बजे)',
+        overrideTemple: 'मंदिर खुलने/बंद होने के समय को ओवरराइड करें',
+        forceOpen: 'मंदिर को खुला रखने के लिए बाध्य करें',
+        templeOpenStatus: '✅ मंदिर जबरन खुला है - परिवेशी ध्वनियां सक्रिय',
+        templeClosedStatus: '🔒 मंदिर जबरन बंद है - परिवेशी ध्वनियां बंद',
+        hourlyChalisa: '🎵 घंटेवार हनुमान चालीसा',
+        overrideChalisa: 'घंटेवार चालीसा समय को ओवरराइड करें',
+        forcePlay: 'चालीसा को अभी बजाने के लिए बाध्य करें',
+        chalisaPlayingStatus: '▶️ चालीसा तुरंत बजेगी',
+        chalisaStoppedStatus: '⏸️ चालीसा प्लेबैक रोका गया',
+        enableAudioFirst: '(पहले ऑडियो प्लेयर सक्षम करें!)',
+        scheduledChants: '🔔 निर्धारित जप',
+        triggerChants: '⚡ सभी निर्धारित जप अभी शुरू करें',
+        triggerChantInfo: 'यह तुरंत सभी सक्षम निर्धारित जप (सुबह की चालीसा, शाम की आरती, आदि) को सक्रिय करता है',
+        debugging: '🐛 डीबगिंग',
+        showDebugLogs: 'डीबग कंसोल लॉग दिखाएं',
+        quickInfo: 'ℹ️ त्वरित जानकारी',
+        toggleDevMode: 'डेव मोड टॉगल करें',
+        changesPersist: 'परिवर्तन localStorage में बने रहते हैं',
+        refreshToSee: 'प्रभाव देखने के लिए पृष्ठ रीफ्रेश करें',
+      },
     },
     
     en: {
@@ -401,7 +533,7 @@ export class LanguageService {
       home: {
         welcomeTitle: 'Welcome to Hanuman Ji\'s Blessings',
         welcomeSubtitle: 'Make your wishes, offer prayers, and seek blessings from the mighty Pawanputra',
-        makeWish: 'Make a Wish',
+        makeWish: 'Offer Your Manokamna to Shri Hanuman 🪔',
         aboutTemple: 'About Temple',
         supportTitle: 'Support This Service',
         supportMessage: 'If you find this service helpful and wish to support its maintenance, contributions are gratefully accepted.',
@@ -409,10 +541,19 @@ export class LanguageService {
         supportOptional: 'Completely optional - service remains free for all',
       },
       
+      onboarding: {
+        welcomeRitual: '🙏 Sacred Welcome Ritual',
+        step1: '🔔 Ring the bell and enter the temple',
+        step2: '🪔 Light the lamp and bow down',
+        step3: '🌺 Offer flowers to Shri Hanuman',
+        enterTemple: 'Enter Temple',
+        skipIntro: 'Skip',
+      },
+      
       audio: {
         title: 'Hanuman Chalisa',
         subtitle: 'Hourly Divine Recitation',
-        enableButton: 'Enable Hourly Chanting',
+        enableButton: 'Let Hanuman Chalisa Play Automatically – Bless Your Home',
         enableHint: 'Required for auto-playing audio - browser security policy',
         automaticChanting: 'Automatic Hourly Chanting',
         liveSync: 'Live Sync:',
@@ -438,6 +579,16 @@ export class LanguageService {
         statusMessage: 'Hanuman Chalisa plays automatically every hour from 5 AM to 7 PM',
         scheduleInfo: 'Audio plays at the start of every hour (5 AM to 7 PM)',
         durationInfo: 'Duration: 8 minutes 32 seconds per session',
+      },
+      
+      viralShare: {
+        title: '🌟 Get Special Blessings',
+        subtitle: 'Share This Temple With 3 Devotees',
+        description: 'When you share this sacred temple with 3 loved ones, your devotion and wish become many times more powerful. Sharing blessings is receiving blessings. 🙏',
+        shareButton: '📱 Share With 3 Devotees',
+        skipButton: 'Not Now',
+        blessing: '✨ Thank You! May Shri Hanuman\'s Special Grace Be With You',
+        shareCount: 'You have shared with {{ count }} people',
       },
       
       wish: {
@@ -580,6 +731,51 @@ export class LanguageService {
         jaiHanuman: 'Jai Hanuman',
         loading: 'Loading...',
         error: 'Error',
+      },
+      
+      diya: {
+        lightButton: 'Light a Diya',
+        modalTitle: '🪔 Light a Diya for Someone',
+        modalDescription: 'Light a virtual diya in Lord Hanuman\'s temple for your loved ones. The diya will glow for 24 hours as a symbol of your devotion and prayers.',
+        nameLabel: 'Name of Person',
+        namePlaceholder: 'Enter name (e.g., Amma, Papa, Priya)',
+        charCounter: 'characters',
+        remaining: 'remaining',
+        cancel: 'Cancel',
+        lightDiya: '🪔 Light Diya',
+        lighting: 'Lighting...',
+        noteTitle: 'Note:',
+        noteDescription: 'Your diya will remain lit for 24 hours and then automatically expire. All diyas are stored locally on your device only.',
+        diyaLit: 'Diya Lit',
+        diyas: 'Diyas Lit',
+        hoursRemaining: 'hours remaining',
+        minutesRemaining: 'minutes remaining',
+        timeRemaining: 'time remaining',
+      },
+      
+      devMode: {
+        title: '🔧 Developer Controls',
+        close: 'Close',
+        templeHoursTitle: '⏰ Temple Hours (5AM-7PM)',
+        overrideTemple: 'Override temple open/close times',
+        forceOpen: 'Force temple to be OPEN',
+        templeOpenStatus: '✅ Temple is forced OPEN - ambient sounds active',
+        templeClosedStatus: '🔒 Temple is forced CLOSED - ambient sounds off',
+        hourlyChalisa: '🎵 Hourly Hanuman Chalisa',
+        overrideChalisa: 'Override hourly Chalisa timing',
+        forcePlay: 'Force Chalisa to play now',
+        chalisaPlayingStatus: '▶️ Chalisa will play immediately',
+        chalisaStoppedStatus: '⏸️ Chalisa playback stopped',
+        enableAudioFirst: '(first enable audio player!)',
+        scheduledChants: '🔔 Scheduled Chants',
+        triggerChants: '⚡ Trigger All Scheduled Chants Now',
+        triggerChantInfo: 'This immediately triggers all enabled scheduled chants (Morning Chalisa, Evening Aarti, etc.)',
+        debugging: '🐛 Debugging',
+        showDebugLogs: 'Show debug console logs',
+        quickInfo: 'ℹ️ Quick Info',
+        toggleDevMode: 'Toggle dev mode',
+        changesPersist: 'Changes persist in localStorage',
+        refreshToSee: 'Refresh page to see effects',
       },
     },
   };

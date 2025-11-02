@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DevModeService, DevModeConfig } from '../../services/dev-mode.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-dev-controls',
@@ -10,7 +11,10 @@ export class DevControlsComponent implements OnInit {
   config!: DevModeConfig;
   isVisible = false;
 
-  constructor(public devMode: DevModeService) {}
+  constructor(
+    public devMode: DevModeService,
+    public lang: LanguageService
+  ) {}
 
   ngOnInit(): void {
     this.devMode.config$.subscribe(config => {

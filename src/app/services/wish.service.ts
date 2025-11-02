@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Wish, WishStatus } from '../models/wish.model';
+import { LiveStatsService } from './live-stats.service';
 import * as localforage from 'localforage';
 
 /**
@@ -15,7 +16,7 @@ export class WishService {
   private wishesSubject = new BehaviorSubject<Wish[]>([]);
   public wishes$: Observable<Wish[]> = this.wishesSubject.asObservable();
 
-  constructor() {
+  constructor(private liveStatsService: LiveStatsService) {
     this.initializeStorage();
     this.loadWishes();
   }
@@ -105,6 +106,9 @@ export class WishService {
     };
 
     await this.saveWishes(wishes);
+    
+    // Increment the global wish counter
+    this.liveStatsService.incrementWishCount();
   }
 
   /**

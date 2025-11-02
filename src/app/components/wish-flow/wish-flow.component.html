@@ -579,4 +579,11 @@
       </button>
     </div>
   </div>
+
+  <!-- Viral Share Prompt -->
+  <app-viral-share-prompt
+    [isOpen]="showViralShare"
+    (closePrompt)="onViralShareClose()"
+    (shared)="onViralShared()">
+  </app-viral-share-prompt>
 </div>

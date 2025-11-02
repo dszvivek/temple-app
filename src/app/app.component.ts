@@ -24,6 +24,9 @@ import { filter } from 'rxjs/operators';
       <!-- Developer Controls -->
       <app-dev-controls></app-dev-controls>
       
+      <!-- Floating Temple Bell Button -->
+      <app-floating-bell></app-floating-bell>
+      
       <!-- Main Content -->
       <main class="flex-grow">
         <router-outlet></router-outlet>

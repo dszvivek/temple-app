@@ -1,0 +1,37 @@
+<div class="live-stats-container">
+  <!-- Live Devotees Counter -->
+  <div class="stat-item live-devotees">
+    <div class="stat-icon">
+      <span class="live-indicator"></span>
+      <span class="icon-text">👥</span>
+    </div>
+    <div class="stat-content">
+      <div class="stat-value" @counterUpdate>
+        {{ formatNumber(liveDevotees) }}
+      </div>
+      <div class="stat-label">
+        <span *ngIf="lang.getCurrentLanguage() === 'hi'">भक्त ऑनलाइन</span>
+        <span *ngIf="lang.getCurrentLanguage() === 'en'">Devotees Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="stat-divider"></div>
+
+  <!-- Total Wishes Counter -->
+  <div class="stat-item total-wishes">
+    <div class="stat-icon">
+      <span class="icon-text">🙏</span>
+    </div>
+    <div class="stat-content">
+      <div class="stat-value" @counterUpdate>
+        {{ formatNumber(totalWishes) }}
+      </div>
+      <div class="stat-label">
+        <span *ngIf="lang.getCurrentLanguage() === 'hi'">मनोकामनाएँ अर्पित</span>
+        <span *ngIf="lang.getCurrentLanguage() === 'en'">Wishes Offered</span>
+      </div>
+    </div>
+  </div>
+</div>

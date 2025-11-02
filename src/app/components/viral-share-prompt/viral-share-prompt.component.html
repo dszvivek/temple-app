@@ -1,0 +1,61 @@
+<div *ngIf="isOpen" 
+     class="share-backdrop" 
+     @backdropAnimation
+     (click)="onBackdropClick($event)">
+  
+  <div class="share-modal" @modalAnimation>
+    <!-- Decorative Top -->
+    <div class="modal-decoration">
+      <span class="decoration-icon">🌟</span>
+      <span class="decoration-icon">✨</span>
+      <span class="decoration-icon">🙏</span>
+      <span class="decoration-icon">✨</span>
+      <span class="decoration-icon">🌟</span>
+    </div>
+
+    <!-- Header -->
+    <div class="share-header">
+      <h2 class="share-title">{{ lang.t('viralShare.title') }}</h2>
+      <p class="share-subtitle">{{ lang.t('viralShare.subtitle') }}</p>
+    </div>
+
+    <!-- Description -->
+    <div class="share-description">
+      <p>{{ lang.t('viralShare.description') }}</p>
+    </div>
+
+    <!-- Share Count Badge (if user has shared before) -->
+    <div *ngIf="shareCount > 0" class="share-count-badge">
+      <span class="badge-icon">✓</span>
+      <span class="badge-text">{{ lang.t('viralShare.shareCount').replace('{{ count }}', shareCount.toString()) }}</span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="share-actions">
+      <button 
+        class="btn btn-primary btn-share"
+        (click)="share()">
+        {{ lang.t('viralShare.shareButton') }}
+      </button>
+      
+      <button 
+        class="btn btn-secondary btn-skip"
+        (click)="skip()">
+        {{ lang.t('viralShare.skipButton') }}
+      </button>
+    </div>
+
+    <!-- Blessing Message -->
+    <div class="blessing-message">
+      <p>{{ lang.t('viralShare.blessing') }}</p>
+    </div>
+
+    <!-- Close Button -->
+    <button 
+      class="close-button"
+      (click)="close()"
+      aria-label="Close">
+      ✕
+    </button>
+  </div>
+</div>

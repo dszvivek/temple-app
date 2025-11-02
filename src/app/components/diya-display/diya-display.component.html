@@ -1,0 +1,95 @@
+<div *ngIf="diyas.length > 0" class="diya-container" @diyaListAnimation>
+  <div class="diya-wrapper">
+    <div 
+      *ngFor="let diya of diyas; trackBy: trackByDiyaId" 
+      class="diya-item"
+      [attr.data-diya-id]="diya.id">
+      
+      <!-- Diya SVG with Flickering Animation -->
+      <div class="diya-icon">
+        <svg 
+          class="diya-svg flickering" 
+          viewBox="0 0 64 64" 
+          xmlns="http://www.w3.org/2000/svg">
+          
+          <!-- Diya Base (Clay pot) -->
+          <ellipse 
+            cx="32" 
+            cy="45" 
+            rx="20" 
+            ry="6" 
+            fill="#d97706" 
+            opacity="0.3"/>
+          
+          <path 
+            d="M 20 40 Q 20 35 25 32 L 39 32 Q 44 35 44 40 L 42 45 L 22 45 Z" 
+            fill="#ea580c" 
+            stroke="#c2410c" 
+            stroke-width="1"/>
+          
+          <!-- Oil/Wick -->
+          <ellipse 
+            cx="32" 
+            cy="32" 
+            rx="10" 
+            ry="3" 
+            fill="#fbbf24"/>
+          
+          <!-- Flame -->
+          <g class="flame">
+            <!-- Outer flame (orange) -->
+            <path 
+              d="M 32 32 Q 28 28 28 22 Q 28 16 32 12 Q 36 16 36 22 Q 36 28 32 32 Z" 
+              fill="#fb923c" 
+              opacity="0.9"/>
+            
+            <!-- Middle flame (yellow) -->
+            <path 
+              d="M 32 30 Q 29 27 29 22 Q 29 17 32 14 Q 35 17 35 22 Q 35 27 32 30 Z" 
+              fill="#fbbf24" 
+              opacity="0.95"/>
+            
+            <!-- Inner flame (white/yellow) -->
+            <path 
+              d="M 32 28 Q 30 26 30 22 Q 30 19 32 17 Q 34 19 34 22 Q 34 26 32 28 Z" 
+              fill="#fef3c7" 
+              opacity="1"/>
+          </g>
+          
+          <!-- Glow effect -->
+          <circle 
+            cx="32" 
+            cy="20" 
+            r="18" 
+            fill="url(#glowGradient)" 
+            opacity="0.4" 
+            class="glow-circle"/>
+          
+          <!-- Gradient definition -->
+          <defs>
+            <radialGradient id="glowGradient">
+              <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Person's Name -->
+      <div class="diya-name" [title]="diya.name">
+        {{ diya.name }}
+      </div>
+
+      <!-- Time Remaining (on hover) -->
+      <div class="diya-time">
+        {{ getTimeRemaining(diya) }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Diya Count Badge -->
+  <div class="diya-count-badge" *ngIf="diyas.length > 0">
+    <span class="count-number">{{ diyas.length }}</span>
+    <span class="count-label">{{ diyas.length === 1 ? lang.t('diya.diyaLit') : lang.t('diya.diyas') }}</span>
+  </div>
+</div>

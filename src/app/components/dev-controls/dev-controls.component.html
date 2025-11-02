@@ -1,19 +1,19 @@
 <div *ngIf="isVisible" class="dev-controls-panel">
   <div class="dev-header">
-    <span class="dev-title">🔧 Developer Controls</span>
-    <button (click)="closePanel()" class="close-btn" title="Close (or press Ctrl+Shift+D)">✕</button>
+    <span class="dev-title">{{ lang.t('devMode.title') }}</span>
+    <button (click)="closePanel()" class="close-btn" [title]="lang.t('devMode.close') + ' (or press Ctrl+Shift+D)'">✕</button>
   </div>
 
   <div class="dev-content">
     <!-- Temple Hours Override -->
     <div class="dev-section">
-      <h3 class="section-title">⏰ Temple Hours (5AM-7PM)</h3>
+      <h3 class="section-title">{{ lang.t('devMode.templeHoursTitle') }}</h3>
       
       <label class="checkbox-label">
         <input type="checkbox" 
                [checked]="config.overrideTempleOpen"
                (change)="toggleOverrideTemple()">
-        <span>Override temple open/close times</span>
+        <span>{{ lang.t('devMode.overrideTemple') }}</span>
       </label>
 
       <label class="checkbox-label" 
@@ -22,28 +22,28 @@
                [checked]="config.forceTempleOpen"
                [disabled]="!config.overrideTempleOpen"
                (change)="toggleForceTempleOpen()">
-        <span>Force temple to be OPEN</span>
+        <span>{{ lang.t('devMode.forceOpen') }}</span>
       </label>
 
       <div class="info-box" *ngIf="config.overrideTempleOpen">
         <p *ngIf="config.forceTempleOpen" class="success">
-          ✅ Temple is forced OPEN - ambient sounds active
+          {{ lang.t('devMode.templeOpenStatus') }}
         </p>
         <p *ngIf="!config.forceTempleOpen" class="warning">
-          🔒 Temple is forced CLOSED - ambient sounds off
+          {{ lang.t('devMode.templeClosedStatus') }}
         </p>
       </div>
     </div>
 
     <!-- Hourly Chalisa Override -->
     <div class="dev-section">
-      <h3 class="section-title">🎵 Hourly Hanuman Chalisa</h3>
+      <h3 class="section-title">{{ lang.t('devMode.hourlyChalisa') }}</h3>
       
       <label class="checkbox-label">
         <input type="checkbox" 
                [checked]="config.overrideHourlyChalisa"
                (change)="toggleOverrideHourlyChalisa()">
-        <span>Override hourly Chalisa timing</span>
+        <span>{{ lang.t('devMode.overrideChalisa') }}</span>
       </label>
 
       <label class="checkbox-label" 
@@ -52,51 +52,51 @@
                [checked]="config.forceChalisaPlay"
                [disabled]="!config.overrideHourlyChalisa"
                (change)="toggleForceChalisaPlay()">
-        <span>Force Chalisa to play now</span>
+        <span>{{ lang.t('devMode.forcePlay') }}</span>
       </label>
 
       <div class="info-box" *ngIf="config.overrideHourlyChalisa">
         <p *ngIf="config.forceChalisaPlay" class="success">
-          ▶️ Chalisa will play immediately (first enable audio player!)
+          {{ lang.t('devMode.chalisaPlayingStatus') }} {{ lang.t('devMode.enableAudioFirst') }}
         </p>
         <p *ngIf="!config.forceChalisaPlay" class="warning">
-          ⏸️ Chalisa playback stopped
+          {{ lang.t('devMode.chalisaStoppedStatus') }}
         </p>
       </div>
     </div>
 
     <!-- Scheduled Chants -->
     <div class="dev-section">
-      <h3 class="section-title">🔔 Scheduled Chants</h3>
+      <h3 class="section-title">{{ lang.t('devMode.scheduledChants') }}</h3>
       
       <button class="trigger-btn" (click)="triggerScheduledChants()">
-        ⚡ Trigger All Scheduled Chants Now
+        {{ lang.t('devMode.triggerChants') }}
       </button>
       
       <div class="info-box warning">
-        <p style="font-size: 11px;">This immediately triggers all enabled scheduled chants (Morning Chalisa, Evening Aarti, etc.)</p>
+        <p style="font-size: 11px;">{{ lang.t('devMode.triggerChantInfo') }}</p>
       </div>
     </div>
 
     <!-- Debug Info -->
     <div class="dev-section">
-      <h3 class="section-title">🐛 Debugging</h3>
+      <h3 class="section-title">{{ lang.t('devMode.debugging') }}</h3>
       
       <label class="checkbox-label">
         <input type="checkbox" 
                [checked]="config.showDebugInfo"
                (change)="toggleDebugInfo()">
-        <span>Show debug console logs</span>
+        <span>{{ lang.t('devMode.showDebugLogs') }}</span>
       </label>
     </div>
 
     <!-- Instructions -->
     <div class="dev-section">
-      <h3 class="section-title">ℹ️ Quick Info</h3>
+      <h3 class="section-title">{{ lang.t('devMode.quickInfo') }}</h3>
       <ul class="info-list">
-        <li><kbd>Ctrl+Shift+D</kbd> - Toggle dev mode</li>
-        <li>Changes persist in localStorage</li>
-        <li>Refresh page to see effects</li>
+        <li><kbd>Ctrl+Shift+D</kbd> - {{ lang.t('devMode.toggleDevMode') }}</li>
+        <li>{{ lang.t('devMode.changesPersist') }}</li>
+        <li>{{ lang.t('devMode.refreshToSee') }}</li>
       </ul>
     </div>
   </div>
