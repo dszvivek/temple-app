@@ -10,7 +10,7 @@ import { Wish, WishCategory, WishStatus } from '../../models/wish.model';
   styleUrls: ['./wish-flow.component.css']
 })
 export class WishFlowComponent {
-  step: 'create' | 'ritual' | 'complete' = 'create';
+  step: 'create' | 'ritual' | 'share' | 'complete' = 'create';
   
   // Wish creation form
   wishTitle = '';
@@ -26,6 +26,9 @@ export class WishFlowComponent {
   isRitualComplete = false;
   showOfferingAnimation = false;
   fallingOfferings: any[] = [];
+  
+  // Share tracking
+  hasShared = false;
 
   // Current wish being processed
   currentWish?: Wish;
@@ -124,21 +127,77 @@ export class WishFlowComponent {
   }
 
   /**
-   * Submit wish after ritual completion
+   * Move to sharing step after ritual completion
    */
-  async submitWish(): Promise<void> {
-    if (!this.isRitualComplete || !this.currentWish) return;
+  proceedToShare(): void {
+    if (!this.isRitualComplete) return;
+    this.step = 'share';
+  }
+
+  /**
+   * Share temple info - opens native share or fallback
+   */
+  async shareTemple(): Promise<void> {
+    const shareData = {
+      title: '🙏 श्री हनुमान मंदिर | Hanuman Temple',
+      text: this.lang.getCurrentLanguage() === 'hi' 
+        ? '🕉️ आइए श्री हनुमान जी की आभासी मंदिर में दर्शन करें और अपनी मनोकामना प्रकट करें। हर घंटे हनुमान चालीसा का पाठ। पूर्णतः निःशुल्क भक्ति सेवा। 🙏'
+        : '🕉️ Visit the Virtual Hanuman Temple and make your wish. Hourly Hanuman Chalisa chanting. Completely free devotional service. 🙏',
+      url: window.location.origin
+    };
+
+    try {
+      // Try native Web Share API first (works on mobile)
+      if (navigator.share) {
+        await navigator.share(shareData);
+        this.hasShared = true;
+      } else {
+        // Fallback: copy to clipboard
+        const textToCopy = `${shareData.text}\n${shareData.url}`;
+        await navigator.clipboard.writeText(textToCopy);
+        alert(this.lang.getCurrentLanguage() === 'hi' 
+          ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
+          : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.');
+        this.hasShared = true;
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // User cancelled or error - that's okay
+    }
+  }
+
+  /**
+   * Skip sharing step
+   */
+  skipSharing(): void {
+    this.step = 'complete';
+    this.submitWishFinal();
+  }
+
+  /**
+   * Continue after sharing
+   */
+  continueAfterSharing(): void {
+    this.step = 'complete';
+    this.submitWishFinal();
+  }
+
+  /**
+   * Submit wish after sharing
+   */
+  async submitWishFinal(): Promise<void> {
+    if (!this.currentWish) return;
 
     try {
       // Activate the wish
       await this.wishService.activateWish(this.currentWish.id);
       
       // Show offering animation
+      this.showOfferingAnimation = true;
       this.startOfferingAnimation();
       
-      // Move to complete step after animation
+      // Hide animation after 5 seconds
       setTimeout(() => {
-        this.step = 'complete';
         this.showOfferingAnimation = false;
       }, 5000);
     } catch (error) {
@@ -280,6 +339,7 @@ export class WishFlowComponent {
     this.isRitualComplete = false;
     this.showOfferingAnimation = false;
     this.fallingOfferings = [];
+    this.hasShared = false;
   }
 
   /**

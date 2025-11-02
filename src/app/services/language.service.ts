@@ -56,6 +56,7 @@ export interface Translations {
     createTitle: string;
     createStep: string;
     ritualStep: string;
+    shareStep: string;
     completeStep: string;
     wishTitle: string;
     wishTitlePlaceholder: string;
@@ -88,9 +89,24 @@ export interface Translations {
     chantButton: string;
     chantInstructions: string;
     submitWish: string;
+    proceedToShare: string;
     rings: string;
     chants: string;
     ritualComplete: string;
+    
+    // Share Step
+    shareTitle: string;
+    shareSubtitle: string;
+    shareMessage: string;
+    shareInstructions: string;
+    shareOption1: string;
+    shareOption2: string;
+    shareOption3: string;
+    shareButton: string;
+    shareSuccess: string;
+    continueToSubmit: string;
+    shareOptional: string;
+    skipShare: string;
     
     // Complete
     wishSubmitted: string;
@@ -240,6 +256,7 @@ export class LanguageService {
   createTitle: 'अपनी मनोकामना यहाँ लिखें',
   createStep: 'मनोकामना लिखें',
   ritualStep: 'पवित्र अनुष्ठान',
+  shareStep: 'आशीर्वाद साझा करें',
   completeStep: 'समर्पण पूर्ण',
   wishTitle: 'मनोकामना का शीर्षक',
   wishTitlePlaceholder: 'जैसे— मेरे परिवार को स्वस्थ रखें',
@@ -269,11 +286,25 @@ export class LanguageService {
   bellInstructions: 'घंटी ५ बार बजाएँ',
   chantTitle: 'जप एवं स्मरण',
   chantButton: 'जय श्री हनुमान',
-  chantInstructions: '“जय श्री हनुमान” ११ बार श्रद्धा से जपें',
+  chantInstructions: '"जय श्री हनुमान" ११ बार श्रद्धा से जपें',
   submitWish: 'अपनी मनोकामना अर्पित करें',
+  proceedToShare: 'आशीर्वाद साझा करने के लिए आगे बढ़ें',
   rings: 'बार',
   chants: 'जप',
-  ritualComplete: 'अनुष्ठान पूर्ण! अब आप अपनी मनोकामना श्री हनुमान जी को अर्पित कर सकते हैं',
+  ritualComplete: 'अनुष्ठान पूर्ण! अब आप आशीर्वाद साझा कर सकते हैं',
+  
+  shareTitle: 'मंदिर की जानकारी साझा करें',
+  shareSubtitle: 'दिव्य आशीर्वाद फैलाएं',
+  shareMessage: 'कृपया इस मंदिर के बारे में कम से कम 3 लोगों को बताएं और उन्हें भी श्री हनुमान जी का आशीर्वाद लेने के लिए प्रोत्साहित करें। आशीर्वाद साझा करना आपके विश्वास और भक्ति को मजबूत करता है।',
+  shareInstructions: 'आप निम्न माध्यमों से साझा कर सकते हैं:',
+  shareOption1: 'WhatsApp पर परिवार या मित्रों को भेजें',
+  shareOption2: 'Email, SMS, या सोशल मीडिया के माध्यम से',
+  shareOption3: 'कोई भी अन्य संदेश ऐप',
+  shareButton: 'मंदिर की जानकारी साझा करें',
+  shareSuccess: 'धन्यवाद! अब आप अपनी मनोकामना अर्पित कर सकते हैं',
+  continueToSubmit: 'मनोकामना अर्पित करें',
+  shareOptional: 'यह कदम वैकल्पिक है, लेकिन अनुशंसित है',
+  skipShare: 'इस कदम को छोड़ें',
         
         wishSubmitted: 'आपकी मनोकामना अर्पित हो गई!',
         submittedMessage: 'आपकी प्रार्थना श्रद्धा सहित श्री हनुमान जी के चरणों में समर्पित कर दी गई है।',
@@ -298,7 +329,7 @@ export class LanguageService {
   dailyPractice2: 'शुद्ध सात्त्विक (शाकाहारी) भोजन ग्रहण करें, जिससे मन और शरीर निर्मल रहें',
   dailyPractice3: 'हर दिन कृतज्ञता और प्रेम से प्रार्थना करें',
   spreadBlessings: 'आशीर्वाद साझा करें',
-  spreadBlessing1: 'इस मंदिर का अनुभव कम से कम पाँच लोगों से साझा करें',
+  spreadBlessing1: 'इस मंदिर का अनुभव कम से कम तीन लोगों से साझा करें',
   spreadBlessing2: 'उन्हें भी अपनी मनोकामना हेतु श्री हनुमान जी का आशीर्वाद लेने को प्रेरित करें',
   completeCycle: 'पावन चक्र पूर्ण करें',
   completeCycle1: 'निरंतर 14 दिन साधना के बाद पुनः लौटें',
@@ -413,6 +444,7 @@ export class LanguageService {
         createTitle: 'Create Your Wish',
         createStep: 'Create',
         ritualStep: 'Ritual',
+        shareStep: 'Share Blessings',
         completeStep: 'Complete',
         wishTitle: 'Wish Title',
         wishTitlePlaceholder: 'e.g., Good health for my family',
@@ -444,9 +476,23 @@ export class LanguageService {
         chantButton: 'Jai Hanuman',
         chantInstructions: 'Chant "Jai Hanuman" 11 times',
         submitWish: 'Submit Wish',
+        proceedToShare: 'Proceed to Share Blessings',
         rings: 'rings',
         chants: 'chants',
-        ritualComplete: 'Ritual Complete! You may now submit your wish',
+        ritualComplete: 'Ritual Complete! Now you can share the blessings',
+        
+        shareTitle: 'Share Temple Information',
+        shareSubtitle: 'Spread Divine Blessings',
+        shareMessage: 'Please tell at least 3 people about this temple and encourage them to seek Lord Hanuman\'s blessings as well. Sharing blessings strengthens your faith and devotion.',
+        shareInstructions: 'You can share through:',
+        shareOption1: 'WhatsApp with family or friends',
+        shareOption2: 'Email, SMS, or social media',
+        shareOption3: 'Any other messaging platform',
+        shareButton: 'Share Temple Information',
+        shareSuccess: 'Thank you! Now you can submit your wish',
+        continueToSubmit: 'Submit Your Wish',
+        shareOptional: 'This step is optional but recommended',
+        skipShare: 'Skip this step',
         
         wishSubmitted: 'Wish Submitted!',
         submittedMessage: 'Your wish has been submitted to Lord Hanuman with devotion',
@@ -471,7 +517,7 @@ export class LanguageService {
         dailyPractice2: 'Maintain a vegetarian diet (sattvic food) to purify body and mind',
         dailyPractice3: 'Offer daily prayers with sincere devotion and gratitude',
         spreadBlessings: 'Spread Divine Blessings',
-        spreadBlessing1: 'Share your experience of this virtual temple with at least 5 people',
+        spreadBlessing1: 'Share your experience of this virtual temple with at least 3 people',
         spreadBlessing2: 'Encourage them to seek Lord Hanuman\'s blessings for their own wishes',
         completeCycle: 'Complete the Sacred Cycle',
         completeCycle1: 'Return after 14 days of consistent practice',
