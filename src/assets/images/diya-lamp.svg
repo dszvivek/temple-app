@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <!-- Background -->
+  <defs>
+    <radialGradient id="lampGlow">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed7aa;stop-opacity:0.3" />
+    </radialGradient>
+    <filter id="flame">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+  </defs>
+  
+  <rect width="400" height="400" fill="url(#lampGlow)"/>
+  
+  <!-- Traditional Diya (Oil Lamp) -->
+  <g transform="translate(200, 200)">
+    <!-- Lamp base -->
+    <ellipse cx="0" cy="80" rx="80" ry="20" fill="#78350f"/>
+    <ellipse cx="0" cy="80" rx="70" ry="15" fill="#92400e"/>
+    
+    <!-- Lamp body -->
+    <path d="M -70 80 Q -80 40, -60 10 L 60 10 Q 80 40, 70 80 Z" 
+          fill="#d97706" stroke="#92400e" stroke-width="2"/>
+    <path d="M -60 75 Q -70 45, -55 20 L 55 20 Q 70 45, 60 75 Z" 
+          fill="#f59e0b"/>
+    
+    <!-- Oil surface -->
+    <ellipse cx="0" cy="15" rx="50" ry="10" fill="#fbbf24" opacity="0.6"/>
+    
+    <!-- Wick -->
+    <rect x="-3" y="-30" width="6" height="50" fill="#78350f" rx="3"/>
+    
+    <!-- Flame -->
+    <g filter="url(#flame)">
+      <!-- Outer flame -->
+      <path d="M 0 -30 Q -15 -50, -10 -80 Q -5 -95, 0 -100 Q 5 -95, 10 -80 Q 15 -50, 0 -30 Z" 
+            fill="#fb923c" opacity="0.8"/>
+      <!-- Middle flame -->
+      <path d="M 0 -35 Q -10 -50, -7 -75 Q -3 -88, 0 -92 Q 3 -88, 7 -75 Q 10 -50, 0 -35 Z" 
+            fill="#fbbf24" opacity="0.9"/>
+      <!-- Inner flame -->
+      <path d="M 0 -40 Q -5 -55, -3 -70 Q -1 -80, 0 -83 Q 1 -80, 3 -70 Q 5 -55, 0 -40 Z" 
+            fill="#fef3c7"/>
+    </g>
+    
+    <!-- Decorative patterns on lamp -->
+    <circle cx="-40" cy="50" r="5" fill="#fbbf24" opacity="0.7"/>
+    <circle cx="40" cy="50" r="5" fill="#fbbf24" opacity="0.7"/>
+    <circle cx="0" cy="65" r="5" fill="#fbbf24" opacity="0.7"/>
+    
+    <!-- Light rays -->
+    <g opacity="0.3">
+      <line x1="0" y1="-90" x2="0" y2="-120" stroke="#fbbf24" stroke-width="2"/>
+      <line x1="0" y1="-90" x2="-20" y2="-115" stroke="#fbbf24" stroke-width="1.5"/>
+      <line x1="0" y1="-90" x2="20" y2="-115" stroke="#fbbf24" stroke-width="1.5"/>
+      <line x1="0" y1="-90" x2="-35" y2="-110" stroke="#fbbf24" stroke-width="1"/>
+      <line x1="0" y1="-90" x2="35" y2="-110" stroke="#fbbf24" stroke-width="1"/>
+    </g>
+  </g>
+  
+  <!-- Om symbol -->
+  <text x="200" y="350" font-size="40" text-anchor="middle" fill="#92400e" 
+        font-family="serif" font-weight="bold" opacity="0.5">ॐ</text>
+</svg>

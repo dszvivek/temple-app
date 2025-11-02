@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <!-- Temple Background Pattern -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff7ed;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffedd5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed7aa;stop-opacity:1" />
+    </linearGradient>
+    
+    <pattern id="templePattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <!-- Small temple motif -->
+      <path d="M 100 50 L 70 80 L 70 100 L 130 100 L 130 80 Z" fill="#f97316" opacity="0.05"/>
+      <circle cx="100" cy="45" r="5" fill="#fbbf24" opacity="0.05"/>
+      <!-- Om symbol -->
+      <text x="100" y="150" font-size="20" text-anchor="middle" fill="#ea580c" opacity="0.03" font-family="serif">ॐ</text>
+    </pattern>
+    
+    <radialGradient id="centerGlow">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#fed7aa;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Base gradient -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Temple pattern overlay -->
+  <rect width="1920" height="1080" fill="url(#templePattern)"/>
+  
+  <!-- Center divine glow -->
+  <ellipse cx="960" cy="540" rx="800" ry="600" fill="url(#centerGlow)"/>
+  
+  <!-- Decorative borders -->
+  <rect x="0" y="0" width="1920" height="8" fill="#f97316" opacity="0.2"/>
+  <rect x="0" y="1072" width="1920" height="8" fill="#f97316" opacity="0.2"/>
+  
+  <!-- Subtle mandala in center -->
+  <g opacity="0.08">
+    <circle cx="960" cy="540" r="400" fill="none" stroke="#ea580c" stroke-width="2"/>
+    <circle cx="960" cy="540" r="350" fill="none" stroke="#f97316" stroke-width="1"/>
+    <circle cx="960" cy="540" r="300" fill="none" stroke="#ea580c" stroke-width="1"/>
+  </g>
+</svg>

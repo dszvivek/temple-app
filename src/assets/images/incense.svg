@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <!-- Incense sticks with smoke -->
+  <defs>
+    <linearGradient id="smoke" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#d1d5db;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#e5e7eb;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#f3f4f6;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="#fff7ed"/>
+  
+  <!-- Incense holder -->
+  <ellipse cx="200" cy="250" rx="60" ry="15" fill="#78350f"/>
+  <rect x="170" y="230" width="60" height="20" fill="#92400e" rx="3"/>
+  
+  <!-- Incense sticks -->
+  <g>
+    <!-- Stick 1 -->
+    <rect x="180" y="100" width="3" height="130" fill="#a16207" rx="1.5"/>
+    <circle cx="181.5" cy="100" r="2" fill="#dc2626"/>
+    
+    <!-- Stick 2 -->
+    <rect x="195" y="90" width="3" height="140" fill="#a16207" rx="1.5"/>
+    <circle cx="196.5" cy="90" r="2" fill="#dc2626"/>
+    
+    <!-- Stick 3 -->
+    <rect x="210" y="95" width="3" height="135" fill="#a16207" rx="1.5"/>
+    <circle cx="211.5" cy="95" r="2" fill="#dc2626"/>
+    
+    <!-- Smoke trails -->
+    <path d="M 181.5 100 Q 175 70, 180 40 Q 185 10, 175 -20" 
+          fill="none" stroke="url(#smoke)" stroke-width="8" opacity="0.6"/>
+    <path d="M 196.5 90 Q 200 60, 195 30 Q 190 0, 200 -30" 
+          fill="none" stroke="url(#smoke)" stroke-width="10" opacity="0.6"/>
+    <path d="M 211.5 95 Q 217 65, 212 35 Q 207 5, 217 -25" 
+          fill="none" stroke="url(#smoke)" stroke-width="9" opacity="0.6"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="140" cy="240" r="8" fill="#fb923c" opacity="0.6"/>
+  <circle cx="260" cy="240" r="8" fill="#fb923c" opacity="0.6"/>
+  
+  <text x="200" y="285" font-size="16" text-anchor="middle" fill="#78350f" 
+        font-family="serif" opacity="0.7">Agarbatti</text>
+</svg>

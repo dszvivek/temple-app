@@ -1,0 +1,431 @@
+<div class="container mx-auto px-4 py-6 md:py-8 max-w-3xl">
+  <!-- Progress Indicator -->
+  <div class="mb-6 md:mb-8">
+    <div class="flex justify-between items-center max-w-2xl mx-auto">
+      <div class="flex flex-col items-center flex-1">
+        <div 
+          [class.bg-saffron-600]="step === 'create'"
+          [class.bg-green-500]="step !== 'create'"
+          class="rounded-full flex items-center justify-center text-white font-bold mb-1 md:mb-2"
+          style="width: clamp(2rem, 8vw, 2.5rem); height: clamp(2rem, 8vw, 2.5rem); font-size: clamp(0.75rem, 2.5vw, 0.875rem);">
+          {{ step !== 'create' ? '✓' : '1' }}
+        </div>
+        <span class="text-xs md:text-sm text-center font-medium">{{ lang.t('wish.createStep') }}</span>
+      </div>
+      
+      <div class="flex-1 h-1 mx-1 md:mx-2"
+           [class.bg-saffron-600]="step === 'ritual' || step === 'complete'"
+           [class.bg-gray-300]="step === 'create'">
+      </div>
+      
+      <div class="flex flex-col items-center flex-1">
+        <div 
+          [class.bg-saffron-600]="step === 'ritual'"
+          [class.bg-green-500]="step === 'complete'"
+          [class.bg-gray-300]="step === 'create'"
+          class="rounded-full flex items-center justify-center text-white font-bold mb-1 md:mb-2"
+          style="width: clamp(2rem, 8vw, 2.5rem); height: clamp(2rem, 8vw, 2.5rem); font-size: clamp(0.75rem, 2.5vw, 0.875rem);">
+          {{ step === 'complete' ? '✓' : '2' }}
+        </div>
+        <span class="text-xs md:text-sm text-center font-medium">{{ lang.t('wish.ritualStep') }}</span>
+      </div>
+
+      <div class="flex-1 h-1 mx-1 md:mx-2"
+           [class.bg-saffron-600]="step === 'complete'"
+           [class.bg-gray-300]="step !== 'complete'">
+      </div>
+      
+      <div class="flex flex-col items-center flex-1">
+        <div 
+          [class.bg-saffron-600]="step === 'complete'"
+          [class.bg-gray-300]="step !== 'complete'"
+          class="rounded-full flex items-center justify-center text-white font-bold mb-1 md:mb-2"
+          style="width: clamp(2rem, 8vw, 2.5rem); height: clamp(2rem, 8vw, 2.5rem); font-size: clamp(0.75rem, 2.5vw, 0.875rem);">
+          3
+        </div>
+        <span class="text-xs md:text-sm text-center font-medium">{{ lang.t('wish.completeStep') }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 1: Create Wish -->
+  <div *ngIf="step === 'create'" class="card">
+    <h2 class="text-xl md:text-2xl font-bold text-saffron-800 mb-4 md:mb-6 text-center">
+      🙏 {{ lang.t('wish.createTitle') }}
+    </h2>
+
+    <form (ngSubmit)="createWish()" class="space-y-6">
+      <!-- Wish Title -->
+      <div>
+        <label for="wishTitle" class="block text-sm font-semibold text-gray-700 mb-2">
+          {{ lang.t('wish.wishTitle') }} *
+        </label>
+        <input 
+          type="text"
+          id="wishTitle"
+          [(ngModel)]="wishTitle"
+          name="wishTitle"
+          class="input-field"
+          [placeholder]="lang.t('wish.wishTitlePlaceholder')"
+          required
+          maxlength="100"
+        />
+      </div>
+
+      <!-- Category Selection -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-3">
+          {{ lang.t('wish.category') }} *
+        </label>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <button 
+            *ngFor="let cat of categories"
+            type="button"
+            (click)="selectedCategory = cat.value"
+            [class.ring-4]="selectedCategory === cat.value"
+            [class.ring-saffron-400]="selectedCategory === cat.value"
+            [class.bg-saffron-100]="selectedCategory === cat.value"
+            class="p-4 border-2 border-gray-200 rounded-lg hover:border-saffron-400 transition-all text-left">
+            <div class="text-2xl mb-1">{{ cat.icon }}</div>
+            <div class="text-xs font-medium">{{ getCategoryName(cat.value) }}</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Wish Description -->
+      <div>
+        <label for="wishDescription" class="block text-sm font-semibold text-gray-700 mb-2">
+          {{ lang.t('wish.description') }}
+        </label>
+        <textarea 
+          id="wishDescription"
+          [(ngModel)]="wishDescription"
+          name="wishDescription"
+          rows="4"
+          class="input-field resize-none"
+          [placeholder]="lang.t('wish.descriptionPlaceholder')"
+          maxlength="500"
+        ></textarea>
+        <p class="text-xs text-gray-500 mt-1">{{ wishDescription.length }}/500 characters</p>
+      </div>
+
+      <!-- Offering Type -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+          {{ lang.t('wish.virtualOffering') }}
+        </label>
+        <div class="flex flex-wrap gap-2">
+          <button 
+            *ngFor="let offering of offerings"
+            type="button"
+            (click)="offeringType = offering"
+            [class.bg-saffron-600]="offeringType === offering"
+            [class.text-white]="offeringType === offering"
+            [class.bg-gray-200]="offeringType !== offering"
+            class="px-4 py-2 rounded-lg font-medium transition-all hover:shadow-md">
+            {{ getOfferingName(offering) }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit"
+        class="btn-primary w-full text-lg py-4">
+        {{ lang.t('wish.continueToRitual') }}
+      </button>
+    </form>
+
+    <div class="text-center mt-6">
+      <a routerLink="/" class="text-gray-600 hover:text-saffron-600 text-sm">
+        {{ lang.t('wish.backToHome') }}
+      </a>
+    </div>
+  </div>
+
+  <!-- Step 2: Ritual (Bell & Chanting) -->
+  <div *ngIf="step === 'ritual' && currentWish" class="card text-center">
+    <h2 class="text-2xl font-bold text-saffron-800 mb-4">
+      🙏 {{ lang.t('wish.ritualTitle') }}
+    </h2>
+
+    <div class="bg-gradient-to-br from-saffron-50 to-orange-50 rounded-lg p-4 mb-6">
+      <p class="text-sm text-gray-700 mb-2">
+        {{ lang.t('wish.bellInstructions') }}
+      </p>
+    </div>
+
+    <!-- Bell Tapping Section -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">
+        🔔 {{ lang.t('wish.ringBell') }}
+      </h3>
+      <p class="text-sm text-gray-600 mb-4">
+        {{ lang.getCurrentLanguage() === 'hi' ? 'घंटी को ' + requiredBellTaps + ' बार बजाएं' : 'Tap the bell ' + requiredBellTaps + ' times to invoke divine presence' }}
+      </p>
+      
+      <button 
+        (click)="ringBell()"
+        [disabled]="bellTaps >= requiredBellTaps"
+        class="temple-bell text-6xl mb-3 transition-all transform hover:scale-110 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+        🔔
+      </button>
+      
+      <div class="flex justify-center gap-2 mb-2">
+        <span 
+          *ngFor="let i of [1,2,3,4,5]"
+          class="w-3 h-3 rounded-full transition-all"
+          [class.bg-green-500]="bellTaps >= i"
+          [class.bg-gray-300]="bellTaps < i">
+        </span>
+      </div>
+      <p class="text-sm font-semibold"
+         [class.text-green-600]="bellTaps >= requiredBellTaps"
+         [class.text-gray-600]="bellTaps < requiredBellTaps">
+        {{ bellTaps }} / {{ requiredBellTaps }} {{ lang.t('wish.rings') }}
+        <span *ngIf="bellTaps >= requiredBellTaps" class="ml-2">✓</span>
+      </p>
+    </div>
+
+    <!-- Chanting Section -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">
+        📿 {{ lang.t('wish.chantTitle') }}
+      </h3>
+      <p class="text-sm text-gray-600 mb-4">
+        {{ lang.t('wish.chantInstructions') }}
+      </p>
+      
+      <button 
+        (click)="chantJaiHanuman()"
+        [disabled]="chantCount >= requiredChants"
+        class="chant-button bg-saffron-600 hover:bg-saffron-700 text-white font-bold text-xl px-8 py-4 rounded-lg mb-3 transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+        🙏 {{ lang.t('wish.chantButton') }} 🙏
+      </button>
+      
+      <div class="flex justify-center gap-2 flex-wrap max-w-md mx-auto mb-2">
+        <span 
+          *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11]"
+          class="w-2.5 h-2.5 rounded-full transition-all"
+          [class.bg-orange-500]="chantCount >= i"
+          [class.bg-gray-300]="chantCount < i">
+        </span>
+      </div>
+      <p class="text-sm font-semibold"
+         [class.text-orange-600]="chantCount >= requiredChants"
+         [class.text-gray-600]="chantCount < requiredChants">
+        {{ chantCount }} / {{ requiredChants }} {{ lang.t('wish.chants') }}
+        <span *ngIf="chantCount >= requiredChants" class="ml-2">✓</span>
+      </p>
+    </div>
+
+    <!-- Submit Wish Button -->
+    <div *ngIf="isRitualComplete" class="bg-green-50 border-2 border-green-300 rounded-lg p-4 mb-4">
+      <p class="text-green-800 font-semibold mb-3">
+        ✨ {{ lang.t('wish.ritualComplete') }} ✨
+      </p>
+      <button 
+        (click)="submitWish()"
+        class="btn-primary w-full text-lg py-4 animate-pulse">
+        🕉️ {{ lang.t('wish.submitWish') }} 🕉️
+      </button>
+    </div>
+
+    <div *ngIf="!isRitualComplete" class="bg-yellow-50 border border-yellow-300 rounded-lg p-3 text-sm text-yellow-800">
+      {{ lang.getCurrentLanguage() === 'hi' ? 'अपनी मनोकामना सबमिट करने के लिए कृपया दोनों अनुष्ठान पूरे करें' : 'Please complete both rituals to submit your wish' }}
+    </div>
+  </div>
+
+  <!-- Falling Offerings Animation -->
+  <div *ngIf="showOfferingAnimation" class="falling-offerings-container">
+    <div 
+      *ngFor="let offering of fallingOfferings"
+      class="falling-offering"
+      [style.left.%]="offering.left"
+      [style.animation-duration.s]="offering.duration"
+      [style.animation-delay.s]="offering.delay"
+      [style.transform]="'rotate(' + offering.rotation + 'deg)'">
+      {{ offering.emoji }}
+    </div>
+  </div>
+
+  <!-- Step 3: Complete -->
+  <div *ngIf="step === 'complete' && currentWish" class="card text-center">
+    <div class="text-6xl mb-6 animate-pulse">✨</div>
+    
+    <h2 class="text-3xl font-bold text-green-600 mb-4">
+      {{ lang.t('wish.wishSubmitted') }}
+    </h2>
+
+    <div class="bg-gradient-to-br from-green-50 to-yellow-50 rounded-lg p-6 mb-6">
+      <p class="text-lg font-semibold text-gray-800 mb-2">
+        {{ currentWish.title }}
+      </p>
+      <p class="text-sm text-gray-600">
+        {{ lang.t('wish.submittedMessage') }}
+      </p>
+    </div>
+
+    <!-- Important Disclaimer -->
+    <div class="bg-amber-50 border-2 border-amber-300 rounded-lg p-5 mb-6 text-left">
+      <div class="flex items-start gap-3 mb-3">
+        <span class="text-2xl">⚠️</span>
+        <h3 class="text-base font-bold text-amber-900">{{ lang.t('wish.disclaimer') }}</h3>
+      </div>
+      <div class="space-y-2 text-sm text-amber-900">
+        <p>
+          <strong>{{ lang.t('wish.disclaimerText') }}</strong>
+        </p>
+        <p>
+          {{ lang.t('wish.disclaimerIntro') }}
+        </p>
+        <ul class="list-disc list-inside ml-2 space-y-1">
+          <li *ngFor="let point of lang.t('wish.disclaimerPoints')">{{ point }}</li>
+        </ul>
+        <p class="mt-3 font-semibold">
+          {{ lang.t('wish.disclaimerNote') }}
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-6">
+      <p class="text-sm text-blue-800">
+        🙏 <strong>{{ lang.t('wish.remember') }}</strong> {{ lang.t('wish.rememberText') }}
+      </p>
+    </div>
+
+    <!-- Spiritual Guidance for Enhanced Blessings -->
+    <div class="bg-gradient-to-br from-orange-50 to-yellow-50 border-2 border-orange-300 rounded-lg p-6 mb-6 text-left">
+      <div class="flex items-start gap-3 mb-4">
+        <span class="text-3xl">🕉️</span>
+        <div>
+          <h3 class="text-lg font-bold text-orange-900 mb-1">{{ lang.t('wish.sacredPractice') }}</h3>
+          <p class="text-sm text-orange-800 italic">{{ lang.t('wish.practiceSubtitle') }}</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-4 mb-4">
+        <p class="text-sm text-gray-700 mb-3">
+          {{ lang.t('wish.practiceIntro') }}
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Daily Practices -->
+        <div>
+          <h4 class="font-semibold text-orange-900 mb-2 flex items-center gap-2">
+            <span class="text-xl">📿</span>
+            {{ lang.t('wish.dailyPractices') }}
+          </h4>
+          <ul class="space-y-2 ml-8">
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.dailyPractice1') }}</span>
+            </li>
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.dailyPractice2') }}</span>
+            </li>
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.dailyPractice3') }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Sharing the Blessing -->
+        <div>
+          <h4 class="font-semibold text-orange-900 mb-2 flex items-center gap-2">
+            <span class="text-xl">🗣️</span>
+            {{ lang.t('wish.spreadBlessings') }}
+          </h4>
+          <ul class="space-y-2 ml-8">
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.spreadBlessing1') }}</span>
+            </li>
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.spreadBlessing2') }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Return After 14 Days -->
+        <div>
+          <h4 class="font-semibold text-orange-900 mb-2 flex items-center gap-2">
+            <span class="text-xl">�</span>
+            {{ lang.t('wish.completeCycle') }}
+          </h4>
+          <ul class="space-y-2 ml-8">
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.completeCycle1') }}</span>
+            </li>
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.completeCycle2') }}</span>
+            </li>
+            <li class="text-sm text-gray-700 flex items-start gap-2">
+              <span class="text-orange-600 font-bold">•</span>
+              <span>{{ lang.t('wish.completeCycle3') }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-lg p-4 mt-4 border-2 border-yellow-400">
+        <div class="flex items-start gap-2 mb-2">
+          <span class="text-xl">✨</span>
+          <h4 class="font-semibold text-orange-900">{{ lang.t('wish.whyStrengthens') }}</h4>
+        </div>
+        <p class="text-sm text-gray-800 ml-7">
+          {{ lang.t('wish.whyStrengthensText') }}
+        </p>
+      </div>
+
+      <!-- Gentle Reminder -->
+      <div class="mt-4 p-3 bg-white rounded border-l-4 border-orange-500">
+        <p class="text-xs text-gray-600 italic">
+          <strong>{{ lang.getCurrentLanguage() === 'hi' ? 'नोट:' : 'Note:' }}</strong> {{ lang.t('wish.optionalNote') }}
+        </p>
+      </div>
+    </div>
+
+    <div class="space-y-4 max-w-md mx-auto text-left mb-8">
+      <div class="flex items-start gap-3">
+        <span class="text-2xl">🙏</span>
+        <p class="text-sm text-gray-700">
+          {{ lang.t('wish.tip1') }}
+        </p>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-2xl">💪</span>
+        <p class="text-sm text-gray-700">
+          {{ lang.t('wish.tip2') }}
+        </p>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="text-2xl">❤️</span>
+        <p class="text-sm text-gray-700">
+          {{ lang.t('wish.tip3') }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Return Buttons -->
+    <div class="space-y-3 mt-8">
+      <button 
+        (click)="returnToTemple()" 
+        class="btn-primary w-full">
+        {{ lang.t('wish.returnToTemple') }}
+      </button>
+      <button 
+        (click)="makeAnotherWish()" 
+        class="btn-secondary w-full">
+        {{ lang.t('wish.makeAnother') }}
+      </button>
+    </div>
+  </div>
+</div>

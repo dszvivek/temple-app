@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <!-- Background with divine glow -->
+  <defs>
+    <radialGradient id="divineGlow" cx="50%" cy="40%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fed7aa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fdba74;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="hanumanBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="800" fill="url(#divineGlow)"/>
+  
+  <!-- Decorative mandala pattern in background -->
+  <circle cx="300" cy="350" r="280" fill="none" stroke="#f97316" stroke-width="1" opacity="0.1"/>
+  <circle cx="300" cy="350" r="250" fill="none" stroke="#ea580c" stroke-width="1" opacity="0.1"/>
+  <circle cx="300" cy="350" r="220" fill="none" stroke="#f97316" stroke-width="1" opacity="0.1"/>
+  
+  <!-- Lord Hanuman silhouette -->
+  <g transform="translate(300, 400)">
+    <!-- Head with crown -->
+    <ellipse cx="0" cy="-200" rx="70" ry="80" fill="url(#hanumanBody)"/>
+    <!-- Crown -->
+    <path d="M -70 -260 L -50 -200 L -25 -240 L 0 -200 L 25 -240 L 50 -200 L 70 -260 L 0 -290 Z" 
+          fill="#d4af37" stroke="#b8860b" stroke-width="2"/>
+    <circle cx="0" cy="-290" r="12" fill="#dc2626"/>
+    
+    <!-- Face features - simplified -->
+    <ellipse cx="-20" cy="-210" rx="8" ry="12" fill="#78350f"/>
+    <ellipse cx="20" cy="-210" rx="8" ry="12" fill="#78350f"/>
+    
+    <!-- Body/Torso -->
+    <ellipse cx="0" cy="-80" rx="90" ry="110" fill="url(#hanumanBody)"/>
+    
+    <!-- Arms - muscular -->
+    <ellipse cx="-110" cy="-60" rx="35" ry="90" fill="url(#hanumanBody)" transform="rotate(-20 -110 -60)"/>
+    <ellipse cx="110" cy="-60" rx="35" ry="90" fill="url(#hanumanBody)" transform="rotate(20 110 -60)"/>
+    
+    <!-- Hands in blessing pose -->
+    <ellipse cx="-120" cy="30" rx="25" ry="30" fill="#fb923c"/>
+    <ellipse cx="120" cy="30" rx="25" ry="30" fill="#fb923c"/>
+    
+    <!-- Legs -->
+    <ellipse cx="-40" cy="100" rx="40" ry="120" fill="url(#hanumanBody)"/>
+    <ellipse cx="40" cy="100" rx="40" ry="120" fill="url(#hanumanBody)"/>
+    
+    <!-- Tail curving up -->
+    <path d="M 60 180 Q 150 150, 180 80 T 200 -50" 
+          fill="none" stroke="#f97316" stroke-width="25" stroke-linecap="round"/>
+    <circle cx="200" cy="-50" r="20" fill="#fb923c"/>
+    
+    <!-- Divine ornaments -->
+    <circle cx="0" cy="-80" r="15" fill="#fbbf24" opacity="0.8"/>
+    <circle cx="-50" cy="-100" r="8" fill="#fbbf24" opacity="0.8"/>
+    <circle cx="50" cy="-100" r="8" fill="#fbbf24" opacity="0.8"/>
+  </g>
+  
+  <!-- Sacred weapon - Gada (mace) -->
+  <g transform="translate(120, 450)">
+    <rect x="-8" y="0" width="16" height="180" fill="#78350f" rx="8"/>
+    <circle cx="0" cy="-25" r="35" fill="#d4af37" stroke="#b8860b" stroke-width="3"/>
+    <circle cx="0" cy="-25" r="20" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Om symbol at top -->
+  <text x="300" y="80" font-size="70" text-anchor="middle" fill="#dc2626" 
+        font-family="serif" font-weight="bold" filter="url(#glow)">ॐ</text>
+  
+  <!-- Hanuman name in Devanagari -->
+  <text x="300" y="720" font-size="48" text-anchor="middle" fill="#7c2d12" 
+        font-family="serif" font-weight="bold">हनुमान</text>
+  
+  <!-- Mountain/pedestal base -->
+  <path d="M 100 680 L 300 620 L 500 680 L 520 700 L 80 700 Z" 
+        fill="#92400e" opacity="0.3"/>
+  
+  <!-- Decorative flowers -->
+  <g opacity="0.6">
+    <circle cx="80" cy="680" r="15" fill="#fb923c"/>
+    <circle cx="520" cy="680" r="15" fill="#fb923c"/>
+    <circle cx="100" cy="650" r="12" fill="#fbbf24"/>
+    <circle cx="500" cy="650" r="12" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Divine light rays -->
+  <g opacity="0.2">
+    <line x1="300" y1="100" x2="300" y2="0" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="300" y1="100" x2="250" y2="20" stroke="#fbbf24" stroke-width="2"/>
+    <line x1="300" y1="100" x2="350" y2="20" stroke="#fbbf24" stroke-width="2"/>
+    <line x1="300" y1="100" x2="200" y2="40" stroke="#fbbf24" stroke-width="1.5"/>
+    <line x1="300" y1="100" x2="400" y2="40" stroke="#fbbf24" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Blessing text -->
+  <text x="300" y="760" font-size="24" text-anchor="middle" fill="#92400e" 
+        font-family="serif" font-style="italic">Jai Bajrang Bali</text>
+</svg>

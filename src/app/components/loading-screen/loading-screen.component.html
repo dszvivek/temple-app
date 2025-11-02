@@ -1,0 +1,34 @@
+<div class="loading-screen" [class.fade-out]="!isVisible" *ngIf="loading$ | async as progress">
+  <div class="loading-content">
+    <!-- Temple Icon -->
+    <div class="temple-icon">
+      <div class="om-symbol">ॐ</div>
+    </div>
+    
+    <!-- Temple Name -->
+    <h1 class="temple-name">Karunamayi Hanuman E-Mandir</h1>
+    <p class="temple-subtitle">श्री हनुमान मंदिर</p>
+    
+    <!-- Loading Bar -->
+    <div class="loading-bar-container">
+      <div class="loading-bar" [style.width.%]="progress.percentage"></div>
+    </div>
+    
+    <!-- Progress Info -->
+    <div class="progress-info">
+      <p class="progress-text">{{ progress.message }}</p>
+      <p class="progress-percentage">{{ progress.percentage }}%</p>
+    </div>
+    
+    <!-- Decorative Elements -->
+    <div class="decorative-dots">
+      <span class="dot" [class.active]="progress.percentage > 0"></span>
+      <span class="dot" [class.active]="progress.percentage > 33"></span>
+      <span class="dot" [class.active]="progress.percentage > 66"></span>
+      <span class="dot" [class.active]="progress.percentage >= 100"></span>
+    </div>
+  </div>
+  
+  <!-- Background pattern -->
+  <div class="bg-pattern"></div>
+</div>

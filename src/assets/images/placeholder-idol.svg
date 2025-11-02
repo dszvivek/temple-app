@@ -1,0 +1,15 @@
+<!-- Placeholder SVG for Hanuman Idol -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#FFF7ED"/>
+  
+  <!-- Temple Silhouette -->
+  <path d="M 256 50 L 150 150 L 150 450 L 362 450 L 362 150 Z" fill="#F97316" opacity="0.3"/>
+  
+  <!-- Om Symbol -->
+  <text x="256" y="280" font-size="120" font-family="serif" text-anchor="middle" fill="#EA580C" font-weight="bold">ॐ</text>
+  
+  <!-- Temple Name -->
+  <text x="256" y="380" font-size="24" font-family="serif" text-anchor="middle" fill="#C2410C">Hanuman</text>
+  <text x="256" y="410" font-size="18" font-family="serif" text-anchor="middle" fill="#9A3412">Temple</text>
+</svg>

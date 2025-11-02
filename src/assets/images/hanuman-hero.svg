@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500">
+  <!-- Divine Background -->
+  <defs>
+    <radialGradient id="divineAura" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#fcd34d;stop-opacity:0.8" />
+      <stop offset="70%" style="stop-color:#f59e0b;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.4" />
+    </radialGradient>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fed7aa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fdba74;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="hanumanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
+    <filter id="divineGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Sky -->
+  <rect width="1200" height="500" fill="url(#skyGrad)"/>
+  
+  <!-- Divine Radiance from center -->
+  <circle cx="600" cy="250" r="400" fill="url(#divineAura)" opacity="0.6"/>
+  
+  <!-- Temple silhouettes in background -->
+  <g opacity="0.15">
+    <!-- Left temple -->
+    <path d="M 100 400 L 150 350 L 150 400 Z" fill="#7c2d12"/>
+    <rect x="130" y="350" width="40" height="50" fill="#7c2d12"/>
+    <path d="M 150 320 L 120 350 L 180 350 Z" fill="#92400e"/>
+    
+    <!-- Right temple -->
+    <path d="M 1050 400 L 1100 350 L 1100 400 Z" fill="#7c2d12"/>
+    <rect x="1080" y="350" width="40" height="50" fill="#7c2d12"/>
+    <path d="M 1100 320 L 1070 350 L 1130 350 Z" fill="#92400e"/>
+  </g>
+  
+  <!-- Decorative mandala patterns -->
+  <g opacity="0.1">
+    <circle cx="600" cy="250" r="350" fill="none" stroke="#f97316" stroke-width="2"/>
+    <circle cx="600" cy="250" r="320" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+    <circle cx="600" cy="250" r="290" fill="none" stroke="#f97316" stroke-width="1"/>
+    
+    <!-- Lotus petals pattern -->
+    <g transform="translate(600, 250)">
+      <ellipse cx="0" cy="-280" rx="30" ry="80" fill="#f97316" opacity="0.3" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-280" rx="30" ry="80" fill="#f97316" opacity="0.3" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-280" rx="30" ry="80" fill="#f97316" opacity="0.3" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-280" rx="30" ry="80" fill="#f97316" opacity="0.3" transform="rotate(135)"/>
+    </g>
+  </g>
+  
+  <!-- Sacred Om symbols in corners -->
+  <text x="100" y="80" font-size="60" fill="#dc2626" opacity="0.3" font-family="serif" font-weight="bold" filter="url(#softGlow)">ॐ</text>
+  <text x="1100" y="80" font-size="60" fill="#dc2626" opacity="0.3" font-family="serif" font-weight="bold" filter="url(#softGlow)">ॐ</text>
+  
+  <!-- Main Hanuman Figure - Wide Divine Pose -->
+  <g transform="translate(600, 280)">
+    <!-- Divine aura behind Hanuman -->
+    <circle cx="0" cy="-50" r="180" fill="#fef3c7" opacity="0.4" filter="url(#divineGlow)"/>
+    
+    <!-- Blessing hands - wide spread -->
+    <g id="leftArm">
+      <ellipse cx="-180" cy="-20" rx="40" ry="100" fill="url(#hanumanGrad)" transform="rotate(-30 -180 -20)"/>
+      <ellipse cx="-220" cy="60" rx="30" ry="35" fill="#fb923c"/>
+      <!-- Blessing mudra fingers -->
+      <circle cx="-220" cy="45" r="8" fill="#fdba74"/>
+      <circle cx="-230" cy="55" r="8" fill="#fdba74"/>
+    </g>
+    
+    <g id="rightArm">
+      <ellipse cx="180" cy="-20" rx="40" ry="100" fill="url(#hanumanGrad)" transform="rotate(30 180 -20)"/>
+      <ellipse cx="220" cy="60" rx="30" ry="35" fill="#fb923c"/>
+      <!-- Blessing mudra fingers -->
+      <circle cx="220" cy="45" r="8" fill="#fdba74"/>
+      <circle cx="230" cy="55" r="8" fill="#fdba74"/>
+    </g>
+    
+    <!-- Torso - powerful chest -->
+    <ellipse cx="0" cy="0" rx="100" ry="120" fill="url(#hanumanGrad)"/>
+    <circle cx="0" cy="-20" r="20" fill="#fbbf24" opacity="0.8"/>
+    
+    <!-- Sacred thread -->
+    <path d="M -70 -80 Q 0 20, 80 -60" fill="none" stroke="#fef3c7" stroke-width="4"/>
+    
+    <!-- Head with majestic crown -->
+    <ellipse cx="0" cy="-130" rx="75" ry="85" fill="url(#hanumanGrad)"/>
+    
+    <!-- Crown - elaborate -->
+    <path d="M -75 -190 L -60 -140 L -40 -175 L -20 -140 L 0 -180 L 20 -140 L 40 -175 L 60 -140 L 75 -190 L 0 -220 Z" 
+          fill="#d4af37" stroke="#b8860b" stroke-width="3"/>
+    <circle cx="0" cy="-220" r="18" fill="#dc2626" filter="url(#softGlow)"/>
+    <circle cx="0" cy="-220" r="10" fill="#fbbf24"/>
+    
+    <!-- Face features -->
+    <ellipse cx="-25" cy="-140" rx="10" ry="15" fill="#78350f"/>
+    <ellipse cx="25" cy="-140" rx="10" ry="15" fill="#78350f"/>
+    <path d="M -15 -110 Q 0 -105, 15 -110" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Divine third eye -->
+    <circle cx="0" cy="-160" r="6" fill="#dc2626" opacity="0.8"/>
+    
+    <!-- Ornaments -->
+    <circle cx="-60" cy="-130" r="12" fill="#fbbf24" opacity="0.9"/>
+    <circle cx="60" cy="-130" r="12" fill="#fbbf24" opacity="0.9"/>
+    
+    <!-- Necklace -->
+    <ellipse cx="0" cy="-60" rx="50" ry="15" fill="none" stroke="#fbbf24" stroke-width="8" opacity="0.8"/>
+    <circle cx="0" cy="-50" r="12" fill="#dc2626" opacity="0.9"/>
+    
+    <!-- Legs in meditation/blessing pose -->
+    <ellipse cx="-50" cy="130" rx="45" ry="100" fill="url(#hanumanGrad)"/>
+    <ellipse cx="50" cy="130" rx="45" ry="100" fill="url(#hanumanGrad)"/>
+    
+    <!-- Tail - majestic curl upward -->
+    <path d="M 70 200 Q 200 180, 280 120 Q 320 80, 340 20 Q 350 -30, 330 -80" 
+          fill="none" stroke="#f97316" stroke-width="35" stroke-linecap="round"/>
+    <path d="M 70 200 Q 200 180, 280 120 Q 320 80, 340 20 Q 350 -30, 330 -80" 
+          fill="none" stroke="#fb923c" stroke-width="25" stroke-linecap="round"/>
+    <circle cx="330" cy="-80" r="25" fill="#fb923c"/>
+    <circle cx="330" cy="-80" r="15" fill="#fdba74"/>
+  </g>
+  
+  <!-- Gada (Mace) - Divine weapon on left -->
+  <g transform="translate(220, 320)">
+    <rect x="-12" y="0" width="24" height="200" fill="#78350f" rx="12"/>
+    <ellipse cx="0" cy="-30" rx="45" ry="50" fill="#d4af37" stroke="#b8860b" stroke-width="4"/>
+    <circle cx="0" cy="-30" r="25" fill="#fbbf24"/>
+    <circle cx="0" cy="-30" r="12" fill="#fef3c7"/>
+  </g>
+  
+  <!-- Lotus flowers at feet -->
+  <g transform="translate(600, 480)">
+    <!-- Left lotus -->
+    <g transform="translate(-120, 0)">
+      <ellipse cx="0" cy="0" rx="40" ry="15" fill="#f472b6" opacity="0.6"/>
+      <ellipse cx="-30" cy="-5" rx="25" ry="35" fill="#f9a8d4" transform="rotate(-30 -30 -5)"/>
+      <ellipse cx="30" cy="-5" rx="25" ry="35" fill="#f9a8d4" transform="rotate(30 30 -5)"/>
+      <ellipse cx="0" cy="-10" rx="25" ry="35" fill="#fce7f3"/>
+      <circle cx="0" cy="0" r="15" fill="#fbbf24"/>
+    </g>
+    
+    <!-- Right lotus -->
+    <g transform="translate(120, 0)">
+      <ellipse cx="0" cy="0" rx="40" ry="15" fill="#f472b6" opacity="0.6"/>
+      <ellipse cx="-30" cy="-5" rx="25" ry="35" fill="#f9a8d4" transform="rotate(-30 -30 -5)"/>
+      <ellipse cx="30" cy="-5" rx="25" ry="35" fill="#f9a8d4" transform="rotate(30 30 -5)"/>
+      <ellipse cx="0" cy="-10" rx="25" ry="35" fill="#fce7f3"/>
+      <circle cx="0" cy="0" r="15" fill="#fbbf24"/>
+    </g>
+  </g>
+  
+  <!-- Divine light rays from behind -->
+  <g opacity="0.2">
+    <line x1="600" y1="100" x2="600" y2="0" stroke="#fbbf24" stroke-width="8"/>
+    <line x1="600" y1="100" x2="500" y2="20" stroke="#fbbf24" stroke-width="6"/>
+    <line x1="600" y1="100" x2="700" y2="20" stroke="#fbbf24" stroke-width="6"/>
+    <line x1="600" y1="100" x2="400" y2="40" stroke="#fbbf24" stroke-width="4"/>
+    <line x1="600" y1="100" x2="800" y2="40" stroke="#fbbf24" stroke-width="4"/>
+    <line x1="600" y1="100" x2="300" y2="60" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="600" y1="100" x2="900" y2="60" stroke="#fbbf24" stroke-width="3"/>
+  </g>
+  
+  <!-- Sacred Mantra -->
+  <text x="600" y="50" font-size="45" text-anchor="middle" fill="#dc2626" 
+        font-family="serif" font-weight="bold" filter="url(#divineGlow)">ॐ श्री हनुमते नमः</text>
+  
+  <!-- Blessing text at bottom -->
+  <text x="600" y="490" font-size="32" text-anchor="middle" fill="#7c2d12" 
+        font-family="serif" font-weight="bold" opacity="0.8">जय बजरंग बली</text>
+</svg>

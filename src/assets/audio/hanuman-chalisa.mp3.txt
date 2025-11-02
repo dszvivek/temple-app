@@ -1,0 +1,21 @@
+<!-- Placeholder for Hanuman Chalisa audio file -->
+<!-- 
+This is a placeholder. To add actual audio:
+
+1. Download or record Hanuman Chalisa MP3 (3-5 minutes)
+2. Save as: hanuman-chalisa.mp3
+3. Replace this file
+
+Recommended sources:
+- YouTube Audio Library (royalty-free)
+- Record your own recitation
+- Free devotional audio websites
+
+Format: MP3, 128kbps, 44.1kHz recommended
+Duration: 3-5 minutes ideal
+-->
+
+For testing purposes, you can use this data URL in the component:
+data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADhAC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAA4Th9Y3gAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
+This is a minimal silent MP3 file for testing.

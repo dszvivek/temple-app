@@ -1,0 +1,187 @@
+/* Responsive Design Documentation */
+
+/*
+ * RESPONSIVE BREAKPOINTS:
+ * - Mobile: < 640px (sm)
+ * - Tablet: 640px - 768px (md)
+ * - Desktop: > 768px (lg)
+ *
+ * DESIGN PRINCIPLES:
+ * 1. Mobile-first approach
+ * 2. Fluid typography using clamp()
+ * 3. Flexible images (max-width: 100%)
+ * 4. Touch-friendly buttons (min 44x44px)
+ * 5. No horizontal overflow
+ * 6. Readable text sizes (min 16px for body)
+ */
+
+/* Mobile Optimizations (< 640px) */
+@media (max-width: 640px) {
+  /* Ensure no horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Responsive containers */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Touch-friendly buttons */
+  button, .btn-primary, .btn-secondary {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Readable text */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Responsive images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Card spacing */
+  .card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Grid adjustments */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+}
+
+/* Tablet Optimizations (640px - 768px) */
+@media (min-width: 640px) and (max-width: 768px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  /* 2-column grids on tablet */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* Desktop Optimizations (> 768px) */
+@media (min-width: 768px) {
+  /* Max width for readability */
+  .container {
+    max-width: 1200px;
+  }
+  
+  /* Multi-column grids */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Very Small Devices (< 375px) */
+@media (max-width: 375px) {
+  /* Even more compact */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Smaller font sizes */
+  .temple-header {
+    font-size: 1.5rem !important;
+  }
+  
+  .temple-subheader {
+    font-size: 1.125rem !important;
+  }
+  
+  /* Compact buttons */
+  button, .btn-primary, .btn-secondary {
+    font-size: 0.875rem;
+    padding: 0.625rem 0.875rem;
+  }
+}
+
+/* Large Screens (> 1440px) */
+@media (min-width: 1440px) {
+  /* Don't let text get too large */
+  body {
+    font-size: 18px;
+  }
+  
+  .temple-header {
+    font-size: 3rem;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  /* Reduce vertical spacing */
+  .mb-8, .mb-12 {
+    margin-bottom: 1rem !important;
+  }
+  
+  .py-8 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  /* Compact headers */
+  .temple-header {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  /* Hide non-essential elements */
+  button, .btn-primary, .btn-secondary, 
+  footer, .loading-screen {
+    display: none !important;
+  }
+  
+  /* Optimize for paper */
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper images */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark Mode Support (Future) */
+@media (prefers-color-scheme: dark) {
+  /* Keep temple theme light for now */
+  /* Future enhancement: dark temple theme */
+}

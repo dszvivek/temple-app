@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="720" viewBox="0 0 540 720">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff7ed;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffedd5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed7aa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="540" height="720" fill="url(#screenGrad)"/>
+  
+  <!-- Phone mockup -->
+  <rect x="20" y="50" width="500" height="620" rx="30" fill="#fff" stroke="#f97316" stroke-width="4"/>
+  
+  <!-- Screen content -->
+  <g>
+    <!-- Header -->
+    <rect x="40" y="80" width="460" height="100" rx="15" fill="#f97316" opacity="0.1"/>
+    <text x="270" y="120" font-size="28" text-anchor="middle" fill="#c2410c" font-family="serif" font-weight="bold">🙏 Karunamayi Hanuman E-Mandir 🙏</text>
+    <text x="270" y="155" font-size="16" text-anchor="middle" fill="#ea580c" font-family="serif">Virtual Hanuman Temple</text>
+    
+    <!-- Temple icon -->
+    <circle cx="270" cy="260" r="60" fill="#fed7aa"/>
+    <text x="270" y="285" font-size="60" text-anchor="middle" fill="#f97316" font-family="serif" font-weight="bold">ॐ</text>
+    
+    <!-- Feature cards -->
+    <rect x="60" y="360" width="200" height="80" rx="10" fill="#fff" stroke="#f97316" stroke-width="2"/>
+    <text x="160" y="400" font-size="14" text-anchor="middle" fill="#9a3412">🙏 Make a Wish</text>
+    
+    <rect x="280" y="360" width="200" height="80" rx="10" fill="#fff" stroke="#f97316" stroke-width="2"/>
+    <text x="380" y="400" font-size="14" text-anchor="middle" fill="#9a3412">💰 Donate</text>
+    
+    <rect x="60" y="460" width="200" height="80" rx="10" fill="#fff" stroke="#f97316" stroke-width="2"/>
+    <text x="160" y="500" font-size="14" text-anchor="middle" fill="#9a3412">🎵 Listen Chants</text>
+    
+    <rect x="280" y="460" width="200" height="80" rx="10" fill="#fff" stroke="#f97316" stroke-width="2"/>
+    <text x="380" y="500" font-size="14" text-anchor="middle" fill="#9a3412">📱 Install App</text>
+  </g>
+  
+  <!-- Bottom decoration -->
+  <text x="270" y="680" font-size="18" text-anchor="middle" fill="#7c2d12" font-family="serif" font-style="italic">Jai Hanuman!</text>
+</svg>

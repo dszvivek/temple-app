@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Temple complex background -->
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fed7aa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fff7ed;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="sunGlow">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Sky -->
+  <rect width="800" height="600" fill="url(#skyGrad)"/>
+  
+  <!-- Sun -->
+  <circle cx="650" cy="100" r="60" fill="url(#sunGlow)"/>
+  <circle cx="650" cy="100" r="45" fill="#fbbf24" opacity="0.8"/>
+  
+  <!-- Mountains in background -->
+  <path d="M 0 400 L 150 250 L 300 350 L 0 400" fill="#c2410c" opacity="0.2"/>
+  <path d="M 500 400 L 650 200 L 800 400" fill="#ea580c" opacity="0.2"/>
+  
+  <!-- Ground -->
+  <rect y="400" width="800" height="200" fill="#fdba74" opacity="0.3"/>
+  
+  <!-- Main Temple Structure -->
+  <g id="mainTemple">
+    <!-- Temple base/platform -->
+    <rect x="200" y="380" width="400" height="30" fill="#92400e"/>
+    <rect x="190" y="410" width="420" height="20" fill="#78350f"/>
+    
+    <!-- Steps -->
+    <rect x="300" y="430" width="200" height="10" fill="#a16207"/>
+    <rect x="320" y="440" width="160" height="10" fill="#92400e"/>
+    <rect x="340" y="450" width="120" height="10" fill="#78350f"/>
+    
+    <!-- Main pillars -->
+    <rect x="230" y="260" width="35" height="120" fill="#b45309"/>
+    <rect x="380" y="260" width="35" height="120" fill="#b45309"/>
+    <rect x="530" y="260" width="35" height="120" fill="#b45309"/>
+    
+    <!-- Pillar capitals -->
+    <rect x="220" y="250" width="55" height="15" fill="#d97706"/>
+    <rect x="370" y="250" width="55" height="15" fill="#d97706"/>
+    <rect x="520" y="250" width="55" height="15" fill="#d97706"/>
+    
+    <!-- Main wall -->
+    <rect x="250" y="280" width="300" height="100" fill="#c2410c"/>
+    
+    <!-- Entrance -->
+    <path d="M 350 380 L 350 300 Q 350 280, 370 280 L 430 280 Q 450 280, 450 300 L 450 380 Z" 
+          fill="#451a03"/>
+    <ellipse cx="400" cy="300" rx="50" ry="20" fill="#78350f"/>
+    
+    <!-- Windows -->
+    <rect x="270" y="300" width="40" height="50" fill="#92400e" rx="5"/>
+    <rect x="490" y="300" width="40" height="50" fill="#92400e" rx="5"/>
+    
+    <!-- Main roof/shikhara -->
+    <path d="M 400 100 L 180 250 L 220 250 L 220 240 L 580 240 L 580 250 L 620 250 Z" 
+          fill="#ea580c"/>
+    <path d="M 400 120 L 210 240 L 590 240 Z" fill="#f97316"/>
+    
+    <!-- Kalash (pinnacle) -->
+    <ellipse cx="400" cy="100" rx="25" ry="15" fill="#d4af37"/>
+    <rect x="395" y="80" width="10" height="25" fill="#b8860b"/>
+    <circle cx="400" cy="75" r="12" fill="#fbbf24"/>
+    <path d="M 395 65 L 400 50 L 405 65" fill="#dc2626"/>
+    
+    <!-- Decorative domes on sides -->
+    <ellipse cx="250" cy="240" rx="30" ry="20" fill="#d97706"/>
+    <circle cx="250" cy="230" r="8" fill="#fbbf24"/>
+    <ellipse cx="550" cy="240" rx="30" ry="20" fill="#d97706"/>
+    <circle cx="550" cy="230" r="8" fill="#fbbf24"/>
+    
+    <!-- Om symbol on entrance -->
+    <text x="400" y="340" font-size="35" text-anchor="middle" fill="#fbbf24" 
+          font-family="serif" font-weight="bold">ॐ</text>
+    
+    <!-- Temple boundary walls -->
+    <rect x="150" y="350" width="20" height="80" fill="#a16207" opacity="0.7"/>
+    <rect x="630" y="350" width="20" height="80" fill="#a16207" opacity="0.7"/>
+    
+    <!-- Side shrines -->
+    <rect x="100" y="370" width="60" height="60" fill="#c2410c" opacity="0.8"/>
+    <path d="M 130 340 L 100 370 L 160 370 Z" fill="#f97316" opacity="0.8"/>
+    <rect x="640" y="370" width="60" height="60" fill="#c2410c" opacity="0.8"/>
+    <path d="M 670 340 L 640 370 L 700 370 Z" fill="#f97316" opacity="0.8"/>
+  </g>
+  
+  <!-- Flags -->
+  <g>
+    <line x1="250" y1="230" x2="250" y2="180" stroke="#78350f" stroke-width="2"/>
+    <path d="M 250 180 L 280 190 L 250 200 Z" fill="#dc2626"/>
+    <line x1="550" y1="230" x2="550" y2="180" stroke="#78350f" stroke-width="2"/>
+    <path d="M 550 180 L 580 190 L 550 200 Z" fill="#f97316"/>
+  </g>
+  
+  <!-- Decorative rangoli at entrance -->
+  <g opacity="0.6">
+    <circle cx="400" cy="470" r="20" fill="none" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="400" cy="470" r="15" fill="none" stroke="#f97316" stroke-width="2"/>
+    <circle cx="400" cy="470" r="10" fill="#fbbf24"/>
+    <circle cx="385" cy="470" r="5" fill="#dc2626"/>
+    <circle cx="415" cy="470" r="5" fill="#dc2626"/>
+    <circle cx="400" cy="455" r="5" fill="#f97316"/>
+    <circle cx="400" cy="485" r="5" fill="#f97316"/>
+  </g>
+  
+  <!-- Temple name -->
+  <text x="400" y="550" font-size="40" text-anchor="middle" fill="#7c2d12" 
+        font-family="serif" font-weight="bold">Karunamayi Hanuman E-Mandir</text>
+  <text x="400" y="580" font-size="24" text-anchor="middle" fill="#92400e" 
+        font-family="serif">श्री हनुमान मंदिर</text>
+</svg>

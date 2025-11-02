@@ -1,0 +1,231 @@
+/* Component-specific styles */
+:host {
+  display: block;
+}
+
+.hero-image-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(0.5rem, 2vw, 1rem);
+  overflow: visible;
+}
+
+/* Decorative Frame for Hanuman Image */
+.hanuman-frame {
+  position: relative;
+  padding: clamp(1rem, 3vw, 2rem);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
+  box-shadow: 
+    0 0 20px rgba(251, 191, 36, 0.3),
+    0 0 40px rgba(251, 191, 36, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.5);
+  border: 3px solid #f59e0b;
+  transition: all 0.3s ease;
+}
+
+.hanuman-frame::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 1.5rem;
+  border: 2px solid #d97706;
+  pointer-events: none;
+}
+
+.hanuman-frame::after {
+  content: '🕉️';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  padding: 0.25rem 0.75rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.hanuman-frame.active-aarti {
+  box-shadow: 
+    0 0 30px rgba(251, 191, 36, 0.6),
+    0 0 60px rgba(251, 191, 36, 0.4),
+    0 0 90px rgba(251, 191, 36, 0.2),
+    inset 0 0 30px rgba(255, 255, 255, 0.6);
+  animation: frame-glow 2s ease-in-out infinite;
+}
+
+@keyframes frame-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(251, 191, 36, 0.6),
+      0 0 60px rgba(251, 191, 36, 0.4),
+      inset 0 0 30px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(251, 191, 36, 0.8),
+      0 0 80px rgba(251, 191, 36, 0.6),
+      inset 0 0 40px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Rotating Mala Beads */
+.mala-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 105%;
+  height: 105%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+  animation: rotate-mala 30s linear infinite;
+}
+
+@keyframes rotate-mala {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.mala-bead {
+  position: absolute;
+  width: clamp(12px, 2vw, 16px);
+  height: clamp(12px, 2vw, 16px);
+  background: radial-gradient(circle at 30% 30%, #92400e, #7c2d12, #451a03);
+  border-radius: 50%;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(120, 40, 10, 0.8);
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  --angle: calc(var(--bead-index) * 10deg);
+  transform: 
+    translate(-50%, -50%) 
+    rotate(var(--angle)) 
+    translateY(calc(min(45vw, 450px)));
+}
+
+/* Aarti Flames */
+.aarti-flames {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.aarti-flame {
+  position: absolute;
+  font-size: clamp(4rem, 10vw, 8rem);
+  animation: aarti-move 3s ease-in-out infinite;
+}
+
+.flame-left {
+  left: -15%;
+  top: 25%;
+  animation-delay: 0s;
+}
+
+.flame-right {
+  right: -15%;
+  top: 25%;
+  animation-delay: 1.5s;
+}
+
+.flame {
+  animation: flame-flicker 0.3s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 20px rgba(255, 140, 0, 1)) 
+          drop-shadow(0 0 40px rgba(255, 100, 0, 0.8));
+}
+
+@keyframes aarti-move {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-30px) rotate(-8deg) scale(1.15);
+  }
+  50% {
+    transform: translateY(-50px) rotate(0deg) scale(1.05);
+  }
+  75% {
+    transform: translateY(-30px) rotate(8deg) scale(1.15);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes flame-flicker {
+  0% {
+    opacity: 0.95;
+    transform: scale(0.98) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1) rotate(3deg);
+  }
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image:hover {
+  transform: scale(1.02);
+}
+
+/* Ensure stats grid is responsive */
+:host ::ng-deep .grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  :host ::ng-deep .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  :host ::ng-deep .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-image-container {
+    padding: 0.5rem;
+  }
+  
+  .hero-image {
+    max-height: 300px;
+    border-radius: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image {
+    max-height: 250px;
+    border-radius: 0.5rem;
+  }
+}

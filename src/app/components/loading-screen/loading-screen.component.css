@@ -1,0 +1,230 @@
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(249, 115, 22, 0.03) 50px, rgba(249, 115, 22, 0.03) 100px);
+  animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+.loading-content {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.temple-icon {
+  margin-bottom: 2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.om-symbol {
+  font-size: clamp(3rem, 12vw, 6rem);
+  color: #dc2626;
+  font-weight: bold;
+  text-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.temple-name {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: bold;
+  color: #7c2d12;
+  margin-bottom: 0.5rem;
+  font-family: 'Georgia', serif;
+  line-height: 1.2;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.temple-subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: #92400e;
+  margin-bottom: 2rem;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.loading-bar-container {
+  width: min(400px, 85vw);
+  max-width: 90vw;
+  height: 8px;
+  background-color: rgba(249, 115, 22, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto 1.5rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #fb923c, #fbbf24);
+  border-radius: 10px;
+  transition: width 0.3s ease-out;
+  box-shadow: 0 0 10px rgba(251, 146, 60, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(400px, 85vw);
+  max-width: 90vw;
+  margin: 0 auto 2rem;
+  gap: 1rem;
+}
+
+.progress-text {
+  color: #78350f;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  font-weight: 500;
+}
+
+.progress-percentage {
+  color: #f97316;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.decorative-dots {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(249, 115, 22, 0.3);
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: #f97316;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.6);
+  transform: scale(1.2);
+}
+
+@media (max-width: 640px) {
+  .temple-name {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+    margin-bottom: 0.25rem;
+  }
+  
+  .temple-subtitle {
+    font-size: clamp(0.875rem, 3.5vw, 1.125rem);
+    margin-bottom: 1.5rem;
+  }
+  
+  .om-symbol {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+  
+  .loading-bar-container {
+    height: 6px;
+  }
+  
+  .decorative-dots {
+    gap: 0.75rem;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}

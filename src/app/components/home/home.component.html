@@ -1,0 +1,74 @@
+<div class="container mx-auto px-4 py-8">
+  <!-- Temple Header with Hero Image -->
+  <header class="text-center mb-12">
+    <div class="mb-6 hero-image-container relative">
+      <!-- Decorative Border and Hanuman Image -->
+      <div class="hanuman-frame" [class.active-aarti]="isChalisaPlaying">
+        <!-- Rotating Mala Beads (only when playing) -->
+        <div class="mala-container" *ngIf="isChalisaPlaying">
+          <div class="mala-bead" *ngFor="let bead of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]" 
+               [style.--bead-index]="bead"></div>
+        </div>
+        
+        <!-- Aarti Flames (only when playing) -->
+        <div class="aarti-flames" *ngIf="isChalisaPlaying">
+          <div class="aarti-flame flame-left">
+            <div class="flame">🔥</div>
+          </div>
+          <div class="aarti-flame flame-right">
+            <div class="flame">🔥</div>
+          </div>
+        </div>
+        
+        <!-- Main Hanuman Image -->
+        <img 
+          src="assets/images/hanuman-main.png" 
+          alt="Lord Hanuman" 
+          class="hero-image mx-auto w-full max-w-4xl drop-shadow-2xl"
+          [class.animate-float]="isChalisaPlaying"
+          onerror="this.src='assets/images/hanuman-deity.svg'"
+        />
+      </div>
+    </div>
+    <h1 class="temple-header">
+      🙏 {{ lang.t('appTitle') }} 🙏
+    </h1>
+    <p class="temple-subheader">
+      {{ lang.t('home.welcomeTitle') }}
+    </p>
+    <p class="text-saffron-700 text-lg mb-4">
+      "संकट मोचन हनुमान"
+    </p>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      {{ lang.t('home.welcomeSubtitle') }}
+    </p>
+  </header>
+
+  <!-- Audio Player -->
+  <div class="mb-8">
+    <app-audio-player></app-audio-player>
+  </div>
+
+  <!-- Action Button -->
+  <div class="max-w-md mx-auto mb-12">
+    <button 
+      (click)="navigateToWish()"
+      class="btn-primary flex items-center justify-center gap-2 md:gap-3 w-full"
+      style="padding: clamp(1rem, 3vw, 1.5rem);"
+      aria-label="Make a wish">
+      <span class="text-2xl md:text-3xl">🙏</span>
+      <span class="text-base md:text-lg font-semibold">{{ lang.t('home.makeWish') }}</span>
+    </button>
+  </div>
+
+  <!-- Devotional Quote -->
+  <div class="text-center mt-12 max-w-3xl mx-auto">
+    <blockquote class="text-lg italic text-saffron-800 font-display">
+      "बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।<br>
+      बल बुद्धि विद्या देहु मोहिं, हरहु कलेश विकार॥"
+    </blockquote>
+    <p class="text-sm text-gray-600 mt-4">
+      - Hanuman Chalisa
+    </p>
+  </div>
+</div>

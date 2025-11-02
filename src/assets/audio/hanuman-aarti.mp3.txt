@@ -1,0 +1,19 @@
+<!-- Placeholder for Hanuman Aarti audio file -->
+<!-- 
+This is a placeholder. To add actual audio:
+
+1. Download or record Hanuman Aarti MP3 (2-4 minutes)
+2. Save as: hanuman-aarti.mp3
+3. Replace this file
+
+Common Hanuman Aarti:
+"Aarti Kije Hanuman Lala Ki"
+
+Recommended sources:
+- YouTube Audio Library (royalty-free)
+- Record your own recitation
+- Free devotional audio websites
+
+Format: MP3, 128kbps, 44.1kHz recommended
+Duration: 2-4 minutes ideal
+-->
