@@ -138,23 +138,51 @@ export class WishFlowComponent {
    * Share temple info - opens native share or fallback
    */
   async shareTemple(): Promise<void> {
-    const shareData = {
-      title: '🙏 श्री हनुमान मंदिर | Hanuman Temple',
-      text: this.lang.getCurrentLanguage() === 'hi' 
-        ? '🕉️ आइए श्री हनुमान जी की आभासी मंदिर में दर्शन करें और अपनी मनोकामना प्रकट करें। हर घंटे हनुमान चालीसा का पाठ। पूर्णतः निःशुल्क भक्ति सेवा। 🙏'
-        : '🕉️ Visit the Virtual Hanuman Temple and make your wish. Hourly Hanuman Chalisa chanting. Completely free devotional service. 🙏',
-      url: window.location.origin
-    };
+    const hindiMessage = `� जय श्री राम 🚩
+अब एक ऐसा ऑनलाइन मंदिर तैयार हुआ है जहाँ:
+
+🕓 हर घंटे हनुमान चालीसा स्वचालित रूप से बजती है (5 AM – 7 PM)
+🙏 आप अपनी मनोकामना लिखकर घंटा बजा सकते हैं
+🪔 वर्चुअल चढ़ावा, आरती और पूजा का अनुभव मिलता है
+📿 आपकी सभी इच्छाएँ केवल आपके मोबाइल में सुरक्षित रहती हैं
+🌍 दुनिया भर के भक्त एक ही समय पर चालीसा सुनते हैं
+📱 किसी ऐप की जरूरत नहीं — बस लिंक खोलें और दर्शन करें
+
+यह सिर्फ वेबसाइट नहीं — एक *डिजिटल भक्ति स्थल* है।
+
+🔗 https://manokamna.online
+🕉 जय बजरंगबली �`;
+
+    const englishMessage = `🚩 Jai Shree Ram �
+
+A unique spiritual experience has been created for devotees across the world:
+
+🕓 Automatic Hanuman Chalisa every hour (5 AM – 7 PM)
+🙏 Write your personal wish and offer it to Lord Hanuman
+🔔 Ring the digital temple bell and complete a guided ritual
+🪔 Experience virtual Aarti and offerings
+📿 All wishes are stored only on your device — fully private
+🌍 Devotees worldwide hear the same Chalisa timing together
+📱 No download, no login — works instantly on any device
+
+This is not just a website.
+It is a **real digital temple of faith and devotion**.
+
+🔗 Visit now: https://manokamna.online
+🕉 Jai Bajrang Bali 🔱`;
+
+    const messageToShare = this.lang.getCurrentLanguage() === 'hi' ? hindiMessage : englishMessage;
 
     try {
       // Try native Web Share API first (works on mobile)
       if (navigator.share) {
-        await navigator.share(shareData);
+        await navigator.share({
+          text: messageToShare
+        });
         this.hasShared = true;
       } else {
         // Fallback: copy to clipboard
-        const textToCopy = `${shareData.text}\n${shareData.url}`;
-        await navigator.clipboard.writeText(textToCopy);
+        await navigator.clipboard.writeText(messageToShare);
         alert(this.lang.getCurrentLanguage() === 'hi' 
           ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
           : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.');
@@ -164,6 +192,51 @@ export class WishFlowComponent {
       console.error('Error sharing:', error);
       // User cancelled or error - that's okay
     }
+  }
+
+  /**
+   * Share directly to WhatsApp
+   */
+  shareToWhatsApp(): void {
+    const hindiMessage = `🚩 जय श्री राम 🚩
+अब एक ऐसा ऑनलाइन मंदिर तैयार हुआ है जहाँ:
+
+🕓 हर घंटे हनुमान चालीसा स्वचालित रूप से बजती है (5 AM – 7 PM)
+🙏 आप अपनी मनोकामना लिखकर घंटा बजा सकते हैं
+🪔 वर्चुअल चढ़ावा, आरती और पूजा का अनुभव मिलता है
+📿 आपकी सभी इच्छाएँ केवल आपके मोबाइल में सुरक्षित रहती हैं
+🌍 दुनिया भर के भक्त एक ही समय पर चालीसा सुनते हैं
+📱 किसी ऐप की जरूरत नहीं — बस लिंक खोलें और दर्शन करें
+
+यह सिर्फ वेबसाइट नहीं — एक *डिजिटल भक्ति स्थल* है।
+
+🔗 https://manokamna.online
+🕉 जय बजरंगबली 🚩`;
+
+    const englishMessage = `🚩 Jai Shree Ram 🚩
+
+A unique spiritual experience has been created for devotees across the world:
+
+🕓 Automatic Hanuman Chalisa every hour (5 AM – 7 PM)
+🙏 Write your personal wish and offer it to Lord Hanuman
+🔔 Ring the digital temple bell and complete a guided ritual
+🪔 Experience virtual Aarti and offerings
+📿 All wishes are stored only on your device — fully private
+🌍 Devotees worldwide hear the same Chalisa timing together
+📱 No download, no login — works instantly on any device
+
+This is not just a website.
+It is a **real digital temple of faith and devotion**.
+
+🔗 Visit now: https://manokamna.online
+🕉 Jai Bajrang Bali 🔱`;
+
+    const messageToShare = this.lang.getCurrentLanguage() === 'hi' ? hindiMessage : englishMessage;
+    const encodedMessage = encodeURIComponent(messageToShare);
+    
+    // Open WhatsApp with pre-filled message
+    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    this.hasShared = true;
   }
 
   /**
