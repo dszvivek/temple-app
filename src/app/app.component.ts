@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { LanguageService } from './services/language.service';
+import { ThemeService } from './services/theme.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -9,8 +10,8 @@ import { filter } from 'rxjs/operators';
     <!-- Loading Screen -->
     <app-loading-screen></app-loading-screen>
     
-    <!-- Temple Background -->
-    <div class="temple-background"></div>
+    <!-- Dynamic Theme Background with Gradient -->
+    <div [class]="themeClasses + ' temple-background'"></div>
     
     <div class="min-h-screen flex flex-col relative">
       <!-- Language Switcher (Fixed Top Right) -->
@@ -74,25 +75,35 @@ import { filter } from 'rxjs/operators';
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('/assets/images/temple-background.svg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       z-index: -1;
-      opacity: 0.95;
+      opacity: 0.4;
+      transition: background 1000ms ease-in-out;
     }
   `]
 })
 export class AppComponent implements OnInit {
   title = 'Karunamayi Hanuman E-Mandir';
   updateAvailable = false;
+  themeClasses = '';
 
   constructor(
     private swUpdate: SwUpdate,
-    public lang: LanguageService
-  ) {}
+    public lang: LanguageService,
+    private themeService: ThemeService
+  ) {
+    // Initialize theme immediately
+    this.themeClasses = this.themeService.getCurrentGradient();
+  }
 
   ngOnInit(): void {
+    // Subscribe to theme changes (re-evaluates every minute)
+    this.themeService.currentTheme$.subscribe(() => {
+      this.themeClasses = this.themeService.getCurrentGradient();
+    });
+
     // Listen for service worker updates
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates
