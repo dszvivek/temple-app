@@ -21,6 +21,9 @@ import { filter } from 'rxjs/operators';
       <!-- Install Prompt -->
       <app-install-prompt></app-install-prompt>
       
+      <!-- Developer Controls -->
+      <app-dev-controls></app-dev-controls>
+      
       <!-- Main Content -->
       <main class="flex-grow">
         <router-outlet></router-outlet>

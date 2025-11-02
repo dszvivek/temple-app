@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, interval } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { format, differenceInSeconds, addDays, setHours, setMinutes, setSeconds } from 'date-fns';
+import { DevModeService } from './dev-mode.service';
 
 export interface TempleSchedule {
   openHour: number;
@@ -43,7 +44,7 @@ export class TempleScheduleService {
   );
   public countdown$: Observable<string> = this.countdownSubject.asObservable();
 
-  constructor() {
+  constructor(private devMode: DevModeService) {
     // Update every second
     interval(1000).subscribe(() => {
       this.updateStatus();
@@ -54,6 +55,12 @@ export class TempleScheduleService {
    * Check if temple is currently open based on local time
    */
   private checkIfOpen(): boolean {
+    // Dev mode override
+    const forcedState = this.devMode.getForcedTempleOpenState();
+    if (forcedState !== null) {
+      return forcedState;
+    }
+
     const now = new Date();
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();

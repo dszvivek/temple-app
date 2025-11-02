@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AudioStateService } from './audio-state.service';
+import { DevModeService } from './dev-mode.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,10 @@ export class AudioPlayerService {
   private readonly START_HOUR = 5; // 5 AM
   private readonly END_HOUR = 19; // 7 PM
 
-  constructor(private audioStateService: AudioStateService) {
+  constructor(
+    private audioStateService: AudioStateService,
+    private devMode: DevModeService
+  ) {
     this.initialize();
   }
 
@@ -146,6 +150,26 @@ export class AudioPlayerService {
    */
   private checkAndAutoPlay(): void {
     if (!this.audioEnabled || !this.audio) return;
+
+    // Check dev mode override first
+    const forcedPlay = this.devMode.getForcedChalisaPlayState();
+    if (forcedPlay !== null) {
+      if (forcedPlay && !this.isPlaying) {
+        // Force play
+        const now = new Date();
+        const currentMinute = now.getMinutes();
+        const currentSecond = now.getSeconds();
+        const secondsIntoHour = (currentMinute * 60) + currentSecond;
+        this.audio.currentTime = secondsIntoHour % this.CHALISA_DURATION;
+        this.play();
+        this.currentlyInChantWindow = true;
+      } else if (!forcedPlay && this.isPlaying) {
+        // Force stop
+        this.pause();
+        this.currentlyInChantWindow = false;
+      }
+      return;
+    }
 
     const now = new Date();
     const currentHour = now.getHours();

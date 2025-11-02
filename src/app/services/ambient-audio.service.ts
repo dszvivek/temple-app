@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DevModeService } from './dev-mode.service';
 
 /**
  * AmbientAudioService - Manages temple ambient sounds with smart autoplay
@@ -45,7 +46,7 @@ export class AmbientAudioService {
   // Check interval for temple hours
   private checkInterval?: any;
 
-  constructor() {
+  constructor(private devMode: DevModeService) {
     this.initializeTempleHoursCheck();
   }
 
@@ -254,6 +255,12 @@ export class AmbientAudioService {
    * Check if temple is currently open (5 AM - 7 PM)
    */
   private checkIfTempleOpen(): boolean {
+    // Dev mode override
+    const forcedState = this.devMode.getForcedTempleOpenState();
+    if (forcedState !== null) {
+      return forcedState;
+    }
+
     const now = new Date();
     const currentHour = now.getHours();
     return currentHour >= this.TEMPLE_OPEN_HOUR && currentHour < this.TEMPLE_CLOSE_HOUR;

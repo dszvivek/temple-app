@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, interval } from 'rxjs';
+import { DevModeService } from './dev-mode.service';
 
 /**
  * Chant Schedule Entry
@@ -27,7 +28,7 @@ export class SchedulerService {
   private checkInterval: any;
   private notificationCallback?: (schedule: ChantSchedule) => void;
 
-  constructor() {
+  constructor(private devMode: DevModeService) {
     this.loadSchedule();
     this.startScheduleChecker();
   }
@@ -107,6 +108,20 @@ export class SchedulerService {
    * Check if any scheduled chants should be triggered
    */
   private checkScheduledChants(): void {
+    // Check if dev mode wants to trigger scheduled chants
+    if (this.devMode.shouldTriggerScheduledChants()) {
+      const schedule = this.scheduleSubject.value;
+      // Trigger all enabled chants when dev mode forces it
+      schedule.forEach(item => {
+        if (item.enabled) {
+          this.triggerChant(item);
+        }
+      });
+      // Reset the trigger flag
+      this.devMode.updateConfig({ triggerScheduledChants: false });
+      return;
+    }
+
     const now = new Date();
     const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     

@@ -17,6 +17,7 @@ import { LanguageSwitcherComponent } from './components/language-switcher/langua
 import { DonateComponent } from './components/donate/donate.component';
 import { AmbientControlsComponent } from './components/ambient-controls/ambient-controls.component';
 import { TempleStatusPillComponent } from './components/temple-status-pill/temple-status-pill.component';
+import { DevControlsComponent } from './components/dev-controls/dev-controls.component';
 
 // Directives
 import { FlowerOfferingDirective } from './directives/flower-offering.directive';
@@ -33,6 +34,7 @@ import { FlowerOfferingDirective } from './directives/flower-offering.directive'
     DonateComponent,
     AmbientControlsComponent,
     TempleStatusPillComponent,
+    DevControlsComponent,
     FlowerOfferingDirective
   ],
   imports: [

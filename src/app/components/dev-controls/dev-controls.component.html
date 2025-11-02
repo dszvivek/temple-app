@@ -1,0 +1,103 @@
+<div *ngIf="isVisible" class="dev-controls-panel">
+  <div class="dev-header">
+    <span class="dev-title">🔧 Developer Controls</span>
+    <button (click)="closePanel()" class="close-btn" title="Close (or press Ctrl+Shift+D)">✕</button>
+  </div>
+
+  <div class="dev-content">
+    <!-- Temple Hours Override -->
+    <div class="dev-section">
+      <h3 class="section-title">⏰ Temple Hours (5AM-7PM)</h3>
+      
+      <label class="checkbox-label">
+        <input type="checkbox" 
+               [checked]="config.overrideTempleOpen"
+               (change)="toggleOverrideTemple()">
+        <span>Override temple open/close times</span>
+      </label>
+
+      <label class="checkbox-label" 
+             [class.disabled]="!config.overrideTempleOpen">
+        <input type="checkbox" 
+               [checked]="config.forceTempleOpen"
+               [disabled]="!config.overrideTempleOpen"
+               (change)="toggleForceTempleOpen()">
+        <span>Force temple to be OPEN</span>
+      </label>
+
+      <div class="info-box" *ngIf="config.overrideTempleOpen">
+        <p *ngIf="config.forceTempleOpen" class="success">
+          ✅ Temple is forced OPEN - ambient sounds active
+        </p>
+        <p *ngIf="!config.forceTempleOpen" class="warning">
+          🔒 Temple is forced CLOSED - ambient sounds off
+        </p>
+      </div>
+    </div>
+
+    <!-- Hourly Chalisa Override -->
+    <div class="dev-section">
+      <h3 class="section-title">🎵 Hourly Hanuman Chalisa</h3>
+      
+      <label class="checkbox-label">
+        <input type="checkbox" 
+               [checked]="config.overrideHourlyChalisa"
+               (change)="toggleOverrideHourlyChalisa()">
+        <span>Override hourly Chalisa timing</span>
+      </label>
+
+      <label class="checkbox-label" 
+             [class.disabled]="!config.overrideHourlyChalisa">
+        <input type="checkbox" 
+               [checked]="config.forceChalisaPlay"
+               [disabled]="!config.overrideHourlyChalisa"
+               (change)="toggleForceChalisaPlay()">
+        <span>Force Chalisa to play now</span>
+      </label>
+
+      <div class="info-box" *ngIf="config.overrideHourlyChalisa">
+        <p *ngIf="config.forceChalisaPlay" class="success">
+          ▶️ Chalisa will play immediately (first enable audio player!)
+        </p>
+        <p *ngIf="!config.forceChalisaPlay" class="warning">
+          ⏸️ Chalisa playback stopped
+        </p>
+      </div>
+    </div>
+
+    <!-- Scheduled Chants -->
+    <div class="dev-section">
+      <h3 class="section-title">🔔 Scheduled Chants</h3>
+      
+      <button class="trigger-btn" (click)="triggerScheduledChants()">
+        ⚡ Trigger All Scheduled Chants Now
+      </button>
+      
+      <div class="info-box warning">
+        <p style="font-size: 11px;">This immediately triggers all enabled scheduled chants (Morning Chalisa, Evening Aarti, etc.)</p>
+      </div>
+    </div>
+
+    <!-- Debug Info -->
+    <div class="dev-section">
+      <h3 class="section-title">🐛 Debugging</h3>
+      
+      <label class="checkbox-label">
+        <input type="checkbox" 
+               [checked]="config.showDebugInfo"
+               (change)="toggleDebugInfo()">
+        <span>Show debug console logs</span>
+      </label>
+    </div>
+
+    <!-- Instructions -->
+    <div class="dev-section">
+      <h3 class="section-title">ℹ️ Quick Info</h3>
+      <ul class="info-list">
+        <li><kbd>Ctrl+Shift+D</kbd> - Toggle dev mode</li>
+        <li>Changes persist in localStorage</li>
+        <li>Refresh page to see effects</li>
+      </ul>
+    </div>
+  </div>
+</div>
