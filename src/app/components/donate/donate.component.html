@@ -1,0 +1,104 @@
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-saffron-800 mb-4">
+      {{ lang.t('donate.title') }}
+    </h1>
+    <p class="text-gray-700 mb-2">
+      {{ lang.t('donate.subtitle') }}
+    </p>
+    <p class="text-sm text-gray-500 italic">
+      {{ lang.t('donate.optional') }}
+    </p>
+  </div>
+
+  <!-- QR Code Section -->
+  <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 mb-6">
+    <div class="text-center mb-4">
+      <h2 class="text-xl font-semibold text-saffron-700 mb-4">
+        {{ lang.t('donate.scanQR') }}
+      </h2>
+      
+      <!-- QR Code Image -->
+      <div class="inline-block p-4 bg-white rounded-lg border-4 border-saffron-200 shadow-lg">
+        <img 
+          [src]="qrCodeUrl" 
+          alt="UPI QR Code" 
+          class="w-64 h-64 mx-auto"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      
+      <p class="text-sm text-gray-600 mt-4">
+        {{ lang.t('donate.scanInstruction') }}
+      </p>
+    </div>
+  </div>
+
+  <!-- UPI ID Section -->
+  <div class="bg-gradient-to-r from-saffron-50 to-amber-50 rounded-lg shadow-lg p-6 mb-6">
+    <h3 class="text-lg font-semibold text-saffron-800 mb-3 text-center">
+      {{ lang.t('donate.orUseUPI') }}
+    </h3>
+    
+    <div class="flex items-center justify-center gap-2 mb-4">
+      <code class="bg-white px-4 py-3 rounded-lg text-saffron-800 font-mono text-lg border-2 border-saffron-200 break-all">
+        {{ upiId }}
+      </code>
+      <button 
+        (click)="copyUpiId()" 
+        class="bg-saffron-600 text-white px-4 py-2 rounded-lg hover:bg-saffron-700 transition-colors flex-shrink-0"
+        title="Copy UPI ID">
+        📋
+      </button>
+    </div>
+    
+    <p class="text-xs text-gray-600 text-center">
+      {{ lang.t('donate.upiInstruction') }}
+    </p>
+  </div>
+
+  <!-- Mobile Payment Button -->
+  <div class="text-center mb-6">
+    <a 
+      [href]="upiUrl" 
+      class="inline-block bg-gradient-to-r from-saffron-500 to-saffron-600 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-lg">
+      {{ lang.t('donate.payNow') }} 💰
+    </a>
+    <p class="text-xs text-gray-500 mt-2">
+      {{ lang.t('donate.mobileOnly') }}
+    </p>
+  </div>
+
+  <!-- Transparency Section -->
+  <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
+    <h4 class="font-semibold text-blue-800 mb-2">
+      {{ lang.t('donate.transparency') }}
+    </h4>
+    <ul class="text-sm text-blue-900 space-y-1">
+      <li>{{ lang.t('donate.point1') }}</li>
+      <li>{{ lang.t('donate.point2') }}</li>
+      <li>{{ lang.t('donate.point3') }}</li>
+      <li>{{ lang.t('donate.point4') }}</li>
+    </ul>
+  </div>
+
+  <!-- Thank You Message -->
+  <div class="text-center border-t-2 border-saffron-200 pt-6">
+    <p class="text-saffron-800 font-semibold text-lg mb-2">
+      🙏 {{ lang.t('donate.thankYou') }} 🙏
+    </p>
+    <p class="text-gray-600 text-sm italic">
+      {{ lang.t('donate.blessings') }}
+    </p>
+  </div>
+
+  <!-- Back Button -->
+  <div class="text-center mt-8">
+    <a 
+      routerLink="/" 
+      class="inline-block text-saffron-700 hover:text-saffron-900 font-medium">
+      ← {{ lang.t('donate.backToHome') }}
+    </a>
+  </div>
+</div>

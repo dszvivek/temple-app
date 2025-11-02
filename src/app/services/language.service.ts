@@ -13,6 +13,10 @@ export interface Translations {
     welcomeSubtitle: string;
     makeWish: string;
     aboutTemple: string;
+    supportTitle: string;
+    supportMessage: string;
+    supportButton: string;
+    supportOptional: string;
   };
   
   // Audio Player
@@ -140,6 +144,27 @@ export interface Translations {
     disclaimerText: string;
   };
   
+  // Donate Page
+  donate: {
+    title: string;
+    subtitle: string;
+    optional: string;
+    scanQR: string;
+    scanInstruction: string;
+    orUseUPI: string;
+    upiInstruction: string;
+    payNow: string;
+    mobileOnly: string;
+    transparency: string;
+    point1: string;
+    point2: string;
+    point3: string;
+    point4: string;
+    thankYou: string;
+    blessings: string;
+    backToHome: string;
+  };
+  
   // Footer
   footer: {
     jaiHanuman: string;
@@ -174,6 +199,10 @@ export class LanguageService {
   welcomeSubtitle: 'अपनी मनोकामना प्रकट करें, भक्ति भाव से प्रार्थना करें और पवनपुत्र श्री हनुमान जी की दिव्य कृपा पाएं',
   makeWish: 'अपनी मनोकामना व्यक्त करें',
   aboutTemple: 'मंदिर का परिचय',
+  supportTitle: 'इस सेवा का समर्थन करें',
+  supportMessage: 'यदि आपको यह सेवा उपयोगी लगी हो और आप इसके रखरखाव में सहयोग करना चाहें, तो योगदान का स्वागत है।',
+  supportButton: '💰 दान करें',
+  supportOptional: 'पूर्णतः स्वैच्छिक - सेवा सभी के लिए निःशुल्क रहेगी',
       },
       
       audio: {
@@ -299,6 +328,26 @@ export class LanguageService {
   disclaimerText: 'यह मंच केवल भक्ति और आत्मिक अभिव्यक्ति हेतु है।',
       },
       
+      donate: {
+        title: 'इस सेवा का समर्थन करें',
+        subtitle: 'यदि आपको यह सेवा उपयोगी लगी हो, तो आप स्वेच्छा से योगदान कर सकते हैं',
+        optional: 'पूर्णतः स्वैच्छिक - सेवा सभी के लिए निःशुल्क रहेगी',
+        scanQR: 'QR कोड स्कैन करें',
+        scanInstruction: 'किसी भी UPI ऐप से स्कैन करें और भुगतान करें',
+        orUseUPI: 'या UPI ID का उपयोग करें',
+        upiInstruction: 'UPI ID कॉपी करें और अपने भुगतान ऐप में उपयोग करें',
+        payNow: 'अभी भुगतान करें',
+        mobileOnly: 'केवल मोबाइल उपकरणों पर काम करता है',
+        transparency: '100% पारदर्शिता',
+        point1: '💰 सभी योगदान सीधे डेवलपर के पास जाते हैं',
+        point2: '🔒 कोई छिपी हुई फीस या संस्था नहीं',
+        point3: '✅ सेवा योगदान की परवाह किए बिना निःशुल्क रहती है',
+        point4: '📊 मासिक लागत: ~₹417 (डोमेन + होस्टिंग)',
+        thankYou: 'आपकी उदारता के लिए धन्यवाद',
+        blessings: 'श्री हनुमान जी की कृपा सदा आप पर बनी रहे',
+        backToHome: 'मंदिर लौटें',
+      },
+      
       footer: {
   jaiHanuman: 'जय श्री हनुमान',
   description: 'यह सेवा सभी भक्तों के लिए पूर्णतः निःशुल्क है। किसी भी मंदिर संस्था से कोई औपचारिक संबंध नहीं है।',
@@ -323,6 +372,10 @@ export class LanguageService {
         welcomeSubtitle: 'Make your wishes, offer prayers, and seek blessings from the mighty Pawanputra',
         makeWish: 'Make a Wish',
         aboutTemple: 'About Temple',
+        supportTitle: 'Support This Service',
+        supportMessage: 'If you find this service helpful and wish to support its maintenance, contributions are gratefully accepted.',
+        supportButton: '💰 Donate',
+        supportOptional: 'Completely optional - service remains free for all',
       },
       
       audio: {
@@ -446,6 +499,26 @@ export class LanguageService {
         feature4: 'Spiritual Guidance',
         disclaimer: 'Disclaimer',
         disclaimerText: 'This is a digital platform for devotional expression only',
+      },
+      
+      donate: {
+        title: 'Support This Service',
+        subtitle: 'If you find this service helpful, you may contribute voluntarily',
+        optional: 'Completely optional - service remains free for all',
+        scanQR: 'Scan QR Code',
+        scanInstruction: 'Scan with any UPI app and make payment',
+        orUseUPI: 'Or Use UPI ID',
+        upiInstruction: 'Copy UPI ID and use in your payment app',
+        payNow: 'Pay Now',
+        mobileOnly: 'Works on mobile devices only',
+        transparency: '100% Transparency',
+        point1: '💰 All contributions go directly to the developer',
+        point2: '🔒 No hidden fees or organizations',
+        point3: '✅ Service remains free regardless of contributions',
+        point4: '📊 Monthly costs: ~₹417 (domain + hosting)',
+        thankYou: 'Thank You for Your Generosity',
+        blessings: 'May Lord Hanuman\'s Blessings Be With You Always',
+        backToHome: 'Back to Temple',
       },
       
       footer: {

@@ -1,0 +1,32 @@
+/* Donate Component Styles */
+:host {
+  display: block;
+}
+
+/* QR Code container animation */
+.qr-code-container {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Copy button animation */
+button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  code {
+    font-size: 0.875rem;
+  }
+}

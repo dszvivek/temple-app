@@ -14,6 +14,7 @@ import { AudioPlayerComponent } from './components/audio-player/audio-player.com
 import { InstallPromptComponent } from './components/install-prompt/install-prompt.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
+import { DonateComponent } from './components/donate/donate.component';
 
 // Services
 import { WishService } from './services/wish.service';
@@ -28,7 +29,8 @@ import { AssetLoaderService } from './services/asset-loader.service';
     AudioPlayerComponent,
     InstallPromptComponent,
     LoadingScreenComponent,
-    LanguageSwitcherComponent
+    LanguageSwitcherComponent,
+    DonateComponent
   ],
   imports: [
     BrowserModule,

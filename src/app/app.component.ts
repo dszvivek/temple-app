@@ -38,6 +38,13 @@ import { filter } from 'rxjs/operators';
           <p class="text-xs opacity-50 mt-2">
             {{ lang.t('footer.copyright') }}
           </p>
+          <p class="text-xs opacity-40 mt-3">
+            <a routerLink="/donate" 
+               class="hover:opacity-100 transition-opacity underline"
+               rel="noopener noreferrer">
+              {{ lang.t('home.supportButton') }}
+            </a>
+          </p>
         </div>
       </footer>
       
