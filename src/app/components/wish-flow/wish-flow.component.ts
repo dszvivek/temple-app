@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { WishService } from '../../services/wish.service';
 import { LanguageService } from '../../services/language.service';
+import { AmbientAudioService } from '../../services/ambient-audio.service';
+import { PetalService } from '../../services/petal.service';
+import { BlessingsService, Blessing } from '../../services/blessings.service';
 import { Wish, WishCategory, WishStatus } from '../../models/wish.model';
 
 @Component({
@@ -32,6 +35,9 @@ export class WishFlowComponent {
 
   // Current wish being processed
   currentWish?: Wish;
+  
+  // Blessing message
+  currentBlessing?: Blessing;
 
   // Categories for selection
   categories = [
@@ -49,8 +55,14 @@ export class WishFlowComponent {
   constructor(
     private wishService: WishService,
     private router: Router,
-    public lang: LanguageService
-  ) {}
+    public lang: LanguageService,
+    private ambientAudio: AmbientAudioService,
+    private petalService: PetalService,
+    public blessingsService: BlessingsService
+  ) {
+    // Set initial random blessing
+    this.currentBlessing = this.blessingsService.getRandomBlessing();
+  }
 
   /**
    * Create a new wish
@@ -85,8 +97,11 @@ export class WishFlowComponent {
     if (this.bellTaps < this.requiredBellTaps) {
       this.bellTaps++;
       
-      // Play bell sound effect (if audio is enabled)
-      this.playBellSound();
+      // Initialize ambient audio on first interaction if not already done
+      this.ambientAudio.initialize();
+      
+      // Play bell sound using ambient audio service
+      this.ambientAudio.ringBell();
       
       // Visual feedback
       const bellElement = document.querySelector('.temple-bell');
@@ -123,6 +138,12 @@ export class WishFlowComponent {
   checkRitualComplete(): void {
     if (this.bellTaps >= this.requiredBellTaps && this.chantCount >= this.requiredChants) {
       this.isRitualComplete = true;
+      
+      // Play shankh sound when ritual completes
+      this.ambientAudio.playShankh();
+      
+      // Trigger flower offering celebration
+      this.triggerFlowerOffering();
     }
   }
 
@@ -265,6 +286,12 @@ It is a **real digital temple of faith and devotion**.
       // Activate the wish
       await this.wishService.activateWish(this.currentWish.id);
       
+      // Get a new random blessing for the completion message
+      this.currentBlessing = this.blessingsService.getRandomBlessing();
+      
+      // Trigger flower offering celebration
+      this.triggerFlowerOffering();
+      
       // Show offering animation
       this.showOfferingAnimation = true;
       this.startOfferingAnimation();
@@ -276,6 +303,17 @@ It is a **real digital temple of faith and devotion**.
     } catch (error) {
       console.error('Error activating wish:', error);
       alert('Failed to submit wish. Please try again.');
+    }
+  }
+
+  /**
+   * Trigger flower petal offering
+   */
+  private triggerFlowerOffering(): void {
+    const container = document.querySelector('.card') as HTMLElement;
+    if (container) {
+      // Spawn 8-10 marigold petals
+      this.petalService.addOffering(container, 10);
     }
   }
 
@@ -330,8 +368,14 @@ It is a **real digital temple of faith and devotion**.
   /**
    * Play bell sound
    */
+  /**
+   * Play bell sound (DEPRECATED - now using AmbientAudioService)
+   * Kept for backward compatibility but not actively used
+   */
   playBellSound(): void {
-    // Create a simple bell sound (you can replace with actual audio file)
+    // Now handled by AmbientAudioService.ringBell()
+    // This method is deprecated and no longer called
+    /*
     try {
       const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
@@ -351,6 +395,7 @@ It is a **real digital temple of faith and devotion**.
     } catch (e) {
       // Silent fail if audio context not supported
     }
+    */
   }
 
   /**
@@ -427,5 +472,24 @@ It is a **real digital temple of faith and devotion**.
    */
   makeAnotherWish(): void {
     this.startOver();
+  }
+
+  /**
+   * Get a new random blessing
+   */
+  getNewBlessing(): void {
+    this.currentBlessing = this.blessingsService.getRandomBlessing();
+  }
+
+  /**
+   * Get blessing text in current language
+   */
+  getBlessingText(): string {
+    if (!this.currentBlessing) {
+      return '';
+    }
+    return this.lang.getCurrentLanguage() === 'hi' 
+      ? this.currentBlessing.hindi 
+      : this.currentBlessing.english;
   }
 }

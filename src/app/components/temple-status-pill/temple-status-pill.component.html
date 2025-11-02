@@ -1,0 +1,17 @@
+<div class="temple-status-pill">
+  <!-- Status Indicator -->
+  <div class="status-indicator" [class.open]="isOpen$ | async" [class.closed]="!(isOpen$ | async)">
+    <span class="status-icon" *ngIf="isOpen$ | async">🟢</span>
+    <span class="status-icon" *ngIf="!(isOpen$ | async)">🔴</span>
+    <span class="status-text">{{ (isOpen$ | async) ? 'Open' : 'Closed' }}</span>
+  </div>
+
+  <!-- Next Event Info -->
+  <div class="next-event" *ngIf="(nextEventLabel$ | async) as nextEvent">
+    <span class="next-label">Next:</span>
+    <span class="event-name">{{ nextEvent }}</span>
+    <span class="countdown" *ngIf="(countdown$ | async) as countdown">
+      in {{ countdown }}
+    </span>
+  </div>
+</div>

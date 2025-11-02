@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="160" viewBox="0 0 220 160">
+  <defs>
+    <linearGradient id="g-bowl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b87333"/>
+      <stop offset="100%" stop-color="#7a4a16"/>
+    </linearGradient>
+    <radialGradient id="g-flame" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#fff7b1"/>
+      <stop offset="50%" stop-color="#ffd36e"/>
+      <stop offset="100%" stop-color="#ff8a00"/>
+    </radialGradient>
+    <filter id="softGlow"><feGaussianBlur stdDeviation="2"/></filter>
+    <style>
+      .flame { transform-origin: 110px 44px; animation: flicker 1.5s infinite ease-in-out alternate; }
+      @keyframes flicker {
+        0% { transform: translateY(0) scale(1); opacity:0.95; }
+        50%{ transform: translateY(-1px) scale(1.03); opacity:1; }
+        100%{ transform: translateY(0) scale(0.98); opacity:0.9; }
+      }
+      .glow{ animation: glow 1.5s infinite alternate; }
+      @keyframes glow{ from{opacity:0.35;} to{opacity:0.6;} }
+    </style>
+  </defs>
+  <ellipse cx="110" cy="120" rx="90" ry="28" fill="url(#g-bowl)"/>
+  <ellipse cx="110" cy="115" rx="90" ry="16" fill="#c07a2a"/>
+  <ellipse cx="110" cy="108" rx="78" ry="10" fill="#e8b46a"/>
+  <ellipse cx="110" cy="100" rx="60" ry="8" fill="#7b3f00"/>
+  <rect x="106" y="70" width="8" height="28" rx="4" fill="#2b1a0e"/>
+  <g class="flame">
+    <path d="M110 30 C130 55,125 75,110 85 C95 75,90 55,110 30 Z" fill="url(#g-flame)"/>
+    <ellipse class="glow" cx="110" cy="70" rx="22" ry="10" fill="#ffb347" filter="url(#softGlow)" />
+  </g>
+</svg>

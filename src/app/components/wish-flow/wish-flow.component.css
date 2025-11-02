@@ -75,6 +75,193 @@
   }
 }
 
+/* Ritual Decorations */
+.ritual-decoration {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ritual-diya {
+  filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+  animation: diya-flicker 2s ease-in-out infinite;
+}
+
+.left-diya {
+  animation-delay: 0s;
+}
+
+.right-diya {
+  animation-delay: 0.5s;
+}
+
+@keyframes diya-flicker {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 12px rgba(255, 140, 0, 0.8));
+  }
+}
+
+/* Ritual Incense */
+.ritual-incense {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.incense-left,
+.incense-right {
+  opacity: 0.6;
+  filter: blur(0.5px);
+}
+
+.incense-left {
+  animation: incense-smoke-left 5s ease-in-out infinite;
+}
+
+.incense-right {
+  animation: incense-smoke-right 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes incense-smoke-left {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-15px) translateX(-5px) scale(1.1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-30px) translateX(-10px) scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+@keyframes incense-smoke-right {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-15px) translateX(5px) scale(1.1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-30px) translateX(10px) scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+/* Mala Beads Visualization */
+.mala-container-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.mala-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mala-bead-visual {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-top: -10px;
+  margin-left: -10px;
+  transform-origin: 0 0;
+  transform: rotate(var(--bead-angle)) translateX(90px);
+  transition: all 0.4s ease;
+}
+
+.bead-inner {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d4d4d8;
+  border: 2px solid #a1a1aa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.mala-bead-active .bead-inner {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  border-color: #ea580c;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.6),
+              0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
+}
+
+.mala-bead-current .bead-inner {
+  animation: bead-glow 0.6s ease-out;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-color: #f59e0b;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.8),
+              0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.4);
+}
+
+.mala-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border: 3px solid #f97316;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  z-index: 10;
+}
+
+@keyframes bead-glow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(251, 191, 36, 0);
+  }
+  50% {
+    transform: scale(1.6);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 1),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: scale(1.4);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.8),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .temple-bell {
@@ -84,4 +271,43 @@
   .falling-offering {
     font-size: 2rem;
   }
+  
+  .ritual-decoration {
+    padding: 0 1rem;
+  }
+  
+  .ritual-diya {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .incense-left,
+  .incense-right {
+    width: 30px;
+    height: 45px;
+  }
+  
+  .mala-circle {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .mala-bead-visual {
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    margin-left: -8px;
+    transform: rotate(var(--bead-angle)) translateX(70px);
+  }
+  
+  .bead-inner {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .mala-center {
+    width: 50px;
+    height: 50px;
+  }
 }
+

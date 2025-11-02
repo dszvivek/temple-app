@@ -2,14 +2,18 @@
   <button 
     (click)="switchLanguage('hi')"
     [class.active]="currentLang === 'hi'"
-    class="lang-btn">
-    हिन्दी
+    class="lang-btn"
+    title="हिन्दी">
+    <span class="full-text">हिन्दी</span>
+    <span class="short-text">हिं</span>
   </button>
   <span class="separator">|</span>
   <button 
     (click)="switchLanguage('en')"
     [class.active]="currentLang === 'en'"
-    class="lang-btn">
-    English
+    class="lang-btn"
+    title="English">
+    <span class="full-text">English</span>
+    <span class="short-text">EN</span>
   </button>
 </div>

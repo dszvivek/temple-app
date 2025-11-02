@@ -1,0 +1,135 @@
+<div class="demo-container p-6 max-w-6xl mx-auto">
+  <h1 class="text-3xl font-bold mb-6 text-center">🕉️ Ambient Audio Service - Test Demo</h1>
+
+  <!-- Current Status Dashboard -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <!-- Temple Status -->
+    <div class="status-card" [class.open]="isTempleOpen" [class.closed]="!isTempleOpen">
+      <h3 class="font-bold mb-2">Temple Status</h3>
+      <div class="status-badge">{{ isTempleOpen ? '✅ OPEN' : '⏸️ CLOSED' }}</div>
+      <p class="text-sm mt-2">Hours: 5:00 AM - 7:00 PM</p>
+      <p class="text-sm">Current: {{ currentTime | date:'h:mm:ss a' }}</p>
+      <p class="text-sm font-bold mt-2" *ngIf="nextStatusChange">
+        {{ isTempleOpen ? 'Closes' : 'Opens' }} in: {{ getTimeUntilChange() }}
+      </p>
+    </div>
+
+    <!-- Mute Status -->
+    <div class="status-card" [class.active]="!isMuted">
+      <h3 class="font-bold mb-2">Audio Status</h3>
+      <div class="status-badge">{{ isMuted ? '🔇 MUTED' : '🔊 UNMUTED' }}</div>
+      <p class="text-sm mt-2">Ambience: {{ isAmbiencePlaying ? '▶️ Playing' : '⏸️ Stopped' }}</p>
+      <p class="text-sm">Volume: {{ (currentVolume * 100).toFixed(0) }}%</p>
+    </div>
+
+    <!-- Service Status -->
+    <div class="status-card active">
+      <h3 class="font-bold mb-2">Service Info</h3>
+      <p class="text-sm">✅ Service loaded</p>
+      <p class="text-sm">✅ Observables active</p>
+      <p class="text-sm">✅ localStorage enabled</p>
+      <button class="mt-2 text-xs bg-blue-500 text-white px-3 py-1 rounded" 
+              (click)="testLocalStorage()">
+        Check Storage
+      </button>
+    </div>
+  </div>
+
+  <!-- Main UI Component Demo -->
+  <div class="mb-6 p-4 bg-gray-100 rounded">
+    <h2 class="text-xl font-bold mb-4">Example UI Component</h2>
+    <app-ambient-controls></app-ambient-controls>
+  </div>
+
+  <!-- Basic Controls -->
+  <div class="controls-section mb-6">
+    <h2 class="text-xl font-bold mb-4">Basic Controls</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      <button class="demo-btn btn-primary" (click)="initialize()">
+        🔊 Initialize
+      </button>
+      <button class="demo-btn btn-success" (click)="playAmbience()" [disabled]="isMuted">
+        ▶️ Play Ambience
+      </button>
+      <button class="demo-btn btn-danger" (click)="stopAmbience()">
+        ⏸️ Stop Ambience
+      </button>
+      <button class="demo-btn btn-warning" (click)="ringBell()" [disabled]="isMuted">
+        🔔 Ring Bell
+      </button>
+      <button class="demo-btn btn-info" (click)="playShankh()" [disabled]="isMuted">
+        🐚 Play Shankh
+      </button>
+      <button class="demo-btn btn-secondary" (click)="toggleMute()">
+        {{ isMuted ? '🔇 Unmute' : '🔊 Mute' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Volume Control -->
+  <div class="controls-section mb-6">
+    <h2 class="text-xl font-bold mb-4">Volume Control</h2>
+    <div class="flex items-center gap-4">
+      <span>🔈</span>
+      <input 
+        type="range" 
+        min="0" 
+        max="1" 
+        step="0.05" 
+        [value]="currentVolume"
+        (input)="setVolume(+$any($event.target).value)"
+        class="flex-1"
+      />
+      <span>🔊</span>
+      <span class="font-bold w-12">{{ (currentVolume * 100).toFixed(0) }}%</span>
+    </div>
+  </div>
+
+  <!-- Sequences -->
+  <div class="controls-section mb-6">
+    <h2 class="text-xl font-bold mb-4">Test Sequences</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <button class="demo-btn btn-sequence" (click)="playWelcomeSequence()">
+        🙏 Welcome Sequence<br>
+        <span class="text-xs">(Bell → Ambience)</span>
+      </button>
+      <button class="demo-btn btn-sequence" (click)="playAartiSequence()">
+        🔥 Aarti Sequence<br>
+        <span class="text-xs">(Shankh → 3x Bell)</span>
+      </button>
+      <button class="demo-btn btn-sequence" (click)="testTempleHours()">
+        ⏰ Test Temple Hours<br>
+        <span class="text-xs">(Check console)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Event Log -->
+  <div class="log-section">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">Event Log</h2>
+      <button class="text-sm bg-red-500 text-white px-3 py-1 rounded" (click)="clearLog()">
+        Clear Log
+      </button>
+    </div>
+    <div class="log-container">
+      <div *ngIf="eventLog.length === 0" class="text-gray-500 italic text-center py-4">
+        No events yet. Click buttons above to test features.
+      </div>
+      <div *ngFor="let log of eventLog" class="log-entry">{{ log }}</div>
+    </div>
+  </div>
+
+  <!-- Info Panel -->
+  <div class="info-panel mt-6 p-4 bg-blue-50 rounded">
+    <h3 class="font-bold mb-2">ℹ️ Testing Tips</h3>
+    <ul class="text-sm space-y-1">
+      <li>• Click "Initialize" first to enable audio (required for autoplay)</li>
+      <li>• Temple hours: 5:00 AM - 7:00 PM (based on your local time)</li>
+      <li>• Ambience auto-plays when temple opens (if initialized and not muted)</li>
+      <li>• All state is saved in localStorage (survives page refresh)</li>
+      <li>• Check browser console for detailed logs</li>
+      <li>• Open DevTools → Application → Local Storage to see saved state</li>
+    </ul>
+  </div>
+</div>

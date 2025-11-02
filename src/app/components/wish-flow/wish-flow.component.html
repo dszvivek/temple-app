@@ -1,4 +1,9 @@
 <div class="container mx-auto px-4 py-6 md:py-8 max-w-3xl">
+  <!-- Temple Status Pill -->
+  <div class="flex justify-center mb-4">
+    <app-temple-status-pill></app-temple-status-pill>
+  </div>
+
   <!-- Progress Indicator -->
   <div class="mb-6 md:mb-8">
     <div class="flex justify-between items-center max-w-2xl mx-auto">
@@ -63,6 +68,11 @@
         <span class="text-xs md:text-sm text-center font-medium">{{ lang.t('wish.completeStep') }}</span>
       </div>
     </div>
+  </div>
+
+  <!-- Ambient Audio Controls -->
+  <div class="mb-6">
+    <app-ambient-controls></app-ambient-controls>
   </div>
 
   <!-- Step 1: Create Wish -->
@@ -161,7 +171,19 @@
   </div>
 
   <!-- Step 2: Ritual (Bell & Chanting) -->
-  <div *ngIf="step === 'ritual' && currentWish" class="card text-center">
+  <div *ngIf="step === 'ritual' && currentWish" class="card text-center relative" flowerOffering>
+    <!-- Decorative Diyas (Oil Lamps) -->
+    <div class="ritual-decoration">
+      <img src="assets/svg/diya.svg" alt="Diya" class="ritual-diya left-diya" width="32" height="32">
+      <img src="assets/svg/diya.svg" alt="Diya" class="ritual-diya right-diya" width="32" height="32">
+    </div>
+    
+    <!-- Incense Smoke (appears when ritual is active) -->
+    <div *ngIf="bellTaps > 0 || chantCount > 0" class="ritual-incense">
+      <img src="assets/svg/incense_smoke.svg" alt="Incense" class="incense-left" width="40" height="60">
+      <img src="assets/svg/incense_smoke.svg" alt="Incense" class="incense-right" width="40" height="60">
+    </div>
+    
     <h2 class="text-2xl font-bold text-saffron-800 mb-4">
       🙏 {{ lang.t('wish.ritualTitle') }}
     </h2>
@@ -213,6 +235,23 @@
         {{ lang.t('wish.chantInstructions') }}
       </p>
       
+      <!-- Mala Beads Visualization -->
+      <div class="mala-container-visual mb-4" *ngIf="chantCount > 0">
+        <div class="mala-circle">
+          <div 
+            *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11]"
+            class="mala-bead-visual"
+            [class.mala-bead-active]="chantCount >= i"
+            [class.mala-bead-current]="chantCount === i"
+            [style.--bead-angle]="(i - 1) * (360 / 11) + 'deg'">
+            <span class="bead-inner"></span>
+          </div>
+          <div class="mala-center">
+            <span class="text-2xl">🕉️</span>
+          </div>
+        </div>
+      </div>
+      
       <button 
         (click)="chantJaiHanuman()"
         [disabled]="chantCount >= requiredChants"
@@ -220,14 +259,6 @@
         🙏 {{ lang.t('wish.chantButton') }} 🙏
       </button>
       
-      <div class="flex justify-center gap-2 flex-wrap max-w-md mx-auto mb-2">
-        <span 
-          *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11]"
-          class="w-2.5 h-2.5 rounded-full transition-all"
-          [class.bg-orange-500]="chantCount >= i"
-          [class.bg-gray-300]="chantCount < i">
-        </span>
-      </div>
       <p class="text-sm font-semibold"
          [class.text-orange-600]="chantCount >= requiredChants"
          [class.text-gray-600]="chantCount < requiredChants">
@@ -367,6 +398,23 @@
       <p class="text-sm text-gray-600">
         {{ lang.t('wish.submittedMessage') }}
       </p>
+    </div>
+
+    <!-- Blessing Message -->
+    <div class="bg-gradient-to-br from-orange-50 to-yellow-50 border-2 border-saffron-400 rounded-lg p-6 mb-6">
+      <div class="text-4xl mb-3">🙏</div>
+      <h3 class="text-lg font-bold text-saffron-800 mb-3">
+        {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान जी का आशीर्वाद' : 'Blessing from Lord Hanuman' }}
+      </h3>
+      <p class="text-base md:text-lg font-semibold text-gray-800 leading-relaxed mb-4"
+         [class.text-xl]="lang.getCurrentLanguage() === 'hi'">
+        {{ getBlessingText() }}
+      </p>
+      <button 
+        (click)="getNewBlessing()"
+        class="text-sm text-saffron-600 hover:text-saffron-700 font-medium underline transition-colors">
+        {{ lang.getCurrentLanguage() === 'hi' ? '🔄 नया आशीर्वाद पाएं' : '🔄 Get Another Blessing' }}
+      </button>
     </div>
 
     <!-- Important Disclaimer -->

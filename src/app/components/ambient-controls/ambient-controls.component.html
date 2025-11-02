@@ -1,0 +1,84 @@
+<div class="ambient-controls">
+  <!-- Temple Status -->
+  <div class="temple-status" [class.open]="isTempleOpen" [class.closed]="!isTempleOpen">
+    <div class="status-indicator">
+      <!-- Animated Diya (Oil Lamp) when temple is open -->
+      <img 
+        *ngIf="isTempleOpen" 
+        src="assets/svg/diya.svg" 
+        alt="Temple Diya" 
+        class="temple-diya"
+        width="24"
+        height="24">
+      <span class="status-dot"></span>
+      <span class="status-text">
+        Temple {{ isTempleOpen ? 'Open' : 'Closed' }}
+      </span>
+    </div>
+    <div class="next-change" *ngIf="nextStatusChange">
+      {{ isTempleOpen ? 'Closes' : 'Opens' }} in {{ getTimeUntilChange() }}
+    </div>
+  </div>
+
+  <!-- Incense Smoke Animation (when ambience is playing) -->
+  <div *ngIf="isAmbiencePlaying && isTempleOpen" class="incense-container">
+    <img 
+      src="assets/svg/incense_smoke.svg" 
+      alt="Incense" 
+      class="incense-smoke"
+      width="40"
+      height="60">
+  </div>
+
+  <!-- Initialize Button (shown only on first interaction) -->
+  <button 
+    *ngIf="!isAmbiencePlaying && isTempleOpen && !isMuted"
+    class="init-button"
+    (click)="onUserInteraction()">
+    🔊 Enable Temple Sounds
+  </button>
+
+  <!-- Audio Controls -->
+  <div class="audio-controls">
+    <!-- Mute Toggle -->
+    <button 
+      class="control-button mute-button"
+      (click)="toggleMute()"
+      [class.active]="!isMuted"
+      title="{{ isMuted ? 'Unmute' : 'Mute' }}">
+      <span class="icon">{{ isMuted ? '🔇' : '🔊' }}</span>
+      <span class="label">{{ isMuted ? 'Unmute' : 'Mute' }}</span>
+    </button>
+
+    <!-- Ambience Control -->
+    <button 
+      class="control-button ambience-button"
+      (click)="isAmbiencePlaying ? stopAmbience() : playAmbience()"
+      [class.active]="isAmbiencePlaying"
+      [disabled]="isMuted"
+      title="{{ isAmbiencePlaying ? 'Stop Ambience' : 'Play Ambience' }}">
+      <span class="icon">🎵</span>
+      <span class="label">{{ isAmbiencePlaying ? 'Stop' : 'Ambience' }}</span>
+    </button>
+
+    <!-- Bell -->
+    <button 
+      class="control-button bell-button"
+      (click)="ringBell()"
+      [disabled]="isMuted"
+      title="Ring Temple Bell">
+      <span class="icon">🔔</span>
+      <span class="label">Bell</span>
+    </button>
+
+    <!-- Shankh -->
+    <button 
+      class="control-button shankh-button"
+      (click)="playShankh()"
+      [disabled]="isMuted"
+      title="Play Shankh">
+      <span class="icon">🐚</span>
+      <span class="label">Shankh</span>
+    </button>
+  </div>
+</div>

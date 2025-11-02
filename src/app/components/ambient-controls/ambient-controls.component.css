@@ -1,0 +1,281 @@
+.ambient-controls {
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: visible;
+}
+
+/* Temple Status */
+.temple-status {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.temple-status.open {
+  background: rgba(76, 175, 80, 0.1);
+  border: 2px solid rgba(76, 175, 80, 0.3);
+}
+
+.temple-status.closed {
+  background: rgba(158, 158, 158, 0.1);
+  border: 2px solid rgba(158, 158, 158, 0.3);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.temple-status.open .status-dot {
+  background-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+}
+
+.temple-status.closed .status-dot {
+  background-color: #9e9e9e;
+  animation: none;
+}
+
+.next-change {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Initialize Button */
+.init-button {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+.init-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 152, 0, 0.4);
+}
+
+.init-button:active {
+  transform: translateY(0);
+}
+
+/* Audio Controls */
+.audio-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.75rem;
+}
+
+.control-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.control-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: #ff9800;
+}
+
+.control-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-button.active {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  color: white;
+  border-color: #ff9800;
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+.control-button .icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.control-button .label {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+/* Specific button styles */
+.mute-button.active {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  border-color: #4caf50;
+}
+
+.ambience-button.active {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.bell-button:active:not(:disabled) .icon {
+  animation: ringBell 0.5s ease;
+}
+
+.shankh-button:active:not(:disabled) .icon {
+  animation: blowShankh 0.6s ease;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(255, 152, 0, 0.6);
+  }
+}
+
+@keyframes ringBell {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes blowShankh {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Temple Diya (Oil Lamp) */
+.temple-diya {
+  display: inline-block;
+  filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+  animation: flicker 2s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6));
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 12px rgba(255, 140, 0, 0.8));
+  }
+}
+
+/* Incense Smoke Animation */
+.incense-container {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.incense-smoke {
+  display: block;
+  opacity: 0.7;
+  animation: smokeRise 4s ease-in-out infinite;
+  filter: blur(0.5px);
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .audio-controls {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .control-button {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .control-button .icon {
+    font-size: 1.25rem;
+  }
+  
+  .control-button .label {
+    font-size: 0.75rem;
+  }
+  
+  .temple-diya {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .incense-smoke {
+    width: 30px;
+    height: 45px;
+  }
+}
+

@@ -128,6 +128,43 @@ img, video, iframe {
   animation: om-pulse 2s ease-in-out infinite;
 }
 
+/* Flower Petal Falling Animation */
+@keyframes petal-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) translateX(calc(var(--drift) * 0.5)) rotate(calc(var(--rotation) * 0.5)) scale(0.9);
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift)) rotate(var(--rotation)) scale(0.7);
+    opacity: 0;
+  }
+}
+
+/* Flower Petal Base Styles */
+.flower-petal {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  /* Styles are set inline by PetalService for customization */
+}
+
+/* Performance optimization for petal animations */
+@media (prefers-reduced-motion: no-preference) {
+  .flower-petal {
+    animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .btn-primary {

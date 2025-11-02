@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
     
     <div class="min-h-screen flex flex-col relative">
       <!-- Language Switcher (Fixed Top Right) -->
-      <div class="fixed top-4 right-4 z-50">
+      <div class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3">
         <app-language-switcher></app-language-switcher>
       </div>
       

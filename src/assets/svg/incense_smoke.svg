@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="180" viewBox="0 0 220 180">
+  <defs>
+    <style>
+      .s{ fill:none; stroke:#c8d5e1; stroke-opacity:0.5; stroke-width:2; }
+      @keyframes rise{
+        0%{ transform: translateY(0) scale(1); opacity:0; }
+        10%{ opacity:0.4; }
+        100%{ transform: translateY(-90px) scale(1.2); opacity:0; }
+      }
+      .c1{ animation: rise 6s linear infinite; }
+      .c2{ animation: rise 7.5s linear infinite 1s; }
+      .c3{ animation: rise 9s linear infinite 2s; }
+    </style>
+  </defs>
+  <g transform="translate(110,130)">
+    <path class="s c1" d="M0,0 C-10,-10 -15,-25 -5,-40 C10,-60 5,-70 -5,-90"/>
+    <path class="s c2" d="M0,0 C8,-12 12,-26 2,-42 C-12,-66 -8,-76 2,-96"/>
+    <path class="s c3" d="M0,0 C-6,-8 -10,-20 -4,-34 C8,-58 4,-70 -2,-92"/>
+  </g>
+</svg>
