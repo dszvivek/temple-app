@@ -13,7 +13,7 @@ import { filter } from 'rxjs/operators';
     <!-- Dynamic Theme Background with Gradient -->
     <div [class]="themeClasses + ' temple-background'"></div>
     
-    <div class="min-h-screen flex flex-col relative">
+    <div class="min-h-screen flex flex-col relative z-10">
       <!-- Language Switcher (Fixed Top Right) -->
       <div class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3">
         <app-language-switcher></app-language-switcher>
@@ -29,12 +29,12 @@ import { filter } from 'rxjs/operators';
       <app-floating-bell></app-floating-bell>
       
       <!-- Main Content -->
-      <main class="flex-grow">
+      <main class="flex-grow relative z-10">
         <router-outlet></router-outlet>
       </main>
       
       <!-- Footer -->
-      <footer class="bg-temple-dark text-saffron-100 py-4 md:py-6 mt-6 md:mt-8">
+      <footer class="bg-temple-dark text-saffron-100 py-4 md:py-6 mt-6 md:mt-8 relative z-10">
         <div class="container mx-auto px-4 text-center">
           <p class="text-xs md:text-sm mb-2">
             🙏 {{ lang.t('footer.jaiHanuman') }} 🙏
@@ -96,12 +96,14 @@ export class AppComponent implements OnInit {
   ) {
     // Initialize theme immediately
     this.themeClasses = this.themeService.getCurrentGradient();
+    console.log('🏛️ AppComponent initialized with theme classes:', this.themeClasses);
   }
 
   ngOnInit(): void {
     // Subscribe to theme changes (re-evaluates every minute)
-    this.themeService.currentTheme$.subscribe(() => {
+    this.themeService.currentTheme$.subscribe((theme) => {
       this.themeClasses = this.themeService.getCurrentGradient();
+      console.log('🎨 AppComponent theme updated:', theme.name, '| Classes:', this.themeClasses);
     });
 
     // Listen for service worker updates

@@ -19,9 +19,6 @@ export interface Theme {
   providedIn: 'root'
 })
 export class ThemeService {
-  private currentThemeSubject = new BehaviorSubject<Theme>(this.calculateTheme());
-  public currentTheme$: Observable<Theme> = this.currentThemeSubject.asObservable();
-
   private readonly themes: Record<Theme['name'], string> = {
     sunrise: 'bg-gradient-to-b from-orange-200 via-pink-100 to-yellow-50',
     day: 'bg-gradient-to-b from-blue-100 via-sky-50 to-white',
@@ -29,7 +26,19 @@ export class ThemeService {
     night: 'bg-gradient-to-b from-indigo-900 via-purple-900 to-gray-900'
   };
 
+  private currentThemeSubject!: BehaviorSubject<Theme>;
+  public currentTheme$!: Observable<Theme>;
+
   constructor() {
+    // Initialize theme subject after themes are defined
+    this.currentThemeSubject = new BehaviorSubject<Theme>(this.calculateTheme());
+    this.currentTheme$ = this.currentThemeSubject.asObservable();
+    
+    // Log initial theme
+    const initialTheme = this.getCurrentTheme();
+    console.log('🎨 ThemeService initialized:', initialTheme.name, 'at hour:', new Date().getHours());
+    console.log('🎨 Gradient classes:', initialTheme.gradient);
+    
     // Re-evaluate theme every minute
     interval(60000).subscribe(() => {
       this.updateTheme();
@@ -65,7 +74,9 @@ export class ThemeService {
    */
   private updateTheme(): void {
     const newTheme = this.calculateTheme();
+    console.log('🔄 Theme update check - Current:', this.currentThemeSubject.value.name, 'New:', newTheme.name);
     if (newTheme.name !== this.currentThemeSubject.value.name) {
+      console.log('✨ Theme changed to:', newTheme.name);
       this.currentThemeSubject.next(newTheme);
     }
   }
