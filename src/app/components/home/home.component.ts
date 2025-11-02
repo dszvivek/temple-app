@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { SchedulerService } from '../../services/scheduler.service';
 import { AudioStateService } from '../../services/audio-state.service';
 import { LanguageService } from '../../services/language.service';
 import { Subscription } from 'rxjs';
@@ -16,7 +15,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private schedulerService: SchedulerService,
     private audioStateService: AudioStateService,
     public lang: LanguageService
   ) {}

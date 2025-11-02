@@ -10,6 +10,12 @@ export class InstallPromptComponent implements OnInit {
   deferredPrompt: any = null;
 
   ngOnInit(): void {
+    // Check if user previously dismissed the prompt
+    const dismissed = localStorage.getItem('installPromptDismissed');
+    if (dismissed === 'true') {
+      return; // Don't show if previously dismissed
+    }
+
     // Listen for beforeinstallprompt event
     window.addEventListener('beforeinstallprompt', (e) => {
       // Prevent the default install prompt
@@ -18,8 +24,8 @@ export class InstallPromptComponent implements OnInit {
       // Save the event for later use
       this.deferredPrompt = e;
       
-      // Show custom install prompt
-      this.showInstallPrompt = true;
+      // Show custom install prompt (set to false to disable completely)
+      this.showInstallPrompt = false; // Changed from true to false
     });
 
     // Listen for app installed event

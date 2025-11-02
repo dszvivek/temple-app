@@ -21,15 +21,6 @@ import { TempleStatusPillComponent } from './components/temple-status-pill/templ
 // Directives
 import { FlowerOfferingDirective } from './directives/flower-offering.directive';
 
-// Services
-import { WishService } from './services/wish.service';
-import { SchedulerService } from './services/scheduler.service';
-import { AssetLoaderService } from './services/asset-loader.service';
-import { AmbientAudioService } from './services/ambient-audio.service';
-import { PetalService } from './services/petal.service';
-import { TempleScheduleService } from './services/temple-schedule.service';
-import { BlessingsService } from './services/blessings.service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,13 +49,7 @@ import { BlessingsService } from './services/blessings.service';
     })
   ],
   providers: [
-    WishService,
-    SchedulerService,
-    AssetLoaderService,
-    AmbientAudioService,
-    PetalService,
-    TempleScheduleService,
-    BlessingsService
+    // All services use providedIn: 'root', so no need to declare here
   ],
   bootstrap: [AppComponent]
 })
