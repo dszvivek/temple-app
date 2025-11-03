@@ -34,6 +34,13 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
     this.audioService.setVolume(volume);
   }
 
+  /**
+   * Toggle manual playback
+   */
+  togglePlayback(): void {
+    this.audioService.toggleManualPlayback();
+  }
+
   ngOnDestroy(): void {
     // Service persists, don't destroy it
   }

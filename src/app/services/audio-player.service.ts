@@ -22,8 +22,8 @@ export class AudioPlayerService {
 
   // Hanuman Chalisa duration (in seconds) - 8 minutes 32 seconds
   private readonly CHALISA_DURATION = 512; // 8:32 actual duration
-  private readonly START_HOUR = 5; // 5 AM
-  private readonly END_HOUR = 19; // 7 PM
+  // 24/7 operation - no time restrictions
+  public manualPlayback = false; // Track if user is manually playing
 
   constructor(
     private audioStateService: AudioStateService,
@@ -64,6 +64,7 @@ export class AudioPlayerService {
     // Setup event listeners
     this.audio.addEventListener('ended', () => {
       this.isPlaying = false;
+      this.manualPlayback = false; // Reset manual playback when audio ends
       this.audioStateService.setPlayingState(false);
     });
 
@@ -89,32 +90,21 @@ export class AudioPlayerService {
     // Calculate minutes into current hour
     this.minutesIntoHour = currentMinute;
 
-    // Check if we're currently in a chant window
-    if (currentHour >= this.START_HOUR && currentHour < this.END_HOUR) {
-      const secondsIntoHour = (currentMinute * 60) + currentSecond;
-      if (secondsIntoHour < this.CHALISA_DURATION) {
-        this.currentlyInChantWindow = true;
-        // Next chant is next hour
-        this.nextChantTime = new Date(now);
-        this.nextChantTime.setHours(currentHour + 1, 0, 0, 0);
-        return;
-      }
+    // Check if we're currently in a chant window (24/7 operation)
+    const secondsIntoHour = (currentMinute * 60) + currentSecond;
+    if (secondsIntoHour < this.CHALISA_DURATION) {
+      this.currentlyInChantWindow = true;
+      // Next chant is next hour
+      this.nextChantTime = new Date(now);
+      this.nextChantTime.setHours(currentHour + 1, 0, 0, 0);
+      return;
     }
 
     this.currentlyInChantWindow = false;
 
-    // Find next chant time
+    // Next chant is at the start of next hour (24/7 operation)
     const nextChant = new Date(now);
-    
-    if (currentHour < this.START_HOUR) {
-      nextChant.setHours(this.START_HOUR, 0, 0, 0);
-    } else if (currentHour >= this.START_HOUR && currentHour < this.END_HOUR) {
-      nextChant.setHours(currentHour + 1, 0, 0, 0);
-    } else {
-      nextChant.setDate(nextChant.getDate() + 1);
-      nextChant.setHours(this.START_HOUR, 0, 0, 0);
-    }
-
+    nextChant.setHours(currentHour + 1, 0, 0, 0);
     this.nextChantTime = nextChant;
   }
 
@@ -150,6 +140,9 @@ export class AudioPlayerService {
    */
   private checkAndAutoPlay(): void {
     if (!this.audioEnabled || !this.audio) return;
+    
+    // Don't interrupt manual playback
+    if (this.manualPlayback) return;
 
     // Check dev mode override first
     const forcedPlay = this.devMode.getForcedChalisaPlayState();
@@ -172,24 +165,16 @@ export class AudioPlayerService {
     }
 
     const now = new Date();
-    const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
     const currentSecond = now.getSeconds();
-
-    if (currentHour >= this.START_HOUR && currentHour < this.END_HOUR) {
-      const secondsIntoHour = (currentMinute * 60) + currentSecond;
-      
-      if (secondsIntoHour < this.CHALISA_DURATION) {
-        if (!this.isPlaying) {
-          this.audio.currentTime = secondsIntoHour;
-          this.play();
-          this.currentlyInChantWindow = true;
-        }
-      } else {
-        if (this.isPlaying) {
-          this.pause();
-        }
-        this.currentlyInChantWindow = false;
+    const secondsIntoHour = (currentMinute * 60) + currentSecond;
+    
+    // 24/7 operation - play during the first ~8:32 minutes of every hour
+    if (secondsIntoHour < this.CHALISA_DURATION) {
+      if (!this.isPlaying) {
+        this.audio.currentTime = secondsIntoHour;
+        this.play();
+        this.currentlyInChantWindow = true;
       }
     } else {
       if (this.isPlaying) {
@@ -239,21 +224,50 @@ export class AudioPlayerService {
   }
 
   /**
+   * Manually play Hanuman Chalisa from the beginning
+   */
+  public playManually(): void {
+    if (!this.audio || !this.audioEnabled) return;
+    
+    this.manualPlayback = true;
+    this.audio.currentTime = 0;
+    this.play();
+  }
+
+  /**
+   * Manually pause Hanuman Chalisa
+   */
+  public pauseManually(): void {
+    if (!this.audio) return;
+    
+    this.manualPlayback = false;
+    this.pause();
+  }
+
+  /**
+   * Toggle manual playback
+   */
+  public toggleManualPlayback(): void {
+    if (this.isPlaying && this.manualPlayback) {
+      this.pauseManually();
+    } else {
+      this.playManually();
+    }
+  }
+
+  /**
    * Get status message
    */
   getStatusMessage(): string {
-    const now = new Date();
-    const currentHour = now.getHours();
-    
-    if (currentHour < this.START_HOUR || currentHour >= this.END_HOUR) {
-      return `Hanuman Chalisa plays every hour from 5 AM to 7 PM`;
+    if (this.manualPlayback) {
+      return 'Playing Hanuman Chalisa (Manual) 🎵';
     }
     
     if (this.currentlyInChantWindow) {
       return 'Hanuman Chalisa is playing now! 🙏';
     }
     
-    return 'Waiting for next hourly chant...';
+    return 'Hanuman Chalisa plays every hour, 24/7 🕉️';
   }
 
   /**

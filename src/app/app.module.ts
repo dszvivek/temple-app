@@ -11,19 +11,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { WishFlowComponent } from './components/wish-flow/wish-flow.component';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
-import { InstallPromptComponent } from './components/install-prompt/install-prompt.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 import { DonateComponent } from './components/donate/donate.component';
-import { AmbientControlsComponent } from './components/ambient-controls/ambient-controls.component';
-import { TempleStatusPillComponent } from './components/temple-status-pill/temple-status-pill.component';
 import { DevControlsComponent } from './components/dev-controls/dev-controls.component';
 import { FloatingBellComponent } from './components/floating-bell/floating-bell.component';
 import { LightDiyaModalComponent } from './components/light-diya-modal/light-diya-modal.component';
 import { DiyaDisplayComponent } from './components/diya-display/diya-display.component';
 import { OnboardingWelcomeComponent } from './components/onboarding-welcome/onboarding-welcome.component';
 import { ViralSharePromptComponent } from './components/viral-share-prompt/viral-share-prompt.component';
-import { LiveStatsCounterComponent } from './components/live-stats-counter/live-stats-counter.component';
 
 // Directives
 import { FlowerOfferingDirective } from './directives/flower-offering.directive';
@@ -34,19 +30,15 @@ import { FlowerOfferingDirective } from './directives/flower-offering.directive'
     HomeComponent,
     WishFlowComponent,
     AudioPlayerComponent,
-    InstallPromptComponent,
     LoadingScreenComponent,
     LanguageSwitcherComponent,
     DonateComponent,
-    AmbientControlsComponent,
-    TempleStatusPillComponent,
     DevControlsComponent,
     FloatingBellComponent,
     LightDiyaModalComponent,
     DiyaDisplayComponent,
     OnboardingWelcomeComponent,
     ViralSharePromptComponent,
-    LiveStatsCounterComponent,
     FlowerOfferingDirective
   ],
   imports: [

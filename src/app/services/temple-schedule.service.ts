@@ -21,15 +21,21 @@ export interface NextEvent {
   providedIn: 'root'
 })
 export class TempleScheduleService {
+  // Temple operates 24/7 for spiritual service
   private readonly schedule: TempleSchedule = {
-    openHour: 5,
+    openHour: 0,
     openMinute: 0,
-    closeHour: 19,
+    closeHour: 24,
     closeMinute: 0
   };
 
-  // Hanuman Chalisa plays every hour from 5 AM to 7 PM (last one at 6 PM)
+  // Hanuman Chalisa plays every hour, 24/7
   private readonly chalisaTimes = [
+    { hour: 0, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 1, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 2, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 3, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 4, minute: 0, label: 'Hanuman Chalisa' },
     { hour: 5, minute: 0, label: 'Hanuman Chalisa' },
     { hour: 6, minute: 0, label: 'Hanuman Chalisa' },
     { hour: 7, minute: 0, label: 'Hanuman Chalisa' },
@@ -43,7 +49,12 @@ export class TempleScheduleService {
     { hour: 15, minute: 0, label: 'Hanuman Chalisa' },
     { hour: 16, minute: 0, label: 'Hanuman Chalisa' },
     { hour: 17, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 18, minute: 0, label: 'Hanuman Chalisa' }
+    { hour: 18, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 19, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 20, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 21, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 22, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 23, minute: 0, label: 'Hanuman Chalisa' }
   ];
 
   private isOpenSubject = new BehaviorSubject<boolean>(this.checkIfOpen());
@@ -74,19 +85,12 @@ export class TempleScheduleService {
       return forcedState;
     }
 
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
-
-    const currentTimeInMinutes = currentHour * 60 + currentMinute;
-    const openTimeInMinutes = this.schedule.openHour * 60 + this.schedule.openMinute;
-    const closeTimeInMinutes = this.schedule.closeHour * 60 + this.schedule.closeMinute;
-
-    return currentTimeInMinutes >= openTimeInMinutes && currentTimeInMinutes < closeTimeInMinutes;
+    // Temple is always open (24/7 spiritual service)
+    return true;
   }
 
   /**
-   * Calculate the next event (opening, closing, or chalisa)
+   * Calculate the next event (chalisa - temple is always open)
    */
   private calculateNextEvent(): NextEvent | null {
     const now = new Date();
@@ -94,46 +98,27 @@ export class TempleScheduleService {
     const currentMinute = now.getMinutes();
     const currentTimeInMinutes = currentHour * 60 + currentMinute;
 
-    const openTimeInMinutes = this.schedule.openHour * 60 + this.schedule.openMinute;
-    const closeTimeInMinutes = this.schedule.closeHour * 60 + this.schedule.closeMinute;
+    // Find upcoming chalisa
+    const upcomingChalisa = this.chalisaTimes.find(chalisa => {
+      const chalisaTimeInMinutes = chalisa.hour * 60 + chalisa.minute;
+      return chalisaTimeInMinutes > currentTimeInMinutes;
+    });
 
     let nextEventTime: Date;
-    let eventType: 'opening' | 'closing' | 'chalisa';
     let eventLabel: string;
 
-    // If temple is closed (before opening)
-    if (currentTimeInMinutes < openTimeInMinutes) {
-      nextEventTime = this.getTimeToday(this.schedule.openHour, this.schedule.openMinute);
-      eventType = 'opening';
-      eventLabel = 'Temple Opens';
-    }
-    // If temple is open, check for chalisa or closing
-    else if (currentTimeInMinutes < closeTimeInMinutes) {
-      // Check if there's an upcoming chalisa before closing
-      const upcomingChalisa = this.chalisaTimes.find(chalisa => {
-        const chalisaTimeInMinutes = chalisa.hour * 60 + chalisa.minute;
-        return chalisaTimeInMinutes > currentTimeInMinutes;
-      });
-
-      if (upcomingChalisa) {
-        nextEventTime = this.getTimeToday(upcomingChalisa.hour, upcomingChalisa.minute);
-        eventType = 'chalisa';
-        eventLabel = upcomingChalisa.label;
-      } else {
-        nextEventTime = this.getTimeToday(this.schedule.closeHour, this.schedule.closeMinute);
-        eventType = 'closing';
-        eventLabel = 'Temple Closes';
-      }
-    }
-    // Temple is closed (after closing time)
-    else {
-      nextEventTime = this.getTimeTomorrow(this.schedule.openHour, this.schedule.openMinute);
-      eventType = 'opening';
-      eventLabel = 'Temple Opens';
+    if (upcomingChalisa) {
+      // Next chalisa is today
+      nextEventTime = this.getTimeToday(upcomingChalisa.hour, upcomingChalisa.minute);
+      eventLabel = upcomingChalisa.label;
+    } else {
+      // Next chalisa is tomorrow at midnight
+      nextEventTime = this.getTimeTomorrow(0, 0);
+      eventLabel = 'Hanuman Chalisa';
     }
 
     return {
-      type: eventType,
+      type: 'chalisa',
       label: eventLabel,
       time: nextEventTime
     };
