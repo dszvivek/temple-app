@@ -19,8 +19,8 @@ import { filter } from 'rxjs/operators';
         <app-language-switcher></app-language-switcher>
       </div>
       
-      <!-- Install Prompt -->
-      <app-install-prompt></app-install-prompt>
+      <!-- Install Prompt - Disabled to avoid hindering mobile view -->
+      <!-- <app-install-prompt></app-install-prompt> -->
       
       <!-- Developer Controls -->
       <app-dev-controls></app-dev-controls>
@@ -57,14 +57,19 @@ import { filter } from 'rxjs/operators';
       
       <!-- Update Notification -->
       <div *ngIf="updateAvailable" 
-           class="fixed bottom-4 right-4 left-4 sm:left-auto bg-temple-gold text-temple-dark p-3 md:p-4 rounded-lg shadow-2xl max-w-sm z-50">
-        <p class="font-semibold mb-1 md:mb-2 text-sm md:text-base">{{ lang.t('footer.updateTitle') }}</p>
-        <p class="text-xs md:text-sm mb-2 md:mb-3">{{ lang.t('footer.updateMessage') }}</p>
-        <button (click)="activateUpdate()" 
-                class="btn-primary w-full text-xs md:text-sm"
-                style="padding: 0.5rem 1rem;">
-          {{ lang.t('footer.updateButton') }}
-        </button>
+           class="fixed bottom-4 right-4 left-4 sm:left-auto bg-temple-gold text-temple-dark p-4 rounded-lg shadow-2xl max-w-sm z-50 animate-slide-up">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl flex-shrink-0">🔄</span>
+          <div class="flex-grow">
+            <p class="font-bold text-base mb-1">{{ lang.t('footer.updateTitle') }}</p>
+            <p class="text-sm mb-3 opacity-90">{{ lang.t('footer.updateMessage') }}</p>
+            <button (click)="activateUpdate()" 
+                    class="btn-primary w-full text-sm font-semibold py-2.5"
+                    style="background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);">
+              {{ lang.t('footer.updateButton') }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   `,
@@ -81,6 +86,21 @@ import { filter } from 'rxjs/operators';
       z-index: -1;
       opacity: 0.4;
       transition: background 1000ms ease-in-out;
+    }
+
+    @keyframes slide-up {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .animate-slide-up {
+      animation: slide-up 0.4s ease-out;
     }
   `]
 })

@@ -2,16 +2,17 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.5);
   padding: 0.35rem 0.6rem;
   border-radius: 1.5rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
   transition: all 0.3s ease;
 }
 
 .language-switcher:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lang-btn {

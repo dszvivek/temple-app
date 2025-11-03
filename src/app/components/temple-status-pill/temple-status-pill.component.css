@@ -102,23 +102,83 @@
 /* Responsive Design */
 @media (max-width: 640px) {
   .temple-status-pill {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.6rem 0.9rem;
-    align-items: flex-start;
-  }
-
-  .next-event {
-    font-size: 0.8rem;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    max-width: 95%;
+    margin: 0 auto;
   }
 
   .status-indicator {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .status-text {
+    font-size: 0.7rem;
+  }
+
+  .status-icon {
+    font-size: 0.65rem;
+  }
+
+  .next-event {
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .next-label {
+    font-size: 0.75rem;
+  }
+
+  .event-name {
+    font-size: 0.75rem;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .countdown {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .temple-status-pill {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+    justify-content: center;
+  }
+
+  .status-indicator {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .status-text {
+    font-size: 0.65rem;
+  }
+
+  .next-event {
+    font-size: 0.7rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .event-name {
+    max-width: 100px;
+  }
+
+  .countdown {
+    font-size: 0.65rem;
   }
 }
 

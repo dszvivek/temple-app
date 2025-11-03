@@ -12,7 +12,7 @@ export interface TempleSchedule {
 }
 
 export interface NextEvent {
-  type: 'opening' | 'closing' | 'aarti';
+  type: 'opening' | 'closing' | 'chalisa';
   label: string;
   time: Date;
 }
@@ -28,9 +28,22 @@ export class TempleScheduleService {
     closeMinute: 0
   };
 
-  // Aarti times (evening aarti at 7 PM when temple closes)
-  private readonly aartiTimes = [
-    { hour: 19, minute: 0, label: 'Evening Aarti' }
+  // Hanuman Chalisa plays every hour from 5 AM to 7 PM (last one at 6 PM)
+  private readonly chalisaTimes = [
+    { hour: 5, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 6, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 7, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 8, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 9, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 10, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 11, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 12, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 13, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 14, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 15, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 16, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 17, minute: 0, label: 'Hanuman Chalisa' },
+    { hour: 18, minute: 0, label: 'Hanuman Chalisa' }
   ];
 
   private isOpenSubject = new BehaviorSubject<boolean>(this.checkIfOpen());
@@ -73,7 +86,7 @@ export class TempleScheduleService {
   }
 
   /**
-   * Calculate the next event (opening, closing, or aarti)
+   * Calculate the next event (opening, closing, or chalisa)
    */
   private calculateNextEvent(): NextEvent | null {
     const now = new Date();
@@ -85,7 +98,7 @@ export class TempleScheduleService {
     const closeTimeInMinutes = this.schedule.closeHour * 60 + this.schedule.closeMinute;
 
     let nextEventTime: Date;
-    let eventType: 'opening' | 'closing' | 'aarti';
+    let eventType: 'opening' | 'closing' | 'chalisa';
     let eventLabel: string;
 
     // If temple is closed (before opening)
@@ -94,18 +107,18 @@ export class TempleScheduleService {
       eventType = 'opening';
       eventLabel = 'Temple Opens';
     }
-    // If temple is open, check for aarti or closing
+    // If temple is open, check for chalisa or closing
     else if (currentTimeInMinutes < closeTimeInMinutes) {
-      // Check if there's an upcoming aarti before closing
-      const upcomingAarti = this.aartiTimes.find(aarti => {
-        const aartiTimeInMinutes = aarti.hour * 60 + aarti.minute;
-        return aartiTimeInMinutes > currentTimeInMinutes;
+      // Check if there's an upcoming chalisa before closing
+      const upcomingChalisa = this.chalisaTimes.find(chalisa => {
+        const chalisaTimeInMinutes = chalisa.hour * 60 + chalisa.minute;
+        return chalisaTimeInMinutes > currentTimeInMinutes;
       });
 
-      if (upcomingAarti) {
-        nextEventTime = this.getTimeToday(upcomingAarti.hour, upcomingAarti.minute);
-        eventType = 'aarti';
-        eventLabel = upcomingAarti.label;
+      if (upcomingChalisa) {
+        nextEventTime = this.getTimeToday(upcomingChalisa.hour, upcomingChalisa.minute);
+        eventType = 'chalisa';
+        eventLabel = upcomingChalisa.label;
       } else {
         nextEventTime = this.getTimeToday(this.schedule.closeHour, this.schedule.closeMinute);
         eventType = 'closing';
