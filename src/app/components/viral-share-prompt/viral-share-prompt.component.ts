@@ -55,33 +55,47 @@ export class ViralSharePromptComponent {
   async share(): Promise<void> {
     const shareData = {
       title: this.lang.getCurrentLanguage() === 'hi' 
-        ? '�✨ श्री हनुमान वर्चुअल मंदिर दर्शन सूचना ✨🚩' 
-        : '� Shri Hanuman Virtual Temple 🔥',
+        ? '🚩 श्री हनुमान डिजिटल मंदिर 🚩' 
+        : '🚩 Shri Hanuman Digital Temple 🚩',
       text: this.lang.getCurrentLanguage() === 'hi'
-        ? `🚩✨ श्री हनुमान वर्चुअल मंदिर दर्शन सूचना ✨🚩
+        ? `🚩 श्री हनुमान जी का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
 
-अब आप अपने मोबाइल / कंप्यूटर से:
+यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
+जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
 
-🪔 श्री हनुमान जी के चरणों में *दीया प्रज्ज्वलित कर सकते हैं*
-🔔 डिजिटल मन्दिर में घंटा बजा सकते हैं
-🙏 अपनी मनोकामना लिखकर समर्पित कर सकते हैं
-🕯️ वर्चुअल पूजा एवं अर्पण कर सकते हैं
-🎵 प्रत्येक घड़ी श्री हनुमान चालीसा का श्रवण कर सकते हैं (५ AM – ७ PM)
+यहाँ आप अपने मोबाइल से ही:
+🕯️ दीया जला सकते हैं  
+🔔 मंदिर की घंटी बजा सकते हैं  
+� अपनी मनोकामना लिखकर श्री हनुमान जी को समर्पित कर सकते हैं  
+🎵 हर घंटे श्री हनुमान चालीसा अपने-आप बजती है — दिन हो या रात  
 
-✅ कोई पंजीकरण आवश्यक नहीं
-✅ कोई शुल्क नहीं – पूर्णतः निःशुल्क सेवा
-✅ मनोकामनाएँ आपके उपकरण में ही सुरक्षित रहती हैं
+✅ कोई लॉगिन नहीं  
+✅ कोई ऐप डाउनलोड नहीं  
+✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
+✅ शुद्ध भक्ति, बिना किसी शुल्क के  
 
 🔗 दर्शन हेतु पधारें: ${window.location.origin}
-🕉️ "संकट मोचन हनुमान अंजनि सुता" 🚩`
-        : `A temple experience… but online.
-Now you can *light a real-time virtual diya* in front of Hanuman Ji,
-offer your wish, ring the bell, and listen to Hanuman Chalisa every hour.
+� "डिजिटल मंदिर, पर भक्ति वही"  
+🚩 जय बजरंगबली`
+        : `🚩 The Digital Hanuman Temple is now open 24×7 🚩
 
-No app. No login. Just pure devotion.
+This is not a physical temple — it is a sacred online space
+created for those who wish to pray, offer devotion, and submit
+their wishes from anywhere in the world.
 
-Enter the digital mandir → ${window.location.origin}
-Jai Bajrang Bali 🚩🔥🪔`,
+Inside the digital temple, you can:
+🕯️ Light a virtual Diya
+🔔 Ring the temple bell
+📿 Write and offer your personal wish to Hanuman Ji
+🎵 Listen to the Hanuman Chalisa every hour, automatically (day & night)
+
+✅ No login required
+✅ No app to install
+✅ Your wishes stay private on your own device
+✅ 100% free — devotion only, no mandatory donation
+
+Visit and offer your prayer: ${window.location.origin}
+🙏 Jai Bajrang Bali 🚩`,
       url: window.location.origin
     };
 
@@ -102,30 +116,44 @@ Jai Bajrang Bali 🚩🔥🪔`,
 
   copyToClipboard(): void {
     const shareText = this.lang.getCurrentLanguage() === 'hi'
-      ? `🚩✨ श्री हनुमान वर्चुअल मंदिर दर्शन सूचना ✨🚩
+      ? `🚩 श्री हनुमान जी का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
 
-अब आप अपने मोबाइल / कंप्यूटर से:
+यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
+जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
 
-🪔 श्री हनुमान जी के चरणों में *दीया प्रज्ज्वलित कर सकते हैं*
-🔔 डिजिटल मन्दिर में घंटा बजा सकते हैं
-🙏 अपनी मनोकामना लिखकर समर्पित कर सकते हैं
-🕯️ वर्चुअल पूजा एवं अर्पण कर सकते हैं
-🎵 प्रत्येक घड़ी श्री हनुमान चालीसा का श्रवण कर सकते हैं (५ AM – ७ PM)
+यहाँ आप अपने मोबाइल से ही:
+🕯️ दीया जला सकते हैं  
+🔔 मंदिर की घंटी बजा सकते हैं  
+� अपनी मनोकामना लिखकर श्री हनुमान जी को समर्पित कर सकते हैं  
+🎵 हर घंटे श्री हनुमान चालीसा अपने-आप बजती है — दिन हो या रात  
 
-✅ कोई पंजीकरण आवश्यक नहीं
-✅ कोई शुल्क नहीं – पूर्णतः निःशुल्क सेवा
-✅ मनोकामनाएँ आपके उपकरण में ही सुरक्षित रहती हैं
+✅ कोई लॉगिन नहीं  
+✅ कोई ऐप डाउनलोड नहीं  
+✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
+✅ शुद्ध भक्ति, बिना किसी शुल्क के  
 
 🔗 दर्शन हेतु पधारें: ${window.location.origin}
-🕉️ "संकट मोचन हनुमान अंजनि सुता" 🚩`
-      : `A temple experience… but online.
-Now you can *light a real-time virtual diya* in front of Hanuman Ji,
-offer your wish, ring the bell, and listen to Hanuman Chalisa every hour.
+� "डिजिटल मंदिर, पर भक्ति वही"  
+🚩 जय बजरंगबली`
+      : `🚩 The Digital Hanuman Temple is now open 24×7 🚩
 
-No app. No login. Just pure devotion.
+This is not a physical temple — it is a sacred online space
+created for those who wish to pray, offer devotion, and submit
+their wishes from anywhere in the world.
 
-Enter the digital mandir → ${window.location.origin}
-Jai Bajrang Bali 🚩🔥🪔`;
+Inside the digital temple, you can:
+🕯️ Light a virtual Diya
+🔔 Ring the temple bell
+📿 Write and offer your personal wish to Hanuman Ji
+🎵 Listen to the Hanuman Chalisa every hour, automatically (day & night)
+
+✅ No login required
+✅ No app to install
+✅ Your wishes stay private on your own device
+✅ 100% free — devotion only, no mandatory donation
+
+Visit and offer your prayer: ${window.location.origin}
+🙏 Jai Bajrang Bali 🚩`;
 
     navigator.clipboard.writeText(shareText).then(() => {
       alert(this.lang.getCurrentLanguage() === 'hi' 

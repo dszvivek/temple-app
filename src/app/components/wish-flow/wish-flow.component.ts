@@ -220,38 +220,45 @@ It is a **real digital temple of faith and devotion**.
    * Share directly to WhatsApp
    */
   shareToWhatsApp(): void {
-    const hindiMessage = `🚩 जय श्री राम 🚩
-अब एक ऐसा ऑनलाइन मंदिर तैयार हुआ है जहाँ:
+    const hindiMessage = `🚩 श्री हनुमान जी का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
 
-🕓 हर घंटे हनुमान चालीसा स्वचालित रूप से बजती है (5 AM – 7 PM)
-🙏 आप अपनी मनोकामना लिखकर घंटा बजा सकते हैं
-🪔 वर्चुअल चढ़ावा, आरती और पूजा का अनुभव मिलता है
-📿 आपकी सभी इच्छाएँ केवल आपके मोबाइल में सुरक्षित रहती हैं
-🌍 दुनिया भर के भक्त एक ही समय पर चालीसा सुनते हैं
-📱 किसी ऐप की जरूरत नहीं — बस लिंक खोलें और दर्शन करें
+यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
+जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
 
-यह सिर्फ वेबसाइट नहीं — एक *डिजिटल भक्ति स्थल* है।
+यहाँ आप अपने मोबाइल से ही:
+🕯️ दीया जला सकते हैं  
+🔔 मंदिर की घंटी बजा सकते हैं  
+📿 अपनी मनोकामना लिखकर श्री हनुमान जी को समर्पित कर सकते हैं  
+� हर घंटे श्री हनुमान चालीसा अपने-आप बजती है — दिन हो या रात  
 
-🔗 https://manokamna.online
-🕉 जय बजरंगबली 🚩`;
+✅ कोई लॉगिन नहीं  
+✅ कोई ऐप डाउनलोड नहीं  
+✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
+✅ शुद्ध भक्ति, बिना किसी शुल्क के  
 
-    const englishMessage = `🚩 Jai Shree Ram 🚩
+🌐 दर्शन हेतु पधारें: https://manokamna.online  
+� "डिजिटल मंदिर, पर भक्ति वही"  
+🚩 जय बजरंगबली`;
 
-A unique spiritual experience has been created for devotees across the world:
+    const englishMessage = `🚩 The Digital Hanuman Temple is now open 24×7 🚩
 
-🕓 Automatic Hanuman Chalisa every hour (5 AM – 7 PM)
-🙏 Write your personal wish and offer it to Lord Hanuman
-🔔 Ring the digital temple bell and complete a guided ritual
-🪔 Experience virtual Aarti and offerings
-📿 All wishes are stored only on your device — fully private
-🌍 Devotees worldwide hear the same Chalisa timing together
-📱 No download, no login — works instantly on any device
+This is not a physical temple — it is a sacred online space
+created for those who wish to pray, offer devotion, and submit
+their wishes from anywhere in the world.
 
-This is not just a website.
-It is a **real digital temple of faith and devotion**.
+Inside the digital temple, you can:
+🕯️ Light a virtual Diya
+🔔 Ring the temple bell
+📿 Write and offer your personal wish to Hanuman Ji
+� Listen to the Hanuman Chalisa every hour, automatically (day & night)
 
-🔗 Visit now: https://manokamna.online
-🕉 Jai Bajrang Bali 🔱`;
+✅ No login required
+✅ No app to install
+✅ Your wishes stay private on your own device
+✅ 100% free — devotion only, no mandatory donation
+
+Visit and offer your prayer: https://manokamna.online  
+� Jai Bajrang Bali �`;
 
     const messageToShare = this.lang.getCurrentLanguage() === 'hi' ? hindiMessage : englishMessage;
     const encodedMessage = encodeURIComponent(messageToShare);
