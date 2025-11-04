@@ -1,0 +1,26 @@
+<!-- Persistent Offline Badge (top-right) -->
+<div class="offline-badge" *ngIf="!isOnline" [@fadeIn]>
+  <span class="badge-icon">📡</span>
+  <span class="badge-text">Offline Mode</span>
+</div>
+
+<!-- Status Change Notification (toast) -->
+<div 
+  class="status-notification" 
+  *ngIf="showNotification"
+  [class.online]="isOnline"
+  [class.offline]="!isOnline"
+  [@slideIn]>
+  <div class="notification-content">
+    <span class="notification-icon">{{ isOnline ? '🌐' : '📡' }}</span>
+    <div class="notification-text">
+      <div class="notification-title">
+        {{ isOnline ? 'Back Online!' : 'You\'re Offline' }}
+      </div>
+      <div class="notification-message">
+        {{ isOnline ? 'Temple features fully restored' : 'Blessed even offline ✨' }}
+      </div>
+    </div>
+    <button class="close-btn" (click)="closeNotification()">×</button>
+  </div>
+</div>

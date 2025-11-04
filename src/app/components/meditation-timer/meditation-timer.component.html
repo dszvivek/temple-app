@@ -1,0 +1,95 @@
+<div class="meditation-container">
+  <div class="meditation-card">
+    <!-- Header -->
+    <div class="header">
+      <h3 class="title">
+        <span class="icon">🧘‍♂️</span>
+        Meditation Timer
+      </h3>
+      <button 
+        (click)="toggleStats()"
+        class="stats-toggle"
+        [class.active]="showStats">
+        📊
+      </button>
+    </div>
+
+    <!-- Stats Panel (when toggled) -->
+    <div class="stats-panel" *ngIf="showStats">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value">{{ stats.totalSessions }}</div>
+          <div class="stat-label">Sessions</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">{{ stats.totalMinutes }}</div>
+          <div class="stat-label">Minutes</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">{{ stats.currentStreak }}</div>
+          <div class="stat-label">🔥 Streak</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">{{ stats.longestStreak }}</div>
+          <div class="stat-label">Best</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timer Display (when active) -->
+    <div class="timer-display" *ngIf="isActive">
+      <div class="time-circle">
+        <svg class="progress-ring" width="200" height="200">
+          <circle
+            class="progress-ring-bg"
+            cx="100"
+            cy="100"
+            r="90"
+            fill="none"
+            stroke="#ffedd5"
+            stroke-width="8"
+          />
+          <circle
+            class="progress-ring-fill"
+            cx="100"
+            cy="100"
+            r="90"
+            fill="none"
+            stroke="#f97316"
+            stroke-width="8"
+            [style.stroke-dasharray]="565.48"
+            [style.stroke-dashoffset]="565.48 - (565.48 * getProgress() / 100)"
+          />
+        </svg>
+        <div class="time-text">
+          <div class="time-value">{{ getFormattedTime() }}</div>
+          <div class="time-label">remaining</div>
+        </div>
+      </div>
+
+      <button 
+        (click)="stopMeditation()"
+        class="btn-stop">
+        ⏹️ Stop
+      </button>
+    </div>
+
+    <!-- Preset Buttons (when not active) -->
+    <div class="presets-grid" *ngIf="!isActive">
+      <button
+        *ngFor="let preset of presets"
+        (click)="startMeditation(preset)"
+        class="preset-btn">
+        <span class="preset-duration">{{ preset }}</span>
+        <span class="preset-label">minutes</span>
+      </button>
+    </div>
+
+    <!-- Info Message -->
+    <div class="info-message">
+      <p class="info-text">
+        🕉️ Find peace in stillness. Meditate daily to build your streak!
+      </p>
+    </div>
+  </div>
+</div>

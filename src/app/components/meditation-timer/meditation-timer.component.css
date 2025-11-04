@@ -1,0 +1,251 @@
+.meditation-container {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.meditation-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 10px 20px rgba(34, 197, 94, 0.1);
+  border: 2px solid rgba(34, 197, 94, 0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-size: clamp(1.125rem, 3vw, 1.375rem);
+  font-weight: 700;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.stats-toggle {
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stats-toggle:hover,
+.stats-toggle.active {
+  background: rgba(34, 197, 94, 0.2);
+  transform: scale(1.05);
+}
+
+.stats-panel {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: #15803d;
+}
+
+.stat-label {
+  font-size: clamp(0.6875rem, 1.75vw, 0.8125rem);
+  color: #166534;
+  font-weight: 500;
+  margin-top: 0.125rem;
+}
+
+.timer-display {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.time-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1.5rem;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-fill {
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.time-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.time-value {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 800;
+  color: #15803d;
+  line-height: 1;
+  font-family: 'Arial', monospace;
+}
+
+.time-label {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #166534;
+  margin-top: 0.25rem;
+}
+
+.btn-stop {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+}
+
+.btn-stop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.4);
+}
+
+.btn-stop:active {
+  transform: translateY(0);
+}
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.preset-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.preset-btn:hover {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
+}
+
+.preset-btn:active {
+  transform: translateY(0);
+}
+
+.preset-duration {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  color: #15803d;
+  line-height: 1;
+}
+
+.preset-label {
+  font-size: clamp(0.6875rem, 1.75vw, 0.8125rem);
+  color: #166534;
+  font-weight: 500;
+}
+
+.info-message {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(74, 222, 128, 0.1) 100%);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.info-text {
+  font-size: clamp(0.8125rem, 2.25vw, 0.9375rem);
+  color: #166534;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .meditation-card {
+    padding: 1.25rem;
+  }
+
+  .stat-grid {
+    gap: 0.5rem;
+  }
+
+  .presets-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.625rem;
+  }
+
+  .time-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .progress-ring {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 375px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .presets-grid {
+    gap: 0.5rem;
+  }
+
+  .time-circle {
+    width: 160px;
+    height: 160px;
+  }
+
+  .progress-ring {
+    width: 160px;
+    height: 160px;
+  }
+}

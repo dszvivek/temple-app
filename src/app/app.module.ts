@@ -23,6 +23,9 @@ import { ViralSharePromptComponent } from './components/viral-share-prompt/viral
 
 // Directives
 import { FlowerOfferingDirective } from './directives/flower-offering.directive';
+import { DiyaCounterComponent } from './components/diya-counter/diya-counter.component';
+import { MeditationTimerComponent } from './components/meditation-timer/meditation-timer.component';
+import { OfflineIndicatorComponent } from './components/offline-indicator/offline-indicator.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { FlowerOfferingDirective } from './directives/flower-offering.directive'
     DiyaDisplayComponent,
     OnboardingWelcomeComponent,
     ViralSharePromptComponent,
-    FlowerOfferingDirective
+    FlowerOfferingDirective,
+    DiyaCounterComponent,
+    MeditationTimerComponent,
+    OfflineIndicatorComponent
   ],
   imports: [
     BrowserModule,

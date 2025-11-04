@@ -57,6 +57,13 @@ export class TempleScheduleService {
     { hour: 23, minute: 0, label: 'Hanuman Chalisa' }
   ];
 
+  // Aarti times for notifications (Morning, Afternoon, Evening)
+  private readonly aartiTimes = [
+    { hour: 8, minute: 0, label: 'Morning Aarti', emoji: '🌅' },
+    { hour: 13, minute: 0, label: 'Afternoon Aarti', emoji: '☀️' },
+    { hour: 19, minute: 0, label: 'Evening Aarti', emoji: '🌆' }
+  ];
+
   private isOpenSubject = new BehaviorSubject<boolean>(this.checkIfOpen());
   private nextEventSubject = new BehaviorSubject<NextEvent | null>(this.calculateNextEvent());
   private countdownSubject = new BehaviorSubject<string>('--:--:--');
@@ -210,5 +217,12 @@ export class TempleScheduleService {
    */
   public getClosingTime(): string {
     return `${this.padZero(this.schedule.closeHour)}:${this.padZero(this.schedule.closeMinute)}`;
+  }
+
+  /**
+   * Get aarti times for notifications
+   */
+  public getAartiTimes() {
+    return [...this.aartiTimes];
   }
 }

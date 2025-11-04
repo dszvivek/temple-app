@@ -68,5 +68,46 @@
       "sizes": "540x720",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Light Diya",
+      "short_name": "Diya",
+      "description": "Light a sacred diya and make a wish",
+      "url": "/wish",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Play Chalisa",
+      "short_name": "Chalisa",
+      "description": "Play Hanuman Chalisa",
+      "url": "/?action=play-chalisa",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Ring Bell",
+      "short_name": "Bell",
+      "description": "Ring the temple bell",
+      "url": "/?action=ring-bell",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }

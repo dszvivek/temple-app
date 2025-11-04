@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AudioPlayerService } from '../../services/audio-player.service';
 import { LanguageService } from '../../services/language.service';
+import { AartiNotificationService } from '../../services/aarti-notification.service';
 
 @Component({
   selector: 'app-audio-player',
@@ -11,7 +12,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   
   constructor(
     public audioService: AudioPlayerService,
-    public lang: LanguageService
+    public lang: LanguageService,
+    public notificationService: AartiNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,20 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
    */
   togglePlayback(): void {
     this.audioService.toggleManualPlayback();
+  }
+
+  /**
+   * Toggle mute/unmute
+   */
+  toggleMute(): void {
+    this.audioService.toggleMute();
+  }
+
+  /**
+   * Toggle aarti notifications
+   */
+  async toggleNotifications(): Promise<void> {
+    await this.notificationService.toggleNotifications();
   }
 
   ngOnDestroy(): void {

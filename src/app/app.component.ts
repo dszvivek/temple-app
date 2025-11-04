@@ -10,6 +10,9 @@ import { filter } from 'rxjs/operators';
     <!-- Loading Screen -->
     <app-loading-screen></app-loading-screen>
     
+    <!-- Offline Indicator -->
+    <app-offline-indicator></app-offline-indicator>
+    
     <!-- Dynamic Theme Background with Gradient -->
     <div [class]="themeClasses + ' temple-background'"></div>
     

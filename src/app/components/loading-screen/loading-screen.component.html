@@ -20,6 +20,11 @@
       <p class="progress-percentage">{{ progress.percentage }}%</p>
     </div>
     
+    <!-- Devotional Message -->
+    <div class="devotional-message">
+      <p class="message-text">{{ currentMessage }}</p>
+    </div>
+    
     <!-- Decorative Elements -->
     <div class="decorative-dots">
       <span class="dot" [class.active]="progress.percentage > 0"></span>

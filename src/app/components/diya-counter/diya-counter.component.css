@@ -1,0 +1,230 @@
+.diya-counter-container {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.counter-card {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 10px 20px rgba(249, 115, 22, 0.1);
+  border: 2px solid rgba(249, 115, 22, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.counter-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.05) 0%,
+    transparent 70%
+  );
+  animation: pulse-bg 3s ease-in-out infinite;
+}
+
+@keyframes pulse-bg {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.main-counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-wrapper {
+  flex-shrink: 0;
+}
+
+.diya-icon {
+  font-size: 3rem;
+  display: block;
+  animation: flicker 2s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+  }
+}
+
+.counter-content {
+  flex: 1;
+  text-align: left;
+}
+
+.counter-value {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 800;
+  color: #c2410c;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #dc2626 0%, #f97316 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.counter-value.counting {
+  animation: number-change 0.3s ease-in-out;
+}
+
+@keyframes number-change {
+  0% {
+    transform: translateY(-5px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.counter-label {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  color: #92400e;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 0.875rem;
+  text-align: center;
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: #ea580c;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #78350f;
+  font-weight: 500;
+  margin-top: 0.125rem;
+}
+
+.motivation-message {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.message-text {
+  font-size: clamp(0.8125rem, 2.25vw, 0.9375rem);
+  color: #7c2d12;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.sparkle {
+  display: inline-block;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(20deg);
+    opacity: 0.8;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .counter-card {
+    padding: 1.25rem;
+  }
+
+  .main-counter {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .diya-icon {
+    font-size: 2.5rem;
+  }
+
+  .stats-row {
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .motivation-message {
+    padding: 0.625rem 0.875rem;
+  }
+}
+
+/* Small screens */
+@media (max-width: 375px) {
+  .counter-label {
+    font-size: 0.8125rem;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+  }
+
+  .message-text {
+    font-size: 0.75rem;
+  }
+}

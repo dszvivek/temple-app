@@ -1,0 +1,42 @@
+<div class="diya-counter-container">
+  <div class="counter-card">
+    <!-- Total Diyas Lit -->
+    <div class="counter-section main-counter">
+      <div class="icon-wrapper">
+        <span class="diya-icon">🪔</span>
+      </div>
+      <div class="counter-content">
+        <div class="counter-value" [class.counting]="displayedTotal !== totalCount">
+          {{ formatNumber(displayedTotal) }}
+        </div>
+        <div class="counter-label">Diyas Lit by Devotees</div>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <!-- Today's Count -->
+      <div class="stat-item">
+        <div class="stat-icon">📅</div>
+        <div class="stat-value">{{ formatNumber(displayedToday) }}</div>
+        <div class="stat-label">Today</div>
+      </div>
+
+      <!-- This Month -->
+      <div class="stat-item">
+        <div class="stat-icon">🗓️</div>
+        <div class="stat-value">{{ formatNumber(displayedMonth) }}</div>
+        <div class="stat-label">This Month</div>
+      </div>
+    </div>
+
+    <!-- Motivational Message -->
+    <div class="motivation-message">
+      <p class="message-text">
+        <span class="sparkle">✨</span>
+        Join thousands of devotees in spreading light!
+        <span class="sparkle">✨</span>
+      </p>
+    </div>
+  </div>
+</div>

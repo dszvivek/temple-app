@@ -179,6 +179,36 @@
   flex-shrink: 0;
 }
 
+.devotional-message {
+  width: min(400px, 85vw);
+  max-width: 90vw;
+  margin: 1.5rem auto 0;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 2px solid rgba(249, 115, 22, 0.2);
+}
+
+.message-text {
+  color: #7c2d12;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  font-weight: 600;
+  text-align: center;
+  animation: fadeInMessage 0.5s ease-in;
+}
+
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .decorative-dots {
   display: flex;
   gap: 1rem;

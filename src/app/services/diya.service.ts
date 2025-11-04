@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as localforage from 'localforage';
 import { Diya } from '../models/diya.model';
+import { DiyaCounterService } from './diya-counter.service';
 
 /**
  * DiyaService - Manages virtual diyas lit for loved ones
@@ -26,7 +27,7 @@ export class DiyaService {
   
   private cleanupInterval?: any;
 
-  constructor() {
+  constructor(private diyaCounterService: DiyaCounterService) {
     this.initializeStore();
     this.startAutoCleanup();
   }
@@ -99,6 +100,9 @@ export class DiyaService {
     const currentDiyas = this.diyasSubject.value;
     const updatedDiyas = [...currentDiyas, newDiya];
     await this.saveDiyas(updatedDiyas);
+
+    // Increment global counter
+    this.diyaCounterService.incrementCount();
 
     console.log(`🪔 Diya lit for ${trimmedName}`);
     return newDiya;

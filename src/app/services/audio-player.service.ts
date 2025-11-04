@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AudioStateService } from './audio-state.service';
 import { DevModeService } from './dev-mode.service';
+import { AmbientAudioService } from './ambient-audio.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,12 @@ export class AudioPlayerService {
   public isPlaying = false;
   public audioEnabled = false;
   public volume = 0.7;
+  public isMuted = false;
+  private volumeBeforeMute = 0.7;
+  
+  // LocalStorage keys
+  private readonly MUTE_STATE_KEY = 'temple-chalisa-muted';
+  private readonly VOLUME_STATE_KEY = 'temple-chalisa-volume';
   
   // Hourly schedule info
   public nextChantTime: Date | null = null;
@@ -27,9 +34,43 @@ export class AudioPlayerService {
 
   constructor(
     private audioStateService: AudioStateService,
-    private devMode: DevModeService
+    private devMode: DevModeService,
+    private ambientAudioService: AmbientAudioService
   ) {
+    this.loadSavedState();
     this.initialize();
+  }
+
+  /**
+   * Load saved mute and volume state from localStorage
+   */
+  private loadSavedState(): void {
+    // Load mute state
+    const savedMute = localStorage.getItem(this.MUTE_STATE_KEY);
+    if (savedMute !== null) {
+      this.isMuted = savedMute === 'true';
+    }
+    
+    // Load volume state
+    const savedVolume = localStorage.getItem(this.VOLUME_STATE_KEY);
+    if (savedVolume !== null) {
+      this.volume = parseFloat(savedVolume);
+      this.volumeBeforeMute = this.volume;
+    }
+  }
+
+  /**
+   * Save mute state to localStorage
+   */
+  private saveMuteState(): void {
+    localStorage.setItem(this.MUTE_STATE_KEY, this.isMuted.toString());
+  }
+
+  /**
+   * Save volume state to localStorage
+   */
+  private saveVolumeState(): void {
+    localStorage.setItem(this.VOLUME_STATE_KEY, this.volume.toString());
   }
 
   /**
@@ -57,7 +98,7 @@ export class AudioPlayerService {
 
     this.audio = new Audio();
     this.audio.src = 'assets/audio/hanuman-chalisa.mp3';
-    this.audio.volume = this.volume;
+    this.audio.volume = this.isMuted ? 0 : this.volume;
     this.audio.loop = false;
     this.audioEnabled = true;
     
@@ -218,9 +259,42 @@ export class AudioPlayerService {
    */
   setVolume(volume: number): void {
     this.volume = volume;
+    this.saveVolumeState();
     if (this.audio) {
       this.audio.volume = volume;
     }
+    // If volume is set above 0, unmute
+    if (volume > 0 && this.isMuted) {
+      this.isMuted = false;
+      this.saveMuteState();
+    }
+  }
+
+  /**
+   * Toggle mute/unmute (Master Mute - affects both Chalisa and Ambient audio)
+   */
+  public toggleMute(): void {
+    if (this.isMuted) {
+      // Unmute: restore previous volume
+      this.isMuted = false;
+      this.volume = this.volumeBeforeMute;
+      if (this.audio) {
+        this.audio.volume = this.volumeBeforeMute;
+      }
+      // Unmute ambient audio as well
+      this.ambientAudioService.setMute(false);
+    } else {
+      // Mute: save current volume and set to 0
+      this.isMuted = true;
+      this.volumeBeforeMute = this.volume;
+      this.volume = 0;
+      if (this.audio) {
+        this.audio.volume = 0;
+      }
+      // Mute ambient audio as well
+      this.ambientAudioService.setMute(true);
+    }
+    this.saveMuteState();
   }
 
   /**
