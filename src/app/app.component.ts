@@ -131,10 +131,32 @@ export class AppComponent implements OnInit {
 
     // Listen for service worker updates
     if (this.swUpdate.isEnabled) {
+      // Check for updates immediately on app load
+      this.swUpdate.checkForUpdate().then(() => {
+        console.log('✅ Checked for updates');
+      });
+
+      // Check for updates every 30 seconds
+      setInterval(() => {
+        this.swUpdate.checkForUpdate().then(() => {
+          console.log('🔄 Periodic update check');
+        });
+      }, 30000);
+
+      // Listen for available updates
       this.swUpdate.versionUpdates
         .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
         .subscribe(() => {
+          console.log('🆕 New version available!');
           this.updateAvailable = true;
+          
+          // Auto-activate update after 3 seconds (give user time to see notification)
+          setTimeout(() => {
+            if (this.updateAvailable) {
+              console.log('🔄 Auto-activating update...');
+              this.activateUpdate();
+            }
+          }, 3000);
         });
     }
   }
