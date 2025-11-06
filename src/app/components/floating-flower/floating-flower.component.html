@@ -1,0 +1,9 @@
+<button
+  *ngIf="shouldShow()"
+  (click)="offerFlowers()"
+  class="floating-flower-btn"
+  [attr.aria-label]="lang.getCurrentLanguage() === 'hi' ? 'पुष्प अर्पित करें' : 'Offer Flowers'"
+  [attr.title]="lang.getCurrentLanguage() === 'hi' ? 'पुष्प अर्पित करें' : 'Offer Flowers'">
+  <div class="flower-icon">🌺</div>
+  <div class="flower-label">{{ lang.getCurrentLanguage() === 'hi' ? 'पुष्प' : 'Flowers' }}</div>
+</button>

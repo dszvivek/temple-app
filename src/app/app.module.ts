@@ -24,6 +24,7 @@ import { LanguageSwitcherComponent } from './components/language-switcher/langua
 import { DonateComponent } from './components/donate/donate.component';
 import { DevControlsComponent } from './components/dev-controls/dev-controls.component';
 import { FloatingBellComponent } from './components/floating-bell/floating-bell.component';
+import { FloatingFlowerComponent } from './components/floating-flower/floating-flower.component';
 import { LightDiyaModalComponent } from './components/light-diya-modal/light-diya-modal.component';
 import { DiyaDisplayComponent } from './components/diya-display/diya-display.component';
 import { OnboardingWelcomeComponent } from './components/onboarding-welcome/onboarding-welcome.component';
@@ -49,6 +50,7 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
     DonateComponent,
     DevControlsComponent,
     FloatingBellComponent,
+    FloatingFlowerComponent,
     LightDiyaModalComponent,
     DiyaDisplayComponent,
     OnboardingWelcomeComponent,

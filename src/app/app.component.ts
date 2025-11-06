@@ -36,6 +36,9 @@ import { filter } from 'rxjs/operators';
       <!-- Floating Temple Bell Button -->
       <app-floating-bell></app-floating-bell>
       
+      <!-- Floating Flower Button -->
+      <app-floating-flower></app-floating-flower>
+      
       <!-- Main Content -->
       <main class="flex-grow relative z-10">
         <router-outlet></router-outlet>
@@ -45,7 +48,7 @@ import { filter } from 'rxjs/operators';
       <footer class="bg-temple-dark text-saffron-100 py-4 md:py-6 mt-6 md:mt-8 relative z-10">
         <div class="container mx-auto px-4 text-center">
           <p class="text-xs md:text-sm mb-2">
-            🙏 {{ lang.t('footer.jaiHanuman') }} 🙏
+            🙏 {{ lang.getDeityGreeting() }} 🙏
           </p>
           <p class="text-xs opacity-75 px-2">
             {{ lang.t('footer.description') }}
@@ -167,6 +170,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Subscribe to deity changes to update language context
+    this.deityService.currentDeity$.subscribe(deity => {
+      this.lang.setDeityContext(deity.id);
+      console.log('🏛️ Deity context updated in app:', deity.name);
+    });
+    
     // Subscribe to theme changes (re-evaluates every minute)
     this.themeService.currentTheme$.subscribe((theme) => {
       this.themeClasses = this.themeService.getCurrentGradient();

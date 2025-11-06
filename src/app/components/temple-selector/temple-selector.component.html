@@ -20,9 +20,17 @@
         (click)="selectTemple(DeityType.HANUMAN)"
         class="temple-card {{ getCardGradient(DeityType.HANUMAN) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
         
-        <!-- Icon -->
-        <div class="text-8xl text-center mb-6 animate-pulse">
-          {{ getDeityIcon(DeityType.HANUMAN) }}
+        <!-- Deity Image -->
+        <div class="mb-6 flex justify-center">
+          <div class="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-4 border-orange-400 bg-white">
+            <img 
+              src="assets/images/deities/hanuman/hanuman-main.png" 
+              alt="Lord Hanuman"
+              class="w-full h-full object-cover"
+              loading="eager"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="text-8xl flex items-center justify-center h-full" style="display: none;">🙏</div>
+          </div>
         </div>
         
         <!-- Title -->
@@ -70,9 +78,17 @@
         (click)="selectTemple(DeityType.GANESH)"
         class="temple-card {{ getCardGradient(DeityType.GANESH) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
         
-        <!-- Icon -->
-        <div class="text-8xl text-center mb-6 animate-pulse">
-          {{ getDeityIcon(DeityType.GANESH) }}
+        <!-- Deity Image -->
+        <div class="mb-6 flex justify-center">
+          <div class="w-48 h-48 rounded-full overflow-hidden shadow-2xl border-4 border-amber-500 bg-white">
+            <img 
+              src="assets/images/deities/ganesh/Ganesh.png" 
+              alt="Lord Ganesha"
+              class="w-full h-full object-cover"
+              loading="eager"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="text-8xl flex items-center justify-center h-full" style="display: none;">🐘</div>
+          </div>
         </div>
         
         <!-- Title -->
