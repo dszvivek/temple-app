@@ -4,12 +4,28 @@
 export const environment = {
   production: true,
   
+  // Firebase Configuration
+  // IMPORTANT: Replace with your Firebase project credentials
+  // Get these from Firebase Console > Project Settings > General > Your apps > SDK setup and configuration
+  firebase: {
+    apiKey: 'AIzaSyDLQAzjvix0B5Kpno0DQPtDkf0tyZK1iY4',
+    authDomain: 'manokamna-online.firebaseapp.com',
+    projectId: 'manokamna-online',
+    storageBucket: 'manokamna-online.appspot.com',
+    messagingSenderId: '590194861297',
+    appId: '1:590194861297:web:889d36f2af3f308e2eb550'
+    // measurementId: 'G-XXXXXXXXXX' // Optional: Add if you want Google Analytics
+  },
+  
+  // Backend Features
+  useBackend: true, // Set to false to use offline-only mode
+  
   // UPI Payment Configuration
   // IMPORTANT: Replace with your actual UPI VPA before deployment
   upiVpa: 'dszvivek@icici',
   
   // App Configuration
-  appName: 'Karunamayi Hanuman E-Mandir',
+  appName: 'E-Darshan Mandir',
   version: '1.0.0',
   
   // Audio Assets

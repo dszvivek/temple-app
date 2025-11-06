@@ -4,11 +4,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+// Firebase imports
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore, enableIndexedDbPersistence } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Components
 import { HomeComponent } from './components/home/home.component';
+import { HanumanHomeComponent } from './components/hanuman-home/hanuman-home.component';
+import { GaneshHomeComponent } from './components/ganesh-home/ganesh-home.component';
+import { TempleSelectorComponent } from './components/temple-selector/temple-selector.component';
 import { WishFlowComponent } from './components/wish-flow/wish-flow.component';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
@@ -31,6 +39,9 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
   declarations: [
     AppComponent,
     HomeComponent,
+    HanumanHomeComponent,
+    GaneshHomeComponent,
+    TempleSelectorComponent,
     WishFlowComponent,
     AudioPlayerComponent,
     LoadingScreenComponent,
@@ -61,7 +72,22 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
     })
   ],
   providers: [
-    // All services use providedIn: 'root', so no need to declare here
+    // Firebase providers - Initialize Firebase with offline persistence
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      // Enable offline persistence for better user experience
+      if (environment.useBackend) {
+        enableIndexedDbPersistence(firestore).catch((err) => {
+          if (err.code === 'failed-precondition') {
+            console.warn('Firebase persistence failed: Multiple tabs open');
+          } else if (err.code === 'unimplemented') {
+            console.warn('Firebase persistence not available in this browser');
+          }
+        });
+      }
+      return firestore;
+    })
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,8 @@
-# 🙏 Karunamayi Hanuman E-Mandir - Complete App Summary
+# 🙏 E-Darshan Mandir - Complete App Summary
 
 ## Overview
 
-**Karunamayi Hanuman E-Mandir** is a fully-functional Progressive Web Application (PWA) that brings the spiritual experience of a Lord Hanuman temple to devotees worldwide. The app operates entirely client-side with no backend required, offering complete offline functionality after the initial load.
+**E-Darshan Mandir** is a fully-functional Progressive Web Application (PWA) that brings the spiritual experience of a Lord Hanuman temple to devotees worldwide. The app operates entirely client-side with no backend required, offering complete offline functionality after the initial load.
 
 ---
 

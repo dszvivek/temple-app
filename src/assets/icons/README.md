@@ -1,6 +1,6 @@
 # Karya Siddhi Temple - Icon Assets
 
-# Karunamayi Hanuman E-Mandir - Icon Assets
+# E-Darshan Mandir - Icon Assets
 
 This directory contains all the icon files for the Progressive Web App (PWA).
 

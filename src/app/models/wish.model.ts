@@ -1,9 +1,12 @@
+import { DeityType } from './deity.model';
+
 /**
  * Wish Model
  * Represents a devotee's wish/prayer in the temple
  */
 export interface Wish {
   id: string;
+  deityId: DeityType; // Which deity this wish is dedicated to
   title: string;
   description: string;
   category: WishCategory;

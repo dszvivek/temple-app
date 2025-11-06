@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { WishService } from '../../services/wish.service';
 import { LanguageService } from '../../services/language.service';
 import { AmbientAudioService } from '../../services/ambient-audio.service';
 import { PetalService } from '../../services/petal.service';
 import { BlessingsService, Blessing } from '../../services/blessings.service';
+import { DeityService } from '../../services/deity.service';
 import { Wish, WishCategory, WishStatus } from '../../models/wish.model';
+import { DeityType } from '../../models/deity.model';
 
 @Component({
   selector: 'app-wish-flow',
   templateUrl: './wish-flow.component.html',
   styleUrls: ['./wish-flow.component.css']
 })
-export class WishFlowComponent {
+export class WishFlowComponent implements OnInit {
   step: 'create' | 'ritual' | 'share' | 'complete' = 'create';
+  
+  // Current deity
+  currentDeity: DeityType = DeityType.HANUMAN;
   
   // Wish creation form
   wishTitle = '';
@@ -56,13 +61,27 @@ export class WishFlowComponent {
   constructor(
     private wishService: WishService,
     private router: Router,
+    private route: ActivatedRoute,
     public lang: LanguageService,
     private ambientAudio: AmbientAudioService,
     private petalService: PetalService,
-    public blessingsService: BlessingsService
+    public blessingsService: BlessingsService,
+    private deityService: DeityService
   ) {
     // Set initial random blessing
     this.currentBlessing = this.blessingsService.getRandomBlessing();
+  }
+
+  ngOnInit(): void {
+    // Get deity from route data or use current deity
+    this.route.data.subscribe(data => {
+      if (data['deity']) {
+        this.currentDeity = data['deity'] as DeityType;
+        this.deityService.setDeity(this.currentDeity);
+      } else {
+        this.currentDeity = this.deityService.getCurrentDeity().id;
+      }
+    });
   }
 
   /**
@@ -76,6 +95,7 @@ export class WishFlowComponent {
 
     try {
       this.currentWish = await this.wishService.createWish({
+        deityId: this.currentDeity,
         title: this.wishTitle,
         description: this.wishDescription,
         category: this.selectedCategory,

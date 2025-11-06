@@ -721,7 +721,7 @@ export class LanguageService {
       footer: {
         jaiHanuman: 'Jai Hanuman Ji',
         description: 'A free devotional service for all devotees. No affiliation with any temple organization.',
-        copyright: '© 2025 Karunamayi Hanuman E-Mandir | Open Source PWA',
+        copyright: '© 2025 E-Darshan Mandir | Open Source PWA',
         updateTitle: 'Update Available!',
         updateMessage: 'A new version of the temple app is ready.',
         updateButton: 'Update Now',

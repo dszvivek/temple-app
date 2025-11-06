@@ -173,7 +173,7 @@ export class AartiNotificationService {
       return;
     }
 
-    const notification = new Notification('🙏 Karunamayi Hanuman E-Mandir', {
+    const notification = new Notification('🙏 E-Darshan Mandir', {
       body: `${aarti.emoji} ${aarti.label} is starting now!\nJoin us in devotion.`,
       icon: 'assets/icons/icon-192x192.png',
       badge: 'assets/icons/icon-72x72.png',

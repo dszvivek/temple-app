@@ -1,0 +1,143 @@
+<div class="container mx-auto px-4 py-8">
+  <!-- Onboarding Welcome Ritual -->
+  <app-onboarding-welcome
+    *ngIf="showOnboarding"
+    (complete)="onOnboardingComplete()">
+  </app-onboarding-welcome>
+
+  <!-- Viral Share Prompt -->
+  <app-viral-share-prompt
+    [isOpen]="showViralShare"
+    (closePrompt)="onViralShareClose()"
+    (shared)="onViralShared()">
+  </app-viral-share-prompt>
+
+  <!-- Back to Temple Selector -->
+  <div class="mb-4">
+    <button 
+      (click)="navigateToTempleSelector()"
+      class="text-amber-600 hover:text-amber-700 flex items-center gap-2 transition-colors">
+      <span>←</span>
+      <span>{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Choose Temple' }}</span>
+    </button>
+  </div>
+
+  <!-- Temple Header with Ganesh Image -->
+  <header class="text-center mb-12">
+    <div class="mb-6 hero-image-container relative" flowerOffering>
+      <!-- Decorative Border and Ganesh Image -->
+      <div class="ganesh-frame" [class.active-aarti]="isAartiPlaying">
+        <!-- Rotating Durva Grass (only when playing) -->
+        <div class="durva-container" *ngIf="isAartiPlaying">
+          <div class="durva-blade" *ngFor="let blade of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]" 
+               [style.--blade-index]="blade">🌿</div>
+        </div>
+        
+        <!-- Aarti Flames (only when playing) -->
+        <div class="aarti-flames" *ngIf="isAartiPlaying">
+          <div class="aarti-flame flame-left">
+            <div class="flame">🔥</div>
+          </div>
+          <div class="aarti-flame flame-right">
+            <div class="flame">🔥</div>
+          </div>
+        </div>
+        
+        <!-- Modak Offerings (only when playing) -->
+        <div class="modak-offerings" *ngIf="isAartiPlaying">
+          <div class="modak modak-1">🥟</div>
+          <div class="modak modak-2">🥟</div>
+          <div class="modak modak-3">🥟</div>
+        </div>
+        
+        <!-- Main Ganesh Image (placeholder - will use actual image when available) -->
+        <div class="ganesh-image-placeholder">
+          <div class="text-9xl mb-4">🐘</div>
+          <div class="text-4xl font-bold text-amber-800">श्री गणेश जी</div>
+        </div>
+      </div>
+    </div>
+    <h1 class="temple-header text-amber-800">
+      🐘 {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }} 🐘
+    </h1>
+    <p class="temple-subheader">
+      {{ lang.getCurrentLanguage() === 'hi' ? 'स्वागत है' : 'Welcome' }}
+    </p>
+    <p class="text-amber-700 text-lg mb-4">
+      "विघ्नहर्ता गणेश"
+    </p>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      {{ lang.getCurrentLanguage() === 'hi' 
+        ? 'सभी बाधाओं के निवारक भगवान गणेश के दिव्य दर्शन करें' 
+        : 'Seek blessings from Lord Ganesha, the remover of all obstacles' }}
+    </p>
+  </header>
+
+  <!-- Diya Counter -->
+  <div class="mb-8">
+    <app-diya-counter></app-diya-counter>
+  </div>
+
+  <!-- Meditation Timer -->
+  <div class="mb-8">
+    <app-meditation-timer></app-meditation-timer>
+  </div>
+
+  <!-- Audio Player -->
+  <div class="mb-8">
+    <app-audio-player></app-audio-player>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="max-w-md mx-auto mb-12 space-y-4">
+    <!-- Make a Wish Button -->
+    <button 
+      (click)="navigateToWish()"
+      class="bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 w-full"
+      style="padding: clamp(1rem, 3vw, 1.5rem);"
+      aria-label="Make a wish">
+      <span class="text-2xl md:text-3xl">🙏</span>
+      <span class="text-base md:text-lg font-semibold">
+        {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}
+      </span>
+    </button>
+
+    <!-- Light a Diya Button -->
+    <button 
+      (click)="openDiyaModal()"
+      class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 w-full"
+      style="padding: clamp(1rem, 3vw, 1.5rem);"
+      [attr.aria-label]="lang.t('diya.lightButton')">
+      <span class="text-2xl md:text-3xl">🪔</span>
+      <span class="text-base md:text-lg font-semibold">{{ lang.t('diya.lightButton') }}</span>
+    </button>
+  </div>
+
+  <!-- Diya Display -->
+  <div class="mb-12">
+    <app-diya-display></app-diya-display>
+  </div>
+
+  <!-- Light Diya Modal -->
+  <app-light-diya-modal
+    [isOpen]="showDiyaModal"
+    (closeModal)="closeDiyaModal()"
+    (diyaLit)="onDiyaLit($event)">
+  </app-light-diya-modal>
+
+  <!-- Devotional Quote -->
+  <div class="text-center mt-12 max-w-3xl mx-auto">
+    <blockquote class="text-lg italic text-amber-800 font-display">
+      "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>
+      निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥"
+    </blockquote>
+    <p class="text-sm text-gray-600 mt-4">
+      {{ lang.getCurrentLanguage() === 'hi' ? '- गणेश स्तोत्र' : '- Ganesh Stotra' }}
+    </p>
+    <p class="text-xs text-gray-500 mt-2 italic">
+      {{ lang.getCurrentLanguage() === 'hi' 
+        ? 'हे विघ्नहर्ता! मेरे सभी कार्यों में विघ्न दूर करें' 
+        : 'O remover of obstacles! Remove all obstacles from my endeavors' }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-b from-orange-50 via-yellow-50 to-white">
+  <div class="max-w-5xl w-full">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+        {{ lang.getCurrentLanguage() === 'hi' ? '🕉️ वर्चुअल मंदिर 🕉️' : '🕉️ Virtual Temple 🕉️' }}
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-700 font-medium">
+        {{ lang.getCurrentLanguage() === 'hi' ? 'अपने देवता का चयन करें' : 'Choose Your Deity' }}
+      </p>
+      <p class="text-sm text-gray-500 mt-2">
+        {{ lang.getCurrentLanguage() === 'hi' ? 'दोनों मंदिरों में अपनी मनोकामना व्यक्त करें' : 'Express your wishes at both temples' }}
+      </p>
+    </div>
+
+    <!-- Temple Cards Grid -->
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <!-- Hanuman Temple Card -->
+      <div 
+        (click)="selectTemple(DeityType.HANUMAN)"
+        class="temple-card {{ getCardGradient(DeityType.HANUMAN) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
+        
+        <!-- Icon -->
+        <div class="text-8xl text-center mb-6 animate-pulse">
+          {{ getDeityIcon(DeityType.HANUMAN) }}
+        </div>
+        
+        <!-- Title -->
+        <h2 class="text-4xl font-bold text-center {{ getTextColor(DeityType.HANUMAN) }} mb-3">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान मंदिर' : 'Hanuman Temple' }}
+        </h2>
+        
+        <!-- Subtitle -->
+        <h3 class="text-xl text-center text-gray-600 mb-4">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'श्री हनुमान जी' : 'Lord Hanuman Ji' }}
+        </h3>
+        
+        <!-- Description -->
+        <p class="text-center text-gray-700 mb-6 min-h-[60px]">
+          {{ lang.getCurrentLanguage() === 'hi' 
+            ? 'संकट मोचन हनुमान - शक्ति और भक्ति के प्रतीक' 
+            : 'Symbol of Strength and Devotion - Remover of Obstacles' }}
+        </p>
+        
+        <!-- Features -->
+        <div class="space-y-2 mb-6 text-sm text-gray-600">
+          <div class="flex items-center justify-center">
+            <span class="mr-2">📿</span>
+            <span>{{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान चालीसा' : 'Hanuman Chalisa' }}</span>
+          </div>
+          <div class="flex items-center justify-center">
+            <span class="mr-2">🔔</span>
+            <span>{{ lang.getCurrentLanguage() === 'hi' ? 'दैनिक आरती' : 'Daily Aarti' }}</span>
+          </div>
+          <div class="flex items-center justify-center">
+            <span class="mr-2">🌺</span>
+            <span>{{ lang.getCurrentLanguage() === 'hi' ? 'लाल फूल अर्पण' : 'Red Flower Offerings' }}</span>
+          </div>
+        </div>
+        
+        <!-- Enter Button -->
+        <button 
+          class="w-full py-4 px-6 text-white text-lg font-bold rounded-xl {{ getButtonClass(DeityType.HANUMAN) }} transition-colors duration-200 shadow-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर में प्रवेश करें' : 'Enter Temple' }} →
+        </button>
+      </div>
+
+      <!-- Ganesh Temple Card -->
+      <div 
+        (click)="selectTemple(DeityType.GANESH)"
+        class="temple-card {{ getCardGradient(DeityType.GANESH) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
+        
+        <!-- Icon -->
+        <div class="text-8xl text-center mb-6 animate-pulse">
+          {{ getDeityIcon(DeityType.GANESH) }}
+        </div>
+        
+        <!-- Title -->
+        <h2 class="text-4xl font-bold text-center {{ getTextColor(DeityType.GANESH) }} mb-3">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}
+        </h2>
+        
+        <!-- Subtitle -->
+        <h3 class="text-xl text-center text-gray-600 mb-4">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'श्री गणेश जी' : 'Lord Ganesha Ji' }}
+        </h3>
+        
+        <!-- Description -->
+        <p class="text-center text-gray-700 mb-6 min-h-[60px]">
+          {{ lang.getCurrentLanguage() === 'hi' 
+            ? 'विघ्नहर्ता गणेश - सभी बाधाओं के निवारक' 
+            : 'Remover of Obstacles - Granter of Success and Wisdom' }}
+        </p>
+        
+        <!-- Features -->
+        <div class="space-y-2 mb-6 text-sm text-gray-600">
+          <div class="flex items-center justify-center">
+            <span class="mr-2">🎵</span>
+            <span>{{ lang.getCurrentLanguage() === 'hi' ? 'गणेश आरती' : 'Ganesh Aarti' }}</span>
+          </div>
+          <div class="flex items-center justify-center">
+            <span class="mr-2">🥟</span>
+            <span>{{ lang.getCurrentLanguage() === 'hi' ? 'मोदक अर्पण' : 'Modak Offerings' }}</span>
+          </div>
+          <div class="flex items-center justify-center">
+            <span class="mr-2">🌿</span>
+            <span>{{ lang.getCurrentLanguage() === 'hi' ? 'दूर्वा घास' : 'Durva Grass' }}</span>
+          </div>
+        </div>
+        
+        <!-- Enter Button -->
+        <button 
+          class="w-full py-4 px-6 text-white text-lg font-bold rounded-xl {{ getButtonClass(DeityType.GANESH) }} transition-colors duration-200 shadow-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर में प्रवेश करें' : 'Enter Temple' }} →
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer Info -->
+    <div class="text-center text-gray-600 mt-8">
+      <p class="text-sm">
+        {{ lang.getCurrentLanguage() === 'hi' 
+          ? '💡 आप किसी भी समय मंदिर बदल सकते हैं' 
+          : '💡 You can switch between temples anytime' }}
+      </p>
+      <p class="text-xs text-gray-500 mt-2">
+        {{ lang.getCurrentLanguage() === 'hi' 
+          ? 'प्रत्येक मंदिर में अपनी मनोकामना व्यक्त करें और आशीर्वाद प्राप्त करें' 
+          : 'Make wishes at each temple and receive divine blessings' }}
+      </p>
+    </div>
+  </div>
+</div>

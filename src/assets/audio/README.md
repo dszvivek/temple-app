@@ -1,6 +1,6 @@
 # Karya Siddhi Temple - Audio Assets
 
-# Karunamayi Hanuman E-Mandir - Audio Assets
+# E-Darshan Mandir - Audio Assets
 
 This directory contains devotional audio files for the temple application.
 

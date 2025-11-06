@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { LanguageService } from './services/language.service';
 import { ThemeService } from './services/theme.service';
+import { DeityService } from './services/deity.service';
+import { FirebaseBackendService } from './services/firebase-backend.service';
+import { LiveStatsService } from './services/live-stats.service';
+import { HANUMAN_CONFIG } from './configs/hanuman.config';
+import { GANESH_CONFIG } from './configs/ganesh.config';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -108,18 +113,57 @@ import { filter } from 'rxjs/operators';
   `]
 })
 export class AppComponent implements OnInit {
-  title = 'Karunamayi Hanuman E-Mandir';
+  title = 'E-Darshan Mandir';
   updateAvailable = false;
   themeClasses = '';
 
   constructor(
     private swUpdate: SwUpdate,
     public lang: LanguageService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private deityService: DeityService,
+    private firebaseBackend: FirebaseBackendService,
+    private liveStats: LiveStatsService
   ) {
+    // Initialize temple configurations
+    this.initializeTemples();
+    
     // Initialize theme immediately
     this.themeClasses = this.themeService.getCurrentGradient();
     console.log('🏛️ AppComponent initialized with theme classes:', this.themeClasses);
+    
+    // Initialize Firebase connection and presence tracking
+    this.initializeBackend();
+  }
+
+  /**
+   * Initialize temple configurations
+   */
+  private initializeTemples(): void {
+    // Register Hanuman Temple
+    this.deityService.registerTemple(HANUMAN_CONFIG);
+    console.log('🙏 Hanuman Temple registered');
+    
+    // Register Ganesh Temple
+    this.deityService.registerTemple(GANESH_CONFIG);
+    console.log('🐘 Ganesh Temple registered');
+  }
+
+  /**
+   * Initialize Firebase backend and presence tracking
+   */
+  private initializeBackend(): void {
+    // Update presence immediately
+    this.firebaseBackend.updateDevoteePresence();
+    
+    // Monitor global stats connection
+    this.firebaseBackend.getGlobalStats().subscribe(stats => {
+      if (stats) {
+        console.log('📊 Connected to Firebase real-time stats:', stats);
+      } else {
+        console.log('📴 Using offline mode - Firebase not connected');
+      }
+    });
   }
 
   ngOnInit(): void {

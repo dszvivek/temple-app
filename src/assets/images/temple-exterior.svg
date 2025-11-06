@@ -111,7 +111,7 @@
   
   <!-- Temple name -->
   <text x="400" y="550" font-size="40" text-anchor="middle" fill="#7c2d12" 
-        font-family="serif" font-weight="bold">Karunamayi Hanuman E-Mandir</text>
+        font-family="serif" font-weight="bold">E-Darshan Mandir</text>
   <text x="400" y="580" font-size="24" text-anchor="middle" fill="#92400e" 
         font-family="serif">श्री हनुमान मंदिर</text>
 </svg>

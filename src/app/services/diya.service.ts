@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import * as localforage from 'localforage';
 import { Diya } from '../models/diya.model';
 import { DiyaCounterService } from './diya-counter.service';
+import { FirebaseBackendService } from './firebase-backend.service';
+import { DeityType } from '../models/deity.model';
 
 /**
  * DiyaService - Manages virtual diyas lit for loved ones
@@ -13,6 +15,7 @@ import { DiyaCounterService } from './diya-counter.service';
  * - Auto-cleanup expired diyas (24 hours)
  * - Observable stream for reactive UI updates
  * - Offline-first architecture
+ * NEW: Syncs with Firebase for global diya count and display
  */
 @Injectable({
   providedIn: 'root'
@@ -27,7 +30,10 @@ export class DiyaService {
   
   private cleanupInterval?: any;
 
-  constructor(private diyaCounterService: DiyaCounterService) {
+  constructor(
+    private diyaCounterService: DiyaCounterService,
+    private firebaseBackend: FirebaseBackendService
+  ) {
     this.initializeStore();
     this.startAutoCleanup();
   }
@@ -74,9 +80,11 @@ export class DiyaService {
   /**
    * Add a new diya for someone
    * @param name - Person's name (max 20 characters)
+   * @param deityId - Which deity the diya is for (default: Hanuman)
+   * @param message - Optional prayer message
    * @returns Promise<Diya> - The created diya
    */
-  async addDiya(name: string): Promise<Diya> {
+  async addDiya(name: string, deityId: DeityType = DeityType.HANUMAN, message?: string): Promise<Diya> {
     // Validate name
     if (!name || name.trim().length === 0) {
       throw new Error('Name cannot be empty');
@@ -101,11 +109,25 @@ export class DiyaService {
     const updatedDiyas = [...currentDiyas, newDiya];
     await this.saveDiyas(updatedDiyas);
 
-    // Increment global counter
+    // Increment global counter (local)
     this.diyaCounterService.incrementCount();
+    
+    // Sync to Firebase (global)
+    await this.firebaseBackend.addGlobalDiya({
+      name: trimmedName,
+      deityId: deityId,
+      message: message
+    });
 
     console.log(`🪔 Diya lit for ${trimmedName}`);
     return newDiya;
+  }
+
+  /**
+   * Get global diyas from Firebase (all users)
+   */
+  getGlobalDiyas(): Observable<any[]> {
+    return this.firebaseBackend.getActiveDiyas(50);
   }
 
   /**

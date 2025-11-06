@@ -1,4 +1,4 @@
-# 🧪 Karunamayi Hanuman E-Mandir - Complete Test Plan
+# 🧪 E-Darshan Mandir - Complete Test Plan
 
 ## Test Environment
 - **URL**: http://localhost:4200
