@@ -8,7 +8,10 @@ service cloud.firestore {
     }
     
     function isRecentTimestamp(ts) {
-      return ts > request.time - duration.value(1, 'm'); // Within last minute
+      // Convert request.time to milliseconds and compare with client timestamp
+      // Allow timestamps within 5 minutes (to account for clock skew)
+      let now = request.time.toMillis();
+      return ts > now - 300000 && ts < now + 300000;
     }
     
     // Rate limiting helper (basic - prevents spam)

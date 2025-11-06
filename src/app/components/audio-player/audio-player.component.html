@@ -1,7 +1,7 @@
 <div class="card bg-gradient-to-br from-saffron-50 to-orange-50">
   <h3 class="text-xl font-bold text-saffron-800 mb-4 text-center flex items-center justify-center gap-2">
     <span>🎵</span>
-    <span>{{ lang.t('audio.title') }}</span>
+    <span>{{ lang.getAudioTitle() }}</span>
   </h3>
 
   <!-- Enable Audio Button (shown before user enables audio) -->
@@ -12,7 +12,7 @@
         {{ lang.t('audio.automaticChanting') }}
       </p>
       <p class="text-sm text-gray-600 mb-4">
-        {{ lang.t('audio.statusMessage') }}
+        {{ lang.getStatusMessage() }}
       </p>
       <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-6 max-w-md mx-auto">
         <p class="text-sm text-blue-800">
@@ -24,7 +24,7 @@
     <button 
       (click)="enableAudio()"
       class="btn-primary text-lg px-8 py-4">
-      🔊 {{ lang.t('audio.enableButton') }}
+      🔊 {{ lang.getEnableAudioText() }}
     </button>
     <p class="text-xs text-gray-500 mt-3">
       {{ lang.t('audio.enableHint') }}
@@ -60,7 +60,7 @@
         [class.opacity-50]="audioService.isPlaying && !audioService.manualPlayback"
         [class.cursor-not-allowed]="audioService.isPlaying && !audioService.manualPlayback"
         class="btn-primary px-6 py-2.5 text-sm font-semibold">
-        {{ audioService.isPlaying && audioService.manualPlayback ? '⏸️ Pause' : '▶️ Play Chalisa' }}
+        {{ audioService.isPlaying && audioService.manualPlayback ? '⏸️ Pause' : audioService.getPlayButtonText() }}
       </button>
       <p class="text-xs text-gray-500 mt-2">
         {{ audioService.manualPlayback ? 'Manual playback' : (audioService.isPlaying ? 'Auto-play is running (hourly sync)' : 'Auto-syncs hourly at the start of each hour') }}
@@ -122,7 +122,7 @@
     <!-- Info Message -->
     <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
       <p class="text-xs text-blue-800">
-        🔔 Hanuman Chalisa plays automatically every hour, 24/7. You can also play it manually anytime!
+        🔔 {{ audioService.getAudioName() }} plays automatically every hour, 24/7. You can also play it manually anytime!
       </p>
     </div>
 

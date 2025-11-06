@@ -27,7 +27,7 @@ export class TempleBellService {
    */
   private preloadBellAudio(): void {
     try {
-      this.bellAudio = new Audio('assets/audio/mandir_bell.wav');
+      this.bellAudio = new Audio('assets/audio/effects/mandir_bell.wav');
       this.bellAudio.preload = 'auto';
       this.bellAudio.volume = this.volume;
       

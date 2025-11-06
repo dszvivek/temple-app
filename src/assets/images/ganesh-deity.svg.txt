@@ -1,0 +1,40 @@
+# Ganesh Deity Image Placeholder
+
+This file represents the main deity image for **Lord Ganesha**.
+
+## Required Image Specifications:
+- **Format:** PNG or SVG (SVG preferred for scalability)
+- **Dimensions:** 
+  - PNG: Minimum 800x800px (square) or 1200x500px (rectangular)
+  - SVG: Vector (scalable)
+- **Background:** Transparent or suitable temple background
+- **Color Theme:** Red, orange, yellow (Ganesh temple colors)
+
+## Recommended Content:
+Beautiful, respectful representation of Lord Ganesha showing:
+- Traditional sitting pose
+- Four arms with symbolic items (modak, lotus, axe, blessing gesture)
+- Elephant head with single tusk
+- Vibrant colors (red, orange, yellow)
+
+## How to Replace:
+1. Obtain a high-quality Ganesha deity image
+2. Ensure it's respectful and traditional
+3. Convert to PNG or SVG format
+4. Replace this placeholder file
+5. Update filename to: `ganesh-deity.svg` or `ganesh-deity.png`
+
+## Free Resources:
+- Flaticon.com (search "Ganesha vector")
+- Freepik.com (search "Ganesh illustration")
+- Pixabay.com (royalty-free images)
+- Create custom SVG using Inkscape or Illustrator
+
+## Color Palette:
+- Primary: Red (#DC2626, #EF4444)
+- Secondary: Orange (#F97316, #FB923C)
+- Accent: Yellow (#FCD34D, #FDE68A)
+- Background: Light cream or white
+
+---
+**Status:** PLACEHOLDER - Replace with actual image

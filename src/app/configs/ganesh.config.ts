@@ -28,8 +28,8 @@ export const GANESH_CONFIG: TempleConfig = {
       deityId: DeityType.GANESH,
       name: 'Ganesh Aarti',
       nameHindi: 'गणेश आरती',
-      audioFile: 'assets/audio/ganesh-aarti.mp3',
-      duration: 180, // 3 minutes
+      audioFile: 'assets/audio/aarti/ganesh-aarti.mp3',
+      duration: 150, // 2 minutes 30 seconds
       schedule: {
         frequency: 'hourly',
         startHour: 0,
@@ -40,7 +40,7 @@ export const GANESH_CONFIG: TempleConfig = {
       deityId: DeityType.GANESH,
       name: 'Om Gam Ganapataye Namaha',
       nameHindi: 'ॐ गं गणपतये नमः',
-      audioFile: 'assets/audio/ganesh-mantra.mp3',
+      audioFile: 'assets/audio/mantras/ganesh-mantra.mp3',
       duration: 120, // 2 minutes
       schedule: {
         frequency: 'custom',

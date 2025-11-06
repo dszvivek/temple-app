@@ -1,10 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Background gradient -->
   <defs>
-    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
     </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
   </defs>
-  <rect width="128" height="128" fill="url(#grad6)" rx="25"/>
-  <text x="64" y="85" font-size="50" text-anchor="middle" fill="#ffffff" font-family="serif" font-weight="bold">ॐ</text>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#grad1)" rx="100"/>
+  
+  <!-- Temple silhouette -->
+  <path d="M 256 80 L 180 160 L 180 420 L 332 420 L 332 160 Z" fill="#fff" opacity="0.1"/>
+  
+  <!-- Decorative border -->
+  <rect x="40" y="40" width="432" height="432" fill="none" stroke="#fff" stroke-width="4" rx="80" opacity="0.3"/>
+  
+  <!-- Om symbol -->
+  <text x="256" y="320" font-size="180" text-anchor="middle" fill="#ffffff" font-family="serif" font-weight="bold" filter="url(#shadow)">ॐ</text>
+  
+  <!-- Small decorative elements -->
+  <circle cx="256" cy="100" r="8" fill="#fef3c7"/>
+  <circle cx="200" cy="140" r="6" fill="#fef3c7"/>
+  <circle cx="312" cy="140" r="6" fill="#fef3c7"/>
 </svg>

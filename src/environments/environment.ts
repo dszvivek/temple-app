@@ -26,27 +26,51 @@ export const environment = {
   
   // App Configuration
   appName: 'E-Darshan Mandir',
+  appNameHindi: 'ई-दर्शन मंदिर',
   version: '1.0.0',
   
-  // Audio Assets
+  // Audio Assets - Deity-specific
   audioAssets: {
-    hanumanChalisa: 'assets/audio/hanuman-chalisa.mp3',
+    // Hanuman Temple Audio
+    hanumanChalisa: 'assets/audio/mantras/hanuman-chalisa.mp3',
     hanumanAarti: 'assets/audio/hanuman-aarti.mp3',
-    omChant: 'assets/audio/om-chant.mp3'
+    
+    // Ganesh Temple Audio
+    ganeshAarti: 'assets/audio/ganesh-aarti.mp3',
+    ganeshMantra: 'assets/audio/mantras/ganesh-mantra.mp3',
+    
+    // Common Audio
+    omChant: 'assets/audio/mantras/om-chant.mp3',
+    templeBell: 'assets/audio/effects/mandir_bell.wav',
+    shankh: 'assets/audio/ambient/shankh_drone.wav',
+    templeAmbience: 'assets/audio/temple_ambience.wav'
   },
   
-  // Image Assets
+  // Image Assets - Deity-specific
   imageAssets: {
-    hanumanIdol: 'assets/images/hanuman-idol.svg',
+    // Hanuman Temple Images
+    hanumanIdol: 'assets/images/deities/hanuman/hanuman-idol.svg',
+    hanumanDeity: 'assets/images/deities/hanuman/hanuman-deity.svg',
+    hanumanHero: 'assets/images/deities/hanuman/hanuman-main.png',
+    
+    // Ganesh Temple Images
+    ganeshIdol: 'assets/images/deities/ganesh/ganesh-idol.svg',
+    ganeshDeity: 'assets/images/deities/ganesh/ganesh-deity.svg',
+    ganeshHero: 'assets/images/deities/ganesh/Ganesh.png',
+    
+    // Common Temple Images
     placeholderIdol: 'assets/images/placeholder-idol.svg',
-    hanumanDeity: 'assets/images/hanuman-deity.svg',
-    hanumanHero: 'assets/images/hanuman-main.png',
-    templeBackground: 'assets/images/temple-background.svg',
-    diyaLamp: 'assets/images/diya-lamp.svg',
-    incense: 'assets/images/incense.svg',
-    prasad: 'assets/images/prasad.svg',
-    templeBell: 'assets/images/temple-bell.svg',
-    templeExterior: 'assets/images/temple-exterior.svg'
+    templeBackground: 'assets/images/temple/temple-background.svg',
+    templeExterior: 'assets/images/temple/temple-exterior.svg',
+    templeBell: 'assets/images/temple/temple-bell.svg',
+    
+    // Offering Images
+    diyaLamp: 'assets/images/offerings/diya-lamp.svg',
+    incense: 'assets/images/offerings/incense.svg',
+    prasad: 'assets/images/offerings/prasad.svg',
+    modak: 'assets/images/modak.svg',
+    flowers: 'assets/images/flowers.svg',
+    fruits: 'assets/images/fruits.svg'
   },
   
   // Feature Flags

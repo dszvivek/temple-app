@@ -29,17 +29,18 @@ export class AssetLoaderService {
    */
   async preloadAssets(): Promise<void> {
     const assets = [
-      // Images
-      'assets/images/hanuman-main.png',
-      'assets/images/hanuman-deity.svg',
-      'assets/images/temple-background.svg',
-      'assets/images/diya-lamp.svg',
-      'assets/images/temple-bell.svg',
-      'assets/images/prasad.svg',
-      'assets/images/incense.svg',
+      // Images - Updated to new organized structure
+      'assets/images/deities/hanuman/hanuman-main.png',
+      'assets/images/deities/ganesh/Ganesh.png',
+      'assets/images/temple/temple-background.svg',
+      'assets/images/offerings/diya-lamp.svg',
+      'assets/images/temple/temple-bell.svg',
+      'assets/images/offerings/prasad.svg',
+      'assets/images/offerings/incense.svg',
       
-      // Audio files (only Hanuman Chalisa)
-      'assets/audio/hanuman-chalisa.mp3'
+      // Audio files - Updated to new organized structure
+      'assets/audio/mantras/hanuman-chalisa.mp3',
+      'assets/audio/aarti/ganesh-aarti.mp3'
     ];
 
     const total = assets.length;

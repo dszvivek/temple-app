@@ -74,21 +74,21 @@ export class SchedulerService {
         name: 'Morning Hanuman Chalisa',
         time: '06:00',
         enabled: true,
-        audioUrl: 'assets/audio/hanuman-chalisa.mp3'
+        audioUrl: 'assets/audio/mantras/hanuman-chalisa.mp3'
       },
       {
         id: 'evening_chant',
         name: 'Evening Aarti',
         time: '18:00',
         enabled: true,
-        audioUrl: 'assets/audio/hanuman-aarti.mp3'
+        audioUrl: 'assets/audio/aarti/hanuman-aarti.mp3'
       },
       {
         id: 'night_prayer',
         name: 'Night Prayer',
         time: '21:00',
         enabled: false,
-        audioUrl: 'assets/audio/hanuman-chalisa.mp3'
+        audioUrl: 'assets/audio/mantras/hanuman-chalisa.mp3'
       }
     ];
     this.saveSchedule(defaultSchedule);

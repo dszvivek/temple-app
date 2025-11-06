@@ -1,0 +1,34 @@
+# Ganesh Idol Image Placeholder
+
+This file represents the small idol/icon image for **Lord Ganesha**.
+
+## Required Image Specifications:
+- **Format:** SVG (preferred) or PNG
+- **Dimensions:** 
+  - SVG: Vector (scalable)
+  - PNG: 512x512px (square)
+- **Background:** Transparent
+- **Style:** Simple, iconic representation
+
+## Recommended Content:
+Simplified icon/idol representation of Ganesha:
+- Clean, minimalist design
+- Recognizable Ganesha features
+- Suitable for small sizes (thumbnails, icons)
+- Single color or simple gradient
+
+## How to Replace:
+1. Obtain or create a simple Ganesha icon
+2. Ensure it's scalable and clear at small sizes
+3. Save with transparent background
+4. Replace this placeholder file
+5. Update filename to: `ganesh-idol.svg` or `ganesh-idol.png`
+
+## Use Cases:
+- Temple selector icons
+- Navigation buttons
+- Small decorative elements
+- Mobile app icons
+
+---
+**Status:** PLACEHOLDER - Replace with actual image

@@ -15,7 +15,7 @@ export class LoadingScreenComponent implements OnInit {
   private devotionalMessages = [
     '🕉️ Preparing the divine space...',
     '🪔 Lighting the sacred lamps...',
-    '🙏 Invoking Lord Hanuman\'s blessings...',
+    '🙏 Invoking divine blessings...',
     '✨ Awakening spiritual energies...',
     '🔔 Ringing the temple bells...',
     '🌺 Offering divine flowers...',

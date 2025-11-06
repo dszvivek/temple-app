@@ -128,7 +128,39 @@ img, video, iframe {
   animation: om-pulse 2s ease-in-out infinite;
 }
 
-/* Flower Petal Falling Animation */
+/* Flower Falling Animation - Beautiful realistic movement */
+@keyframes flower-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  10% {
+    transform: translateY(10vh) translateX(calc(var(--swing) * 0.5)) rotate(calc(var(--rotation) * 0.1)) scale(1.05);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(25vh) translateX(calc(var(--swing) * -0.3)) rotate(calc(var(--rotation) * 0.25)) scale(1);
+    opacity: 0.95;
+  }
+  40% {
+    transform: translateY(40vh) translateX(calc(var(--swing) * 0.6)) rotate(calc(var(--rotation) * 0.4)) scale(0.95);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translateY(60vh) translateX(calc(var(--swing) * -0.4 + var(--drift) * 0.5)) rotate(calc(var(--rotation) * 0.6)) scale(0.9);
+    opacity: 0.8;
+  }
+  80% {
+    transform: translateY(80vh) translateX(calc(var(--swing) * 0.3 + var(--drift) * 0.8)) rotate(calc(var(--rotation) * 0.8)) scale(0.85);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(calc(var(--drift))) rotate(var(--rotation)) scale(0.7);
+    opacity: 0;
+  }
+}
+
+/* Legacy petal fall animation (for backwards compatibility) */
 @keyframes petal-fall {
   0% {
     transform: translateY(0) translateX(0) rotate(0deg) scale(1);
@@ -150,7 +182,16 @@ img, video, iframe {
   }
 }
 
-/* Flower Petal Base Styles */
+/* Falling Flower Base Styles */
+.falling-flower {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* Additional styles set inline by PetalService for customization */
+}
+
+/* Flower Petal Base Styles (legacy) */
 .flower-petal {
   will-change: transform, opacity;
   backface-visibility: hidden;

@@ -33,6 +33,8 @@ export class GaneshHomeComponent implements OnInit, OnDestroy {
   ) {
     // Set Ganesh as the current deity
     this.deityService.setDeity(DeityType.GANESH);
+    // Set language service deity context for proper translations
+    this.lang.setDeityContext(DeityType.GANESH);
     
     // Check if onboarding is needed
     const onboardingComplete = localStorage.getItem('temple-onboarding-complete');

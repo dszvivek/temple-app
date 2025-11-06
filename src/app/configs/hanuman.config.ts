@@ -28,7 +28,7 @@ export const HANUMAN_CONFIG: TempleConfig = {
       deityId: DeityType.HANUMAN,
       name: 'Hanuman Chalisa',
       nameHindi: 'हनुमान चालीसा',
-      audioFile: 'assets/audio/hanuman-chalisa.mp3',
+      audioFile: 'assets/audio/mantras/hanuman-chalisa.mp3',
       duration: 512, // 8 minutes 32 seconds
       schedule: {
         frequency: 'hourly',

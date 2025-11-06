@@ -78,8 +78,11 @@ export class WishFlowComponent implements OnInit {
       if (data['deity']) {
         this.currentDeity = data['deity'] as DeityType;
         this.deityService.setDeity(this.currentDeity);
+        // Set language service deity context for proper translations
+        this.lang.setDeityContext(this.currentDeity);
       } else {
         this.currentDeity = this.deityService.getCurrentDeity().id;
+        this.lang.setDeityContext(this.currentDeity);
       }
     });
   }

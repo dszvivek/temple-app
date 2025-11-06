@@ -1,104 +1,105 @@
 import { Injectable } from '@angular/core';
 
 /**
- * PetalService - Manages flower petal offerings
+ * PetalService - Manages flower offerings with actual flower images
  * 
  * Features:
- * - Programmatic petal spawning
- * - Random petal generation (6-10 petals)
+ * - Programmatic flower spawning (roses and marigolds)
+ * - Random flower generation (5-8 flowers)
  * - Auto-cleanup after animation
- * - Event coordination
+ * - Beautiful rotating fall animation
  */
 @Injectable({
   providedIn: 'root'
 })
 export class PetalService {
-  private petalColors = [
-    '#FF9933', // Marigold orange
-    '#FFB84D', // Light marigold
-    '#FF8C1A', // Deep marigold
-    '#FFA500', // Orange
-    '#FFD700', // Golden
+  private flowers = [
+    { emoji: '🌹', name: 'rose', colors: ['#FF1744', '#E91E63', '#C2185B'] },
+    { emoji: '🌺', name: 'hibiscus', colors: ['#FF5252', '#FF4081', '#F50057'] },
+    { emoji: '🏵️', name: 'marigold', colors: ['#FF9800', '#FFB300', '#FFA000'] },
+    { emoji: '🌼', name: 'daisy', colors: ['#FFEB3B', '#FDD835', '#FBC02D'] },
+    { emoji: '🌸', name: 'cherry', colors: ['#FFB6C1', '#FFC0CB', '#FFE4E1'] }
   ];
 
   /**
-   * Add flower offering (spawn petals)
-   * @param container The container element to spawn petals in
-   * @param count Number of petals to spawn (default: random 6-10)
+   * Add flower offering (spawn flowers)
+   * @param container The container element to spawn flowers in
+   * @param count Number of flowers to spawn (default: random 5-8)
    */
   addOffering(container: HTMLElement, count?: number): void {
-    const petalCount = count || this.getRandomPetalCount();
+    const flowerCount = count || this.getRandomFlowerCount();
     
-    for (let i = 0; i < petalCount; i++) {
-      // Stagger petal creation slightly for more natural effect
+    for (let i = 0; i < flowerCount; i++) {
+      // Stagger flower creation slightly for more natural effect
       setTimeout(() => {
-        this.createPetal(container);
-      }, i * 50);
+        this.createFlower(container);
+      }, i * 80);
     }
   }
 
   /**
-   * Create a single petal element
+   * Create a single flower element
    */
-  private createPetal(container: HTMLElement): void {
-    const petal = document.createElement('div');
-    petal.className = 'flower-petal';
+  private createFlower(container: HTMLElement): void {
+    const flower = document.createElement('div');
+    flower.className = 'falling-flower';
+    
+    // Random flower type
+    const flowerType = this.flowers[Math.floor(Math.random() * this.flowers.length)];
+    flower.textContent = flowerType.emoji;
     
     // Random starting position (top of container)
     const startX = Math.random() * container.offsetWidth;
-    petal.style.left = `${startX}px`;
-    petal.style.top = '-20px';
+    flower.style.left = `${startX}px`;
+    flower.style.top = '-50px';
     
-    // Random color from marigold palette
-    const color = this.petalColors[Math.floor(Math.random() * this.petalColors.length)];
-    petal.style.backgroundColor = color;
-    
-    // Random rotation and animation duration
-    const rotation = Math.random() * 720 - 360; // -360 to 360 degrees
-    const duration = 2 + Math.random() * 2; // 2-4 seconds
+    // Random rotation and animation properties
+    const rotation = Math.random() * 1080 - 540; // -540 to 540 degrees (multiple spins)
+    const duration = 2.5 + Math.random() * 2; // 2.5-4.5 seconds
     const delay = Math.random() * 0.3; // 0-0.3s delay
-    const horizontalDrift = (Math.random() - 0.5) * 200; // -100px to 100px
+    const horizontalDrift = (Math.random() - 0.5) * 250; // -125px to 125px
+    const swingAmplitude = 20 + Math.random() * 30; // 20-50px swing
     
     // Set CSS custom properties for animation
-    petal.style.setProperty('--rotation', `${rotation}deg`);
-    petal.style.setProperty('--duration', `${duration}s`);
-    petal.style.setProperty('--delay', `${delay}s`);
-    petal.style.setProperty('--drift', `${horizontalDrift}px`);
+    flower.style.setProperty('--rotation', `${rotation}deg`);
+    flower.style.setProperty('--duration', `${duration}s`);
+    flower.style.setProperty('--delay', `${delay}s`);
+    flower.style.setProperty('--drift', `${horizontalDrift}px`);
+    flower.style.setProperty('--swing', `${swingAmplitude}px`);
     
-    // Add petal shape
-    this.stylePetal(petal);
+    // Add flower styling
+    this.styleFlower(flower);
     
     // Append to container
-    container.appendChild(petal);
+    container.appendChild(flower);
     
-    // Remove petal after animation completes
+    // Remove flower after animation completes
     setTimeout(() => {
-      if (petal.parentNode) {
-        petal.remove();
+      if (flower.parentNode) {
+        flower.remove();
       }
     }, (duration + delay) * 1000 + 100);
   }
 
   /**
-   * Style the petal element to look like a marigold petal
+   * Style the flower element
    */
-  private stylePetal(petal: HTMLElement): void {
-    petal.style.width = '12px';
-    petal.style.height = '20px';
-    petal.style.borderRadius = '50% 50% 50% 0';
-    petal.style.position = 'absolute';
-    petal.style.pointerEvents = 'none';
-    petal.style.opacity = '0.9';
-    petal.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
-    petal.style.animation = `petal-fall var(--duration) var(--delay) ease-out forwards`;
-    petal.style.zIndex = '9999';
+  private styleFlower(flower: HTMLElement): void {
+    flower.style.fontSize = '32px'; // Larger size for visibility
+    flower.style.position = 'absolute';
+    flower.style.pointerEvents = 'none';
+    flower.style.opacity = '0.95';
+    flower.style.filter = 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))';
+    flower.style.animation = `flower-fall var(--duration) var(--delay) ease-out forwards`;
+    flower.style.zIndex = '9999';
+    flower.style.userSelect = 'none';
   }
 
   /**
-   * Get random petal count between 6 and 10
+   * Get random flower count between 5 and 8
    */
-  private getRandomPetalCount(): number {
-    return Math.floor(Math.random() * 5) + 6; // 6 to 10
+  private getRandomFlowerCount(): number {
+    return Math.floor(Math.random() * 4) + 5; // 5 to 8
   }
 
   /**
@@ -106,52 +107,54 @@ export class PetalService {
    * Useful for click events
    */
   addOfferingAtPosition(container: HTMLElement, x: number, y: number, count?: number): void {
-    const petalCount = count || this.getRandomPetalCount();
+    const flowerCount = count || this.getRandomFlowerCount();
     
-    for (let i = 0; i < petalCount; i++) {
+    for (let i = 0; i < flowerCount; i++) {
       setTimeout(() => {
-        this.createPetalAtPosition(container, x, y);
-      }, i * 50);
+        this.createFlowerAtPosition(container, x, y);
+      }, i * 80);
     }
   }
 
   /**
-   * Create petal at specific position
+   * Create flower at specific position
    */
-  private createPetalAtPosition(container: HTMLElement, x: number, y: number): void {
-    const petal = document.createElement('div');
-    petal.className = 'flower-petal';
+  private createFlowerAtPosition(container: HTMLElement, x: number, y: number): void {
+    const flower = document.createElement('div');
+    flower.className = 'falling-flower';
+    
+    // Random flower type
+    const flowerType = this.flowers[Math.floor(Math.random() * this.flowers.length)];
+    flower.textContent = flowerType.emoji;
     
     // Position at click location
     const rect = container.getBoundingClientRect();
     const relativeX = x - rect.left;
     const relativeY = y - rect.top;
     
-    petal.style.left = `${relativeX}px`;
-    petal.style.top = `${relativeY}px`;
+    flower.style.left = `${relativeX}px`;
+    flower.style.top = `${relativeY}px`;
     
-    // Random color
-    const color = this.petalColors[Math.floor(Math.random() * this.petalColors.length)];
-    petal.style.backgroundColor = color;
-    
-    // Animation properties
-    const rotation = Math.random() * 720 - 360;
-    const duration = 2 + Math.random() * 2;
+    // Animation properties with more natural movement
+    const rotation = Math.random() * 1080 - 540; // Multiple spins
+    const duration = 2.5 + Math.random() * 2;
     const delay = Math.random() * 0.2;
-    const horizontalDrift = (Math.random() - 0.5) * 150;
+    const horizontalDrift = (Math.random() - 0.5) * 200;
+    const swingAmplitude = 20 + Math.random() * 30;
     
-    petal.style.setProperty('--rotation', `${rotation}deg`);
-    petal.style.setProperty('--duration', `${duration}s`);
-    petal.style.setProperty('--delay', `${delay}s`);
-    petal.style.setProperty('--drift', `${horizontalDrift}px`);
+    flower.style.setProperty('--rotation', `${rotation}deg`);
+    flower.style.setProperty('--duration', `${duration}s`);
+    flower.style.setProperty('--delay', `${delay}s`);
+    flower.style.setProperty('--drift', `${horizontalDrift}px`);
+    flower.style.setProperty('--swing', `${swingAmplitude}px`);
     
-    this.stylePetal(petal);
-    container.appendChild(petal);
+    this.styleFlower(flower);
+    container.appendChild(flower);
     
     // Auto-cleanup
     setTimeout(() => {
-      if (petal.parentNode) {
-        petal.remove();
+      if (flower.parentNode) {
+        flower.remove();
       }
     }, (duration + delay) * 1000 + 100);
   }

@@ -55,6 +55,18 @@ Thumbs.db
 .env.local
 .env.production.local
 
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Generated assets (can be regenerated)
+src/assets/icons/pwa/*.png
+src/assets/icons/favicon/*.png
+# Keep source files
+!src/assets/icons/source/
+
 # Test coverage
 /coverage
 *.lcov

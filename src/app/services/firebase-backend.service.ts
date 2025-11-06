@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, updateDoc, doc, query, where, orderBy, limit, getDocs, onSnapshot, increment, serverTimestamp, Timestamp, writeBatch, CollectionReference, DocumentData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, updateDoc, setDoc, doc, query, where, orderBy, limit, getDocs, onSnapshot, increment, serverTimestamp, Timestamp, writeBatch, CollectionReference, DocumentData } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -114,18 +114,15 @@ export class FirebaseBackendService {
     if (!this.isBackendAvailable()) return;
 
     try {
-      const presenceDoc = doc(this.firestore, 'presence', this.getDeviceId());
-      await updateDoc(presenceDoc, {
+      const deviceId = this.getDeviceId();
+      const presenceDoc = doc(this.firestore, 'presence', deviceId);
+      
+      // Use setDoc with merge to create or update the document
+      await setDoc(presenceDoc, {
+        deviceId: deviceId,
         lastSeen: serverTimestamp(),
         timestamp: Date.now()
-      }).catch(async () => {
-        // Document doesn't exist, create it
-        await addDoc(collection(this.firestore, 'presence'), {
-          deviceId: this.getDeviceId(),
-          lastSeen: serverTimestamp(),
-          timestamp: Date.now()
-        });
-      });
+      }, { merge: true });
     } catch (error) {
       console.error('Error updating presence:', error);
     }
@@ -141,12 +138,24 @@ export class FirebaseBackendService {
 
     try {
       const communityWishesCol = collection(this.firestore, 'communityWishes');
-      await addDoc(communityWishesCol, {
-        ...wish,
+      
+      // Build data object, excluding undefined fields (Firestore doesn't accept undefined)
+      const wishData: any = {
+        category: wish.category,
+        deityId: wish.deityId,
+        title: wish.title,
+        isAnonymous: wish.isAnonymous,
         createdAt: serverTimestamp(),
         timestamp: Date.now(),
         prayerCount: 0
-      });
+      };
+      
+      // Only add offeringType if it's defined
+      if (wish.offeringType !== undefined && wish.offeringType !== null && wish.offeringType !== '') {
+        wishData.offeringType = wish.offeringType;
+      }
+      
+      await addDoc(communityWishesCol, wishData);
     } catch (error) {
       console.error('Error adding community wish:', error);
       throw error;
@@ -213,11 +222,21 @@ export class FirebaseBackendService {
 
     try {
       const diyasCol = collection(this.firestore, 'diyas');
-      await addDoc(diyasCol, {
-        ...diya,
+      
+      // Build data object, excluding undefined fields (Firestore doesn't accept undefined)
+      const diyaData: any = {
+        name: diya.name,
+        deityId: diya.deityId,
         litAt: serverTimestamp(),
         timestamp: Date.now()
-      });
+      };
+      
+      // Only add message if it's defined
+      if (diya.message !== undefined && diya.message !== null && diya.message !== '') {
+        diyaData.message = diya.message;
+      }
+      
+      await addDoc(diyasCol, diyaData);
       
       await this.incrementGlobalDiyaCount();
     } catch (error) {

@@ -175,7 +175,7 @@
     </div>
     
     <h2 class="text-2xl font-bold text-saffron-800 mb-4">
-      🙏 {{ lang.t('wish.ritualTitle') }}
+      🙏 {{ lang.getRitualTitle() }}
     </h2>
 
     <div class="bg-gradient-to-br from-saffron-50 to-orange-50 rounded-lg p-4 mb-6">
@@ -222,7 +222,7 @@
         📿 {{ lang.t('wish.chantTitle') }}
       </h3>
       <p class="text-sm text-gray-600 mb-4">
-        {{ lang.t('wish.chantInstructions') }}
+        {{ lang.getChantInstructions() }}
       </p>
       
       <!-- Mala Beads Visualization -->
@@ -246,7 +246,7 @@
         (click)="chantJaiHanuman()"
         [disabled]="chantCount >= requiredChants"
         class="chant-button bg-saffron-600 hover:bg-saffron-700 text-white font-bold text-xl px-8 py-4 rounded-lg mb-3 transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
-        🙏 {{ lang.t('wish.chantButton') }} 🙏
+        🙏 {{ lang.getChantButtonText() }} 🙏
       </button>
       
       <p class="text-sm font-semibold"
@@ -394,7 +394,9 @@
     <div class="bg-gradient-to-br from-orange-50 to-yellow-50 border-2 border-saffron-400 rounded-lg p-6 mb-6">
       <div class="text-4xl mb-3">🙏</div>
       <h3 class="text-lg font-bold text-saffron-800 mb-3">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान जी का आशीर्वाद' : 'Blessing from Lord Hanuman' }}
+        {{ lang.getCurrentLanguage() === 'hi' 
+           ? lang.getDeityName() + ' का आशीर्वाद' 
+           : 'Blessing from ' + lang.getDeityName() }}
       </h3>
       <p class="text-base md:text-lg font-semibold text-gray-800 leading-relaxed mb-4"
          [class.text-xl]="lang.getCurrentLanguage() === 'hi'">

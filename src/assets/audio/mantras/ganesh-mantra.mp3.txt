@@ -1,0 +1,30 @@
+# Ganesh Mantra Audio Placeholder
+
+This file represents the audio track for **Om Gam Ganapataye Namaha** mantra.
+
+## Required Audio Specifications:
+- **Format:** MP3
+- **Duration:** ~2 minutes (120 seconds)
+- **Bitrate:** 128 kbps or higher
+- **Sample Rate:** 44.1 kHz
+
+## Recommended Content:
+Chanting of the powerful Ganesh mantra:
+- "ॐ गं गणपतये नमः"
+- "Om Gam Ganapataye Namaha"
+
+This mantra is chanted to remove obstacles and bring success.
+
+## How to Replace:
+1. Obtain or record a Ganesh Mantra audio file
+2. Convert to MP3 format if needed
+3. Replace this placeholder file with actual audio
+4. Ensure filename remains: `ganesh-mantra.mp3`
+
+## Free Resources:
+- Search: "Om Gam Ganapataye Namaha MP3"
+- YouTube Audio Library (convert to MP3)
+- Royalty-free mantra chanting sites
+
+---
+**Status:** PLACEHOLDER - Replace with actual audio

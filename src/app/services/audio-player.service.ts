@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AudioStateService } from './audio-state.service';
 import { DevModeService } from './dev-mode.service';
 import { AmbientAudioService } from './ambient-audio.service';
+import { DeityService } from './deity.service';
+import { DeityType } from '../models/deity.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,17 @@ export class AudioPlayerService {
   public volume = 0.7;
   public isMuted = false;
   private volumeBeforeMute = 0.7;
+  private currentDeityType: DeityType | null = null;
   
   // LocalStorage keys
-  private readonly MUTE_STATE_KEY = 'temple-chalisa-muted';
-  private readonly VOLUME_STATE_KEY = 'temple-chalisa-volume';
+  private readonly MUTE_STATE_KEY = 'temple-audio-muted';
+  private readonly VOLUME_STATE_KEY = 'temple-audio-volume';
+  
+  // Audio file mapping by deity
+  private readonly DEITY_AUDIO_FILES: Record<DeityType, string> = {
+    [DeityType.HANUMAN]: 'assets/audio/mantras/hanuman-chalisa.mp3',
+    [DeityType.GANESH]: 'assets/audio/aarti/ganesh-aarti.mp3'
+  };
   
   // Hourly schedule info
   public nextChantTime: Date | null = null;
@@ -27,18 +36,24 @@ export class AudioPlayerService {
   public currentlyInChantWindow = false;
   public minutesIntoHour = 0;
 
-  // Hanuman Chalisa duration (in seconds) - 8 minutes 32 seconds
-  private readonly CHALISA_DURATION = 512; // 8:32 actual duration
+  // Audio duration (in seconds) - varies by deity
+  private readonly AUDIO_DURATIONS: Record<DeityType, number> = {
+    [DeityType.HANUMAN]: 512, // 8:32 - Hanuman Chalisa
+    [DeityType.GANESH]: 150    // 2:30 - Ganesh Aarti
+  };
+  
   // 24/7 operation - no time restrictions
   public manualPlayback = false; // Track if user is manually playing
 
   constructor(
     private audioStateService: AudioStateService,
     private devMode: DevModeService,
-    private ambientAudioService: AmbientAudioService
+    private ambientAudioService: AmbientAudioService,
+    private deityService: DeityService
   ) {
     this.loadSavedState();
     this.initialize();
+    this.subscribeToDeityChanges();
   }
 
   /**
@@ -74,6 +89,63 @@ export class AudioPlayerService {
   }
 
   /**
+   * Subscribe to deity changes and stop audio when switching
+   */
+  private subscribeToDeityChanges(): void {
+    this.deityService.currentDeity$.subscribe(deity => {
+      const newDeityType = deity.id;
+      
+      // If deity changed and audio is playing, stop it
+      if (this.currentDeityType && this.currentDeityType !== newDeityType) {
+        console.log(`🎵 Switching from ${this.currentDeityType} to ${newDeityType} - stopping audio`);
+        this.stop();
+        this.manualPlayback = false;
+      }
+      
+      // Update current deity and reload audio if enabled
+      this.currentDeityType = newDeityType;
+      
+      // If audio is enabled, reload with new deity's audio
+      if (this.audioEnabled) {
+        this.loadAudioForCurrentDeity();
+      }
+    });
+  }
+
+  /**
+   * Load audio file for current deity
+   */
+  private loadAudioForCurrentDeity(): void {
+    if (!this.currentDeityType || !this.audio) return;
+    
+    const audioFile = this.DEITY_AUDIO_FILES[this.currentDeityType];
+    if (audioFile && this.audio.src !== audioFile) {
+      const wasPlaying = this.isPlaying;
+      
+      // Stop current audio
+      if (wasPlaying) {
+        this.audio.pause();
+      }
+      
+      // Load new audio
+      this.audio.src = audioFile;
+      this.audio.volume = this.isMuted ? 0 : this.volume;
+      
+      console.log(`🎵 Loaded audio for ${this.currentDeityType}: ${audioFile}`);
+    }
+  }
+
+  /**
+   * Get current audio duration based on deity
+   */
+  private getCurrentAudioDuration(): number {
+    if (!this.currentDeityType) {
+      return this.AUDIO_DURATIONS[DeityType.HANUMAN]; // Default
+    }
+    return this.AUDIO_DURATIONS[this.currentDeityType] || 150;
+  }
+
+  /**
    * Initialize the audio service
    */
   initialize(): void {
@@ -96,11 +168,19 @@ export class AudioPlayerService {
   enableAudio(): void {
     if (this.audioEnabled) return;
 
+    // Get current deity
+    const currentDeity = this.deityService.getCurrentDeity();
+    this.currentDeityType = currentDeity.id;
+    
+    const audioFile = this.DEITY_AUDIO_FILES[this.currentDeityType];
+    
     this.audio = new Audio();
-    this.audio.src = 'assets/audio/hanuman-chalisa.mp3';
+    this.audio.src = audioFile;
     this.audio.volume = this.isMuted ? 0 : this.volume;
     this.audio.loop = false;
     this.audioEnabled = true;
+    
+    console.log(`🎵 Audio enabled for ${this.currentDeityType}: ${audioFile}`);
     
     // Setup event listeners
     this.audio.addEventListener('ended', () => {
@@ -127,13 +207,15 @@ export class AudioPlayerService {
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
     const currentSecond = now.getSeconds();
+    
+    const audioDuration = this.getCurrentAudioDuration();
 
     // Calculate minutes into current hour
     this.minutesIntoHour = currentMinute;
 
     // Check if we're currently in a chant window (24/7 operation)
     const secondsIntoHour = (currentMinute * 60) + currentSecond;
-    if (secondsIntoHour < this.CHALISA_DURATION) {
+    if (secondsIntoHour < audioDuration) {
       this.currentlyInChantWindow = true;
       // Next chant is next hour
       this.nextChantTime = new Date(now);
@@ -185,6 +267,8 @@ export class AudioPlayerService {
     // Don't interrupt manual playback
     if (this.manualPlayback) return;
 
+    const audioDuration = this.getCurrentAudioDuration();
+
     // Check dev mode override first
     const forcedPlay = this.devMode.getForcedChalisaPlayState();
     if (forcedPlay !== null) {
@@ -194,7 +278,7 @@ export class AudioPlayerService {
         const currentMinute = now.getMinutes();
         const currentSecond = now.getSeconds();
         const secondsIntoHour = (currentMinute * 60) + currentSecond;
-        this.audio.currentTime = secondsIntoHour % this.CHALISA_DURATION;
+        this.audio.currentTime = secondsIntoHour % audioDuration;
         this.play();
         this.currentlyInChantWindow = true;
       } else if (!forcedPlay && this.isPlaying) {
@@ -210,8 +294,8 @@ export class AudioPlayerService {
     const currentSecond = now.getSeconds();
     const secondsIntoHour = (currentMinute * 60) + currentSecond;
     
-    // 24/7 operation - play during the first ~8:32 minutes of every hour
-    if (secondsIntoHour < this.CHALISA_DURATION) {
+    // 24/7 operation - play during the audio duration at start of every hour
+    if (secondsIntoHour < audioDuration) {
       if (!this.isPlaying) {
         this.audio.currentTime = secondsIntoHour;
         this.play();
@@ -252,6 +336,20 @@ export class AudioPlayerService {
     this.audio.pause();
     this.isPlaying = false;
     this.audioStateService.setPlayingState(false);
+  }
+
+  /**
+   * Stop audio completely (resets playback position)
+   */
+  public stop(): void {
+    if (!this.audio) return;
+    
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.isPlaying = false;
+    this.manualPlayback = false;
+    this.audioStateService.setPlayingState(false);
+    console.log('🔇 Audio stopped');
   }
 
   /**
@@ -333,15 +431,53 @@ export class AudioPlayerService {
    * Get status message
    */
   getStatusMessage(): string {
+    const audioName = this.getAudioName();
+    
     if (this.manualPlayback) {
-      return 'Playing Hanuman Chalisa (Manual) 🎵';
+      return `Playing ${audioName} (Manual) 🎵`;
     }
     
     if (this.currentlyInChantWindow) {
-      return 'Hanuman Chalisa is playing now! 🙏';
+      return `${audioName} is playing now! 🙏`;
     }
     
-    return 'Hanuman Chalisa plays every hour, 24/7 🕉️';
+    return `${audioName} plays every hour, 24/7 🕉️`;
+  }
+
+  /**
+   * Get the name of the current audio based on deity
+   */
+  getAudioName(): string {
+    if (!this.currentDeityType) {
+      return 'Sacred Audio';
+    }
+    
+    switch (this.currentDeityType) {
+      case DeityType.HANUMAN:
+        return 'Hanuman Chalisa';
+      case DeityType.GANESH:
+        return 'Ganesh Aarti';
+      default:
+        return 'Sacred Audio';
+    }
+  }
+
+  /**
+   * Get the play button text based on deity
+   */
+  getPlayButtonText(): string {
+    if (!this.currentDeityType) {
+      return '▶️ Play';
+    }
+    
+    switch (this.currentDeityType) {
+      case DeityType.HANUMAN:
+        return '▶️ Play Chalisa';
+      case DeityType.GANESH:
+        return '▶️ Play Aarti';
+      default:
+        return '▶️ Play';
+    }
   }
 
   /**

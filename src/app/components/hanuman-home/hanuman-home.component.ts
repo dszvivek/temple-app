@@ -33,6 +33,8 @@ export class HanumanHomeComponent implements OnInit, OnDestroy {
   ) {
     // Set Hanuman as the current deity
     this.deityService.setDeity(DeityType.HANUMAN);
+    // Set language service deity context for proper translations
+    this.lang.setDeityContext(DeityType.HANUMAN);
     
     // Check if onboarding is needed
     const onboardingComplete = localStorage.getItem('temple-onboarding-complete');

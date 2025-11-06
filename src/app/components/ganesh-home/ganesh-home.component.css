@@ -74,7 +74,44 @@
   }
 }
 
-/* Ganesh Image Placeholder */
+/* Ganesh Main Image Container */
+.ganesh-image-container {
+  text-align: center;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(252,211,77,0.4));
+  border-radius: 1rem;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.ganesh-image-container:hover {
+  transform: scale(1.02);
+}
+
+.ganesh-main-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+  transition: filter 0.3s ease;
+}
+
+.ganesh-main-image:hover {
+  filter: drop-shadow(0 15px 30px rgba(245, 158, 11, 0.3));
+}
+
+.active-aarti .ganesh-image-container {
+  animation: gentle-float 3s ease-in-out infinite;
+}
+
+.active-aarti .ganesh-main-image {
+  filter: drop-shadow(0 15px 40px rgba(245, 158, 11, 0.5));
+}
+
+/* Ganesh Image Placeholder (legacy - can be removed if not needed) */
 .ganesh-image-placeholder {
   text-align: center;
   padding: 3rem 1rem;

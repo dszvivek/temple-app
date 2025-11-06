@@ -80,21 +80,21 @@ export class AmbientAudioService {
 
     // Preload temple ambience (looping background sound)
     this.ambienceAudio = new Audio();
-    this.ambienceAudio.src = 'assets/audio/temple_ambience.wav';
+    this.ambienceAudio.src = 'assets/audio/temple_ambience.wav'; // Still in root audio folder
     this.ambienceAudio.loop = true;
     this.ambienceAudio.volume = savedVolume * 0.4; // Lower volume for ambience
     this.ambienceAudio.preload = 'auto';
 
     // Preload bell sound
     this.bellAudio = new Audio();
-    this.bellAudio.src = 'assets/audio/mandir_bell.wav';
+    this.bellAudio.src = 'assets/audio/effects/mandir_bell.wav';
     this.bellAudio.loop = false;
     this.bellAudio.volume = savedVolume * 0.8;
     this.bellAudio.preload = 'auto';
 
     // Preload shankh sound
     this.shankhAudio = new Audio();
-    this.shankhAudio.src = 'assets/audio/shankh_drone.wav';
+    this.shankhAudio.src = 'assets/audio/ambient/shankh_drone.wav';
     this.shankhAudio.loop = false;
     this.shankhAudio.volume = savedVolume * 0.7;
     this.shankhAudio.preload = 'auto';
