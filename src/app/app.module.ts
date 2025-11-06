@@ -6,7 +6,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Firebase imports
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore, enableIndexedDbPersistence } from '@angular/fire/firestore';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -74,22 +74,8 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
     })
   ],
   providers: [
-    // Firebase providers - Initialize Firebase with offline persistence
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => {
-      const firestore = getFirestore();
-      // Enable offline persistence for better user experience
-      if (environment.useBackend) {
-        enableIndexedDbPersistence(firestore).catch((err) => {
-          if (err.code === 'failed-precondition') {
-            console.warn('Firebase persistence failed: Multiple tabs open');
-          } else if (err.code === 'unimplemented') {
-            console.warn('Firebase persistence not available in this browser');
-          }
-        });
-      }
-      return firestore;
-    })
+    provideFirestore(() => getFirestore())
   ],
   bootstrap: [AppComponent]
 })
