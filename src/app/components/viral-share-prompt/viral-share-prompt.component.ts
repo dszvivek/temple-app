@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
+import { DeityService } from '../../services/deity.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 /**
@@ -43,7 +44,10 @@ export class ViralSharePromptComponent {
 
   shareCount = 0;
 
-  constructor(public lang: LanguageService) {
+  constructor(
+    public lang: LanguageService,
+    private deityService: DeityService
+  ) {
     this.loadShareCount();
   }
 
@@ -53,12 +57,17 @@ export class ViralSharePromptComponent {
   }
 
   async share(): Promise<void> {
+    const currentDeity = this.deityService.getCurrentDeity();
+    const deityName = this.lang.getCurrentLanguage() === 'hi' 
+      ? currentDeity.nameHindi 
+      : currentDeity.name;
+      
     const shareData = {
       title: this.lang.getCurrentLanguage() === 'hi' 
-        ? '🚩 श्री हनुमान डिजिटल मंदिर 🚩' 
-        : '🚩 Shri Hanuman Digital Temple 🚩',
+        ? `🚩 ${deityName} डिजिटल मंदिर 🚩` 
+        : `🚩 ${deityName} Digital Temple 🚩`,
       text: this.lang.getCurrentLanguage() === 'hi'
-        ? `🚩 श्री हनुमान जी का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
+        ? `🚩 ${deityName} का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
 
 यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
 जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
@@ -66,18 +75,21 @@ export class ViralSharePromptComponent {
 यहाँ आप अपने मोबाइल से ही:
 🕯️ दीया जला सकते हैं  
 🔔 मंदिर की घंटी बजा सकते हैं  
-� अपनी मनोकामना लिखकर श्री हनुमान जी को समर्पित कर सकते हैं  
-🎵 हर घंटे श्री हनुमान चालीसा अपने-आप बजती है — दिन हो या रात  
+🌺 फूल चढ़ा सकते हैं  
+📿 अपनी मनोकामना लिखकर ${deityName} को समर्पित कर सकते हैं  
+🎵 दिव्य मंत्र और आरती सुन सकते हैं  
+📊 लाइव भक्त काउंटर देख सकते हैं
 
 ✅ कोई लॉगिन नहीं  
 ✅ कोई ऐप डाउनलोड नहीं  
 ✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
+✅ ऑफलाइन भी काम करता है (PWA)  
 ✅ शुद्ध भक्ति, बिना किसी शुल्क के  
 
 🔗 दर्शन हेतु पधारें: ${window.location.origin}
-� "डिजिटल मंदिर, पर भक्ति वही"  
-🚩 जय बजरंगबली`
-        : `🚩 The Digital Hanuman Temple is now open 24×7 🚩
+🙏 "डिजिटल मंदिर, पर भक्ति वही"  
+🚩 नमस्ते`
+        : `🚩 The ${deityName} Digital Temple is now open 24×7 🚩
 
 This is not a physical temple — it is a sacred online space
 created for those who wish to pray, offer devotion, and submit
@@ -86,16 +98,19 @@ their wishes from anywhere in the world.
 Inside the digital temple, you can:
 🕯️ Light a virtual Diya
 🔔 Ring the temple bell
-📿 Write and offer your personal wish to Hanuman Ji
-🎵 Listen to the Hanuman Chalisa every hour, automatically (day & night)
+🌺 Offer flowers
+📿 Write and offer your personal wish to ${deityName}
+🎵 Listen to divine mantras and aartis
+📊 See live devotee counter
 
 ✅ No login required
 ✅ No app to install
 ✅ Your wishes stay private on your own device
+✅ Works offline too (PWA)
 ✅ 100% free — devotion only, no mandatory donation
 
 Visit and offer your prayer: ${window.location.origin}
-🙏 Jai Bajrang Bali 🚩`,
+🙏 Namaste 🚩`,
       url: window.location.origin
     };
 
@@ -115,8 +130,13 @@ Visit and offer your prayer: ${window.location.origin}
   }
 
   copyToClipboard(): void {
+    const currentDeity = this.deityService.getCurrentDeity();
+    const deityName = this.lang.getCurrentLanguage() === 'hi' 
+      ? currentDeity.nameHindi 
+      : currentDeity.name;
+      
     const shareText = this.lang.getCurrentLanguage() === 'hi'
-      ? `🚩 श्री हनुमान जी का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
+      ? `🚩 ${deityName} का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
 
 यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
 जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
@@ -124,18 +144,21 @@ Visit and offer your prayer: ${window.location.origin}
 यहाँ आप अपने मोबाइल से ही:
 🕯️ दीया जला सकते हैं  
 🔔 मंदिर की घंटी बजा सकते हैं  
-� अपनी मनोकामना लिखकर श्री हनुमान जी को समर्पित कर सकते हैं  
-🎵 हर घंटे श्री हनुमान चालीसा अपने-आप बजती है — दिन हो या रात  
+🌺 फूल चढ़ा सकते हैं  
+📿 अपनी मनोकामना लिखकर ${deityName} को समर्पित कर सकते हैं  
+🎵 दिव्य मंत्र और आरती सुन सकते हैं  
+📊 लाइव भक्त काउंटर देख सकते हैं  
 
 ✅ कोई लॉगिन नहीं  
 ✅ कोई ऐप डाउनलोड नहीं  
 ✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
+✅ ऑफलाइन भी काम करता है (PWA)  
 ✅ शुद्ध भक्ति, बिना किसी शुल्क के  
 
 🔗 दर्शन हेतु पधारें: ${window.location.origin}
-� "डिजिटल मंदिर, पर भक्ति वही"  
-🚩 जय बजरंगबली`
-      : `🚩 The Digital Hanuman Temple is now open 24×7 🚩
+🙏 "डिजिटल मंदिर, पर भक्ति वही"  
+🚩 नमस्ते`
+      : `🚩 The ${deityName} Digital Temple is now open 24×7 🚩
 
 This is not a physical temple — it is a sacred online space
 created for those who wish to pray, offer devotion, and submit
@@ -144,16 +167,19 @@ their wishes from anywhere in the world.
 Inside the digital temple, you can:
 🕯️ Light a virtual Diya
 🔔 Ring the temple bell
-📿 Write and offer your personal wish to Hanuman Ji
-🎵 Listen to the Hanuman Chalisa every hour, automatically (day & night)
+🌺 Offer flowers
+📿 Write and offer your personal wish to ${deityName}
+🎵 Listen to divine mantras and aartis
+📊 See live devotee counter
 
 ✅ No login required
 ✅ No app to install
 ✅ Your wishes stay private on your own device
+✅ Works offline too (PWA)
 ✅ 100% free — devotion only, no mandatory donation
 
 Visit and offer your prayer: ${window.location.origin}
-🙏 Jai Bajrang Bali 🚩`;
+🙏 Namaste 🚩`;
 
     navigator.clipboard.writeText(shareText).then(() => {
       alert(this.lang.getCurrentLanguage() === 'hi' 

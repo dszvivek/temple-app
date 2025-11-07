@@ -386,7 +386,7 @@ export class LanguageService {
   
   shareTitle: 'मंदिर की जानकारी साझा करें',
   shareSubtitle: 'दिव्य आशीर्वाद फैलाएं',
-  shareMessage: 'कृपया इस मंदिर के बारे में कम से कम 3 लोगों को बताएं और उन्हें भी श्री हनुमान जी का आशीर्वाद लेने के लिए प्रोत्साहित करें। आशीर्वाद साझा करना आपके विश्वास और भक्ति को मजबूत करता है।',
+  shareMessage: 'कृपया इस मंदिर के बारे में कम से कम 3 लोगों को बताएं और उन्हें भी दिव्य आशीर्वाद लेने के लिए प्रोत्साहित करें। आशीर्वाद साझा करना आपके विश्वास और भक्ति को मजबूत करता है।',
   shareInstructions: 'आप निम्न माध्यमों से साझा कर सकते हैं:',
   shareOption1: 'WhatsApp पर परिवार या मित्रों को भेजें',
   shareOption2: 'Email, SMS, या सोशल मीडिया के माध्यम से',
@@ -638,7 +638,7 @@ export class LanguageService {
         
         shareTitle: 'Share Temple Information',
         shareSubtitle: 'Spread Divine Blessings',
-        shareMessage: 'Please tell at least 3 people about this temple and encourage them to seek Lord Hanuman\'s blessings as well. Sharing blessings strengthens your faith and devotion.',
+        shareMessage: 'Please tell at least 3 people about this temple and encourage them to seek divine blessings as well. Sharing blessings strengthens your faith and devotion.',
         shareInstructions: 'You can share through:',
         shareOption1: 'WhatsApp with family or friends',
         shareOption2: 'Email, SMS, or social media',
@@ -673,7 +673,7 @@ export class LanguageService {
         dailyPractice3: 'Offer daily prayers with sincere devotion and gratitude',
         spreadBlessings: 'Spread Divine Blessings',
         spreadBlessing1: 'Share your experience of this virtual temple with at least 3 people',
-        spreadBlessing2: 'Encourage them to seek Lord Hanuman\'s blessings for their own wishes',
+        spreadBlessing2: 'Encourage them to seek divine blessings for their own wishes',
         completeCycle: 'Complete the Sacred Cycle',
         completeCycle1: 'Return after 14 days of consistent practice',
         completeCycle2: 'Perform the same ritual again (ring bell 5 times, chant "Jai Hanuman" 11 times)',

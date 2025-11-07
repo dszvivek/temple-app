@@ -1,4 +1,7 @@
 <div class="container mx-auto px-4 py-8">
+  <!-- Sacred Background -->
+  <app-sacred-bg></app-sacred-bg>
+
   <!-- Onboarding Welcome Ritual -->
   <app-onboarding-welcome
     *ngIf="showOnboarding"
@@ -26,7 +29,7 @@
   <header class="text-center mb-12">
     <div class="mb-6 hero-image-container relative" flowerOffering>
       <!-- Decorative Border and Ganesh Image -->
-      <div class="ganesh-frame" [class.active-aarti]="isAartiPlaying">
+      <div class="ganesh-frame" [class.active-aarti]="isAartiPlaying" [class.aarti-playing]="isAartiPlaying">
         <!-- Rotating Durva Grass (only when playing) -->
         <div class="durva-container" *ngIf="isAartiPlaying">
           <div class="durva-blade" *ngFor="let blade of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]" 
@@ -51,12 +54,24 @@
         </div>
         
         <!-- Main Ganesh Image -->
-        <div class="ganesh-image-container">
+        <div class="ganesh-image-container deity-image-wrapper-temple relative">
           <img 
             src="assets/images/deities/ganesh/Ganesh.png" 
             alt="Lord Ganesha"
             class="ganesh-main-image w-full h-auto rounded-lg shadow-2xl"
             loading="eager">
+          
+          <!-- Orbiting particles -->
+          <div class="orbit-container-temple">
+            <div class="orbit-particle">🌺</div>
+            <div class="orbit-particle">🪔</div>
+            <div class="orbit-particle">🌸</div>
+            <div class="orbit-particle">✨</div>
+            <div class="orbit-particle">🌺</div>
+            <div class="orbit-particle">🪔</div>
+            <div class="orbit-particle">🌸</div>
+            <div class="orbit-particle">✨</div>
+          </div>
         </div>
       </div>
     </div>
@@ -79,11 +94,6 @@
   <!-- Diya Counter -->
   <div class="mb-8">
     <app-diya-counter></app-diya-counter>
-  </div>
-
-  <!-- Meditation Timer -->
-  <div class="mb-8">
-    <app-meditation-timer></app-meditation-timer>
   </div>
 
   <!-- Audio Player -->

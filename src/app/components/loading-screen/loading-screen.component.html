@@ -1,7 +1,23 @@
 <div class="loading-screen" [class.fade-out]="!isVisible" *ngIf="loading$ | async as progress">
   <div class="loading-content">
-    <!-- Temple Icon -->
-    <div class="temple-icon">
+    <!-- Temple Gates Animation -->
+    <div class="temple-gates">
+      <div class="gate gate-left" [class.open]="progress.percentage >= 100">
+        <div class="gate-decoration">
+          <div class="gate-pattern"></div>
+          <div class="gate-symbol">🕉️</div>
+        </div>
+      </div>
+      <div class="gate gate-right" [class.open]="progress.percentage >= 100">
+        <div class="gate-decoration">
+          <div class="gate-pattern"></div>
+          <div class="gate-symbol">🙏</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Temple Icon (centered between gates) -->
+    <div class="temple-icon" [class.visible]="progress.percentage < 100">
       <div class="om-symbol">ॐ</div>
     </div>
     

@@ -1,0 +1,150 @@
+.sacred-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Om Symbols */
+.om-symbol {
+  position: absolute;
+  opacity: 0.08;
+  filter: blur(1px);
+}
+
+.om-symbol svg {
+  width: 100%;
+  height: 100%;
+}
+
+.om-text {
+  font-size: 60px;
+}
+
+.om-1 {
+  top: 10%;
+  left: 5%;
+  width: 120px;
+  height: 120px;
+  animation: floatRotate 40s ease-in-out infinite;
+}
+
+.om-2 {
+  top: 60%;
+  right: 8%;
+  width: 100px;
+  height: 100px;
+  animation: floatRotate 50s ease-in-out infinite reverse;
+  animation-delay: -10s;
+}
+
+.om-3 {
+  bottom: 15%;
+  left: 10%;
+  width: 90px;
+  height: 90px;
+  animation: floatRotate 45s ease-in-out infinite;
+  animation-delay: -20s;
+}
+
+/* Mandalas */
+.mandala {
+  position: absolute;
+  opacity: 0.3;
+}
+
+.mandala svg {
+  width: 100%;
+  height: 100%;
+}
+
+.mandala-1 {
+  top: 20%;
+  right: 10%;
+  width: 250px;
+  height: 250px;
+  animation: rotateMandalaSlow 60s linear infinite, pulse 8s ease-in-out infinite;
+}
+
+.mandala-2 {
+  bottom: 20%;
+  left: 5%;
+  width: 200px;
+  height: 200px;
+  animation: rotateMandalaSlow 70s linear infinite reverse, pulse 10s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.mandala-petals {
+  animation: rotateMandalaFast 30s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes floatRotate {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(10px, -20px) rotate(90deg);
+  }
+  50% {
+    transform: translate(-10px, -10px) rotate(180deg);
+  }
+  75% {
+    transform: translate(20px, 10px) rotate(270deg);
+  }
+}
+
+@keyframes rotateMandalaSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateMandalaFast {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .om-symbol {
+    opacity: 0.05;
+  }
+  
+  .mandala {
+    opacity: 0.15;
+  }
+  
+  .om-1, .om-2, .om-3 {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .mandala-1, .mandala-2 {
+    width: 150px;
+    height: 150px;
+  }
+}

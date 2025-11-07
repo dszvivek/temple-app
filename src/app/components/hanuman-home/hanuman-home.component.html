@@ -1,4 +1,7 @@
 <div class="container mx-auto px-4 py-8">
+  <!-- Sacred Background -->
+  <app-sacred-bg></app-sacred-bg>
+
   <!-- Onboarding Welcome Ritual -->
   <app-onboarding-welcome
     *ngIf="showOnboarding"
@@ -44,14 +47,28 @@
         </div>
         
         <!-- Main Hanuman Image -->
-        <img 
-          src="assets/images/deities/hanuman/hanuman-main.png" 
-          alt="Lord Hanuman" 
-          class="hanuman-main-image w-full h-auto rounded-lg"
-          [class.animate-float]="isChalisaPlaying"
-          loading="eager"
-          onerror="this.src='assets/images/deities/hanuman/hanuman-deity.svg'"
-        />
+        <div class="deity-image-wrapper-temple relative inline-block">
+          <img 
+            src="assets/images/deities/hanuman/hanuman-main.png" 
+            alt="Lord Hanuman" 
+            class="hanuman-main-image w-full h-auto rounded-lg"
+            [class.animate-float]="isChalisaPlaying"
+            loading="eager"
+            onerror="this.src='assets/images/deities/hanuman/hanuman-deity.svg'"
+          />
+          
+          <!-- Orbiting particles -->
+          <div class="orbit-container-temple">
+            <div class="orbit-particle">🌺</div>
+            <div class="orbit-particle">🪔</div>
+            <div class="orbit-particle">🌸</div>
+            <div class="orbit-particle">✨</div>
+            <div class="orbit-particle">🌺</div>
+            <div class="orbit-particle">🪔</div>
+            <div class="orbit-particle">🌸</div>
+            <div class="orbit-particle">✨</div>
+          </div>
+        </div>
       </div>
     </div>
     <h1 class="temple-header">
@@ -71,11 +88,6 @@
   <!-- Diya Counter -->
   <div class="mb-8">
     <app-diya-counter></app-diya-counter>
-  </div>
-
-  <!-- Meditation Timer -->
-  <div class="mb-8">
-    <app-meditation-timer></app-meditation-timer>
   </div>
 
   <!-- Audio Player -->

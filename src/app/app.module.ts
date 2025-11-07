@@ -33,8 +33,8 @@ import { ViralSharePromptComponent } from './components/viral-share-prompt/viral
 // Directives
 import { FlowerOfferingDirective } from './directives/flower-offering.directive';
 import { DiyaCounterComponent } from './components/diya-counter/diya-counter.component';
-import { MeditationTimerComponent } from './components/meditation-timer/meditation-timer.component';
 import { OfflineIndicatorComponent } from './components/offline-indicator/offline-indicator.component';
+import { SacredBgComponent } from './components/sacred-bg/sacred-bg.component';
 
 @NgModule({
   declarations: [
@@ -57,8 +57,8 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
     ViralSharePromptComponent,
     FlowerOfferingDirective,
     DiyaCounterComponent,
-    MeditationTimerComponent,
-    OfflineIndicatorComponent
+    OfflineIndicatorComponent,
+    SacredBgComponent
   ],
   imports: [
     BrowserModule,

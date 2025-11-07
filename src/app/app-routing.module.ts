@@ -9,18 +9,18 @@ import { DonateComponent } from './components/donate/donate.component';
 
 const routes: Routes = [
   // Temple Selector - New Home Page
-  { path: '', component: TempleSelectorComponent, pathMatch: 'full' },
+  { path: '', component: TempleSelectorComponent, pathMatch: 'full', data: { animation: 'TempleSelector' } },
   
   // Hanuman Temple Routes
-  { path: 'hanuman', component: HanumanHomeComponent },
-  { path: 'hanuman/wish', component: WishFlowComponent, data: { deity: 'hanuman' } },
+  { path: 'hanuman', component: HanumanHomeComponent, data: { animation: 'Hanuman' } },
+  { path: 'hanuman/wish', component: WishFlowComponent, data: { deity: 'hanuman', animation: 'Wish' } },
   
   // Ganesh Temple Routes
-  { path: 'ganesh', component: GaneshHomeComponent },
-  { path: 'ganesh/wish', component: WishFlowComponent, data: { deity: 'ganesh' } },
+  { path: 'ganesh', component: GaneshHomeComponent, data: { animation: 'Ganesh' } },
+  { path: 'ganesh/wish', component: WishFlowComponent, data: { deity: 'ganesh', animation: 'Wish' } },
   
   // Shared Routes
-  { path: 'donate', component: DonateComponent },
+  { path: 'donate', component: DonateComponent, data: { animation: 'Donate' } },
   
   // Legacy Routes (backward compatibility)
   { path: 'home', redirectTo: 'hanuman', pathMatch: 'full' },

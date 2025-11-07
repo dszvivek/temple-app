@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { Router, RouterOutlet } from '@angular/router';
 import { LanguageService } from './services/language.service';
 import { ThemeService } from './services/theme.service';
 import { DeityService } from './services/deity.service';
@@ -7,10 +8,12 @@ import { FirebaseBackendService } from './services/firebase-backend.service';
 import { LiveStatsService } from './services/live-stats.service';
 import { HANUMAN_CONFIG } from './configs/hanuman.config';
 import { GANESH_CONFIG } from './configs/ganesh.config';
+import { slideInAnimation } from './animations/route-animations';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
+  animations: [slideInAnimation],
   template: `
     <!-- Loading Screen -->
     <app-loading-screen></app-loading-screen>
@@ -40,7 +43,7 @@ import { filter } from 'rxjs/operators';
       <app-floating-flower></app-floating-flower>
       
       <!-- Main Content -->
-      <main class="flex-grow relative z-10">
+      <main class="flex-grow relative z-10" [@slideInAnimation]="getRouteAnimationData()">
         <router-outlet></router-outlet>
       </main>
       
@@ -126,7 +129,8 @@ export class AppComponent implements OnInit {
     private themeService: ThemeService,
     private deityService: DeityService,
     private firebaseBackend: FirebaseBackendService,
-    private liveStats: LiveStatsService
+    private liveStats: LiveStatsService,
+    private router: Router
   ) {
     // Initialize temple configurations
     this.initializeTemples();
@@ -218,5 +222,10 @@ export class AppComponent implements OnInit {
     this.swUpdate.activateUpdate().then(() => {
       window.location.reload();
     });
+  }
+
+  getRouteAnimationData() {
+    const outlet = this.router.routerState.root.firstChild;
+    return outlet?.snapshot?.data?.['animation'];
   }
 }

@@ -323,3 +323,146 @@
     padding: 1.5rem 0.5rem;
   }
 }
+
+/* Orbiting particles for temple page */
+.deity-image-wrapper-temple {
+  overflow: visible;
+}
+
+.orbit-container-temple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.orbit-particle {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  animation: orbitTemple 8s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8))
+          drop-shadow(0 0 15px rgba(252, 211, 77, 0.6));
+}
+
+.orbit-particle::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(252, 211, 77, 0.4), transparent);
+  border-radius: 50%;
+  filter: blur(8px);
+  z-index: -1;
+  animation: particleGlow 2s ease-in-out infinite;
+}
+
+.orbit-particle:nth-child(1) {
+  animation-delay: 0s;
+  font-size: 24px;
+}
+
+.orbit-particle:nth-child(2) {
+  animation-delay: -2s;
+  font-size: 20px;
+}
+
+.orbit-particle:nth-child(3) {
+  animation-delay: -4s;
+  font-size: 22px;
+}
+
+.orbit-particle:nth-child(4) {
+  animation-delay: -6s;
+  font-size: 18px;
+}
+
+.orbit-particle:nth-child(5) {
+  animation-delay: -1s;
+  font-size: 20px;
+}
+
+.orbit-particle:nth-child(6) {
+  animation-delay: -3s;
+  font-size: 24px;
+}
+
+.orbit-particle:nth-child(7) {
+  animation-delay: -5s;
+  font-size: 18px;
+}
+
+.orbit-particle:nth-child(8) {
+  animation-delay: -7s;
+  font-size: 22px;
+}
+
+@keyframes orbitTemple {
+  0% {
+    top: -20px;
+    left: 0%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  25% {
+    top: -20px;
+    left: 100%;
+    opacity: 1;
+  }
+  50% {
+    top: 100%;
+    left: 100%;
+    opacity: 1;
+  }
+  75% {
+    top: 100%;
+    left: 0%;
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: -20px;
+    left: 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes particleGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+/* Pulsing glow for deity image when audio is playing */
+.ganesh-main-image {
+  transition: filter 0.3s ease;
+}
+
+.ganesh-frame.aarti-playing .ganesh-main-image {
+  animation: divineGlowGanesh 2s ease-in-out infinite;
+}
+
+@keyframes divineGlowGanesh {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.5))
+            drop-shadow(0 0 40px rgba(252, 211, 77, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.8))
+            drop-shadow(0 0 60px rgba(252, 211, 77, 0.6))
+            drop-shadow(0 0 80px rgba(251, 191, 36, 0.4));
+  }
+}
+
