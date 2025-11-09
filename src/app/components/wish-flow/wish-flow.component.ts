@@ -15,7 +15,7 @@ import { DeityType } from '../../models/deity.model';
   styleUrls: ['./wish-flow.component.css']
 })
 export class WishFlowComponent implements OnInit {
-  step: 'create' | 'ritual' | 'share' | 'complete' = 'create';
+  step: 'create' | 'ritual' | 'complete' = 'create';
   
   // Current deity
   currentDeity: DeityType = DeityType.HANUMAN;
@@ -34,10 +34,6 @@ export class WishFlowComponent implements OnInit {
   isRitualComplete = false;
   showOfferingAnimation = false;
   fallingOfferings: any[] = [];
-  
-  // Share tracking
-  hasShared = false;
-  showViralShare = false;
 
   // Current wish being processed
   currentWish?: Wish;
@@ -172,78 +168,23 @@ export class WishFlowComponent implements OnInit {
   }
 
   /**
-   * Move to sharing step after ritual completion
+   * Proceed directly to activation after ritual completion
    */
-  proceedToShare(): void {
+  proceedToActivate(): void {
     if (!this.isRitualComplete) return;
-    this.step = 'share';
+    this.activateWish();
   }
 
   /**
-   * Share temple info - opens native share or fallback
+   * Share temple info - opens native share or fallback (optional feature)
    */
   async shareTemple(): Promise<void> {
-    const hindiMessage = `� जय श्री राम 🚩
-अब एक ऐसा ऑनलाइन मंदिर तैयार हुआ है जहाँ:
+    const currentDeity = this.deityService.getCurrentDeity();
+    const deityName = this.lang.getCurrentLanguage() === 'hi' 
+      ? currentDeity.nameHindi 
+      : currentDeity.name;
 
-🕓 हर घंटे हनुमान चालीसा स्वचालित रूप से बजती है (5 AM – 7 PM)
-🙏 आप अपनी मनोकामना लिखकर घंटा बजा सकते हैं
-🪔 वर्चुअल चढ़ावा, आरती और पूजा का अनुभव मिलता है
-📿 आपकी सभी इच्छाएँ केवल आपके मोबाइल में सुरक्षित रहती हैं
-🌍 दुनिया भर के भक्त एक ही समय पर चालीसा सुनते हैं
-📱 किसी ऐप की जरूरत नहीं — बस लिंक खोलें और दर्शन करें
-
-यह सिर्फ वेबसाइट नहीं — एक *डिजिटल भक्ति स्थल* है।
-
-🔗 https://manokamna.online
-🕉 जय बजरंगबली �`;
-
-    const englishMessage = `🚩 Jai Shree Ram �
-
-A unique spiritual experience has been created for devotees across the world:
-
-🕓 Automatic Hanuman Chalisa every hour (5 AM – 7 PM)
-🙏 Write your personal wish and offer it to Lord Hanuman
-🔔 Ring the digital temple bell and complete a guided ritual
-🪔 Experience virtual Aarti and offerings
-📿 All wishes are stored only on your device — fully private
-🌍 Devotees worldwide hear the same Chalisa timing together
-📱 No download, no login — works instantly on any device
-
-This is not just a website.
-It is a **real digital temple of faith and devotion**.
-
-🔗 Visit now: https://manokamna.online
-🕉 Jai Bajrang Bali 🔱`;
-
-    const messageToShare = this.lang.getCurrentLanguage() === 'hi' ? hindiMessage : englishMessage;
-
-    try {
-      // Try native Web Share API first (works on mobile)
-      if (navigator.share) {
-        await navigator.share({
-          text: messageToShare
-        });
-        this.hasShared = true;
-      } else {
-        // Fallback: copy to clipboard
-        await navigator.clipboard.writeText(messageToShare);
-        alert(this.lang.getCurrentLanguage() === 'hi' 
-          ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
-          : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.');
-        this.hasShared = true;
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-      // User cancelled or error - that's okay
-    }
-  }
-
-  /**
-   * Share directly to WhatsApp
-   */
-  shareToWhatsApp(): void {
-    const hindiMessage = `🚩 श्री हनुमान जी का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
+    const hindiMessage = `🚩 ${deityName} का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
 
 यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
 जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
@@ -251,19 +192,19 @@ It is a **real digital temple of faith and devotion**.
 यहाँ आप अपने मोबाइल से ही:
 🕯️ दीया जला सकते हैं  
 🔔 मंदिर की घंटी बजा सकते हैं  
-📿 अपनी मनोकामना लिखकर श्री हनुमान जी को समर्पित कर सकते हैं  
-� हर घंटे श्री हनुमान चालीसा अपने-आप बजती है — दिन हो या रात  
+📿 अपनी मनोकामना लिखकर ${deityName} को समर्पित कर सकते हैं  
+🎵 दिव्य मंत्र और आरती सुन सकते हैं  
 
 ✅ कोई लॉगिन नहीं  
 ✅ कोई ऐप डाउनलोड नहीं  
 ✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
 ✅ शुद्ध भक्ति, बिना किसी शुल्क के  
 
-🌐 दर्शन हेतु पधारें: https://manokamna.online  
-� "डिजिटल मंदिर, पर भक्ति वही"  
-🚩 जय बजरंगबली`;
+🌐 दर्शन हेतु पधारें: ${window.location.origin}  
+🙏 "डिजिटल मंदिर, पर भक्ति वही"  
+🚩 नमस्ते`;
 
-    const englishMessage = `🚩 The Digital Hanuman Temple is now open 24×7 🚩
+    const englishMessage = `🚩 The ${deityName} Digital Temple is now open 24×7 🚩
 
 This is not a physical temple — it is a sacred online space
 created for those who wish to pray, offer devotion, and submit
@@ -272,45 +213,43 @@ their wishes from anywhere in the world.
 Inside the digital temple, you can:
 🕯️ Light a virtual Diya
 🔔 Ring the temple bell
-📿 Write and offer your personal wish to Hanuman Ji
-� Listen to the Hanuman Chalisa every hour, automatically (day & night)
+📿 Write and offer your personal wish to ${deityName}
+🎵 Listen to divine mantras and aartis
 
 ✅ No login required
 ✅ No app to install
 ✅ Your wishes stay private on your own device
 ✅ 100% free — devotion only, no mandatory donation
 
-Visit and offer your prayer: https://manokamna.online  
-� Jai Bajrang Bali �`;
+Visit and offer your prayer: ${window.location.origin}  
+🙏 Namaste 🚩`;
 
     const messageToShare = this.lang.getCurrentLanguage() === 'hi' ? hindiMessage : englishMessage;
-    const encodedMessage = encodeURIComponent(messageToShare);
-    
-    // Open WhatsApp with pre-filled message
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
-    this.hasShared = true;
+
+    try {
+      // Try native Web Share API first (works on mobile)
+      if (navigator.share) {
+        await navigator.share({
+          text: messageToShare,
+          url: window.location.origin
+        });
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(messageToShare);
+        alert(this.lang.getCurrentLanguage() === 'hi' 
+          ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
+          : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // User cancelled or error - that's okay
+    }
   }
 
   /**
-   * Skip sharing step
+   * Activate wish directly without share step
    */
-  skipSharing(): void {
-    this.step = 'complete';
-    this.submitWishFinal();
-  }
-
-  /**
-   * Continue after sharing
-   */
-  continueAfterSharing(): void {
-    this.step = 'complete';
-    this.submitWishFinal();
-  }
-
-  /**
-   * Submit wish after sharing
-   */
-  async submitWishFinal(): Promise<void> {
+  async activateWish(): Promise<void> {
     if (!this.currentWish) return;
 
     try {
@@ -332,10 +271,8 @@ Visit and offer your prayer: https://manokamna.online
         this.showOfferingAnimation = false;
       }, 5000);
       
-      // Show viral share prompt after 2 seconds
-      setTimeout(() => {
-        this.showViralShare = true;
-      }, 2000);
+      // Move to complete step
+      this.step = 'complete';
     } catch (error) {
       console.error('Error activating wish:', error);
       alert('Failed to submit wish. Please try again.');
@@ -493,7 +430,6 @@ Visit and offer your prayer: https://manokamna.online
     this.isRitualComplete = false;
     this.showOfferingAnimation = false;
     this.fallingOfferings = [];
-    this.hasShared = false;
   }
 
   /**
@@ -515,20 +451,6 @@ Visit and offer your prayer: https://manokamna.online
    */
   getNewBlessing(): void {
     this.currentBlessing = this.blessingsService.getRandomBlessing();
-  }
-
-  /**
-   * Handle viral share prompt close
-   */
-  onViralShareClose(): void {
-    this.showViralShare = false;
-  }
-
-  /**
-   * Handle when user shares the temple
-   */
-  onViralShared(): void {
-    console.log('User shared the temple from wish flow!');
   }
 
   /**

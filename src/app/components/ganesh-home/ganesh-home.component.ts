@@ -18,7 +18,6 @@ export class GaneshHomeComponent implements OnInit, OnDestroy {
   isAartiPlaying = false;
   showDiyaModal = false;
   showOnboarding = false;
-  showViralShare = false;
   private audioSubscription?: Subscription;
 
   constructor(
@@ -86,22 +85,11 @@ export class GaneshHomeComponent implements OnInit, OnDestroy {
 
   onDiyaLit(name: string): void {
     console.log(`Diya lit for: ${name}`);
-    // Show viral share prompt after lighting diya
-    setTimeout(() => {
-      this.showViralShare = true;
-    }, 500);
+    // No viral share prompt - let user continue their spiritual journey
   }
 
   onOnboardingComplete(): void {
     this.showOnboarding = false;
-  }
-
-  onViralShareClose(): void {
-    this.showViralShare = false;
-  }
-
-  onViralShared(): void {
-    console.log('User shared the temple!');
   }
 
   /**
