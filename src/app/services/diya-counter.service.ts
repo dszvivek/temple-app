@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FirebaseBackendService } from './firebase-backend.service';
 
 /**
  * Service to track and display total diya count across all users
@@ -16,7 +17,7 @@ export class DiyaCounterService {
   private todayCount$ = new BehaviorSubject<number>(0);
   private monthCount$ = new BehaviorSubject<number>(0);
 
-  constructor() {
+  constructor(private firebaseBackend: FirebaseBackendService) {
     this.loadStatistics();
     this.simulateRealTimeUpdates();
   }
@@ -135,17 +136,30 @@ export class DiyaCounterService {
    * Adds random increments to create live feel
    */
   private simulateRealTimeUpdates(): void {
-    setInterval(() => {
-      // Random chance of simulated diya being lit (30% per minute)
-      if (Math.random() < 0.3) {
-        const stats = this.getStatistics();
-        stats.total++;
-        stats.today++;
-        stats.month++;
-        this.saveStatistics(stats);
-        this.updateObservables(stats);
+    // Increment every 3-8 seconds to create continuous activity
+    const incrementDiya = async () => {
+      const stats = this.getStatistics();
+      // Randomly increment by 1 or 2
+      const increment = Math.random() > 0.6 ? 2 : 1;
+      stats.total += increment;
+      stats.today += increment;
+      stats.month += increment;
+      this.saveStatistics(stats);
+      this.updateObservables(stats);
+      
+      // Also update Firebase global counter
+      for (let i = 0; i < increment; i++) {
+        await this.firebaseBackend.incrementGlobalDiyaCount();
       }
-    }, 60000); // Check every minute
+      
+      // Schedule next increment after random delay (3-8 seconds)
+      const nextDelay = 3000 + Math.random() * 5000;
+      setTimeout(incrementDiya, nextDelay);
+    };
+    
+    // Start the auto-increment cycle
+    const initialDelay = 2000 + Math.random() * 3000;
+    setTimeout(incrementDiya, initialDelay);
   }
 }
 

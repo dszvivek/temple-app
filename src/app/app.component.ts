@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { LanguageService } from './services/language.service';
 import { ThemeService } from './services/theme.service';
 import { DeityService } from './services/deity.service';
@@ -25,16 +24,13 @@ import { filter } from 'rxjs/operators';
     <div [class]="themeClasses + ' temple-background'"></div>
     
     <div class="min-h-screen flex flex-col relative z-10">
-      <!-- Language Switcher (Fixed Top Right) -->
-      <div class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3">
+      <!-- Language Switcher (Fixed Top Right) - Only on temple selector page -->
+      <div *ngIf="showLanguageSwitcher" class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3">
         <app-language-switcher></app-language-switcher>
       </div>
       
       <!-- Install Prompt - Disabled to avoid hindering mobile view -->
       <!-- <app-install-prompt></app-install-prompt> -->
-      
-      <!-- Developer Controls -->
-      <app-dev-controls></app-dev-controls>
       
       <!-- Floating Temple Bell Button -->
       <app-floating-bell></app-floating-bell>
@@ -68,23 +64,6 @@ import { filter } from 'rxjs/operators';
           </p>
         </div>
       </footer>
-      
-      <!-- Update Notification -->
-      <div *ngIf="updateAvailable" 
-           class="fixed bottom-4 right-4 left-4 sm:left-auto bg-temple-gold text-temple-dark p-4 rounded-lg shadow-2xl max-w-sm z-50 animate-slide-up">
-        <div class="flex items-start gap-3">
-          <span class="text-2xl flex-shrink-0">🔄</span>
-          <div class="flex-grow">
-            <p class="font-bold text-base mb-1">{{ lang.t('footer.updateTitle') }}</p>
-            <p class="text-sm mb-3 opacity-90">{{ lang.t('footer.updateMessage') }}</p>
-            <button (click)="activateUpdate()" 
-                    class="btn-primary w-full text-sm font-semibold py-2.5"
-                    style="background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);">
-              {{ lang.t('footer.updateButton') }}
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   `,
   styles: [`
@@ -101,30 +80,14 @@ import { filter } from 'rxjs/operators';
       opacity: 0.4;
       transition: background 1000ms ease-in-out;
     }
-
-    @keyframes slide-up {
-      from {
-        transform: translateY(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .animate-slide-up {
-      animation: slide-up 0.4s ease-out;
-    }
   `]
 })
 export class AppComponent implements OnInit {
   title = 'E-Darshan Mandir';
-  updateAvailable = false;
   themeClasses = '';
+  showLanguageSwitcher = true;
 
   constructor(
-    private swUpdate: SwUpdate,
     public lang: LanguageService,
     private themeService: ThemeService,
     private deityService: DeityService,
@@ -141,6 +104,16 @@ export class AppComponent implements OnInit {
     
     // Initialize Firebase connection and presence tracking
     this.initializeBackend();
+    
+    // Listen to route changes to show/hide language switcher
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event) => {
+      // Show language switcher only on the temple selector page (root path)
+      if (event instanceof NavigationEnd) {
+        this.showLanguageSwitcher = event.url === '/' || event.url === '';
+      }
+    });
   }
 
   /**
@@ -184,43 +157,6 @@ export class AppComponent implements OnInit {
     this.themeService.currentTheme$.subscribe((theme) => {
       this.themeClasses = this.themeService.getCurrentGradient();
       console.log('🎨 AppComponent theme updated:', theme.name, '| Classes:', this.themeClasses);
-    });
-
-    // Listen for service worker updates
-    if (this.swUpdate.isEnabled) {
-      // Check for updates immediately on app load
-      this.swUpdate.checkForUpdate().then(() => {
-        console.log('✅ Checked for updates');
-      });
-
-      // Check for updates every 30 seconds
-      setInterval(() => {
-        this.swUpdate.checkForUpdate().then(() => {
-          console.log('🔄 Periodic update check');
-        });
-      }, 30000);
-
-      // Listen for available updates
-      this.swUpdate.versionUpdates
-        .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
-        .subscribe(() => {
-          console.log('🆕 New version available!');
-          this.updateAvailable = true;
-          
-          // Auto-activate update after 3 seconds (give user time to see notification)
-          setTimeout(() => {
-            if (this.updateAvailable) {
-              console.log('🔄 Auto-activating update...');
-              this.activateUpdate();
-            }
-          }, 3000);
-        });
-    }
-  }
-
-  activateUpdate(): void {
-    this.swUpdate.activateUpdate().then(() => {
-      window.location.reload();
     });
   }
 

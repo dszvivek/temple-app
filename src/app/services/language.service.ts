@@ -285,7 +285,7 @@ export class LanguageService {
       home: {
   welcomeTitle: 'श्री हनुमान जी की कृपा में आपका हार्दिक स्वागत',
   welcomeSubtitle: 'अपनी मनोकामना प्रकट करें, भक्ति भाव से प्रार्थना करें और पवनपुत्र श्री हनुमान जी की दिव्य कृपा पाएं',
-  makeWish: 'श्री हनुमान को अपनी मनोकामना अर्पित करें 🪔',
+  makeWish: 'मनोकामना करें 🪔',
   aboutTemple: 'मंदिर का परिचय',
   supportTitle: 'इस सेवा का समर्थन करें',
   supportMessage: 'यदि आपको यह सेवा उपयोगी लगी हो और आप इसके रखरखाव में सहयोग करना चाहें, तो योगदान का स्वागत है।',
@@ -537,7 +537,7 @@ export class LanguageService {
       home: {
         welcomeTitle: 'Welcome to Hanuman Ji\'s Blessings',
         welcomeSubtitle: 'Make your wishes, offer prayers, and seek blessings from the mighty Pawanputra',
-        makeWish: 'Offer Your Manokamna to Shri Hanuman 🪔',
+        makeWish: 'Make a wish 🪔',
         aboutTemple: 'About Temple',
         supportTitle: 'Support This Service',
         supportMessage: 'If you find this service helpful and wish to support its maintenance, contributions are gratefully accepted.',

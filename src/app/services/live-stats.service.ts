@@ -122,16 +122,25 @@ export class LiveStatsService {
       }
     });
 
-    // Gradually increment total wishes to simulate activity (every 30 seconds) - only in offline mode
-    interval(30000).subscribe(() => {
-      if (!this.isUsingFirebase) {
-        // Randomly increment by 0-2 wishes every 30 seconds
-        if (Math.random() > 0.3) { // 70% chance
-          const increment = Math.random() > 0.5 ? 1 : 2;
-          this.incrementTotalWishes(increment);
-        }
+    // Auto-increment wishes continuously to simulate activity
+    const incrementWishes = async () => {
+      // Randomly increment by 1 or 2 wishes
+      const increment = Math.random() > 0.5 ? 1 : 2;
+      this.incrementTotalWishes(increment);
+      
+      // Also update Firebase global counter
+      for (let i = 0; i < increment; i++) {
+        await this.firebaseBackend.incrementGlobalWishCount();
       }
-    });
+      
+      // Schedule next increment after random delay (5-12 seconds)
+      const nextDelay = 5000 + Math.random() * 7000;
+      setTimeout(incrementWishes, nextDelay);
+    };
+    
+    // Start the auto-increment cycle
+    const initialDelay = 3000 + Math.random() * 5000;
+    setTimeout(incrementWishes, initialDelay);
   }
 
   /**

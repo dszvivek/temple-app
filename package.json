@@ -1,7 +1,7 @@
 {
   "name": "karya-siddhi-temple",
   "version": "1.0.0",
-  "description": "Virtual Hanuman Temple PWA - A devotional progressive web application",
+  "description": "Virtual Hanuman Temple - A devotional web application",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,7 +23,6 @@
     "@angular/platform-browser": "^17.3.12",
     "@angular/platform-browser-dynamic": "^17.3.12",
     "@angular/router": "^17.3.12",
-    "@angular/service-worker": "^17.3.12",
     "date-fns": "^4.1.0",
     "firebase": "^10.13.2",
     "localforage": "^1.10.0",

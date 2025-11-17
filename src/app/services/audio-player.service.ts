@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AudioStateService } from './audio-state.service';
-import { DevModeService } from './dev-mode.service';
 import { AmbientAudioService } from './ambient-audio.service';
 import { DeityService } from './deity.service';
 import { DeityType } from '../models/deity.model';
@@ -47,8 +46,7 @@ export class AudioPlayerService {
 
   constructor(
     private audioStateService: AudioStateService,
-    private devMode: DevModeService,
-    private ambientAudioService: AmbientAudioService,
+    private ambientAudio: AmbientAudioService,
     private deityService: DeityService
   ) {
     this.loadSavedState();
@@ -269,26 +267,6 @@ export class AudioPlayerService {
 
     const audioDuration = this.getCurrentAudioDuration();
 
-    // Check dev mode override first
-    const forcedPlay = this.devMode.getForcedChalisaPlayState();
-    if (forcedPlay !== null) {
-      if (forcedPlay && !this.isPlaying) {
-        // Force play
-        const now = new Date();
-        const currentMinute = now.getMinutes();
-        const currentSecond = now.getSeconds();
-        const secondsIntoHour = (currentMinute * 60) + currentSecond;
-        this.audio.currentTime = secondsIntoHour % audioDuration;
-        this.play();
-        this.currentlyInChantWindow = true;
-      } else if (!forcedPlay && this.isPlaying) {
-        // Force stop
-        this.pause();
-        this.currentlyInChantWindow = false;
-      }
-      return;
-    }
-
     const now = new Date();
     const currentMinute = now.getMinutes();
     const currentSecond = now.getSeconds();
@@ -380,7 +358,7 @@ export class AudioPlayerService {
         this.audio.volume = this.volumeBeforeMute;
       }
       // Unmute ambient audio as well
-      this.ambientAudioService.setMute(false);
+      this.ambientAudio.setMute(false);
     } else {
       // Mute: save current volume and set to 0
       this.isMuted = true;
@@ -390,7 +368,7 @@ export class AudioPlayerService {
         this.audio.volume = 0;
       }
       // Mute ambient audio as well
-      this.ambientAudioService.setMute(true);
+      this.ambientAudio.setMute(true);
     }
     this.saveMuteState();
   }

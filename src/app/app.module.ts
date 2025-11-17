@@ -1,8 +1,7 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Firebase imports
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -22,7 +21,6 @@ import { AudioPlayerComponent } from './components/audio-player/audio-player.com
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 import { DonateComponent } from './components/donate/donate.component';
-import { DevControlsComponent } from './components/dev-controls/dev-controls.component';
 import { FloatingBellComponent } from './components/floating-bell/floating-bell.component';
 import { FloatingFlowerComponent } from './components/floating-flower/floating-flower.component';
 import { LightDiyaModalComponent } from './components/light-diya-modal/light-diya-modal.component';
@@ -48,7 +46,6 @@ import { SacredBgComponent } from './components/sacred-bg/sacred-bg.component';
     LoadingScreenComponent,
     LanguageSwitcherComponent,
     DonateComponent,
-    DevControlsComponent,
     FloatingBellComponent,
     FloatingFlowerComponent,
     LightDiyaModalComponent,
@@ -65,13 +62,7 @@ import { SacredBgComponent } from './components/sacred-bg/sacred-bg.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    ReactiveFormsModule
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
