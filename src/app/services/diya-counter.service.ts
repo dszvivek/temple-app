@@ -4,7 +4,8 @@ import { FirebaseBackendService } from './firebase-backend.service';
 
 /**
  * Service to track and display total diya count across all users
- * Uses localStorage for persistence with daily/monthly tracking
+ * Syncs with Firebase for real-time global counts
+ * Falls back to localStorage simulation if Firebase is unavailable
  */
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,12 @@ export class DiyaCounterService {
   private totalCount$ = new BehaviorSubject<number>(this.BASE_COUNT);
   private todayCount$ = new BehaviorSubject<number>(0);
   private monthCount$ = new BehaviorSubject<number>(0);
+  
+  private isConnectedToFirebase = false;
 
   constructor(private firebaseBackend: FirebaseBackendService) {
-    this.loadStatistics();
-    this.simulateRealTimeUpdates();
+    this.initializeFromFirebase();
+    this.loadLocalStatistics(); // Fallback while Firebase loads
   }
 
   /**
@@ -45,17 +48,25 @@ export class DiyaCounterService {
 
   /**
    * Increment diya count when user lights a diya
+   * This updates LOCAL today/month counters only
+   * Total count comes from Firebase real-time sync
    */
   incrementCount(): void {
-    const stats = this.getStatistics();
+    const stats = this.getLocalStatistics();
     
-    stats.total++;
+    // Only increment local today/month counters
+    // (Total is synced from Firebase automatically)
     stats.today++;
     stats.month++;
     stats.lastUpdated = new Date().toISOString();
 
     this.saveStatistics(stats);
-    this.updateObservables(stats);
+    
+    // Update only today/month observables
+    this.todayCount$.next(stats.today);
+    this.monthCount$.next(stats.month);
+    
+    // Note: total count will be updated by Firebase subscription
   }
 
   /**
@@ -70,17 +81,51 @@ export class DiyaCounterService {
   }
 
   /**
-   * Load statistics from localStorage
+   * Initialize from Firebase real-time stats
    */
-  private loadStatistics(): void {
-    const stats = this.getStatistics();
-    this.updateObservables(stats);
+  private initializeFromFirebase(): void {
+    // Subscribe to Firebase global stats for real-time sync
+    this.firebaseBackend.getGlobalStats().subscribe(stats => {
+      if (stats && stats.totalDiyas) {
+        this.isConnectedToFirebase = true;
+        
+        // Update total count from Firebase
+        this.totalCount$.next(stats.totalDiyas);
+        
+        // Calculate today/month stats from localStorage or estimate
+        const localStats = this.getLocalStatistics();
+        this.todayCount$.next(localStats.today);
+        this.monthCount$.next(localStats.month);
+        
+        console.log('🪔 Connected to Firebase diya counter:', stats.totalDiyas);
+      } else {
+        // Firebase not available, use local simulation
+        if (!this.isConnectedToFirebase) {
+          console.log('🪔 Using local diya counter (Firebase unavailable)');
+          this.startSimulation();
+        }
+      }
+    });
+  }
+
+  /**
+   * Load statistics from localStorage (used as supplement to Firebase)
+   */
+  private loadLocalStatistics(): void {
+    const stats = this.getLocalStatistics();
+    
+    // Only update if not connected to Firebase yet
+    if (!this.isConnectedToFirebase) {
+      this.totalCount$.next(stats.total);
+      this.todayCount$.next(stats.today);
+      this.monthCount$.next(stats.month);
+    }
   }
 
   /**
    * Get statistics from localStorage with date validation
    */
-  private getStatistics(): DiyaStatistics {
+  private getLocalStatistics(): DiyaStatistics {
     const stored = localStorage.getItem(this.STORAGE_KEY);
     const now = new Date();
     const today = now.toDateString();
@@ -132,33 +177,42 @@ export class DiyaCounterService {
   }
 
   /**
-   * Simulate real-time updates from other users
-   * Adds random increments to create live feel
+   * Simulate real-time updates from other users (fallback when Firebase unavailable)
+   * Only runs if not connected to Firebase
    */
-  private simulateRealTimeUpdates(): void {
-    // Increment every 3-8 seconds to create continuous activity
-    const incrementDiya = async () => {
-      const stats = this.getStatistics();
+  private startSimulation(): void {
+    // Only simulate if Firebase is not available
+    if (this.isConnectedToFirebase) {
+      return;
+    }
+    
+    // Increment every 5-10 seconds to create continuous activity
+    const incrementDiya = () => {
+      if (this.isConnectedToFirebase) {
+        // Stop simulation if Firebase connects
+        return;
+      }
+      
+      const stats = this.getLocalStatistics();
       // Randomly increment by 1 or 2
       const increment = Math.random() > 0.6 ? 2 : 1;
       stats.total += increment;
       stats.today += increment;
       stats.month += increment;
       this.saveStatistics(stats);
-      this.updateObservables(stats);
       
-      // Also update Firebase global counter
-      for (let i = 0; i < increment; i++) {
-        await this.firebaseBackend.incrementGlobalDiyaCount();
-      }
+      // Update observables
+      this.totalCount$.next(stats.total);
+      this.todayCount$.next(stats.today);
+      this.monthCount$.next(stats.month);
       
-      // Schedule next increment after random delay (3-8 seconds)
-      const nextDelay = 3000 + Math.random() * 5000;
+      // Schedule next increment after random delay (5-10 seconds)
+      const nextDelay = 5000 + Math.random() * 5000;
       setTimeout(incrementDiya, nextDelay);
     };
     
     // Start the auto-increment cycle
-    const initialDelay = 2000 + Math.random() * 3000;
+    const initialDelay = 3000 + Math.random() * 3000;
     setTimeout(incrementDiya, initialDelay);
   }
 }

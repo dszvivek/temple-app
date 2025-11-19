@@ -1,0 +1,14 @@
+<button 
+  *ngIf="isVisible"
+  class="floating-shankh-btn"
+  [class.playing]="isPlaying"
+  (click)="playShankh()"
+  aria-label="Play Shankh Sound"
+  title="Play Shankh (Conch) Sound 🐚">
+  
+  <!-- Shankh Unicode Icon -->
+  <div class="shankh-icon">🐚</div>
+
+  <!-- Ripple effect on click -->
+  <span class="ripple" *ngIf="isPlaying"></span>
+</button>

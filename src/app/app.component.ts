@@ -32,10 +32,10 @@ import { filter } from 'rxjs/operators';
       <!-- Install Prompt - Disabled to avoid hindering mobile view -->
       <!-- <app-install-prompt></app-install-prompt> -->
       
-      <!-- Floating Temple Bell Button -->
+      <!-- Floating Action Buttons -->
       <app-floating-bell></app-floating-bell>
-      
-      <!-- Floating Flower Button -->
+      <app-floating-shankh></app-floating-shankh>
+      <app-floating-incense></app-floating-incense>
       <app-floating-flower></app-floating-flower>
       
       <!-- Main Content -->

@@ -1,26 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TempleSelectorComponent } from './components/temple-selector/temple-selector.component';
-import { HanumanHomeComponent } from './components/hanuman-home/hanuman-home.component';
-import { GaneshHomeComponent } from './components/ganesh-home/ganesh-home.component';
-import { HomeComponent } from './components/home/home.component';
-import { WishFlowComponent } from './components/wish-flow/wish-flow.component';
-import { DonateComponent } from './components/donate/donate.component';
 
 const routes: Routes = [
-  // Temple Selector - New Home Page
+  // Temple Selector - New Home Page (eagerly loaded as it's the landing page)
   { path: '', component: TempleSelectorComponent, pathMatch: 'full', data: { animation: 'TempleSelector' } },
   
-  // Hanuman Temple Routes
-  { path: 'hanuman', component: HanumanHomeComponent, data: { animation: 'Hanuman' } },
-  { path: 'hanuman/wish', component: WishFlowComponent, data: { deity: 'hanuman', animation: 'Wish' } },
+  // Hanuman Temple Routes (lazy loaded)
+  { 
+    path: 'hanuman', 
+    loadChildren: () => import('./components/hanuman-home/hanuman-home.module').then(m => m.HanumanHomeModule),
+    data: { animation: 'Hanuman' } 
+  },
+  { 
+    path: 'hanuman/wish', 
+    loadChildren: () => import('./components/wish-flow/wish-flow.module').then(m => m.WishFlowModule),
+    data: { deity: 'hanuman', animation: 'Wish' } 
+  },
   
-  // Ganesh Temple Routes
-  { path: 'ganesh', component: GaneshHomeComponent, data: { animation: 'Ganesh' } },
-  { path: 'ganesh/wish', component: WishFlowComponent, data: { deity: 'ganesh', animation: 'Wish' } },
+  // Ganesh Temple Routes (lazy loaded)
+  { 
+    path: 'ganesh', 
+    loadChildren: () => import('./components/ganesh-home/ganesh-home.module').then(m => m.GaneshHomeModule),
+    data: { animation: 'Ganesh' } 
+  },
+  { 
+    path: 'ganesh/wish', 
+    loadChildren: () => import('./components/wish-flow/wish-flow.module').then(m => m.WishFlowModule),
+    data: { deity: 'ganesh', animation: 'Wish' } 
+  },
   
-  // Shared Routes
-  { path: 'donate', component: DonateComponent, data: { animation: 'Donate' } },
+  // Shared Routes (lazy loaded)
+  { 
+    path: 'donate', 
+    loadChildren: () => import('./components/donate/donate.module').then(m => m.DonateModule),
+    data: { animation: 'Donate' } 
+  },
   
   // Legacy Routes (backward compatibility)
   { path: 'home', redirectTo: 'hanuman', pathMatch: 'full' },

@@ -1,0 +1,43 @@
+<button 
+  *ngIf="isVisible"
+  class="floating-incense-btn"
+  [class.active]="isActive"
+  (click)="toggleIncense()"
+  aria-label="Light Agarbatti"
+  title="Light Agarbatti (Incense Sticks)">
+  
+  <!-- Incense stick icon with glowing ember -->
+  <div class="incense-icon">
+    <svg viewBox="0 0 24 24" width="32" height="32" class="incense-svg">
+      <!-- Incense stick -->
+      <rect x="11" y="2" width="2" height="16" fill="#8B4513" rx="1"/>
+      <!-- Glowing ember at top -->
+      <circle cx="12" cy="3" r="2" [attr.fill]="isActive ? '#ff6b35' : '#666'" class="ember"/>
+      <circle cx="12" cy="3" r="3" [attr.fill]="isActive ? '#ff6b35' : 'transparent'" class="ember-glow" opacity="0.4"/>
+    </svg>
+  </div>
+  
+  <!-- Active indicator ring -->
+  <span class="active-glow" *ngIf="isActive"></span>
+</button>
+
+<!-- Incense sticks at deity position (center bottom) -->
+<div class="incense-holder" *ngIf="isActive">
+  <div class="incense-stick" *ngFor="let stick of incenseSticks">
+    <div class="stick-body"></div>
+    <div class="ember-tip"></div>
+  </div>
+</div>
+
+<!-- Smoke particles rising from deity incense -->
+<div class="smoke-container" *ngIf="isActive">
+  <div 
+    *ngFor="let particle of smokeParticles; trackBy: trackParticle" 
+    class="smoke-particle"
+    [style.left.%]="particle.leftPercent"
+    [style.bottom.px]="particle.bottom"
+    [style.animation-duration.s]="particle.animationDuration"
+    [style.animation-delay.s]="particle.delay">
+    <div class="smoke-wisp"></div>
+  </div>
+</div>

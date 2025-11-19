@@ -25,22 +25,24 @@ export class AssetLoaderService {
   constructor() {}
 
   /**
-   * Preload all critical assets
+   * Preload only critical assets - defer heavy media files
    */
   async preloadAssets(): Promise<void> {
     const assets = [
-      // Images - Updated to new organized structure
-      'assets/images/deities/hanuman/hanuman-main.png',
-      'assets/images/deities/ganesh/Ganesh.png',
+      // Only preload critical small images and SVGs
       'assets/images/temple/temple-background.svg',
       'assets/images/offerings/diya-lamp.svg',
       'assets/images/temple/temple-bell.svg',
       'assets/images/offerings/prasad.svg',
       'assets/images/offerings/incense.svg',
       
-      // Audio files - Updated to new organized structure
-      'assets/audio/mantras/hanuman-chalisa.mp3',
-      'assets/audio/aarti/ganesh-aarti.mp3'
+      // Defer large images - they'll load on demand
+      // 'assets/images/deities/hanuman/hanuman-main.png', // 1.7MB
+      // 'assets/images/deities/ganesh/Ganesh.png', // 2.5MB
+      
+      // Defer audio files - they'll load on demand when user plays them
+      // 'assets/audio/mantras/hanuman-chalisa.mp3', // 11.7MB
+      // 'assets/audio/aarti/ganesh-aarti.mp3' // 2.3MB
     ];
 
     const total = assets.length;
@@ -50,7 +52,7 @@ export class AssetLoaderService {
 
     const loadPromises = assets.map(async (assetPath) => {
       try {
-        if (assetPath.endsWith('.mp3')) {
+        if (assetPath.endsWith('.mp3') || assetPath.endsWith('.wav')) {
           await this.preloadAudio(assetPath);
         } else {
           await this.preloadImage(assetPath);
@@ -67,8 +69,8 @@ export class AssetLoaderService {
 
     await Promise.all(loadPromises);
     
-    // Small delay to show 100% before hiding
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Shorter delay since we're loading less
+    await new Promise(resolve => setTimeout(resolve, 200));
     
     this.updateProgress(total, loaded, 'Ready!');
     this.isComplete = true;

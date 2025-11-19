@@ -1,0 +1,92 @@
+.floating-shankh-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  z-index: 999;
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-shankh-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
+}
+
+.floating-shankh-btn:active {
+  transform: scale(0.95);
+}
+
+.floating-shankh-btn.playing {
+  animation: shake 0.5s ease-in-out, float 3s ease-in-out infinite;
+}
+
+.shankh-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Ripple effect */
+.ripple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Shake animation when playing */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .floating-shankh-btn {
+    width: 48px;
+    height: 48px;
+    bottom: 90px;
+    right: 16px;
+    font-size: 24px;
+  }
+  
+  .shankh-icon {
+    font-size: 24px;
+  }
+}

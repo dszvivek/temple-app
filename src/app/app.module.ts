@@ -1,70 +1,58 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
-// Firebase imports
+// Firebase imports - kept for AngularFire compatibility
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
 
-// Components
+// Components (only eagerly loaded ones that aren't in SharedModule)
 import { HomeComponent } from './components/home/home.component';
-import { HanumanHomeComponent } from './components/hanuman-home/hanuman-home.component';
-import { GaneshHomeComponent } from './components/ganesh-home/ganesh-home.component';
 import { TempleSelectorComponent } from './components/temple-selector/temple-selector.component';
-import { WishFlowComponent } from './components/wish-flow/wish-flow.component';
-import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
-import { DonateComponent } from './components/donate/donate.component';
 import { FloatingBellComponent } from './components/floating-bell/floating-bell.component';
 import { FloatingFlowerComponent } from './components/floating-flower/floating-flower.component';
-import { LightDiyaModalComponent } from './components/light-diya-modal/light-diya-modal.component';
-import { DiyaDisplayComponent } from './components/diya-display/diya-display.component';
-import { OnboardingWelcomeComponent } from './components/onboarding-welcome/onboarding-welcome.component';
+import { FloatingShankhComponent } from './components/floating-shankh/floating-shankh.component';
+import { FloatingIncenseComponent } from './components/floating-incense/floating-incense.component';
 import { ViralSharePromptComponent } from './components/viral-share-prompt/viral-share-prompt.component';
-
-// Directives
-import { FlowerOfferingDirective } from './directives/flower-offering.directive';
-import { DiyaCounterComponent } from './components/diya-counter/diya-counter.component';
 import { OfflineIndicatorComponent } from './components/offline-indicator/offline-indicator.component';
-import { SacredBgComponent } from './components/sacred-bg/sacred-bg.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HanumanHomeComponent,
-    GaneshHomeComponent,
+    // Removed components now in SharedModule or lazy-loaded
     TempleSelectorComponent,
-    WishFlowComponent,
-    AudioPlayerComponent,
     LoadingScreenComponent,
     LanguageSwitcherComponent,
-    DonateComponent,
     FloatingBellComponent,
     FloatingFlowerComponent,
-    LightDiyaModalComponent,
-    DiyaDisplayComponent,
-    OnboardingWelcomeComponent,
+    FloatingShankhComponent,
+    FloatingIncenseComponent,
     ViralSharePromptComponent,
-    FlowerOfferingDirective,
-    DiyaCounterComponent,
-    OfflineIndicatorComponent,
-    SacredBgComponent
+    OfflineIndicatorComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    SharedModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
+    // Firebase providers are required for AngularFire services
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],
