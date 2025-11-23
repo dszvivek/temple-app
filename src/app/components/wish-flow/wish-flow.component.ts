@@ -159,9 +159,6 @@ export class WishFlowComponent implements OnInit {
     if (this.bellTaps >= this.requiredBellTaps && this.chantCount >= this.requiredChants) {
       this.isRitualComplete = true;
       
-      // Play shankh sound when ritual completes
-      this.ambientAudio.playShankh();
-      
       // Trigger flower offering celebration
       this.triggerFlowerOffering();
     }
