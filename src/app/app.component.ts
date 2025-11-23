@@ -14,6 +14,9 @@ import { filter } from 'rxjs/operators';
   selector: 'app-root',
   animations: [slideInAnimation],
   template: `
+    <!-- Toast Notifications -->
+    <app-toast></app-toast>
+    
     <!-- Loading Screen -->
     <app-loading-screen></app-loading-screen>
     
@@ -21,11 +24,11 @@ import { filter } from 'rxjs/operators';
     <app-offline-indicator></app-offline-indicator>
     
     <!-- Dynamic Theme Background with Gradient -->
-    <div [class]="themeClasses + ' temple-background'"></div>
+    <div [class]="themeClasses + ' temple-background animate-fade-in'"></div>
     
     <div class="min-h-screen flex flex-col relative z-10">
       <!-- Language Switcher (Fixed Top Right) - Only on temple selector page -->
-      <div *ngIf="showLanguageSwitcher" class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3">
+      <div *ngIf="showLanguageSwitcher" class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3 animate-slide-in-right">
         <app-language-switcher></app-language-switcher>
       </div>
       
@@ -43,23 +46,24 @@ import { filter } from 'rxjs/operators';
         <router-outlet></router-outlet>
       </main>
       
-      <!-- Footer -->
-      <footer class="bg-temple-dark text-saffron-100 py-4 md:py-6 mt-6 md:mt-8 relative z-10">
+      <!-- Enhanced Footer -->
+      <footer class="bg-gradient-to-r from-temple-dark via-temple-dark-soft to-temple-dark text-saffron-100 py-6 md:py-8 mt-8 md:mt-12 relative z-10 border-t-2 border-temple-gold/30">
         <div class="container mx-auto px-4 text-center">
-          <p class="text-xs md:text-sm mb-2">
+          <p class="text-sm md:text-base mb-3 font-semibold animate-pulse-slow">
             🙏 {{ lang.getDeityGreeting() }} 🙏
           </p>
-          <p class="text-xs opacity-75 px-2">
+          <p class="text-xs md:text-sm opacity-90 px-2 mb-3 leading-relaxed">
             {{ lang.t('footer.description') }}
           </p>
-          <p class="text-xs opacity-50 mt-2">
+          <p class="text-xs opacity-60 mt-2">
             {{ lang.t('footer.copyright') }}
           </p>
-          <p class="text-xs opacity-40 mt-3">
+          <p class="text-xs opacity-50 mt-4">
             <a routerLink="/donate" 
-               class="hover:opacity-100 transition-opacity underline"
+               class="hover:opacity-100 hover:text-temple-gold transition-all duration-300 underline inline-flex items-center gap-2"
                rel="noopener noreferrer">
-              {{ lang.t('home.supportButton') }}
+              <span>💝</span>
+              <span>{{ lang.t('home.supportButton') }}</span>
             </a>
           </p>
         </div>

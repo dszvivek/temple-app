@@ -4,13 +4,38 @@
 }
 
 .meditation-card {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    rgba(240, 253, 244, 0.95) 0%, 
+    rgba(220, 252, 231, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
   padding: 1.5rem;
   box-shadow: 
     0 4px 6px rgba(0, 0, 0, 0.05),
-    0 10px 20px rgba(34, 197, 94, 0.1);
-  border: 2px solid rgba(34, 197, 94, 0.2);
+    0 10px 20px rgba(34, 197, 94, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(34, 197, 94, 0.25);
+  animation: meditationCardFadeIn 0.6s ease-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meditation-card:hover {
+  box-shadow: 
+    0 8px 12px rgba(0, 0, 0, 0.08),
+    0 16px 32px rgba(34, 197, 94, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+@keyframes meditationCardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .header {
@@ -35,19 +60,28 @@
 }
 
 .stats-toggle {
-  background: rgba(255, 255, 255, 0.7);
-  border: 2px solid rgba(34, 197, 94, 0.3);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(34, 197, 94, 0.35);
+  border-radius: 10px;
   padding: 0.5rem 0.75rem;
   font-size: 1.25rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
 }
 
-.stats-toggle:hover,
+.stats-toggle:hover {
+  background: rgba(34, 197, 94, 0.15);
+  transform: scale(1.08) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
 .stats-toggle.active {
-  background: rgba(34, 197, 94, 0.2);
+  background: rgba(34, 197, 94, 0.25);
   transform: scale(1.05);
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3),
+              inset 0 2px 4px rgba(34, 197, 94, 0.1);
 }
 
 .stats-panel {

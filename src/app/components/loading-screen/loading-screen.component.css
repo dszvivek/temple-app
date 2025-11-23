@@ -4,13 +4,29 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
+  background: linear-gradient(135deg, 
+    #fff7ed 0%, 
+    #ffedd5 25%, 
+    #fed7aa 50%,
+    #fdba74 75%,
+    #fb923c 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   opacity: 1;
   transition: opacity 0.5s ease-out;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .loading-screen.fade-out {
@@ -25,17 +41,32 @@
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
-    repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(249, 115, 22, 0.03) 50px, rgba(249, 115, 22, 0.03) 100px);
-  animation: patternMove 20s linear infinite;
+    radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.1) 0%, transparent 40%),
+    repeating-linear-gradient(45deg, 
+      transparent, 
+      transparent 50px, 
+      rgba(249, 115, 22, 0.05) 50px, 
+      rgba(249, 115, 22, 0.05) 100px);
+  animation: patternMove 20s linear infinite, patternPulse 4s ease-in-out infinite;
 }
 
 @keyframes patternMove {
   0% {
-    background-position: 0 0;
+    background-position: 0 0, 0 0, 0 0, 0 0;
   }
   100% {
-    background-position: 100px 100px;
+    background-position: 100px 100px, 50px 50px, -50px -50px, 100px 100px;
+  }
+}
+
+@keyframes patternPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
   }
 }
 

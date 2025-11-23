@@ -1,6 +1,18 @@
-/* Component-specific styles */
+/* Component-specific styles - ENHANCED */
 :host {
   display: block;
+  animation: wishFlowFadeIn 0.6s ease-out;
+}
+
+@keyframes wishFlowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Progress step animation */

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AudioPlayerService } from '../../services/audio-player.service';
 import { LanguageService } from '../../services/language.service';
 import { AartiNotificationService } from '../../services/aarti-notification.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-audio-player',
@@ -13,7 +14,8 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   constructor(
     public audioService: AudioPlayerService,
     public lang: LanguageService,
-    public notificationService: AartiNotificationService
+    public notificationService: AartiNotificationService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +27,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
    */
   enableAudio(): void {
     this.audioService.enableAudio();
+    this.toast.success('🎵 Audio enabled! Devotional chants ready to play');
   }
 
   /**
@@ -41,6 +44,11 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
    */
   togglePlayback(): void {
     this.audioService.toggleManualPlayback();
+    if (this.audioService.isPlaying) {
+      this.toast.info('🙏 Hanuman Chalisa playing...');
+    } else {
+      this.toast.info('⏸️ Playback paused');
+    }
   }
 
   /**

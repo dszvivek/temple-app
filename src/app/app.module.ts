@@ -23,6 +23,7 @@ import { FloatingShankhComponent } from './components/floating-shankh/floating-s
 import { FloatingIncenseComponent } from './components/floating-incense/floating-incense.component';
 import { ViralSharePromptComponent } from './components/viral-share-prompt/viral-share-prompt.component';
 import { OfflineIndicatorComponent } from './components/offline-indicator/offline-indicator.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
     FloatingShankhComponent,
     FloatingIncenseComponent,
     ViralSharePromptComponent,
-    OfflineIndicatorComponent
+    OfflineIndicatorComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

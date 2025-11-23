@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DiyaService } from '../../services/diya.service';
 import { LanguageService } from '../../services/language.service';
+import { ToastService } from '../../services/toast.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 /**
@@ -51,7 +52,8 @@ export class LightDiyaModalComponent {
 
   constructor(
     private diyaService: DiyaService,
-    public lang: LanguageService
+    public lang: LanguageService,
+    private toast: ToastService
   ) {}
 
   /**
@@ -84,6 +86,7 @@ export class LightDiyaModalComponent {
       const diya = await this.diyaService.addDiya(this.name.trim());
       
       this.successMessage = `Diya lit for ${diya.name} 🪔`;
+      this.toast.success(`🪔 Diya lit for ${diya.name}! May your prayers be answered`);
       this.diyaLit.emit(diya.name);
       
       // Reset form and close after short delay
@@ -94,6 +97,7 @@ export class LightDiyaModalComponent {
       
     } catch (error: any) {
       this.errorMessage = error.message || 'Failed to light diya. Please try again.';
+      this.toast.error('Failed to light diya. Please try again.');
       this.isSubmitting = false;
     }
   }

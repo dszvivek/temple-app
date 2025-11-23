@@ -1,52 +1,52 @@
-<div class="loading-screen" [class.fade-out]="!isVisible" *ngIf="loading$ | async as progress">
+<div class="loading-screen animate-fade-in" [class.fade-out]="!isVisible" *ngIf="loading$ | async as progress">
   <div class="loading-content">
     <!-- Temple Gates Animation -->
-    <div class="temple-gates">
-      <div class="gate gate-left" [class.open]="progress.percentage >= 100">
+    <div class="temple-gates animate-scale-in">
+      <div class="gate gate-left transition-smooth" [class.open]="progress.percentage >= 100">
         <div class="gate-decoration">
           <div class="gate-pattern"></div>
-          <div class="gate-symbol">🕉️</div>
+          <div class="gate-symbol divine-glow">🕉️</div>
         </div>
       </div>
-      <div class="gate gate-right" [class.open]="progress.percentage >= 100">
+      <div class="gate gate-right transition-smooth" [class.open]="progress.percentage >= 100">
         <div class="gate-decoration">
           <div class="gate-pattern"></div>
-          <div class="gate-symbol">🙏</div>
+          <div class="gate-symbol divine-glow">🙏</div>
         </div>
       </div>
     </div>
     
     <!-- Temple Icon (centered between gates) -->
-    <div class="temple-icon" [class.visible]="progress.percentage < 100">
-      <div class="om-symbol">ॐ</div>
+    <div class="temple-icon animate-float" [class.visible]="progress.percentage < 100">
+      <div class="om-symbol pulse-glow">ॐ</div>
     </div>
     
     <!-- Temple Name -->
-    <h1 class="temple-name">E-Darshan Mandir</h1>
-    <p class="temple-subtitle">श्री हनुमान मंदिर</p>
+    <h1 class="temple-name gradient-text animate-slide-up">E-Darshan Mandir</h1>
+    <p class="temple-subtitle font-hindi animate-slide-up" style="animation-delay: 0.1s;">श्री हनुमान मंदिर</p>
     
     <!-- Loading Bar -->
-    <div class="loading-bar-container">
-      <div class="loading-bar" [style.width.%]="progress.percentage"></div>
+    <div class="loading-bar-container animate-slide-up" style="animation-delay: 0.2s;">
+      <div class="loading-bar transition-smooth" [style.width.%]="progress.percentage"></div>
     </div>
     
     <!-- Progress Info -->
-    <div class="progress-info">
+    <div class="progress-info animate-fade-in" style="animation-delay: 0.3s;">
       <p class="progress-text">{{ progress.message }}</p>
-      <p class="progress-percentage">{{ progress.percentage }}%</p>
+      <p class="progress-percentage font-semibold">{{ progress.percentage }}%</p>
     </div>
     
     <!-- Devotional Message -->
-    <div class="devotional-message">
-      <p class="message-text">{{ currentMessage }}</p>
+    <div class="devotional-message animate-fade-in" style="animation-delay: 0.4s;">
+      <p class="message-text font-display italic">{{ currentMessage }}</p>
     </div>
     
     <!-- Decorative Elements -->
-    <div class="decorative-dots">
-      <span class="dot" [class.active]="progress.percentage > 0"></span>
-      <span class="dot" [class.active]="progress.percentage > 33"></span>
-      <span class="dot" [class.active]="progress.percentage > 66"></span>
-      <span class="dot" [class.active]="progress.percentage >= 100"></span>
+    <div class="decorative-dots animate-fade-in" style="animation-delay: 0.5s;">
+      <span class="dot transition-smooth" [class.active]="progress.percentage > 0"></span>
+      <span class="dot transition-smooth" [class.active]="progress.percentage > 33"></span>
+      <span class="dot transition-smooth" [class.active]="progress.percentage > 66"></span>
+      <span class="dot transition-smooth" [class.active]="progress.percentage >= 100"></span>
     </div>
   </div>
   

@@ -1,0 +1,19 @@
+/* Toast component specific styles */
+
+.toast-container {
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 420px;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .toast-item {
+    min-width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+}

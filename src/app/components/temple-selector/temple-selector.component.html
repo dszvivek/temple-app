@@ -1,16 +1,16 @@
 <div class="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-b from-orange-50 via-yellow-50 to-white">
-  <div class="max-w-5xl w-full">
+  <div class="max-w-5xl w-full animate-fade-in">
     <!-- Header -->
-    <div class="text-center mb-12 mt-8 sm:mt-12">
+    <div class="text-center mb-12 mt-8 sm:mt-12 animate-scale-in">
       <h1 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 px-4">
-        <span class="text-orange-600">🕉️</span> 
-        <span class="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">E-Temple</span> 
-        <span class="text-orange-600">🕉️</span>
+        <span class="text-orange-600 animate-bounce-subtle inline-block">🕉️</span> 
+        <span class="gradient-text text-3xl md:text-4xl font-display">E-Temple</span> 
+        <span class="text-orange-600 animate-bounce-subtle inline-block">🕉️</span>
       </h1>
-      <p class="text-sm sm:text-base md:text-lg text-gray-700 font-medium px-4">
+      <p class="text-sm sm:text-base md:text-lg text-gray-700 font-medium px-4 animate-slide-in-left">
         {{ lang.getCurrentLanguage() === 'hi' ? 'देवता चुनें' : 'Choose Your Deity' }}
       </p>
-      <p class="text-xs md:text-sm text-gray-500 mt-1 px-4">
+      <p class="text-xs md:text-sm text-gray-500 mt-1 px-4 animate-slide-in-right">
         {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Express your wishes' }}
       </p>
     </div>
@@ -20,15 +20,15 @@
       <!-- Hanuman Temple Card -->
       <div 
         (click)="selectTemple(DeityType.HANUMAN)"
-        class="temple-card {{ getCardGradient(DeityType.HANUMAN) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
+        class="temple-card {{ getCardGradient(DeityType.HANUMAN) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl hover-lift active-press stagger-item">
         
         <!-- Deity Image -->
         <div class="mb-6 flex justify-center">
-          <div class="deity-image-wrapper w-48 h-48 rounded-full overflow-visible shadow-2xl bg-white relative">
+          <div class="deity-image-wrapper w-48 h-48 rounded-full overflow-visible shadow-2xl bg-white relative hover-grow">
             <img 
               src="assets/images/deities/hanuman/hanuman-main.png" 
               alt="Lord Hanuman"
-              class="w-full h-full object-cover rounded-full"
+              class="w-full h-full object-cover rounded-full divine-glow"
               loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div class="text-8xl flex items-center justify-center h-full" style="display: none;">🙏</div>
@@ -48,17 +48,17 @@
         </div>
         
         <!-- Title -->
-        <h2 class="text-4xl font-bold text-center {{ getTextColor(DeityType.HANUMAN) }} mb-3">
+        <h2 class="text-4xl font-bold text-center {{ getTextColor(DeityType.HANUMAN) }} mb-3 font-display">
           {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान मंदिर' : 'Hanuman Temple' }}
         </h2>
         
         <!-- Subtitle -->
-        <h3 class="text-xl text-center text-gray-600 mb-4">
+        <h3 class="text-xl text-center text-gray-600 mb-4 font-hindi">
           {{ lang.getCurrentLanguage() === 'hi' ? 'श्री हनुमान जी' : 'Lord Hanuman Ji' }}
         </h3>
         
         <!-- Description -->
-        <p class="text-center text-gray-700 mb-6 min-h-[60px]">
+        <p class="text-center text-gray-700 mb-6 min-h-[60px] leading-relaxed">
           {{ lang.getCurrentLanguage() === 'hi' 
             ? 'संकट मोचन हनुमान - शक्ति और भक्ति के प्रतीक' 
             : 'Symbol of Strength and Devotion - Remover of Obstacles' }}
@@ -66,15 +66,15 @@
         
         <!-- Features -->
         <div class="space-y-2 mb-6 text-sm text-gray-600">
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center transition-smooth hover:scale-105">
             <span class="mr-2">📿</span>
             <span>{{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान चालीसा' : 'Hanuman Chalisa' }}</span>
           </div>
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center transition-smooth hover:scale-105">
             <span class="mr-2">🔔</span>
             <span>{{ lang.getCurrentLanguage() === 'hi' ? 'दैनिक आरती' : 'Daily Aarti' }}</span>
           </div>
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center transition-smooth hover:scale-105">
             <span class="mr-2">🌺</span>
             <span>{{ lang.getCurrentLanguage() === 'hi' ? 'लाल फूल अर्पण' : 'Red Flower Offerings' }}</span>
           </div>
@@ -82,7 +82,7 @@
         
         <!-- Enter Button -->
         <button 
-          class="w-full py-4 px-6 text-white text-lg font-bold rounded-xl {{ getButtonClass(DeityType.HANUMAN) }} transition-colors duration-200 shadow-lg">
+          class="w-full py-4 px-6 text-white text-lg font-bold rounded-xl {{ getButtonClass(DeityType.HANUMAN) }} transition-all duration-300 shadow-lg ripple-effect hover:shadow-glow-saffron focus-ring">
           {{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर में प्रवेश करें' : 'Enter Temple' }} →
         </button>
       </div>
@@ -90,15 +90,15 @@
       <!-- Ganesh Temple Card -->
       <div 
         (click)="selectTemple(DeityType.GANESH)"
-        class="temple-card {{ getCardGradient(DeityType.GANESH) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
+        class="temple-card {{ getCardGradient(DeityType.GANESH) }} border-4 rounded-3xl p-8 cursor-pointer hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl hover-lift active-press stagger-item">
         
         <!-- Deity Image -->
         <div class="mb-6 flex justify-center">
-          <div class="deity-image-wrapper w-48 h-48 rounded-full overflow-visible shadow-2xl bg-white relative">
+          <div class="deity-image-wrapper w-48 h-48 rounded-full overflow-visible shadow-2xl bg-white relative hover-grow">
             <img 
               src="assets/images/deities/ganesh/Ganesh.png" 
               alt="Lord Ganesha"
-              class="w-full h-full object-cover rounded-full"
+              class="w-full h-full object-cover rounded-full divine-glow"
               loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div class="text-8xl flex items-center justify-center h-full" style="display: none;">🐘</div>
@@ -118,17 +118,17 @@
         </div>
         
         <!-- Title -->
-        <h2 class="text-4xl font-bold text-center {{ getTextColor(DeityType.GANESH) }} mb-3">
+        <h2 class="text-4xl font-bold text-center {{ getTextColor(DeityType.GANESH) }} mb-3 font-display">
           {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}
         </h2>
         
         <!-- Subtitle -->
-        <h3 class="text-xl text-center text-gray-600 mb-4">
+        <h3 class="text-xl text-center text-gray-600 mb-4 font-hindi">
           {{ lang.getCurrentLanguage() === 'hi' ? 'श्री गणेश जी' : 'Lord Ganesha Ji' }}
         </h3>
         
         <!-- Description -->
-        <p class="text-center text-gray-700 mb-6 min-h-[60px]">
+        <p class="text-center text-gray-700 mb-6 min-h-[60px] leading-relaxed">
           {{ lang.getCurrentLanguage() === 'hi' 
             ? 'विघ्नहर्ता गणेश - सभी बाधाओं के निवारक' 
             : 'Remover of Obstacles - Granter of Success and Wisdom' }}
@@ -136,15 +136,15 @@
         
         <!-- Features -->
         <div class="space-y-2 mb-6 text-sm text-gray-600">
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center transition-smooth hover:scale-105">
             <span class="mr-2">🎵</span>
             <span>{{ lang.getCurrentLanguage() === 'hi' ? 'गणेश आरती' : 'Ganesh Aarti' }}</span>
           </div>
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center transition-smooth hover:scale-105">
             <span class="mr-2">🥟</span>
             <span>{{ lang.getCurrentLanguage() === 'hi' ? 'मोदक अर्पण' : 'Modak Offerings' }}</span>
           </div>
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-center transition-smooth hover:scale-105">
             <span class="mr-2">🌿</span>
             <span>{{ lang.getCurrentLanguage() === 'hi' ? 'दूर्वा घास' : 'Durva Grass' }}</span>
           </div>
@@ -152,20 +152,20 @@
         
         <!-- Enter Button -->
         <button 
-          class="w-full py-4 px-6 text-white text-lg font-bold rounded-xl {{ getButtonClass(DeityType.GANESH) }} transition-colors duration-200 shadow-lg">
+          class="w-full py-4 px-6 text-white text-lg font-bold rounded-xl {{ getButtonClass(DeityType.GANESH) }} transition-all duration-300 shadow-lg ripple-effect hover:shadow-glow-saffron focus-ring">
           {{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर में प्रवेश करें' : 'Enter Temple' }} →
         </button>
       </div>
     </div>
 
     <!-- Footer Info -->
-    <div class="text-center text-gray-600 mt-8">
-      <p class="text-sm">
+    <div class="text-center text-gray-600 mt-8 animate-entrance glass-morphism p-6 rounded-2xl">
+      <p class="text-sm mb-2">
         {{ lang.getCurrentLanguage() === 'hi' 
           ? '💡 आप किसी भी समय मंदिर बदल सकते हैं' 
           : '💡 You can switch between temples anytime' }}
       </p>
-      <p class="text-xs text-gray-500 mt-2">
+      <p class="text-xs text-gray-500">
         {{ lang.getCurrentLanguage() === 'hi' 
           ? 'प्रत्येक मंदिर में अपनी मनोकामना व्यक्त करें और आशीर्वाद प्राप्त करें' 
           : 'Make wishes at each temple and receive divine blessings' }}

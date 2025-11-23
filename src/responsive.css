@@ -13,6 +13,8 @@
  * 4. Touch-friendly buttons (min 44x44px)
  * 5. No horizontal overflow
  * 6. Readable text sizes (min 16px for body)
+ * 7. Generous spacing for touch targets
+ * 8. Optimized animations for mobile
  */
 
 /* Mobile Optimizations (< 640px) */
@@ -29,11 +31,18 @@
     padding-right: 1rem;
   }
   
-  /* Touch-friendly buttons */
+  /* Touch-friendly buttons - Enhanced */
   button, .btn-primary, .btn-secondary {
-    min-height: 44px;
-    min-width: 44px;
-    padding: 0.75rem 1rem;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 0.875rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  /* Floating action buttons - larger touch targets */
+  .fab {
+    width: 56px;
+    height: 56px;
   }
   
   /* Readable text */
@@ -48,16 +57,68 @@
     height: auto;
   }
   
-  /* Card spacing */
+  /* Card spacing - more generous */
   .card {
-    margin-bottom: 1rem;
-    padding: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
   }
   
   /* Grid adjustments */
   .grid {
     grid-template-columns: 1fr !important;
     gap: 1rem;
+  }
+  
+  /* Bottom sheet style modals */
+  .modal-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 1.5rem 1.5rem 0 0;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  /* Sticky headers on mobile */
+  .sticky-mobile {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Optimize animations for mobile performance */
+  .animate-entrance,
+  .animate-scale-in,
+  .animate-fade-in {
+    animation-duration: 250ms;
+  }
+  
+  /* Reduce motion on mobile if user prefers */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Larger tap targets for interactive elements */
+  a, button, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Prevent zoom on input focus (iOS) */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Improve form field spacing */
+  .input-field {
+    padding: 1rem;
+    font-size: 16px;
   }
 }
 
@@ -72,6 +133,12 @@
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
+  
+  /* Balanced button sizes */
+  button, .btn-primary, .btn-secondary {
+    min-height: 46px;
+    padding: 0.75rem 1.5rem;
+  }
 }
 
 /* Desktop Optimizations (> 768px) */
@@ -84,6 +151,15 @@
   /* Multi-column grids */
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  /* Hover effects only on desktop */
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+  
+  .hover-grow:hover {
+    transform: scale(1.05);
   }
 }
 
@@ -104,27 +180,82 @@
     font-size: 1.125rem !important;
   }
   
-  /* Compact buttons */
-  button, .btn-primary, .btn-secondary {
-    font-size: 0.875rem;
-    padding: 0.625rem 0.875rem;
+  /* Reduce card padding */
+  .card {
+    padding: 1rem;
   }
 }
 
 /* Large Screens (> 1440px) */
 @media (min-width: 1440px) {
-  /* Don't let text get too large */
-  body {
-    font-size: 18px;
-  }
-  
-  .temple-header {
-    font-size: 3rem;
+  .container {
+    max-width: 1280px;
   }
 }
 
-/* Landscape Mobile Optimization */
-@media (max-height: 500px) and (orientation: landscape) {
+/* Landscape mode optimizations */
+@media (orientation: landscape) and (max-height: 600px) {
+  /* Reduce vertical spacing in landscape */
+  .py-8 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .mb-12 {
+    margin-bottom: 2rem;
+  }
+  
+  /* Compact headers */
+  .temple-header {
+    margin-bottom: 0.5rem;
+  }
+  
+  .temple-subheader {
+    margin-bottom: 1rem;
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Optimize images for retina displays */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+  /* Placeholder for dark mode styles */
+  /* Can be implemented later */
+}
+
+/* Print styles */
+@media print {
+  /* Hide interactive elements */
+  .fab, button, .floating-bell-btn, .floating-shankh-btn {
+    display: none !important;
+  }
+  
+  /* Optimize for print */
+  body {
+    background: white;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+  }
+}
+
+/* Large Screens (> 1440px) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Landscape mode optimizations */
+@media (orientation: landscape) and (max-height: 600px) {
   /* Reduce vertical spacing */
   .mb-8, .mb-12 {
     margin-bottom: 1rem !important;

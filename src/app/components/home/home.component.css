@@ -1,27 +1,79 @@
 /* Component-specific styles */
 :host {
   display: block;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-image-container {
-  max-width: 1000px;
+  max-width: 700px;
   margin: 0 auto;
   padding: clamp(0.5rem, 2vw, 1rem);
   overflow: visible;
+  animation: scaleIn 0.8s ease-out 0.2s both;
 }
 
-/* Decorative Frame for Hanuman Image */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Decorative Frame for Hanuman Image - ENHANCED */
 .hanuman-frame {
   position: relative;
   padding: clamp(1rem, 3vw, 2rem);
   border-radius: 1.5rem;
   background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
   box-shadow: 
-    0 0 20px rgba(251, 191, 36, 0.3),
-    0 0 40px rgba(251, 191, 36, 0.2),
+    0 0 30px rgba(251, 191, 36, 0.5),
+    0 0 60px rgba(251, 191, 36, 0.3),
+    0 10px 40px rgba(0, 0, 0, 0.15),
     inset 0 0 20px rgba(255, 255, 255, 0.5);
   border: 3px solid #f59e0b;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: gentleGlow 3s ease-in-out infinite;
+}
+
+.hanuman-frame:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 0 40px rgba(251, 191, 36, 0.6),
+    0 0 80px rgba(251, 191, 36, 0.4),
+    0 15px 50px rgba(0, 0, 0, 0.2),
+    inset 0 0 30px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes gentleGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(251, 191, 36, 0.5),
+      0 0 60px rgba(251, 191, 36, 0.3),
+      0 10px 40px rgba(0, 0, 0, 0.15),
+      inset 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(251, 191, 36, 0.7),
+      0 0 80px rgba(251, 191, 36, 0.5),
+      0 10px 40px rgba(0, 0, 0, 0.15),
+      inset 0 0 30px rgba(255, 255, 255, 0.7);
+  }
 }
 
 .hanuman-frame::before {
@@ -48,6 +100,20 @@
   border-radius: 50%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  animation: omPulse 2s ease-in-out infinite;
+}
+
+@keyframes omPulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2),
+                0 0 10px rgba(251, 191, 36, 0.5);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(251, 191, 36, 0.8);
+  }
 }
 
 .hanuman-frame.active-aarti {
@@ -178,6 +244,67 @@
   100% {
     opacity: 1;
     transform: scale(1.1) rotate(3deg);
+  }
+}
+
+/* ENHANCED BUTTON STYLES */
+.btn-primary,
+.btn-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.btn-primary::before,
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active::before,
+.btn-secondary:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15),
+              0 0 20px rgba(234, 88, 12, 0.3);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Staggered animations for action buttons */
+.max-w-md > button:nth-child(1) {
+  animation: slideInUp 0.5s ease-out 0.3s both;
+}
+
+.max-w-md > button:nth-child(2) {
+  animation: slideInUp 0.5s ease-out 0.4s both;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
