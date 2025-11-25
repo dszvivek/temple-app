@@ -5,6 +5,7 @@ import { Diya } from '../models/diya.model';
 import { DiyaCounterService } from './diya-counter.service';
 import { FirebaseBackendService } from './firebase-backend.service';
 import { DeityType } from '../models/deity.model';
+import { DevoteeRewardsService } from './devotee-rewards.service';
 
 /**
  * DiyaService - Manages virtual diyas lit for loved ones
@@ -32,7 +33,8 @@ export class DiyaService {
 
   constructor(
     private diyaCounterService: DiyaCounterService,
-    private firebaseBackend: FirebaseBackendService
+    private firebaseBackend: FirebaseBackendService,
+    private rewardsService: DevoteeRewardsService
   ) {
     this.initializeStore();
     this.startAutoCleanup();
@@ -118,6 +120,9 @@ export class DiyaService {
       deityId: deityId,
       message: message
     });
+
+    // Award Punya Points for lighting a diya
+    this.rewardsService.recordDiyaLit();
 
     console.log(`🪔 Diya lit for ${trimmedName}`);
     return newDiya;

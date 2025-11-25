@@ -33,6 +33,19 @@ module.exports = {
           sandalwood: '#f5deb3',
           turmeric: '#fbbf24',
           sindoor: '#ef4444',
+          vermillion: '#e53935',
+          incense: '#8d6e63',
+          ghee: '#fff8dc',
+          camphor: '#e3f2fd',
+          rudraksha: '#5d4037',
+        },
+        // Gamification colors
+        reward: {
+          bronze: '#cd7f32',
+          silver: '#c0c0c0',
+          gold: '#ffd700',
+          platinum: '#e5e4e2',
+          diamond: '#b9f2ff',
         }
       },
       fontFamily: {

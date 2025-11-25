@@ -2,8 +2,8 @@
   position: fixed;
   bottom: 24px;
   left: 24px;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   border: none;
@@ -78,14 +78,14 @@
 /* Mobile responsive */
 @media (max-width: 768px) {
   .floating-shankh-btn {
-    width: 48px;
-    height: 48px;
-    bottom: 90px;
-    right: 16px;
-    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    bottom: 16px;
+    left: 12px;
+    font-size: 20px;
   }
   
   .shankh-icon {
-    font-size: 24px;
+    font-size: 20px;
   }
 }

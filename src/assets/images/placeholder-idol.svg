@@ -1,15 +1,87 @@
-<!-- Placeholder SVG for Hanuman Idol -->
+<!-- Spiritual Placeholder SVG -->
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="divineGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#fde68a;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#fcd34d;stop-opacity:0.2" />
+    </radialGradient>
+    <linearGradient id="silhouetteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:0.6" />
+    </linearGradient>
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+    <style>
+      @keyframes pulseGlow {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 0.9; }
+      }
+      @keyframes floatUp {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      .divine-glow { animation: pulseGlow 3s ease-in-out infinite; }
+      .float { animation: floatUp 4s ease-in-out infinite; }
+    </style>
+  </defs>
+  
   <!-- Background -->
   <rect width="512" height="512" fill="#FFF7ED"/>
   
-  <!-- Temple Silhouette -->
-  <path d="M 256 50 L 150 150 L 150 450 L 362 450 L 362 150 Z" fill="#F97316" opacity="0.3"/>
+  <!-- Divine glow -->
+  <ellipse class="divine-glow" cx="256" cy="220" rx="180" ry="160" fill="url(#divineGlow)"/>
+  
+  <!-- Lotus pedestal -->
+  <g transform="translate(256, 420)">
+    <!-- Lotus base -->
+    <ellipse cx="0" cy="0" rx="100" ry="25" fill="#f97316" opacity="0.4"/>
+    
+    <!-- Lotus petals -->
+    <g fill="#fb923c" opacity="0.6">
+      <ellipse cx="-70" cy="-10" rx="35" ry="15" transform="rotate(-30)"/>
+      <ellipse cx="70" cy="-10" rx="35" ry="15" transform="rotate(30)"/>
+      <ellipse cx="-50" cy="-15" rx="30" ry="12" transform="rotate(-15)"/>
+      <ellipse cx="50" cy="-15" rx="30" ry="12" transform="rotate(15)"/>
+      <ellipse cx="0" cy="-20" rx="35" ry="12"/>
+    </g>
+  </g>
+  
+  <!-- Abstract deity silhouette -->
+  <g class="float" transform="translate(256, 250)">
+    <!-- Aura/halo -->
+    <ellipse cx="0" cy="-100" rx="60" ry="60" fill="#fcd34d" opacity="0.3" filter="url(#softBlur)"/>
+    
+    <!-- Head shape -->
+    <ellipse cx="0" cy="-100" rx="45" ry="50" fill="url(#silhouetteGrad)"/>
+    
+    <!-- Crown/mukut hint -->
+    <path d="M -30 -150 L -20 -170 L 0 -160 L 20 -170 L 30 -150" 
+          fill="#f97316" opacity="0.5"/>
+    
+    <!-- Body shape -->
+    <path d="M -50 -50 Q -60 0, -70 80 L 70 80 Q 60 0, 50 -50 Q 0 -70, -50 -50" 
+          fill="url(#silhouetteGrad)"/>
+    
+    <!-- Arms hint -->
+    <path d="M -50 -20 Q -90 -10, -100 30" fill="none" stroke="#f97316" stroke-width="20" stroke-linecap="round" opacity="0.4"/>
+    <path d="M 50 -20 Q 90 -10, 100 30" fill="none" stroke="#f97316" stroke-width="20" stroke-linecap="round" opacity="0.4"/>
+  </g>
   
   <!-- Om Symbol -->
-  <text x="256" y="280" font-size="120" font-family="serif" text-anchor="middle" fill="#EA580C" font-weight="bold">ॐ</text>
+  <text x="256" cy="250" y="260" font-size="60" font-family="serif" text-anchor="middle" fill="#EA580C" font-weight="bold" opacity="0.8">ॐ</text>
   
-  <!-- Temple Name -->
-  <text x="256" y="380" font-size="24" font-family="serif" text-anchor="middle" fill="#C2410C">Hanuman</text>
-  <text x="256" y="410" font-size="18" font-family="serif" text-anchor="middle" fill="#9A3412">Temple</text>
+  <!-- Decorative rays -->
+  <g opacity="0.2" stroke="#f97316" stroke-width="2">
+    <line x1="256" y1="100" x2="256" y2="50"/>
+    <line x1="200" y1="120" x2="170" y2="80"/>
+    <line x1="312" y1="120" x2="342" y2="80"/>
+    <line x1="160" y1="160" x2="120" y2="140"/>
+    <line x1="352" y1="160" x2="392" y2="140"/>
+  </g>
+  
+  <!-- Bottom text -->
+  <text x="256" y="470" font-size="24" font-family="serif" text-anchor="middle" fill="#C2410C">श्री देवता</text>
+  <text x="256" y="498" font-size="16" font-family="serif" text-anchor="middle" fill="#9A3412">Divine Presence</text>
 </svg>

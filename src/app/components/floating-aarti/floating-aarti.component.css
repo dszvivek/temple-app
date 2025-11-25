@@ -1,0 +1,435 @@
+/* ==========================================
+   AARTI COMPONENT - AUTO-ROTATING THALI
+   Shows deity through transparent overlay
+   ========================================== */
+
+/* Floating Aarti Button */
+.floating-aarti-btn {
+  position: fixed;
+  bottom: 150px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border: 2px solid #fbbf24;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 12px rgba(249, 115, 22, 0.4),
+    0 0 20px rgba(251, 191, 36, 0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.floating-aarti-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 6px 20px rgba(249, 115, 22, 0.5),
+    0 0 30px rgba(251, 191, 36, 0.4);
+}
+
+.floating-aarti-btn:active {
+  transform: scale(0.95);
+}
+
+.floating-aarti-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.floating-aarti-btn.active {
+  animation: activeGlow 1s ease-in-out infinite alternate;
+}
+
+.aarti-icon {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+@keyframes activeGlow {
+  0% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.6), 0 0 40px rgba(249, 115, 22, 0.4); }
+  100% { box-shadow: 0 0 35px rgba(251, 191, 36, 0.9), 0 0 60px rgba(249, 115, 22, 0.6); }
+}
+
+/* ==========================================
+   TRANSPARENT OVERLAY - DEITY VISIBLE
+   ========================================== */
+.aarti-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3); /* Light overlay - deity visible */
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+/* Divine glow effect on deity area */
+.divine-glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle,
+    rgba(255, 200, 100, 0.4) 0%,
+    rgba(255, 150, 50, 0.2) 40%,
+    transparent 70%);
+  border-radius: 50%;
+  animation: glowPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+/* ==========================================
+   PROGRESS STRIP AT TOP
+   ========================================== */
+.progress-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.progress-strip .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
+}
+
+.progress-strip .progress-text {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fbbf24;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================
+   COMPLETION BANNER
+   ========================================== */
+.completion-banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, 
+    rgba(251, 191, 36, 0.95), 
+    rgba(249, 115, 22, 0.95));
+  border-radius: 50px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(251, 191, 36, 0.5);
+  animation: bannerPop 0.5s ease-out;
+}
+
+.completion-banner .completion-icon {
+  font-size: 1.5rem;
+  animation: starPulse 0.5s ease-in-out infinite alternate;
+}
+
+.completion-banner .completion-text {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bannerPop {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  70% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes starPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+/* ==========================================
+   AARTI THALI - AUTO ROTATING
+   ========================================== */
+.aarti-thali-container {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.aarti-thali {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.aarti-thali.rotating {
+  animation: swingAarti 2s ease-in-out infinite;
+}
+
+/* Swing motion like real aarti */
+@keyframes swingAarti {
+  0% { transform: rotate(-25deg) translateX(-20px); }
+  50% { transform: rotate(25deg) translateX(20px); }
+  100% { transform: rotate(-25deg) translateX(-20px); }
+}
+
+/* Golden Thali Plate */
+.thali-plate {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, 
+    #f5d78e 0%,
+    #d4a84b 30%,
+    #b8860b 60%,
+    #a67c00 100%);
+  border-radius: 50%;
+  border: 5px solid;
+  border-color: #ffd700 #c9a227 #b8860b #e8c200;
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    inset 0 4px 15px rgba(255, 255, 255, 0.3),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: visible;
+}
+
+/* Decorative rim */
+.thali-rim {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  border-radius: 50%;
+}
+
+/* Inner plate area */
+.thali-inner {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, 
+    rgba(255, 215, 0, 0.2), 
+    rgba(184, 134, 11, 0.1));
+}
+
+/* Diyas arrangement */
+.diyas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 12px;
+}
+
+.diya {
+  position: relative;
+  width: 18px;
+  height: 14px;
+  background: linear-gradient(to bottom, #cd7f32, #8b4513);
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+}
+
+.wick {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: #333;
+}
+
+.flame {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 18px;
+  background: linear-gradient(to top, 
+    #ff4500 0%,
+    #ff8c00 40%, 
+    #ffd700 70%, 
+    #fffacd 95%);
+  border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+  animation: flameFlicker 0.15s ease-in-out infinite alternate;
+  box-shadow: 
+    0 0 8px rgba(255, 150, 0, 0.8),
+    0 0 15px rgba(255, 100, 0, 0.5);
+}
+
+.flame-core {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 6px;
+  background: #87CEEB;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+@keyframes flameFlicker {
+  0% { transform: translateX(-50%) scaleY(0.9) scaleX(0.95); }
+  100% { transform: translateX(-50%) scaleY(1.1) scaleX(1.05); }
+}
+
+/* Center kumkum dot */
+.kumkum {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #dc143c, #8b0000);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
+}
+
+/* Flowers on plate */
+.flower {
+  position: absolute;
+  font-size: 1rem;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
+
+.flower.f1 { top: 5px; left: 50%; transform: translateX(-50%); }
+.flower.f2 { bottom: 5px; left: 50%; transform: translateX(-50%); }
+
+/* ==========================================
+   CLOSE BUTTON
+   ========================================== */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 768px) {
+  .floating-aarti-btn {
+    width: 40px;
+    height: 40px;
+    bottom: 124px;
+    right: 12px;
+  }
+  
+  .aarti-icon {
+    font-size: 1.2rem;
+  }
+  
+  .aarti-thali {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .aarti-thali-container {
+    bottom: 60px;
+  }
+  
+  .divine-glow {
+    width: 200px;
+    height: 200px;
+    top: 15%;
+  }
+  
+  .diyas .diya {
+    width: 14px;
+    height: 11px;
+  }
+  
+  .flame {
+    width: 8px;
+    height: 14px;
+    top: -16px;
+  }
+  
+  .completion-banner {
+    padding: 15px 25px;
+  }
+  
+  .completion-banner .completion-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-aarti-btn {
+    width: 36px;
+    height: 36px;
+    bottom: 116px;
+    right: 10px;
+  }
+  
+  .aarti-icon {
+    font-size: 1rem;
+  }
+  
+  .aarti-thali {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .aarti-thali-container {
+    bottom: 50px;
+  }
+  
+  .diyas {
+    gap: 8px;
+  }
+  
+  .close-btn {
+    width: 35px;
+    height: 35px;
+    top: 10px;
+    right: 10px;
+    font-size: 1rem;
+  }
+}
+

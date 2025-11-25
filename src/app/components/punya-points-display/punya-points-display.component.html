@@ -1,0 +1,106 @@
+<!-- Points Animation Popup -->
+<ng-container *ngIf="pointsAnimation">
+  <div class="points-popup" [@pointsPopup]>
+    <div class="points-content">
+      <span class="points-value">+{{ pointsAnimation.points }}</span>
+      <span class="points-label">Punya Points</span>
+      <span class="points-message">{{ pointsAnimation.message }}</span>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Mini Profile Badge (always visible) -->
+<ng-container *ngIf="profile">
+  <button 
+    class="mini-profile-btn"
+    (click)="toggleProfilePanel()">
+    <div class="level-badge" [class]="getLevelColor()">
+      <span class="level-num">{{ profile.level }}</span>
+    </div>
+    <div class="points-display">
+      <span class="points-icon">🪷</span>
+      <span class="points-count">{{ formatNumber(profile.points.total) }}</span>
+    </div>
+    <ng-container *ngIf="profile.streak.currentStreak > 0">
+      <div class="streak-badge">
+        <span>{{ getStreakEmoji() }}</span>
+        <span class="streak-count">{{ profile.streak.currentStreak }}</span>
+      </div>
+    </ng-container>
+  </button>
+</ng-container>
+
+<!-- Profile Panel (expandable) -->
+<ng-container *ngIf="showProfilePanel && profile">
+  <div class="profile-panel">
+    <div class="panel-header">
+      <h3>{{ lang.getCurrentLanguage() === 'hi' ? 'आपकी आध्यात्मिक यात्रा' : 'Your Spiritual Journey' }}</h3>
+      <button class="close-panel" (click)="toggleProfilePanel()">✕</button>
+    </div>
+
+    <!-- Level Section -->
+    <div class="level-section">
+      <div class="level-info">
+        <div class="level-icon" [class]="getLevelColor()">{{ profile.level }}</div>
+        <div class="level-details">
+          <p class="level-name">{{ lang.getCurrentLanguage() === 'hi' ? profile.levelNameHi : profile.levelName }}</p>
+          <p class="level-points">{{ profile.points.total }} / {{ profile.nextLevelPoints }} points</p>
+        </div>
+      </div>
+      <div class="level-progress-bar">
+        <div class="level-progress-fill" [style.width.%]="levelProgress"></div>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-icon">🔥</span>
+        <span class="stat-value">{{ profile.streak.currentStreak }}</span>
+        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'दिन की श्रृंखला' : 'Day Streak' }}</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-icon">🏛️</span>
+        <span class="stat-value">{{ profile.streak.totalVisits }}</span>
+        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'कुल यात्राएं' : 'Total Visits' }}</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-icon">🪔</span>
+        <span class="stat-value">{{ profile.aartiPerformed }}</span>
+        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'आरती की' : 'Aartis Done' }}</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-icon">🍬</span>
+        <span class="stat-value">{{ profile.prasadReceived }}</span>
+        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'प्रसाद मिला' : 'Prasad Received' }}</span>
+      </div>
+    </div>
+
+    <!-- Badges Section -->
+    <div class="badges-section">
+      <h4>{{ lang.getCurrentLanguage() === 'hi' ? 'अर्जित बैज' : 'Earned Badges' }} ({{ profile.badges.length }})</h4>
+      <ng-container *ngIf="profile.badges.length > 0">
+        <div class="badges-grid">
+          <div *ngFor="let badge of profile.badges" class="badge-item" [@badgeEarned]>
+            <span class="badge-icon">{{ badge.icon }}</span>
+            <span class="badge-name">{{ lang.getCurrentLanguage() === 'hi' ? badge.nameHi : badge.name }}</span>
+          </div>
+        </div>
+      </ng-container>
+      <p *ngIf="profile.badges.length === 0" class="no-badges">
+        {{ lang.getCurrentLanguage() === 'hi' ? 'अभी तक कोई बैज नहीं। गतिविधियां जारी रखें!' : 'No badges yet. Keep up the activities!' }}
+      </p>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-section">
+      <h4>{{ lang.getCurrentLanguage() === 'hi' ? 'हाल की गतिविधि' : 'Recent Activity' }}</h4>
+      <div class="activity-list">
+        <div *ngFor="let activity of profile.activities.slice(0, 5)" class="activity-item">
+          <span class="activity-points">+{{ activity.points }}</span>
+          <span class="activity-desc">{{ activity.description }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

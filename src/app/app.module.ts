@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { CommonModule } from '@angular/common';
 import { environment } from '../environments/environment';
 
 // Firebase imports - kept for AngularFire compatibility
@@ -21,9 +22,12 @@ import { FloatingBellComponent } from './components/floating-bell/floating-bell.
 import { FloatingFlowerComponent } from './components/floating-flower/floating-flower.component';
 import { FloatingShankhComponent } from './components/floating-shankh/floating-shankh.component';
 import { FloatingIncenseComponent } from './components/floating-incense/floating-incense.component';
+import { FloatingAartiComponent } from './components/floating-aarti/floating-aarti.component';
 import { ViralSharePromptComponent } from './components/viral-share-prompt/viral-share-prompt.component';
 import { OfflineIndicatorComponent } from './components/offline-indicator/offline-indicator.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { PunyaPointsDisplayComponent } from './components/punya-points-display/punya-points-display.component';
+import { DailyQuoteComponent } from './components/daily-quote/daily-quote.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +41,17 @@ import { ToastComponent } from './components/toast/toast.component';
     FloatingFlowerComponent,
     FloatingShankhComponent,
     FloatingIncenseComponent,
+    FloatingAartiComponent,
     ViralSharePromptComponent,
     OfflineIndicatorComponent,
-    ToastComponent
+    ToastComponent,
+    PunyaPointsDisplayComponent,
+    DailyQuoteComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     AppRoutingModule,
     SharedModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

@@ -1,0 +1,250 @@
+/* ==========================================
+   DAILY QUOTE COMPONENT STYLES
+   ========================================== */
+
+.daily-quote-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 90;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Mini Version */
+.quote-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95), 
+    rgba(255, 248, 225, 0.95));
+  border-radius: 50px;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    0 2px 5px rgba(255, 152, 0, 0.2);
+  border: 1px solid rgba(255, 152, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.quote-mini:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+.quote-icon {
+  font-size: 18px;
+}
+
+.quote-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e65100;
+  white-space: nowrap;
+}
+
+.expand-icon {
+  font-size: 10px;
+  color: #999;
+  animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* Full Quote (Expanded) */
+.quote-full {
+  position: relative;
+  width: 320px;
+  padding: 24px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.98), 
+    rgba(255, 248, 225, 0.98));
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 152, 0, 0.1);
+  animation: expandIn 0.3s ease-out;
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.collapse-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  color: #666;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.collapse-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.quote-icon-large {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 12px;
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.quote-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  text-align: center;
+  margin: 0 0 12px 0;
+  padding: 0;
+  font-style: italic;
+}
+
+.quote-source {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e65100;
+  margin-bottom: 16px;
+}
+
+.decorative-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #ff9800, 
+    transparent);
+  margin: 0 auto 12px;
+  border-radius: 1px;
+}
+
+.quote-instruction {
+  font-size: 11px;
+  color: #888;
+  text-align: center;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .daily-quote-container {
+    bottom: 80px;
+    left: 10px;
+  }
+
+  .quote-mini {
+    padding: 8px 12px;
+  }
+
+  .quote-icon {
+    font-size: 16px;
+  }
+
+  .quote-label {
+    font-size: 11px;
+  }
+
+  .quote-full {
+    width: calc(100vw - 40px);
+    max-width: 320px;
+    padding: 20px;
+  }
+
+  .quote-text {
+    font-size: 14px;
+  }
+
+  .quote-icon-large {
+    font-size: 30px;
+  }
+}
+
+/* Dark theme adjustments if needed */
+@media (prefers-color-scheme: dark) {
+  .quote-mini,
+  .quote-full {
+    background: linear-gradient(135deg, 
+      rgba(45, 35, 20, 0.95), 
+      rgba(60, 45, 25, 0.95));
+    border-color: rgba(255, 152, 0, 0.3);
+  }
+
+  .quote-label {
+    color: #ffb74d;
+  }
+
+  .quote-text {
+    color: #f5f5f5;
+  }
+
+  .quote-source {
+    color: #ffb74d;
+  }
+
+  .collapse-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+  }
+
+  .collapse-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+}
+
+/* Spiritual glow effect on hover */
+.quote-full::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, 
+    rgba(255, 193, 7, 0.3), 
+    rgba(255, 87, 34, 0.3),
+    rgba(255, 193, 7, 0.3));
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.quote-full:hover::before {
+  opacity: 1;
+}

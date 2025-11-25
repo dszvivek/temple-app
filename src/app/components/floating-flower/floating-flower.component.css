@@ -1,12 +1,12 @@
 /* Floating Flower Button - Bottom Left */
 .floating-flower-btn {
   position: fixed;
-  bottom: 84px;
+  bottom: 78px;
   left: 24px;
   z-index: 1000;
   
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   
   background: linear-gradient(135deg, #ec4899, #db2777);
@@ -68,18 +68,18 @@
 /* Mobile responsive */
 @media (max-width: 640px) {
   .floating-flower-btn {
-    width: 56px;
-    height: 56px;
-    bottom: 16px;
-    left: 16px;
+    width: 40px;
+    height: 40px;
+    bottom: 70px;
+    left: 12px;
   }
   
   .flower-icon {
-    font-size: 24px;
+    font-size: 20px;
   }
   
   .flower-label {
-    font-size: 7px;
+    display: none;
   }
 }
 

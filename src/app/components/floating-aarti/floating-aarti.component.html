@@ -1,0 +1,64 @@
+<!-- Floating Aarti Button -->
+<button 
+  (click)="startAarti()"
+  [disabled]="isPerforming"
+  class="floating-aarti-btn"
+  [class.active]="isPerforming"
+  title="Perform Aarti">
+  <span class="aarti-icon">🪔</span>
+</button>
+
+<!-- Transparent Aarti Overlay - Deity remains visible -->
+<div *ngIf="showOverlay" class="aarti-overlay" [@overlayFade]>
+  
+  <!-- Subtle divine glow on deity (centered top) -->
+  <div class="divine-glow"></div>
+  
+  <!-- Completion Message -->
+  <div class="completion-banner" *ngIf="isComplete">
+    <span class="completion-icon">✨</span>
+    <span class="completion-text">आरती पूर्ण! Aarti Complete!</span>
+    <span class="completion-icon">✨</span>
+  </div>
+
+  <!-- Progress bar at top -->
+  <div class="progress-strip" *ngIf="!isComplete">
+    <div class="progress-fill" [style.width.%]="progressPercent"></div>
+    <span class="progress-text">{{ rotationCount }}/{{ targetRotations }}</span>
+  </div>
+
+  <!-- Aarti Thali at bottom - auto-rotating -->
+  <div class="aarti-thali-container">
+    <div class="aarti-thali" [class.rotating]="isPerforming && !isComplete">
+      <!-- Golden Thali Plate -->
+      <div class="thali-plate">
+        <!-- Decorative rim -->
+        <div class="thali-rim"></div>
+        
+        <!-- Inner plate -->
+        <div class="thali-inner">
+          <!-- Center diyas -->
+          <div class="diyas">
+            <div class="diya" *ngFor="let i of flames">
+              <div class="wick"></div>
+              <div class="flame">
+                <div class="flame-core"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Center kumkum -->
+          <div class="kumkum"></div>
+        </div>
+        
+        <!-- Flowers on plate -->
+        <span class="flower f1">🌺</span>
+        <span class="flower f2">🌸</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Close/Cancel button -->
+  <button class="close-btn" (click)="stopAarti()">✕</button>
+</div>
+

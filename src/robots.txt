@@ -1,0 +1,21 @@
+# Robots.txt for E-Darshan Mandir - Virtual Temple
+# https://e-darshan.com
+
+User-agent: *
+Allow: /
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://e-darshan.com/sitemap.xml
+
+# Crawl delay to be respectful
+Crawl-delay: 1

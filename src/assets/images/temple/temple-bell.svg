@@ -1,43 +1,115 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <!-- Bell -->
+  <!-- Temple Bell with Animation -->
   <defs>
-    <linearGradient id="bellGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="bellGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#fcd34d;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
     </linearGradient>
+    <linearGradient id="bellHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.6" />
+      <stop offset="50%" style="stop-color:#fef3c7;stop-opacity:0" />
+    </linearGradient>
+    <radialGradient id="bellGlow">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0" />
+    </radialGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes bellSwing {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        75% { transform: rotate(-5deg); }
+      }
+      @keyframes clapperSwing {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(4px); }
+        75% { transform: translateX(-4px); }
+      }
+      @keyframes waveExpand {
+        0% { transform: scale(1); opacity: 0.6; }
+        100% { transform: scale(1.8); opacity: 0; }
+      }
+      @keyframes shimmer {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.7; }
+      }
+      .bell-body { transform-origin: 100px 40px; animation: bellSwing 2s ease-in-out infinite; }
+      .clapper { animation: clapperSwing 2s ease-in-out infinite; }
+      .sound-wave { animation: waveExpand 1.5s ease-out infinite; }
+      .sound-wave-delay { animation: waveExpand 1.5s ease-out infinite 0.3s; }
+      .sound-wave-delay2 { animation: waveExpand 1.5s ease-out infinite 0.6s; }
+      .highlight { animation: shimmer 2s ease-in-out infinite; }
+    </style>
   </defs>
   
   <rect width="200" height="200" fill="transparent"/>
   
-  <!-- Bell top -->
-  <circle cx="100" cy="40" r="12" fill="#b8860b"/>
-  <rect x="97" y="40" width="6" height="15" fill="#a16207"/>
+  <!-- Glow effect behind bell -->
+  <ellipse cx="100" cy="95" rx="60" ry="50" fill="url(#bellGlow)"/>
   
-  <!-- Bell body -->
-  <path d="M 70 55 Q 65 60, 60 85 L 60 120 Q 60 130, 70 135 L 130 135 Q 140 130, 140 120 L 140 85 Q 135 60, 130 55 Z" 
-        fill="url(#bellGrad)" stroke="#92400e" stroke-width="2"/>
+  <!-- Bell mounting bracket -->
+  <rect x="85" y="25" width="30" height="8" fill="#78350f" rx="2"/>
+  <rect x="95" y="15" width="10" height="15" fill="#92400e" rx="2"/>
+  <circle cx="100" cy="15" r="6" fill="#a16207"/>
   
-  <!-- Bell rim -->
-  <ellipse cx="100" cy="135" rx="40" ry="8" fill="#fbbf24"/>
-  <ellipse cx="100" cy="133" rx="38" ry="6" fill="#fef3c7"/>
+  <!-- Chain/rope -->
+  <path d="M 100 33 Q 100 38, 100 40" stroke="#78350f" stroke-width="3" fill="none"/>
   
-  <!-- Decorative patterns -->
-  <circle cx="85" cy="85" r="4" fill="#fef3c7" opacity="0.6"/>
-  <circle cx="115" cy="85" r="4" fill="#fef3c7" opacity="0.6"/>
-  <circle cx="100" cy="100" r="5" fill="#fef3c7" opacity="0.6"/>
-  
-  <!-- Clapper -->
-  <line x1="100" y1="120" x2="100" y2="145" stroke="#78350f" stroke-width="3"/>
-  <ellipse cx="100" cy="148" rx="6" ry="8" fill="#92400e"/>
-  
-  <!-- Sound waves -->
-  <g opacity="0.4">
-    <path d="M 50 90 Q 45 90, 40 90" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
-    <path d="M 150 90 Q 155 90, 160 90" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
-    <path d="M 35 100 Q 25 100, 20 100" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
-    <path d="M 165 100 Q 175 100, 180 100" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+  <g class="bell-body">
+    <!-- Bell top mount -->
+    <ellipse cx="100" cy="45" rx="15" ry="6" fill="#b8860b"/>
+    <rect x="97" y="40" width="6" height="10" fill="#a16207"/>
+    
+    <!-- Bell body -->
+    <path d="M 65 55 Q 58 65, 55 90 L 55 125 Q 55 140, 75 145 L 125 145 Q 145 140, 145 125 L 145 90 Q 142 65, 135 55 Z" 
+          fill="url(#bellGrad)" stroke="#92400e" stroke-width="2"/>
+    
+    <!-- Bell highlight -->
+    <path d="M 70 60 Q 65 75, 62 100 L 62 120 Q 62 130, 75 135" 
+          fill="url(#bellHighlight)" opacity="0.5"/>
+    
+    <!-- Bell inner shadow -->
+    <ellipse cx="100" cy="145" rx="35" ry="8" fill="#78350f" opacity="0.4"/>
+    
+    <!-- Bell rim -->
+    <ellipse cx="100" cy="145" rx="40" ry="10" fill="#fbbf24"/>
+    <ellipse cx="100" cy="143" rx="38" ry="8" fill="#fef3c7" class="highlight"/>
+    
+    <!-- Decorative patterns on bell -->
+    <circle cx="80" cy="85" r="5" fill="#fef3c7" opacity="0.5"/>
+    <circle cx="120" cy="85" r="5" fill="#fef3c7" opacity="0.5"/>
+    <circle cx="100" cy="100" r="6" fill="#fef3c7" opacity="0.5"/>
+    
+    <!-- Om symbol on bell -->
+    <text x="100" y="125" font-size="18" text-anchor="middle" fill="#b8860b" 
+          font-family="serif" font-weight="bold">ॐ</text>
+    
+    <!-- Decorative band -->
+    <ellipse cx="100" cy="75" rx="32" ry="4" fill="none" stroke="#fef3c7" stroke-width="1" opacity="0.5"/>
+    
+    <!-- Clapper -->
+    <g class="clapper">
+      <line x1="100" y1="120" x2="100" y2="155" stroke="#78350f" stroke-width="4"/>
+      <ellipse cx="100" cy="160" rx="8" ry="10" fill="#92400e"/>
+      <ellipse cx="100" cy="158" rx="6" ry="7" fill="#a16207"/>
+    </g>
   </g>
   
-  <text x="100" y="185" font-size="16" text-anchor="middle" fill="#78350f" 
-        font-family="serif" font-weight="bold">🔔</text>
+  <!-- Sound waves -->
+  <g filter="url(#softGlow)">
+    <ellipse class="sound-wave" cx="45" cy="100" rx="12" ry="25" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    <ellipse class="sound-wave-delay" cx="35" cy="100" rx="10" ry="20" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+    <ellipse class="sound-wave-delay2" cx="25" cy="100" rx="8" ry="15" fill="none" stroke="#fbbf24" stroke-width="1"/>
+    
+    <ellipse class="sound-wave" cx="155" cy="100" rx="12" ry="25" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    <ellipse class="sound-wave-delay" cx="165" cy="100" rx="10" ry="20" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+    <ellipse class="sound-wave-delay2" cx="175" cy="100" rx="8" ry="15" fill="none" stroke="#fbbf24" stroke-width="1"/>
+  </g>
 </svg>

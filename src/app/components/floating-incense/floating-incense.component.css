@@ -1,9 +1,9 @@
 .floating-incense-btn {
   position: fixed;
-  bottom: 92px;
+  bottom: 90px;
   right: 24px;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: linear-gradient(135deg, #2c1810 0%, #5a3825 50%, #8B4513 100%);
   border: 2px solid #d4a574;
@@ -309,15 +309,15 @@
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .floating-incense-btn {
-    width: 48px;
-    height: 48px;
-    bottom: 160px;
-    right: 16px;
+    width: 40px;
+    height: 40px;
+    bottom: 70px;
+    right: 12px;
   }
   
   .incense-svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
   
   .incense-holder {

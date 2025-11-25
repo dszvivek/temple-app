@@ -2,33 +2,101 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="220" height="160" viewBox="0 0 220 160">
   <defs>
     <linearGradient id="g-bowl" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#b87333"/>
+      <stop offset="0%" stop-color="#cd7f32"/>
+      <stop offset="50%" stop-color="#b87333"/>
       <stop offset="100%" stop-color="#7a4a16"/>
     </linearGradient>
-    <radialGradient id="g-flame" cx="50%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="#fff7b1"/>
-      <stop offset="50%" stop-color="#ffd36e"/>
+    <linearGradient id="g-oil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <radialGradient id="g-flame-outer" cx="50%" cy="70%" r="60%">
+      <stop offset="0%" stop-color="#ff8a00"/>
+      <stop offset="100%" stop-color="#ff4500"/>
+    </radialGradient>
+    <radialGradient id="g-flame-middle" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#ffd36e"/>
       <stop offset="100%" stop-color="#ff8a00"/>
     </radialGradient>
-    <filter id="softGlow"><feGaussianBlur stdDeviation="2"/></filter>
+    <radialGradient id="g-flame-inner" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#fff7b1"/>
+      <stop offset="100%" stop-color="#ffd36e"/>
+    </radialGradient>
+    <radialGradient id="g-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="flameBlur">
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
     <style>
-      .flame { transform-origin: 110px 44px; animation: flicker 1.5s infinite ease-in-out alternate; }
       @keyframes flicker {
-        0% { transform: translateY(0) scale(1); opacity:0.95; }
-        50%{ transform: translateY(-1px) scale(1.03); opacity:1; }
-        100%{ transform: translateY(0) scale(0.98); opacity:0.9; }
+        0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); opacity: 0.95; }
+        25% { transform: translateY(-1px) scaleY(1.02) scaleX(0.98); opacity: 1; }
+        50% { transform: translateY(-2px) scaleY(1.04) scaleX(0.96); opacity: 0.92; }
+        75% { transform: translateY(-1px) scaleY(0.98) scaleX(1.02); opacity: 0.98; }
       }
-      .glow{ animation: glow 1.5s infinite alternate; }
-      @keyframes glow{ from{opacity:0.35;} to{opacity:0.6;} }
+      @keyframes glowPulse {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.1); }
+      }
+      @keyframes oilShimmer {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 0.8; }
+      }
+      .flame-group { transform-origin: 110px 55px; animation: flicker 1.2s ease-in-out infinite; }
+      .glow { animation: glowPulse 1.5s ease-in-out infinite; }
+      .oil-shine { animation: oilShimmer 2s ease-in-out infinite; }
     </style>
   </defs>
+  
+  <!-- Outer glow -->
+  <ellipse class="glow" cx="110" cy="60" rx="70" ry="50" fill="url(#g-glow)" filter="url(#softGlow)"/>
+  
+  <!-- Diya bowl shadow -->
+  <ellipse cx="112" cy="125" rx="92" ry="30" fill="#5c3411" opacity="0.3"/>
+  
+  <!-- Diya bowl outer -->
   <ellipse cx="110" cy="120" rx="90" ry="28" fill="url(#g-bowl)"/>
-  <ellipse cx="110" cy="115" rx="90" ry="16" fill="#c07a2a"/>
-  <ellipse cx="110" cy="108" rx="78" ry="10" fill="#e8b46a"/>
-  <ellipse cx="110" cy="100" rx="60" ry="8" fill="#7b3f00"/>
-  <rect x="106" y="70" width="8" height="28" rx="4" fill="#2b1a0e"/>
-  <g class="flame">
-    <path d="M110 30 C130 55,125 75,110 85 C95 75,90 55,110 30 Z" fill="url(#g-flame)"/>
-    <ellipse class="glow" cx="110" cy="70" rx="22" ry="10" fill="#ffb347" filter="url(#softGlow)" />
+  
+  <!-- Diya bowl rim -->
+  <ellipse cx="110" cy="115" rx="90" ry="18" fill="#c07a2a"/>
+  <ellipse cx="110" cy="113" rx="85" ry="14" fill="#d4922a"/>
+  
+  <!-- Oil surface -->
+  <ellipse cx="110" cy="108" rx="78" ry="10" fill="url(#g-oil)"/>
+  <ellipse class="oil-shine" cx="95" cy="106" rx="30" ry="4" fill="#fef3c7" opacity="0.6"/>
+  
+  <!-- Oil pool inner -->
+  <ellipse cx="110" cy="100" rx="60" ry="8" fill="#92400e" opacity="0.6"/>
+  
+  <!-- Wick -->
+  <rect x="106" y="70" width="8" height="30" rx="4" fill="#2b1a0e"/>
+  <rect x="107" y="72" width="6" height="26" rx="3" fill="#1a0f08"/>
+  
+  <!-- Flame group with animation -->
+  <g class="flame-group">
+    <!-- Outer flame -->
+    <path d="M110 25 C135 50, 132 70, 120 82 C115 87, 105 87, 100 82 C88 70, 85 50, 110 25 Z" 
+          fill="url(#g-flame-outer)" filter="url(#flameBlur)"/>
+    
+    <!-- Middle flame -->
+    <path d="M110 32 C128 50, 125 65, 117 76 C113 80, 107 80, 103 76 C95 65, 92 50, 110 32 Z" 
+          fill="url(#g-flame-middle)"/>
+    
+    <!-- Inner flame (brightest) -->
+    <path d="M110 40 C120 52, 118 62, 113 70 C111 73, 109 73, 107 70 C102 62, 100 52, 110 40 Z" 
+          fill="url(#g-flame-inner)"/>
+    
+    <!-- Flame core (white hot) -->
+    <ellipse cx="110" cy="68" rx="4" ry="8" fill="#fffbe8"/>
   </g>
+  
+  <!-- Decorative dots on bowl -->
+  <circle cx="70" cy="115" r="3" fill="#fcd34d" opacity="0.5"/>
+  <circle cx="150" cy="115" r="3" fill="#fcd34d" opacity="0.5"/>
+  <circle cx="110" cy="128" r="3" fill="#fcd34d" opacity="0.5"/>
 </svg>

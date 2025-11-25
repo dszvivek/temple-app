@@ -6,6 +6,7 @@ import { AmbientAudioService } from '../../services/ambient-audio.service';
 import { PetalService } from '../../services/petal.service';
 import { BlessingsService, Blessing } from '../../services/blessings.service';
 import { DeityService } from '../../services/deity.service';
+import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
 import { Wish, WishCategory, WishStatus } from '../../models/wish.model';
 import { DeityType } from '../../models/deity.model';
 
@@ -62,7 +63,8 @@ export class WishFlowComponent implements OnInit {
     private ambientAudio: AmbientAudioService,
     private petalService: PetalService,
     public blessingsService: BlessingsService,
-    private deityService: DeityService
+    private deityService: DeityService,
+    private rewardsService: DevoteeRewardsService
   ) {
     // Set initial random blessing
     this.currentBlessing = this.blessingsService.getRandomBlessing();
@@ -252,6 +254,9 @@ Visit and offer your prayer: ${window.location.origin}
     try {
       // Activate the wish
       await this.wishService.activateWish(this.currentWish.id);
+      
+      // Award Punya Points for making a wish
+      this.rewardsService.recordWishMade();
       
       // Get a new random blessing for the completion message
       this.currentBlessing = this.blessingsService.getRandomBlessing();

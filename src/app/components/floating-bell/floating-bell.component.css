@@ -133,15 +133,15 @@
 /* Mobile responsiveness */
 @media (max-width: 640px) {
   .floating-bell-btn {
-    bottom: 80px; /* Move up to avoid mobile navigation/bottom bars */
-    right: 16px;
-    width: 56px;
-    height: 56px;
+    bottom: 16px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
   }
 
   .bell-icon {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 }
 

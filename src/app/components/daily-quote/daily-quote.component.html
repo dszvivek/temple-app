@@ -1,0 +1,36 @@
+<!-- Daily Quote Mini Card -->
+<div 
+  *ngIf="currentQuote" 
+  class="daily-quote-container"
+  [class.expanded]="isExpanded"
+  (click)="toggleExpand()"
+  [@fadeIn]>
+  
+  <!-- Mini Version (collapsed) -->
+  <div class="quote-mini" *ngIf="!isExpanded">
+    <span class="quote-icon">{{ currentQuote.icon }}</span>
+    <span class="quote-label">{{ lang.getCurrentLanguage() === 'hi' ? 'आज का संदेश' : "Today's Wisdom" }}</span>
+    <span class="expand-icon">▼</span>
+  </div>
+  
+  <!-- Full Quote (expanded) -->
+  <div class="quote-full" *ngIf="isExpanded">
+    <button class="collapse-btn" (click)="toggleExpand(); $event.stopPropagation()">✕</button>
+    
+    <div class="quote-icon-large">{{ currentQuote.icon }}</div>
+    
+    <blockquote class="quote-text">
+      "{{ getQuoteText() }}"
+    </blockquote>
+    
+    <cite class="quote-source">
+      — {{ getQuoteSource() }}
+    </cite>
+    
+    <div class="decorative-line"></div>
+    
+    <p class="quote-instruction">
+      {{ lang.getCurrentLanguage() === 'hi' ? 'इस ज्ञान को अपने दिन में अपनाएं 🙏' : 'Embrace this wisdom in your day 🙏' }}
+    </p>
+  </div>
+</div>

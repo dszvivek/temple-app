@@ -40,6 +40,13 @@ import { filter } from 'rxjs/operators';
       <app-floating-shankh></app-floating-shankh>
       <app-floating-incense></app-floating-incense>
       <app-floating-flower></app-floating-flower>
+      <app-floating-aarti></app-floating-aarti>
+      
+      <!-- Punya Points Display -->
+      <app-punya-points-display></app-punya-points-display>
+      
+      <!-- Daily Spiritual Quote -->
+      <app-daily-quote></app-daily-quote>
       
       <!-- Main Content -->
       <main class="flex-grow relative z-10" [@slideInAnimation]="getRouteAnimationData()">
