@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Saffron/Orange Gradient Background -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c2d12;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#c2410c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Golden Glow -->
+    <radialGradient id="goldenGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Text Shadow Filter -->
+    <filter id="textShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    
+    <!-- Glow Filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative Pattern - Temple Arches -->
+  <g opacity="0.1" fill="none" stroke="#fff" stroke-width="2">
+    <path d="M0,630 Q150,500 300,630" />
+    <path d="M200,630 Q350,480 500,630" />
+    <path d="M400,630 Q550,460 700,630" />
+    <path d="M600,630 Q750,480 900,630" />
+    <path d="M800,630 Q950,500 1100,630" />
+    <path d="M1000,630 Q1100,520 1200,630" />
+  </g>
+  
+  <!-- Central Glow -->
+  <ellipse cx="600" cy="315" rx="400" ry="250" fill="url(#goldenGlow)"/>
+  
+  <!-- Om Symbol -->
+  <text x="600" y="200" font-size="120" text-anchor="middle" fill="#fbbf24" font-family="serif" filter="url(#glow)">ॐ</text>
+  
+  <!-- Diya/Lamp Icon -->
+  <g transform="translate(600, 280)" fill="#fbbf24" filter="url(#glow)">
+    <!-- Flame -->
+    <ellipse cx="0" cy="-25" rx="12" ry="20" fill="#fde047"/>
+    <ellipse cx="0" cy="-30" rx="6" ry="12" fill="#fff"/>
+    <!-- Lamp Base -->
+    <path d="M-25,0 Q-30,15 -20,20 L20,20 Q30,15 25,0 Z" fill="#f59e0b"/>
+    <ellipse cx="0" cy="0" rx="25" ry="8" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Main Title -->
+  <text x="600" y="380" font-size="72" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-weight="bold" filter="url(#textShadow)">
+    Manokamna
+  </text>
+  
+  <!-- Tagline -->
+  <text x="600" y="440" font-size="32" text-anchor="middle" fill="#fed7aa" font-family="Arial, sans-serif">
+    Virtual Hindu Temple | Online Darshan
+  </text>
+  
+  <!-- Feature Icons Row -->
+  <g transform="translate(600, 510)" text-anchor="middle" fill="#fef3c7" font-size="24">
+    <text x="-350" y="0">🪔 Light Diya</text>
+    <text x="-120" y="0">🔔 Ring Bell</text>
+    <text x="100" y="0">🙏 Perform Aarti</text>
+    <text x="340" y="0">✨ Make Wishes</text>
+  </g>
+  
+  <!-- Hindi Subtitle -->
+  <text x="600" y="560" font-size="28" text-anchor="middle" fill="#fdba74" font-family="Arial, sans-serif">
+    मनोकामना - आपकी मनोकामना पूरी हो 🙏
+  </text>
+  
+  <!-- Decorative Corners -->
+  <g fill="#fbbf24" opacity="0.6">
+    <!-- Top Left -->
+    <path d="M0,0 L80,0 L80,10 L10,10 L10,80 L0,80 Z"/>
+    <circle cx="40" cy="40" r="15" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    
+    <!-- Top Right -->
+    <path d="M1200,0 L1120,0 L1120,10 L1190,10 L1190,80 L1200,80 Z"/>
+    <circle cx="1160" cy="40" r="15" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    
+    <!-- Bottom Left -->
+    <path d="M0,630 L80,630 L80,620 L10,620 L10,550 L0,550 Z"/>
+    <circle cx="40" cy="590" r="15" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    
+    <!-- Bottom Right -->
+    <path d="M1200,630 L1120,630 L1120,620 L1190,620 L1190,550 L1200,550 Z"/>
+    <circle cx="1160" cy="590" r="15" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  </g>
+  
+  <!-- Decorative Dots -->
+  <g fill="#fbbf24" opacity="0.4">
+    <circle cx="100" cy="315" r="4"/>
+    <circle cx="130" cy="315" r="4"/>
+    <circle cx="160" cy="315" r="4"/>
+    <circle cx="1040" cy="315" r="4"/>
+    <circle cx="1070" cy="315" r="4"/>
+    <circle cx="1100" cy="315" r="4"/>
+  </g>
+</svg>

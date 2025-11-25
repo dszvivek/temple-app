@@ -15,7 +15,7 @@ interface PageSEO {
 })
 export class SeoService {
   private readonly baseUrl = 'https://manokamna.online';
-  private readonly defaultImage = '/assets/images/og-image.png';
+  private readonly defaultImage = '/assets/images/og-image.svg';
   
   // SEO data for each route
   private readonly pageSEOData: Record<string, PageSEO> = {

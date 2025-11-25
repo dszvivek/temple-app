@@ -28,8 +28,8 @@ import { filter } from 'rxjs/operators';
     <div [class]="themeClasses + ' temple-background animate-fade-in'"></div>
     
     <div class="min-h-screen flex flex-col relative z-10">
-      <!-- Language Switcher (Fixed Top Right) - Only on temple selector page -->
-      <div *ngIf="showLanguageSwitcher" class="fixed top-2 right-2 z-50 sm:top-3 sm:right-3 animate-slide-in-right">
+      <!-- Language Switcher (Fixed Top Left) - Only on temple selector page -->
+      <div *ngIf="showLanguageSwitcher" class="fixed top-2 left-2 z-50 sm:top-3 sm:left-3 animate-slide-in-left">
         <app-language-switcher></app-language-switcher>
       </div>
       
