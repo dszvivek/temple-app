@@ -1,95 +1,107 @@
 <div class="meditation-container">
-  <div class="meditation-card">
+  <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-purple-100 overflow-hidden">
     <!-- Header -->
-    <div class="header">
-      <h3 class="title">
-        <span class="icon">🧘‍♂️</span>
-        Meditation Timer
-      </h3>
+    <div class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-purple-100 to-pink-100 border-b border-purple-200">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🧘</span>
+        <span class="font-bold text-purple-800">Meditation Timer</span>
+      </div>
       <button 
         (click)="toggleStats()"
-        class="stats-toggle"
-        [class.active]="showStats">
+        class="w-9 h-9 flex items-center justify-center rounded-full transition-all"
+        [class.bg-purple-500]="showStats"
+        [class.text-white]="showStats"
+        [class.bg-white/60]="!showStats"
+        [class.text-purple-600]="!showStats"
+        [class.hover:bg-purple-100]="!showStats">
         📊
       </button>
     </div>
 
-    <!-- Stats Panel (when toggled) -->
-    <div class="stats-panel" *ngIf="showStats">
-      <div class="stat-grid">
-        <div class="stat-box">
-          <div class="stat-value">{{ stats.totalSessions }}</div>
-          <div class="stat-label">Sessions</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">{{ stats.totalMinutes }}</div>
-          <div class="stat-label">Minutes</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">{{ stats.currentStreak }}</div>
-          <div class="stat-label">🔥 Streak</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">{{ stats.longestStreak }}</div>
-          <div class="stat-label">Best</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Timer Display (when active) -->
-    <div class="timer-display" *ngIf="isActive">
-      <div class="time-circle">
-        <svg class="progress-ring" width="200" height="200">
-          <circle
-            class="progress-ring-bg"
-            cx="100"
-            cy="100"
-            r="90"
-            fill="none"
-            stroke="#ffedd5"
-            stroke-width="8"
-          />
-          <circle
-            class="progress-ring-fill"
-            cx="100"
-            cy="100"
-            r="90"
-            fill="none"
-            stroke="#f97316"
-            stroke-width="8"
-            [style.stroke-dasharray]="565.48"
-            [style.stroke-dashoffset]="565.48 - (565.48 * getProgress() / 100)"
-          />
-        </svg>
-        <div class="time-text">
-          <div class="time-value">{{ getFormattedTime() }}</div>
-          <div class="time-label">remaining</div>
+    <div class="p-4">
+      <!-- Stats Panel (when toggled) -->
+      <div class="mb-4" *ngIf="showStats">
+        <div class="grid grid-cols-4 gap-2">
+          <div class="bg-purple-50 rounded-xl p-3 text-center">
+            <div class="text-xl font-bold text-purple-700">{{ stats.totalSessions }}</div>
+            <div class="text-xs text-purple-600">Sessions</div>
+          </div>
+          <div class="bg-purple-50 rounded-xl p-3 text-center">
+            <div class="text-xl font-bold text-purple-700">{{ stats.totalMinutes }}</div>
+            <div class="text-xs text-purple-600">Minutes</div>
+          </div>
+          <div class="bg-orange-50 rounded-xl p-3 text-center">
+            <div class="text-xl font-bold text-orange-600">{{ stats.currentStreak }}</div>
+            <div class="text-xs text-orange-600">🔥 Streak</div>
+          </div>
+          <div class="bg-green-50 rounded-xl p-3 text-center">
+            <div class="text-xl font-bold text-green-600">{{ stats.longestStreak }}</div>
+            <div class="text-xs text-green-600">Best</div>
+          </div>
         </div>
       </div>
 
-      <button 
-        (click)="stopMeditation()"
-        class="btn-stop">
-        ⏹️ Stop
-      </button>
-    </div>
+      <!-- Timer Display (when active) -->
+      <div class="text-center py-4" *ngIf="isActive">
+        <div class="relative inline-block mb-4">
+          <svg class="w-48 h-48 transform -rotate-90" viewBox="0 0 200 200">
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="none"
+              stroke="#f3e8ff"
+              stroke-width="10"
+            />
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              fill="none"
+              stroke="url(#progressGradient)"
+              stroke-width="10"
+              stroke-linecap="round"
+              [style.stroke-dasharray]="565.48"
+              [style.stroke-dashoffset]="565.48 - (565.48 * getProgress() / 100)"
+              class="transition-all duration-1000"
+            />
+            <defs>
+              <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#a855f7" />
+                <stop offset="100%" stop-color="#ec4899" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <div class="text-4xl font-bold text-purple-700">{{ getFormattedTime() }}</div>
+            <div class="text-sm text-gray-500">remaining</div>
+          </div>
+        </div>
 
-    <!-- Preset Buttons (when not active) -->
-    <div class="presets-grid" *ngIf="!isActive">
-      <button
-        *ngFor="let preset of presets"
-        (click)="startMeditation(preset)"
-        class="preset-btn">
-        <span class="preset-duration">{{ preset }}</span>
-        <span class="preset-label">minutes</span>
-      </button>
-    </div>
+        <button 
+          (click)="stopMeditation()"
+          class="py-3 px-8 bg-red-100 text-red-600 font-bold rounded-xl hover:bg-red-200 transition-all">
+          ⏹️ End Session
+        </button>
+      </div>
 
-    <!-- Info Message -->
-    <div class="info-message">
-      <p class="info-text">
-        🕉️ Find peace in stillness. Meditate daily to build your streak!
-      </p>
+      <!-- Preset Buttons (when not active) -->
+      <div class="grid grid-cols-4 gap-2" *ngIf="!isActive">
+        <button
+          *ngFor="let preset of presets"
+          (click)="startMeditation(preset)"
+          class="py-4 px-2 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-lg transition-all group">
+          <span class="block text-2xl font-bold text-purple-700 group-hover:scale-110 transition-transform">{{ preset }}</span>
+          <span class="block text-xs text-purple-500">min</span>
+        </button>
+      </div>
+
+      <!-- Info Message -->
+      <div class="mt-4 bg-purple-50 rounded-xl p-3 text-center border border-purple-200">
+        <p class="text-sm text-purple-700">
+          🕉️ Find peace in stillness. Meditate daily!
+        </p>
+      </div>
     </div>
   </div>
 </div>

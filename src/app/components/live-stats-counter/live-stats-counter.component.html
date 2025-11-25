@@ -1,36 +1,34 @@
-<div class="live-stats-container">
+<div class="flex items-center gap-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 shadow-lg border border-orange-100">
   <!-- Live Devotees Counter -->
-  <div class="stat-item live-devotees">
-    <div class="stat-icon">
-      <span class="live-indicator"></span>
-      <span class="icon-text">👥</span>
+  <div class="flex items-center gap-2">
+    <div class="relative">
+      <span class="text-xl">👥</span>
+      <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
     </div>
-    <div class="stat-content">
-      <div class="stat-value" @counterUpdate>
+    <div>
+      <div class="text-lg font-bold text-gray-800" @counterUpdate>
         {{ formatNumber(liveDevotees) }}
       </div>
-      <div class="stat-label">
-        <span *ngIf="lang.getCurrentLanguage() === 'hi'">भक्त ऑनलाइन</span>
-        <span *ngIf="lang.getCurrentLanguage() === 'en'">Devotees Online</span>
+      <div class="text-xs text-gray-500">
+        <span *ngIf="lang.getCurrentLanguage() === 'hi'">ऑनलाइन</span>
+        <span *ngIf="lang.getCurrentLanguage() === 'en'">Online</span>
       </div>
     </div>
   </div>
 
   <!-- Divider -->
-  <div class="stat-divider"></div>
+  <div class="w-px h-10 bg-gray-200"></div>
 
   <!-- Total Wishes Counter -->
-  <div class="stat-item total-wishes">
-    <div class="stat-icon">
-      <span class="icon-text">🙏</span>
-    </div>
-    <div class="stat-content">
-      <div class="stat-value" @counterUpdate>
+  <div class="flex items-center gap-2">
+    <span class="text-xl">🙏</span>
+    <div>
+      <div class="text-lg font-bold text-gray-800" @counterUpdate>
         {{ formatNumber(totalWishes) }}
       </div>
-      <div class="stat-label">
-        <span *ngIf="lang.getCurrentLanguage() === 'hi'">मनोकामनाएँ अर्पित</span>
-        <span *ngIf="lang.getCurrentLanguage() === 'en'">Wishes Offered</span>
+      <div class="text-xs text-gray-500">
+        <span *ngIf="lang.getCurrentLanguage() === 'hi'">मनोकामनाएँ</span>
+        <span *ngIf="lang.getCurrentLanguage() === 'en'">Wishes</span>
       </div>
     </div>
   </div>

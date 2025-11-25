@@ -1,9 +1,9 @@
 .floating-shankh-btn {
   position: fixed;
-  bottom: 100px;
-  left: 20px;
-  width: 56px;
-  height: 56px;
+  bottom: 24px;
+  left: 24px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   border: none;
@@ -13,10 +13,9 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 28px;
+  font-size: 24px;
   transition: all 0.3s ease;
-  z-index: 999;
-  animation: float 3s ease-in-out infinite;
+  z-index: 1000;
 }
 
 .floating-shankh-btn:hover {

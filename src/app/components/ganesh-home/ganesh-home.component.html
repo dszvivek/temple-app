@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-6">
   <!-- Sacred Background -->
   <app-sacred-bg></app-sacred-bg>
 
@@ -8,14 +8,20 @@
     (complete)="onOnboardingComplete()">
   </app-onboarding-welcome>
 
-  <!-- Back to Temple Selector -->
-  <div class="mb-4">
-    <button 
-      (click)="navigateToTempleSelector()"
-      class="text-amber-600 hover:text-amber-700 flex items-center gap-2 transition-colors">
-      <span>←</span>
-      <span>{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Choose Temple' }}</span>
-    </button>
+  <!-- Sticky Header with Back Navigation -->
+  <div class="sticky top-0 z-40 bg-gradient-to-r from-amber-50/95 to-yellow-50/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-6 border-b border-amber-200/50">
+    <div class="flex items-center justify-between max-w-4xl mx-auto">
+      <button 
+        (click)="navigateToTempleSelector()"
+        class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 hover:bg-white shadow-sm hover:shadow transition-all text-amber-700 font-medium">
+        <span class="text-lg">←</span>
+        <span class="text-sm">{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Temples' }}</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🐘</span>
+        <span class="font-semibold text-amber-800 text-sm hidden sm:inline">{{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}</span>
+      </div>
+    </div>
   </div>
 
   <!-- Temple Header with Ganesh Image -->
@@ -68,59 +74,47 @@
         </div>
       </div>
     </div>
-    <h1 class="temple-header text-amber-800">
-      🐘 {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }} 🐘
+    <h1 class="text-2xl sm:text-3xl font-bold text-amber-800 mb-2">
+      {{ lang.getCurrentLanguage() === 'hi' ? '🐘 गणेश मंदिर 🐘' : '🐘 Ganesh Temple 🐘' }}
     </h1>
-    <p class="temple-subheader">
-      {{ lang.getCurrentLanguage() === 'hi' ? 'स्वागत है' : 'Welcome' }}
-    </p>
-    <p class="text-amber-700 text-lg mb-4">
+    <p class="text-amber-600 font-medium mb-2">
       "विघ्नहर्ता गणेश"
     </p>
-    <p class="text-gray-600 max-w-2xl mx-auto">
+    <p class="text-gray-600 text-sm max-w-xl mx-auto">
       {{ lang.getCurrentLanguage() === 'hi' 
         ? 'सभी बाधाओं के निवारक भगवान गणेश के दिव्य दर्शन करें' 
         : 'Seek blessings from Lord Ganesha, the remover of all obstacles' }}
     </p>
   </header>
 
+  <!-- Quick Actions Row -->
+  <div class="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6">
+    <button 
+      (click)="navigateToWish()"
+      class="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-amber-500 to-red-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+      <span class="text-3xl">🙏</span>
+      <span class="text-sm font-semibold">{{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}</span>
+    </button>
+    <button 
+      (click)="openDiyaModal()"
+      class="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-yellow-500 to-amber-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+      <span class="text-3xl">🪔</span>
+      <span class="text-sm font-semibold">{{ lang.t('diya.lightButton') }}</span>
+    </button>
+  </div>
+
   <!-- Diya Counter -->
-  <div class="mb-8">
+  <div class="mb-6">
     <app-diya-counter></app-diya-counter>
   </div>
 
   <!-- Audio Player -->
-  <div class="mb-8">
+  <div class="mb-6">
     <app-audio-player></app-audio-player>
   </div>
 
-  <!-- Action Buttons -->
-  <div class="max-w-md mx-auto mb-12 space-y-4">
-    <!-- Make a Wish Button -->
-    <button 
-      (click)="navigateToWish()"
-      class="bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 w-full"
-      style="padding: clamp(1rem, 3vw, 1.5rem);"
-      aria-label="Make a wish">
-      <span class="text-2xl md:text-3xl">🙏</span>
-      <span class="text-base md:text-lg font-semibold">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}
-      </span>
-    </button>
-
-    <!-- Light a Diya Button -->
-    <button 
-      (click)="openDiyaModal()"
-      class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 w-full"
-      style="padding: clamp(1rem, 3vw, 1.5rem);"
-      [attr.aria-label]="lang.t('diya.lightButton')">
-      <span class="text-2xl md:text-3xl">🪔</span>
-      <span class="text-base md:text-lg font-semibold">{{ lang.t('diya.lightButton') }}</span>
-    </button>
-  </div>
-
   <!-- Diya Display -->
-  <div class="mb-12">
+  <div class="mb-8">
     <app-diya-display></app-diya-display>
   </div>
 
@@ -132,18 +126,13 @@
   </app-light-diya-modal>
 
   <!-- Devotional Quote -->
-  <div class="text-center mt-12 max-w-3xl mx-auto">
-    <blockquote class="text-lg italic text-amber-800 font-display">
+  <div class="text-center mt-8 max-w-2xl mx-auto p-4 bg-amber-50/80 rounded-xl border border-amber-200">
+    <blockquote class="text-base italic text-amber-800">
       "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>
       निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥"
     </blockquote>
-    <p class="text-sm text-gray-600 mt-4">
+    <p class="text-xs text-gray-500 mt-2">
       {{ lang.getCurrentLanguage() === 'hi' ? '- गणेश स्तोत्र' : '- Ganesh Stotra' }}
-    </p>
-    <p class="text-xs text-gray-500 mt-2 italic">
-      {{ lang.getCurrentLanguage() === 'hi' 
-        ? 'हे विघ्नहर्ता! मेरे सभी कार्यों में विघ्न दूर करें' 
-        : 'O remover of obstacles! Remove all obstacles from my endeavors' }}
     </p>
   </div>
 </div>

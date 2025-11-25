@@ -1,20 +1,19 @@
 .floating-incense-btn {
   position: fixed;
-  bottom: 170px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
+  bottom: 92px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: linear-gradient(135deg, #2c1810 0%, #5a3825 50%, #8B4513 100%);
   border: 2px solid #d4a574;
-  box-shadow: 0 4px 16px rgba(139, 69, 19, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  z-index: 9999;
-  animation: float 3.5s ease-in-out infinite;
+  z-index: 1000;
   overflow: visible;
 }
 

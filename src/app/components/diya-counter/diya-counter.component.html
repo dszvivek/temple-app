@@ -1,42 +1,42 @@
 <div class="diya-counter-container">
-  <div class="counter-card">
-    <!-- Total Diyas Lit -->
-    <div class="counter-section main-counter">
-      <div class="icon-wrapper">
-        <span class="diya-icon">🪔</span>
+  <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-orange-100 overflow-hidden">
+    <!-- Header -->
+    <div class="px-4 py-3 bg-gradient-to-r from-orange-100 to-yellow-100 border-b border-orange-200">
+      <div class="flex items-center justify-center gap-2">
+        <span class="text-2xl">🪔</span>
+        <span class="font-bold text-orange-800">Diya Counter</span>
       </div>
-      <div class="counter-content">
-        <div class="counter-value" [class.counting]="displayedTotal !== totalCount">
+    </div>
+
+    <div class="p-4">
+      <!-- Main Counter -->
+      <div class="text-center mb-4">
+        <div class="text-4xl md:text-5xl font-bold text-orange-600 mb-1" [class.animate-pulse]="displayedTotal !== totalCount">
           {{ formatNumber(displayedTotal) }}
         </div>
-        <div class="counter-label">Diyas Lit by Devotees</div>
-      </div>
-    </div>
-
-    <!-- Stats Row -->
-    <div class="stats-row">
-      <!-- Today's Count -->
-      <div class="stat-item">
-        <div class="stat-icon">📅</div>
-        <div class="stat-value">{{ formatNumber(displayedToday) }}</div>
-        <div class="stat-label">Today</div>
+        <div class="text-sm text-gray-600 font-medium">Diyas Lit by Devotees</div>
       </div>
 
-      <!-- This Month -->
-      <div class="stat-item">
-        <div class="stat-icon">🗓️</div>
-        <div class="stat-value">{{ formatNumber(displayedMonth) }}</div>
-        <div class="stat-label">This Month</div>
+      <!-- Stats Row -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="bg-orange-50 rounded-xl p-3 text-center border border-orange-100">
+          <div class="text-lg">📅</div>
+          <div class="text-xl font-bold text-orange-700">{{ formatNumber(displayedToday) }}</div>
+          <div class="text-xs text-orange-600">Today</div>
+        </div>
+        <div class="bg-yellow-50 rounded-xl p-3 text-center border border-yellow-100">
+          <div class="text-lg">🗓️</div>
+          <div class="text-xl font-bold text-yellow-700">{{ formatNumber(displayedMonth) }}</div>
+          <div class="text-xs text-yellow-600">This Month</div>
+        </div>
       </div>
-    </div>
 
-    <!-- Motivational Message -->
-    <div class="motivation-message">
-      <p class="message-text">
-        <span class="sparkle">✨</span>
-        Join thousands of devotees in spreading light!
-        <span class="sparkle">✨</span>
-      </p>
+      <!-- Motivational Message -->
+      <div class="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-3 text-center border border-orange-200">
+        <p class="text-sm text-orange-700">
+          ✨ Join thousands in spreading light! ✨
+        </p>
+      </div>
     </div>
   </div>
 </div>

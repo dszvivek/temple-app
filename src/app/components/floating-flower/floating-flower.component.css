@@ -1,12 +1,12 @@
 /* Floating Flower Button - Bottom Left */
 .floating-flower-btn {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 999;
+  bottom: 84px;
+  left: 24px;
+  z-index: 1000;
   
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   
   background: linear-gradient(135deg, #ec4899, #db2777);
@@ -14,8 +14,7 @@
   
   border: none;
   box-shadow: 
-    0 4px 12px rgba(236, 72, 153, 0.4),
-    0 8px 24px rgba(236, 72, 153, 0.2);
+    0 4px 12px rgba(236, 72, 153, 0.4);
   
   cursor: pointer;
   
@@ -23,19 +22,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
   
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Pulsing animation */
-  animation: flower-pulse 2s ease-in-out infinite;
 }
 
 .floating-flower-btn:hover {
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.1);
   box-shadow: 
-    0 6px 16px rgba(236, 72, 153, 0.5),
-    0 12px 32px rgba(236, 72, 153, 0.3);
+    0 6px 16px rgba(236, 72, 153, 0.5);
 }
 
 .floating-flower-btn:active {
@@ -43,17 +37,12 @@
 }
 
 .flower-icon {
-  font-size: 28px;
+  font-size: 22px;
   line-height: 1;
-  animation: flower-rotate 3s linear infinite;
 }
 
 .flower-label {
-  font-size: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.9;
+  display: none;
 }
 
 /* Pulsing animation */
