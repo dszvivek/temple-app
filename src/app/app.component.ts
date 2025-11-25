@@ -28,23 +28,27 @@ import { filter } from 'rxjs/operators';
     <div [class]="themeClasses + ' temple-background animate-fade-in'"></div>
     
     <div class="min-h-screen flex flex-col relative z-10">
-      <!-- Language Switcher (Fixed Top Left) - Only on temple selector page -->
-      <div *ngIf="showLanguageSwitcher" class="fixed top-2 left-2 z-50 sm:top-3 sm:left-3 animate-slide-in-left">
+      <!-- LEFT EDGE: Language Switcher (Vertical, Middle) -->
+      <div class="left-edge-controls" *ngIf="showTopControls">
         <app-language-switcher></app-language-switcher>
       </div>
       
-      <!-- Install Prompt - Disabled to avoid hindering mobile view -->
-      <!-- <app-install-prompt></app-install-prompt> -->
+      <!-- RIGHT EDGE: Punya Points (Vertical, Middle) -->
+      <app-punya-points-display></app-punya-points-display>
       
-      <!-- Floating Action Buttons -->
+      <!-- BOTTOM LEFT: Global Mute -->
+      <app-global-mute></app-global-mute>
+      
+      <!-- Floating Action Buttons - Always Visible -->
       <app-floating-bell></app-floating-bell>
       <app-floating-shankh></app-floating-shankh>
-      <app-floating-incense></app-floating-incense>
       <app-floating-flower></app-floating-flower>
-      <app-floating-aarti></app-floating-aarti>
       
-      <!-- Punya Points Display -->
-      <app-punya-points-display></app-punya-points-display>
+      <!-- Temple-Only Buttons (Aarti & Incense) - Only inside temple pages -->
+      <ng-container *ngIf="isInsideTemple">
+        <app-floating-incense></app-floating-incense>
+        <app-floating-aarti></app-floating-aarti>
+      </ng-container>
       
       <!-- Daily Spiritual Quote -->
       <app-daily-quote></app-daily-quote>
@@ -92,12 +96,31 @@ import { filter } from 'rxjs/operators';
       opacity: 0.4;
       transition: background 1000ms ease-in-out;
     }
+    
+    /* TOP LEFT - Language Switcher */
+    .left-edge-controls {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    @media (max-width: 480px) {
+      .left-edge-controls {
+        left: 16px;
+        top: 16px;
+      }
+    }
   `]
 })
 export class AppComponent implements OnInit {
   title = 'Manokamna';
   themeClasses = '';
-  showLanguageSwitcher = true;
+  showTopControls = true; // Show language switcher on home page
+  isInsideTemple = false; // Track if user is inside a temple page
 
   constructor(
     public lang: LanguageService,
@@ -121,13 +144,18 @@ export class AppComponent implements OnInit {
     // Initialize Firebase connection and presence tracking
     this.initializeBackend();
     
-    // Listen to route changes to show/hide language switcher
+    // Listen to route changes to control UI elements
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event) => {
-      // Show language switcher only on the temple selector page (root path)
       if (event instanceof NavigationEnd) {
-        this.showLanguageSwitcher = event.url === '/' || event.url === '';
+        const url = event.urlAfterRedirects || event.url;
+        
+        // Show language switcher only on the temple selector page (root path)
+        this.showTopControls = url === '/' || url === '';
+        
+        // Show aarti/incense only inside temple pages (hanuman or ganesh)
+        this.isInsideTemple = url.includes('/hanuman') || url.includes('/ganesh');
       }
     });
   }

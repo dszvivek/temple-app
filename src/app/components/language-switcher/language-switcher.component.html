@@ -1,27 +1,26 @@
-<div class="switcher-container">
-  <div class="language-switcher">
+<div class="vertical-switcher">
+  <!-- Language Toggle -->
+  <div class="language-pills">
     <button 
       (click)="switchLanguage('hi')"
       [class.active]="currentLang === 'hi'"
-      class="lang-btn"
+      class="lang-pill"
       title="हिन्दी">
-      <span class="full-text">हिन्दी</span>
-      <span class="short-text">हिं</span>
+      हिं
     </button>
-    <span class="separator">|</span>
     <button 
       (click)="switchLanguage('en')"
       [class.active]="currentLang === 'en'"
-      class="lang-btn"
+      class="lang-pill"
       title="English">
-      <span class="full-text">English</span>
-      <span class="short-text">EN</span>
+      EN
     </button>
   </div>
   
+  <!-- Dark Mode Toggle -->
   <button
     (click)="toggleDarkMode()"
-    class="dark-mode-toggle"
+    class="theme-pill"
     [title]="isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
     {{ isDarkMode ? '☀️' : '🌙' }}
   </button>

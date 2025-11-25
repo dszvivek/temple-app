@@ -9,25 +9,27 @@
   </div>
 </ng-container>
 
-<!-- Mini Profile Badge (always visible) -->
+<!-- Vertical Right Edge Profile Badge -->
 <ng-container *ngIf="profile">
-  <button 
-    class="mini-profile-btn"
-    (click)="toggleProfilePanel()">
-    <div class="level-badge" [class]="getLevelColor()">
-      <span class="level-num">{{ profile.level }}</span>
-    </div>
-    <div class="points-display">
-      <span class="points-icon">🪷</span>
-      <span class="points-count">{{ formatNumber(profile.points.total) }}</span>
-    </div>
-    <ng-container *ngIf="profile.streak.currentStreak > 0">
-      <div class="streak-badge">
-        <span>{{ getStreakEmoji() }}</span>
-        <span class="streak-count">{{ profile.streak.currentStreak }}</span>
+  <div class="right-edge-profile">
+    <button 
+      class="mini-profile-btn-vertical"
+      (click)="toggleProfilePanel()">
+      <div class="level-badge" [class]="getLevelColor()">
+        <span class="level-num">{{ profile.level }}</span>
       </div>
-    </ng-container>
-  </button>
+      <div class="points-display-vertical">
+        <span class="points-icon">🪷</span>
+        <span class="points-count">{{ formatNumber(profile.points.total) }}</span>
+      </div>
+      <ng-container *ngIf="profile.streak.currentStreak > 0">
+        <div class="streak-badge-vertical">
+          <span>{{ getStreakEmoji() }}</span>
+          <span class="streak-count">{{ profile.streak.currentStreak }}</span>
+        </div>
+      </ng-container>
+    </button>
+  </div>
 </ng-container>
 
 <!-- Profile Panel (expandable) -->

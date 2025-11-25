@@ -28,6 +28,7 @@ import { OfflineIndicatorComponent } from './components/offline-indicator/offlin
 import { ToastComponent } from './components/toast/toast.component';
 import { PunyaPointsDisplayComponent } from './components/punya-points-display/punya-points-display.component';
 import { DailyQuoteComponent } from './components/daily-quote/daily-quote.component';
+import { GlobalMuteComponent } from './components/global-mute/global-mute.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DailyQuoteComponent } from './components/daily-quote/daily-quote.compon
     CommonModule,
     AppRoutingModule,
     SharedModule,
+    GlobalMuteComponent, // Standalone component
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

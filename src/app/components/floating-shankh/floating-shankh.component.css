@@ -1,6 +1,6 @@
 .floating-shankh-btn {
   position: fixed;
-  bottom: 24px;
+  bottom: 90px; /* Above daily quote widget */
   left: 24px;
   width: 44px;
   height: 44px;
@@ -80,12 +80,27 @@
   .floating-shankh-btn {
     width: 40px;
     height: 40px;
-    bottom: 16px;
-    left: 12px;
-    font-size: 20px;
+    bottom: 80px;
+    left: 20px;
+    font-size: 18px;
   }
   
   .shankh-icon {
-    font-size: 20px;
+    font-size: 18px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+  .floating-shankh-btn {
+    width: 36px;
+    height: 36px;
+    bottom: 75px;
+    left: 16px;
+    font-size: 16px;
+  }
+  
+  .shankh-icon {
+    font-size: 16px;
   }
 }

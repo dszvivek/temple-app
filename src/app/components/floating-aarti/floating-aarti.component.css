@@ -6,7 +6,7 @@
 /* Floating Aarti Button */
 .floating-aarti-btn {
   position: fixed;
-  bottom: 150px;
+  bottom: 144px; /* Above incense */
   right: 24px;
   width: 44px;
   height: 44px;
@@ -354,14 +354,14 @@
    ========================================== */
 @media (max-width: 768px) {
   .floating-aarti-btn {
-    width: 40px;
-    height: 40px;
-    bottom: 124px;
-    right: 12px;
+    width: 38px;
+    height: 38px;
+    bottom: 126px;
+    right: 20px;
   }
   
   .aarti-icon {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .aarti-thali {
@@ -404,7 +404,7 @@
     width: 36px;
     height: 36px;
     bottom: 116px;
-    right: 10px;
+    right: 16px;
   }
   
   .aarti-icon {
