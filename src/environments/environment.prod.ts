@@ -25,7 +25,7 @@ export const environment = {
   upiVpa: 'dszvivek@icici',
   
   // App Configuration
-  appName: 'E-Darshan Mandir',
+  appName: 'Manokamna',
   appNameHindi: 'ई-दर्शन मंदिर',
   version: '1.0.0',
   

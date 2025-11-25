@@ -14,39 +14,39 @@ interface PageSEO {
   providedIn: 'root'
 })
 export class SeoService {
-  private readonly baseUrl = 'https://e-darshan.com';
+  private readonly baseUrl = 'https://manokamna.online';
   private readonly defaultImage = '/assets/images/og-image.png';
   
   // SEO data for each route
   private readonly pageSEOData: Record<string, PageSEO> = {
     '/': {
-      title: 'E-Darshan Mandir - Virtual Hindu Temple | Online Darshan & Prayers',
-      description: 'Experience divine blessings online at E-Darshan Mandir. Choose from Hanuman Temple or Ganesh Temple. Light diyas, perform aarti, make wishes. Free 24/7 darshan.',
+      title: 'Manokamna - Virtual Hindu Temple | Online Darshan & Prayers',
+      description: 'Experience divine blessings online at Manokamna. Choose from Hanuman Temple or Ganesh Temple. Light diyas, perform aarti, make wishes. Free 24/7 darshan.',
       keywords: 'virtual temple, online darshan, hindu temple, hanuman, ganesh, spiritual, devotional'
     },
     '/hanuman': {
-      title: 'Virtual Hanuman Temple | E-Darshan Mandir - Online Hanuman Darshan',
+      title: 'Virtual Hanuman Temple | Manokamna - Online Hanuman Darshan',
       description: 'Visit the Virtual Hanuman Temple. Listen to Hanuman Chalisa, light diyas, perform aarti, and receive Bajrangbali blessings online. Jai Hanuman! 🙏',
       keywords: 'hanuman temple, hanuman chalisa, bajrangbali, hanuman darshan, virtual hanuman mandir, jai hanuman'
     },
     '/hanuman/wish': {
-      title: 'Make a Wish to Hanuman Ji | E-Darshan Mandir',
+      title: 'Make a Wish to Hanuman Ji | Manokamna',
       description: 'Submit your prayers and wishes to Hanuman Ji. Experience the divine grace of Bajrangbali. Light a diya and make your wish at our virtual temple.',
       keywords: 'hanuman wish, pray to hanuman, hanuman prayers, mannat, wish to god'
     },
     '/ganesh': {
-      title: 'Virtual Ganesh Temple | E-Darshan Mandir - Online Ganpati Darshan',
+      title: 'Virtual Ganesh Temple | Manokamna - Online Ganpati Darshan',
       description: 'Visit the Virtual Ganesh Temple. Perform Ganesh aarti, light diyas, and receive Vighnaharta blessings online. Ganpati Bappa Morya! 🐘',
       keywords: 'ganesh temple, ganpati, ganesha, vighnaharta, ganesh darshan, virtual ganesh mandir'
     },
     '/ganesh/wish': {
-      title: 'Make a Wish to Ganesh Ji | E-Darshan Mandir',
+      title: 'Make a Wish to Ganesh Ji | Manokamna',
       description: 'Submit your prayers and wishes to Lord Ganesha. Seek blessings from Vighnaharta for success and obstacle removal at our virtual temple.',
       keywords: 'ganesh wish, pray to ganesha, ganpati prayers, mannat, vighnaharta blessings'
     },
     '/donate': {
-      title: 'Support E-Darshan Mandir | Donate for Temple Development',
-      description: 'Support the E-Darshan virtual temple. Your donations help maintain free spiritual services for devotees worldwide. Contribute to spreading divine blessings.',
+      title: 'Support Manokamna | Donate for Temple Development',
+      description: 'Support the Manokamna virtual temple. Your donations help maintain free spiritual services for devotees worldwide. Contribute to spreading divine blessings.',
       keywords: 'donate temple, support temple, temple donation, spiritual donation, dharma'
     }
   };
@@ -72,8 +72,8 @@ export class SeoService {
    */
   private setupRouteListener(): void {
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe(event => {
       this.updateSEO(event.urlAfterRedirects);
     });
   }
@@ -127,7 +127,7 @@ export class SeoService {
    * Set custom page title (for dynamic pages)
    */
   setTitle(title: string): void {
-    this.titleService.setTitle(`${title} | E-Darshan Mandir`);
+    this.titleService.setTitle(`${title} | Manokamna`);
     this.metaService.updateTag({ property: 'og:title', content: title });
     this.metaService.updateTag({ name: 'twitter:title', content: title });
   }

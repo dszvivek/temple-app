@@ -5,6 +5,7 @@ import { ThemeService } from './services/theme.service';
 import { DeityService } from './services/deity.service';
 import { FirebaseBackendService } from './services/firebase-backend.service';
 import { LiveStatsService } from './services/live-stats.service';
+import { SeoService } from './services/seo.service';
 import { HANUMAN_CONFIG } from './configs/hanuman.config';
 import { GANESH_CONFIG } from './configs/ganesh.config';
 import { slideInAnimation } from './animations/route-animations';
@@ -94,7 +95,7 @@ import { filter } from 'rxjs/operators';
   `]
 })
 export class AppComponent implements OnInit {
-  title = 'E-Darshan Mandir';
+  title = 'Manokamna';
   themeClasses = '';
   showLanguageSwitcher = true;
 
@@ -104,8 +105,12 @@ export class AppComponent implements OnInit {
     private deityService: DeityService,
     private firebaseBackend: FirebaseBackendService,
     private liveStats: LiveStatsService,
-    private router: Router
+    private router: Router,
+    private seoService: SeoService
   ) {
+    // Initialize SEO service for dynamic meta tags
+    this.seoService.init();
+    
     // Initialize temple configurations
     this.initializeTemples();
     
