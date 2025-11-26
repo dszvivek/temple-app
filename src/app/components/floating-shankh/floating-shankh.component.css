@@ -1,13 +1,11 @@
 .floating-shankh-btn {
-  position: fixed;
-  bottom: 90px; /* Above daily quote widget */
-  left: 24px;
+  position: relative;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   border: none;
-  box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+  box-shadow: 0 3px 10px rgba(240, 147, 251, 0.4);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -15,12 +13,12 @@
   color: white;
   font-size: 24px;
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .floating-shankh-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
+  box-shadow: 0 4px 14px rgba(240, 147, 251, 0.6);
 }
 
 .floating-shankh-btn:active {
@@ -28,11 +26,11 @@
 }
 
 .floating-shankh-btn.playing {
-  animation: shake 0.5s ease-in-out, float 3s ease-in-out infinite;
+  animation: shake 0.5s ease-in-out;
 }
 
 .shankh-icon {
-  font-size: 28px;
+  font-size: 24px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
@@ -80,13 +78,11 @@
   .floating-shankh-btn {
     width: 40px;
     height: 40px;
-    bottom: 80px;
-    left: 20px;
     font-size: 18px;
   }
   
   .shankh-icon {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 
@@ -95,12 +91,10 @@
   .floating-shankh-btn {
     width: 36px;
     height: 36px;
-    bottom: 75px;
-    left: 16px;
     font-size: 16px;
   }
   
   .shankh-icon {
-    font-size: 16px;
+    font-size: 18px;
   }
 }

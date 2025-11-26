@@ -19,27 +19,26 @@ import { AudioPlayerService } from '../../services/audio-player.service';
   `,
   styles: [`
     .global-mute-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 248, 225, 0.98));
-      border: 2px solid rgba(249, 115, 22, 0.2);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(249, 115, 22, 0.1);
+      border: 2px solid transparent;
+      box-shadow: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1001;
+      z-index: 100;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(12px);
+      backdrop-filter: none;
     }
 
     .global-mute-btn:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.2);
+      background: rgba(249, 115, 22, 0.2);
+      border-color: rgba(249, 115, 22, 0.3);
     }
 
     .global-mute-btn:active {
@@ -47,26 +46,24 @@ import { AudioPlayerService } from '../../services/audio-player.service';
     }
 
     .global-mute-btn.muted {
-      background: linear-gradient(135deg, rgba(200, 200, 200, 0.98), rgba(180, 180, 180, 0.98));
+      background: rgba(150, 150, 150, 0.2);
       border-color: rgba(150, 150, 150, 0.3);
     }
 
     .mute-icon {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
     }
 
     /* Mobile responsive */
     @media (max-width: 480px) {
       .global-mute-btn {
-        width: 42px;
-        height: 42px;
-        top: 16px;
-        right: 16px;
+        width: 36px;
+        height: 36px;
       }
 
       .mute-icon {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
     }
   `]

@@ -27,62 +27,98 @@ import { filter } from 'rxjs/operators';
     <!-- Dynamic Theme Background with Gradient -->
     <div [class]="themeClasses + ' temple-background animate-fade-in'"></div>
     
-    <div class="min-h-screen flex flex-col relative z-10">
-      <!-- LEFT EDGE: Language Switcher (Vertical, Middle) -->
-      <div class="left-edge-controls" *ngIf="showTopControls">
-        <app-language-switcher></app-language-switcher>
-      </div>
+    <div class="app-container">
+      <!-- ========== FIXED TOP HEADER BAR ========== -->
+      <header class="top-header-bar">
+        <div class="header-content">
+          <!-- Left: Language Switcher -->
+          <div class="header-left">
+            <app-language-switcher></app-language-switcher>
+          </div>
+          
+          <!-- Center: Punya Points -->
+          <div class="header-center">
+            <app-punya-points-display></app-punya-points-display>
+          </div>
+          
+          <!-- Right: Global Mute -->
+          <div class="header-right">
+            <app-global-mute></app-global-mute>
+          </div>
+        </div>
+      </header>
       
-      <!-- RIGHT EDGE: Punya Points (Vertical, Middle) -->
-      <app-punya-points-display></app-punya-points-display>
-      
-      <!-- BOTTOM LEFT: Global Mute -->
-      <app-global-mute></app-global-mute>
-      
-      <!-- Floating Action Buttons - Always Visible -->
-      <app-floating-bell></app-floating-bell>
-      <app-floating-shankh></app-floating-shankh>
-      <app-floating-flower></app-floating-flower>
-      
-      <!-- Temple-Only Buttons (Aarti & Incense) - Only inside temple pages -->
-      <ng-container *ngIf="isInsideTemple">
-        <app-floating-incense></app-floating-incense>
-        <app-floating-aarti></app-floating-aarti>
-      </ng-container>
-      
-      <!-- Daily Spiritual Quote -->
-      <app-daily-quote></app-daily-quote>
-      
-      <!-- Main Content -->
-      <main class="flex-grow relative z-10" [@slideInAnimation]="getRouteAnimationData()">
+      <!-- ========== MAIN SCROLLABLE CONTENT ========== -->
+      <main class="main-content" [@slideInAnimation]="getRouteAnimationData()">
+        <!-- Daily Spiritual Quote -->
+        <app-daily-quote></app-daily-quote>
+        
         <router-outlet></router-outlet>
+        
+        <!-- Enhanced Footer -->
+        <footer class="app-footer">
+          <div class="footer-content">
+            <p class="footer-greeting">
+              🙏 {{ lang.getDeityGreeting() }} 🙏
+            </p>
+            <p class="footer-description">
+              {{ lang.t('footer.description') }}
+            </p>
+            <p class="footer-copyright">
+              {{ lang.t('footer.copyright') }}
+            </p>
+            <p class="footer-donate">
+              <a routerLink="/donate" class="donate-link">
+                <span>💝</span>
+                <span>{{ lang.t('home.supportButton') }}</span>
+              </a>
+            </p>
+          </div>
+        </footer>
       </main>
       
-      <!-- Enhanced Footer -->
-      <footer class="bg-gradient-to-r from-temple-dark via-temple-dark-soft to-temple-dark text-saffron-100 py-6 md:py-8 mt-8 md:mt-12 relative z-10 border-t-2 border-temple-gold/30">
-        <div class="container mx-auto px-4 text-center">
-          <p class="text-sm md:text-base mb-3 font-semibold animate-pulse-slow">
-            🙏 {{ lang.getDeityGreeting() }} 🙏
-          </p>
-          <p class="text-xs md:text-sm opacity-90 px-2 mb-3 leading-relaxed">
-            {{ lang.t('footer.description') }}
-          </p>
-          <p class="text-xs opacity-60 mt-2">
-            {{ lang.t('footer.copyright') }}
-          </p>
-          <p class="text-xs opacity-50 mt-4">
-            <a routerLink="/donate" 
-               class="hover:opacity-100 hover:text-temple-gold transition-all duration-300 underline inline-flex items-center gap-2"
-               rel="noopener noreferrer">
-              <span>💝</span>
-              <span>{{ lang.t('home.supportButton') }}</span>
-            </a>
-          </p>
+      <!-- ========== FIXED BOTTOM ACTION BAR ========== -->
+      <nav class="bottom-action-bar" *ngIf="isInsideTemple">
+        <div class="action-bar-content">
+          <!-- Left Actions -->
+          <div class="action-group action-left">
+            <app-floating-bell></app-floating-bell>
+            <app-floating-shankh></app-floating-shankh>
+          </div>
+          
+          <!-- Center: Main Actions (Aarti + Incense) -->
+          <div class="action-center">
+            <app-floating-incense></app-floating-incense>
+            <app-floating-aarti></app-floating-aarti>
+          </div>
+          
+          <!-- Right Actions -->
+          <div class="action-group action-right">
+            <app-floating-flower></app-floating-flower>
+          </div>
         </div>
-      </footer>
+      </nav>
+      
+      <!-- Simpler bottom bar for non-temple pages -->
+      <nav class="bottom-action-bar bottom-bar-simple" *ngIf="!isInsideTemple">
+        <div class="action-bar-content">
+          <app-floating-bell></app-floating-bell>
+          <app-floating-shankh></app-floating-shankh>
+          <app-floating-flower></app-floating-flower>
+        </div>
+      </nav>
     </div>
   `,
   styles: [`
+    /* ========== APP CONTAINER ========== */
+    .app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 10;
+    }
+    
     .temple-background {
       position: fixed;
       top: 0;
@@ -97,21 +133,206 @@ import { filter } from 'rxjs/operators';
       transition: background 1000ms ease-in-out;
     }
     
-    /* TOP LEFT - Language Switcher */
-    .left-edge-controls {
+    /* ========== FIXED TOP HEADER BAR ========== */
+    .top-header-bar {
       position: fixed;
-      left: 20px;
-      top: 20px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      z-index: 1000;
+      background: linear-gradient(135deg, 
+        rgba(255, 248, 225, 0.95), 
+        rgba(255, 237, 213, 0.95));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(249, 115, 22, 0.15);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
     }
     
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 8px;
+      max-width: 100%;
+      gap: 8px;
+    }
+    
+    .header-left,
+    .header-right {
+      flex: 0 0 auto;
+    }
+    
+    .header-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      min-width: 0;
+    }
+    
+    /* ========== MAIN CONTENT AREA ========== */
+    .main-content {
+      flex: 1;
+      padding-top: 68px; /* Header height + gap */
+      padding-bottom: 80px; /* Bottom bar height + gap */
+      position: relative;
+      z-index: 10;
+    }
+    
+    /* ========== FIXED BOTTOM ACTION BAR ========== */
+    .bottom-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      z-index: 1000;
+      background: linear-gradient(135deg, 
+        rgba(255, 248, 225, 0.98), 
+        rgba(255, 237, 213, 0.98));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 2px solid rgba(249, 115, 22, 0.15);
+      box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    .action-bar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .action-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .action-left,
+    .action-right {
+      flex: 1;
+    }
+    
+    .action-left {
+      justify-content: flex-start;
+    }
+    
+    .action-right {
+      justify-content: flex-end;
+    }
+    
+    /* Simple bottom bar for non-temple pages */
+    .bottom-bar-simple .action-bar-content {
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    /* ========== FOOTER ========== */
+    .app-footer {
+      background: linear-gradient(to right, 
+        rgba(30, 20, 10, 0.95), 
+        rgba(45, 30, 15, 0.95), 
+        rgba(30, 20, 10, 0.95));
+      color: #fef3c7;
+      padding: 24px 16px;
+      margin-top: 32px;
+      border-top: 2px solid rgba(251, 191, 36, 0.3);
+    }
+    
+    .footer-content {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .footer-greeting {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      animation: pulse 2s infinite;
+    }
+    
+    .footer-description {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    
+    .footer-copyright {
+      font-size: 0.75rem;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    
+    .footer-donate {
+      margin-top: 16px;
+    }
+    
+    .donate-link {
+      font-size: 0.75rem;
+      opacity: 0.5;
+      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .donate-link:hover {
+      opacity: 1;
+      color: #fbbf24;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    /* ========== MOBILE RESPONSIVE ========== */
     @media (max-width: 480px) {
-      .left-edge-controls {
-        left: 16px;
-        top: 16px;
+      .top-header-bar {
+        height: 54px;
+      }
+      
+      .header-content {
+        padding: 0 8px;
+      }
+      
+      .main-content {
+        padding-top: 60px;
+        padding-bottom: 76px;
+      }
+      
+      .bottom-action-bar {
+        height: 68px;
+      }
+      
+      .action-bar-content {
+        padding: 0 10px;
+        gap: 6px;
+      }
+      
+      .action-group {
+        gap: 6px;
+      }
+      
+      .app-footer {
+        padding: 20px 12px;
       }
     }
   `]
@@ -119,7 +340,6 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   title = 'Manokamna';
   themeClasses = '';
-  showTopControls = true; // Show language switcher on home page
   isInsideTemple = false; // Track if user is inside a temple page
 
   constructor(
@@ -150,9 +370,6 @@ export class AppComponent implements OnInit {
     ).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects || event.url;
-        
-        // Show language switcher only on the temple selector page (root path)
-        this.showTopControls = url === '/' || url === '';
         
         // Show aarti/incense only inside temple pages (hanuman or ganesh)
         this.isInsideTemple = url.includes('/hanuman') || url.includes('/ganesh');

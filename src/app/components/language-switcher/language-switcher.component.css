@@ -1,32 +1,32 @@
-/* Floating Top Left Panel - Language & Theme */
+/* Horizontal Header Switcher - Language & Theme */
 .vertical-switcher {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  padding: 12px 10px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 248, 225, 0.98));
+  gap: 6px;
+  padding: 4px;
+  background: transparent;
   border-radius: 16px;
-  border: 2px solid rgba(249, 115, 22, 0.15);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(12px);
-  min-width: 52px;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  min-width: auto;
 }
 
 .language-pills {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  gap: 4px;
 }
 
 .lang-pill {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   border: 2px solid transparent;
-  background: rgba(249, 115, 22, 0.08);
+  background: rgba(249, 115, 22, 0.1);
   color: #92400e;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -36,8 +36,8 @@
 }
 
 .lang-pill:hover {
-  background: rgba(249, 115, 22, 0.15);
-  transform: translateX(4px);
+  background: rgba(249, 115, 22, 0.2);
+  transform: scale(1.05);
   border-color: rgba(249, 115, 22, 0.3);
 }
 
@@ -45,76 +45,70 @@
   background: linear-gradient(135deg, #f97316, #ea580c);
   color: white;
   border-color: #fbbf24;
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
 }
 
-/* Divider */
+/* Remove the vertical divider */
 .language-pills::after {
-  content: '';
-  width: 24px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent);
-  margin: 4px auto;
+  display: none;
 }
 
 .theme-pill {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   border: 2px solid rgba(249, 115, 22, 0.15);
   background: rgba(255, 255, 255, 0.9);
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .theme-pill:hover {
-  transform: translateX(4px) rotate(15deg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: scale(1.05) rotate(15deg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   border-color: rgba(249, 115, 22, 0.3);
 }
 
 /* Tablet & Desktop */
 @media (min-width: 769px) {
   .vertical-switcher {
-    padding: 20px 14px;
-    gap: 14px;
-    min-width: 64px;
+    padding: 4px;
+    gap: 8px;
   }
   
   .lang-pill,
   .theme-pill {
-    width: 50px;
-    height: 50px;
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
   }
   
   .theme-pill {
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 
 /* Mobile responsive */
 @media (max-width: 480px) {
   .vertical-switcher {
-    padding: 10px 8px;
-    gap: 6px;
-    border-radius: 14px;
+    padding: 2px;
+    gap: 4px;
   }
   
   .lang-pill,
   .theme-pill {
-    width: 36px;
-    height: 36px;
-    font-size: 11px;
-    border-radius: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+    border-radius: 8px;
   }
   
   .theme-pill {
-    font-size: 16px;
+    font-size: 14px;
   }
 }

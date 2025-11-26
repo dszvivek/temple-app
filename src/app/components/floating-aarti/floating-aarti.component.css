@@ -3,32 +3,30 @@
    Shows deity through transparent overlay
    ========================================== */
 
-/* Floating Aarti Button */
+/* Aarti Button - Center of bottom bar (larger, prominent) */
 .floating-aarti-btn {
-  position: fixed;
-  bottom: 144px; /* Above incense */
-  right: 24px;
-  width: 44px;
-  height: 44px;
+  position: relative;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: linear-gradient(135deg, #f97316, #ea580c);
-  border: 2px solid #fbbf24;
+  border: 3px solid #fbbf24;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 
-    0 4px 12px rgba(249, 115, 22, 0.4),
-    0 0 20px rgba(251, 191, 36, 0.3);
-  z-index: 1000;
+    0 4px 14px rgba(249, 115, 22, 0.5),
+    0 0 24px rgba(251, 191, 36, 0.4);
+  z-index: 100;
   transition: all 0.3s ease;
 }
 
 .floating-aarti-btn:hover {
   transform: scale(1.1);
   box-shadow: 
-    0 6px 20px rgba(249, 115, 22, 0.5),
-    0 0 30px rgba(251, 191, 36, 0.4);
+    0 6px 20px rgba(249, 115, 22, 0.6),
+    0 0 32px rgba(251, 191, 36, 0.5);
 }
 
 .floating-aarti-btn:active {
@@ -45,8 +43,31 @@
 }
 
 .aarti-icon {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Mobile responsive for aarti button */
+@media (max-width: 640px) {
+  .floating-aarti-btn {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .aarti-icon {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .floating-aarti-btn {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .aarti-icon {
+    font-size: 1.2rem;
+  }
 }
 
 @keyframes activeGlow {

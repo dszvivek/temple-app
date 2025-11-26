@@ -1,9 +1,7 @@
-/* Floating Flower Button - Bottom Left */
+/* Flower Button - Inline for bottom bar */
 .floating-flower-btn {
-  position: fixed;
-  bottom: 144px; /* Above shankh */
-  left: 24px;
-  z-index: 1000;
+  position: relative;
+  z-index: 100;
   
   width: 44px;
   height: 44px;
@@ -13,8 +11,7 @@
   color: white;
   
   border: none;
-  box-shadow: 
-    0 4px 12px rgba(236, 72, 153, 0.4);
+  box-shadow: 0 3px 10px rgba(236, 72, 153, 0.4);
   
   cursor: pointer;
   
@@ -28,8 +25,7 @@
 
 .floating-flower-btn:hover {
   transform: scale(1.1);
-  box-shadow: 
-    0 6px 16px rgba(236, 72, 153, 0.5);
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.5);
 }
 
 .floating-flower-btn:active {
@@ -37,7 +33,7 @@
 }
 
 .flower-icon {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
 }
 
@@ -68,38 +64,23 @@
 /* Mobile responsive */
 @media (max-width: 640px) {
   .floating-flower-btn {
-    width: 36px;
-    height: 36px;
-    bottom: 130px;
-    left: 20px;
+    width: 40px;
+    height: 40px;
   }
   
   .flower-icon {
-    font-size: 17px;
-  }
-  
-  .flower-label {
-    display: none;
+    font-size: 18px;
   }
 }
 
 /* Extra small screens */
 @media (max-width: 380px) {
   .floating-flower-btn {
-    width: 34px;
-    height: 34px;
-    bottom: 120px;
-    left: 16px;
+    width: 36px;
+    height: 36px;
   }
   
   .flower-icon {
     font-size: 16px;
-  }
-}
-
-/* Avoid overlap with other floating buttons */
-@media (max-height: 600px) {
-  .floating-flower-btn {
-    bottom: 80px;
   }
 }
