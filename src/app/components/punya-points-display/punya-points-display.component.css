@@ -79,7 +79,6 @@
 
 /* Mini Profile Badge - Super compact inline in header */
 .right-edge-profile {
-  position: relative;
   z-index: 100;
   max-width: 100%;
   overflow: hidden;
