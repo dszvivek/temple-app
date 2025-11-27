@@ -1,5 +1,5 @@
 <div class="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-b from-orange-50 via-yellow-50 to-white">
-  <div class="max-w-4xl w-full">
+  <div class="max-w-5xl w-full">
     <!-- Header -->
     <div class="text-center mb-10">
       <div class="inline-flex items-center justify-center gap-3 mb-4">
@@ -17,95 +17,109 @@
       </p>
     </div>
 
-    <!-- Temple Cards Grid -->
-    <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <!-- Temple Cards Grid - All 5 Temples -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+      
       <!-- Hanuman Temple Card -->
       <div 
         (click)="selectTemple(DeityType.HANUMAN)"
-        class="bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-2xl p-6 cursor-pointer hover:border-orange-400 hover:shadow-2xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
-        
-        <!-- Deity Image -->
-        <div class="mb-5 flex justify-center">
-          <div class="w-32 h-32 rounded-full overflow-hidden shadow-lg bg-white ring-4 ring-orange-200">
-            <img 
-              src="assets/images/deities/hanuman/hanuman-main.png" 
-              alt="Lord Hanuman"
-              class="w-full h-full object-cover"
-              loading="eager"
+        class="temple-card bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-xl p-4 cursor-pointer hover:border-orange-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+        <div class="mb-3 flex justify-center">
+          <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-orange-200">
+            <img src="assets/images/deities/hanuman/hanuman-main.png" alt="Lord Hanuman" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="text-6xl items-center justify-center h-full bg-orange-100" style="display: none;">🙏</div>
+            <div class="text-4xl flex items-center justify-center h-full bg-orange-100" style="display: none;">🙏</div>
           </div>
         </div>
-        
-        <!-- Title -->
-        <h2 class="text-xl font-bold text-center text-orange-800 mb-2">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान मंदिर' : 'Hanuman Temple' }}
+        <h2 class="text-sm font-bold text-center text-orange-800 mb-1">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान' : 'Hanuman' }}
         </h2>
-        
-        <!-- Subtitle -->
-        <p class="text-center text-gray-600 mb-4 text-sm">
-          {{ lang.getCurrentLanguage() === 'hi' 
-            ? 'शक्ति और भक्ति के प्रतीक' 
-            : 'Strength & Devotion' }}
-        </p>
-        
-        <!-- Quick Features -->
-        <div class="flex justify-center gap-3 mb-5 text-xs text-gray-600">
-          <span class="bg-white/60 px-2 py-1 rounded-full flex items-center gap-1">📿 Chalisa</span>
-          <span class="bg-white/60 px-2 py-1 rounded-full flex items-center gap-1">🔔 Aarti</span>
-          <span class="bg-white/60 px-2 py-1 rounded-full flex items-center gap-1">🌺 Flowers</span>
-        </div>
-        
-        <!-- Enter Button -->
-        <button 
-          class="w-full py-3 px-6 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश करें' : 'Enter Temple' }} →
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'शक्ति' : 'Strength' }}</p>
+        <button class="w-full py-2 px-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
         </button>
       </div>
 
       <!-- Ganesh Temple Card -->
       <div 
         (click)="selectTemple(DeityType.GANESH)"
-        class="bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-200 rounded-2xl p-6 cursor-pointer hover:border-amber-400 hover:shadow-2xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
-        
-        <!-- Deity Image -->
-        <div class="mb-5 flex justify-center">
-          <div class="w-32 h-32 rounded-full overflow-hidden shadow-lg bg-white ring-4 ring-amber-200">
-            <img 
-              src="assets/images/deities/ganesh/Ganesh.png" 
-              alt="Lord Ganesha"
-              class="w-full h-full object-cover"
-              loading="eager"
+        class="temple-card bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-200 rounded-xl p-4 cursor-pointer hover:border-amber-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+        <div class="mb-3 flex justify-center">
+          <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-amber-200">
+            <img src="assets/images/deities/ganesh/Ganesh.png" alt="Lord Ganesha" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="text-6xl items-center justify-center h-full bg-amber-100" style="display: none;">🐘</div>
+            <div class="text-4xl flex items-center justify-center h-full bg-amber-100" style="display: none;">🐘</div>
           </div>
         </div>
-        
-        <!-- Title -->
-        <h2 class="text-xl font-bold text-center text-amber-800 mb-2">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}
+        <h2 class="text-sm font-bold text-center text-amber-800 mb-1">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश' : 'Ganesh' }}
         </h2>
-        
-        <!-- Subtitle -->
-        <p class="text-center text-gray-600 mb-4 text-sm">
-          {{ lang.getCurrentLanguage() === 'hi' 
-            ? 'विघ्नहर्ता' 
-            : 'Remover of Obstacles' }}
-        </p>
-        
-        <!-- Quick Features -->
-        <div class="flex justify-center gap-3 mb-5 text-xs text-gray-600">
-          <span class="bg-white/60 px-2 py-1 rounded-full flex items-center gap-1">🎵 Aarti</span>
-          <span class="bg-white/60 px-2 py-1 rounded-full flex items-center gap-1">🥟 Modak</span>
-          <span class="bg-white/60 px-2 py-1 rounded-full flex items-center gap-1">🌿 Durva</span>
-        </div>
-        
-        <!-- Enter Button -->
-        <button 
-          class="w-full py-3 px-6 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश करें' : 'Enter Temple' }} →
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'विघ्नहर्ता' : 'Obstacle Remover' }}</p>
+        <button class="w-full py-2 px-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-bold rounded-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
         </button>
       </div>
+
+      <!-- Shiva Temple Card -->
+      <div 
+        (click)="selectTemple(DeityType.SHIVA)"
+        class="temple-card bg-gradient-to-br from-indigo-50 to-purple-100 border-2 border-indigo-200 rounded-xl p-4 cursor-pointer hover:border-indigo-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+        <div class="mb-3 flex justify-center">
+          <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-indigo-200">
+            <img src="assets/images/deities/shiva/shiva-deity.svg" alt="Lord Shiva" class="w-full h-full object-cover" loading="eager"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="text-4xl flex items-center justify-center h-full bg-indigo-100" style="display: none;">🔱</div>
+          </div>
+        </div>
+        <h2 class="text-sm font-bold text-center text-indigo-800 mb-1">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'शिव' : 'Shiva' }}
+        </h2>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'महादेव' : 'Supreme Being' }}</p>
+        <button class="w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold rounded-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+        </button>
+      </div>
+
+      <!-- Krishna Temple Card -->
+      <div 
+        (click)="selectTemple(DeityType.KRISHNA)"
+        class="temple-card bg-gradient-to-br from-blue-50 to-cyan-100 border-2 border-blue-200 rounded-xl p-4 cursor-pointer hover:border-blue-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+        <div class="mb-3 flex justify-center">
+          <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-blue-200">
+            <img src="assets/images/deities/krishna/krishna-deity.svg" alt="Lord Krishna" class="w-full h-full object-cover" loading="eager"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="text-4xl flex items-center justify-center h-full bg-blue-100" style="display: none;">🦚</div>
+          </div>
+        </div>
+        <h2 class="text-sm font-bold text-center text-blue-800 mb-1">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'कृष्ण' : 'Krishna' }}
+        </h2>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'गोविंद' : 'Divine Flute' }}</p>
+        <button class="w-full py-2 px-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold rounded-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+        </button>
+      </div>
+
+      <!-- Durga Temple Card -->
+      <div 
+        (click)="selectTemple(DeityType.DURGA)"
+        class="temple-card bg-gradient-to-br from-red-50 to-pink-100 border-2 border-red-200 rounded-xl p-4 cursor-pointer hover:border-red-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+        <div class="mb-3 flex justify-center">
+          <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-red-200">
+            <img src="assets/images/deities/durga/durga-deity.svg" alt="Goddess Durga" class="w-full h-full object-cover" loading="eager"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="text-4xl flex items-center justify-center h-full bg-red-100" style="display: none;">🦁</div>
+          </div>
+        </div>
+        <h2 class="text-sm font-bold text-center text-red-800 mb-1">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'दुर्गा' : 'Durga' }}
+        </h2>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'शक्ति' : 'Divine Power' }}</p>
+        <button class="w-full py-2 px-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold rounded-lg">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+        </button>
+      </div>
+
     </div>
 
     <!-- Footer Info -->

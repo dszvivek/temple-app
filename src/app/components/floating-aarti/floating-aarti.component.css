@@ -84,9 +84,10 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3); /* Light overlay - deity visible */
-  z-index: 9999;
+  background: rgba(0, 0, 0, 0.4); /* Light overlay - deity visible */
+  z-index: 10000; /* Above fixed bars (1000) */
   pointer-events: auto;
+  backdrop-filter: blur(2px);
 }
 
 /* Divine glow effect on deity area */

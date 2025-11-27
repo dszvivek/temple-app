@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <linearGradient id="krishnaGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.3"/>
+    </linearGradient>
+    <linearGradient id="krishnaSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="peacockFeather" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="30%" style="stop-color:#0d9488"/>
+      <stop offset="60%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="fluteGold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fcd34d"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </radialGradient>
+    <filter id="glowEffect">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background glow -->
+  <ellipse cx="200" cy="280" rx="180" ry="220" fill="url(#krishnaGlow)"/>
+  
+  <!-- Hair -->
+  <ellipse cx="200" cy="110" rx="65" ry="45" fill="#1f2937"/>
+  <path d="M140 100 Q130 140 145 170" fill="#1f2937"/>
+  <path d="M260 100 Q270 140 255 170" fill="#1f2937"/>
+  
+  <!-- Peacock feather in crown -->
+  <g filter="url(#glowEffect)" transform="translate(200, 60)">
+    <ellipse cx="0" cy="-20" rx="8" ry="25" fill="url(#peacockFeather)"/>
+    <ellipse cx="0" cy="-25" rx="4" ry="8" fill="#1e3a8a"/>
+    <circle cx="0" cy="-25" r="3" fill="#60a5fa"/>
+    <path d="M-5 0 Q0 -50 5 0" fill="none" stroke="#065f46" stroke-width="2"/>
+  </g>
+  
+  <!-- Crown -->
+  <g filter="url(#glowEffect)">
+    <path d="M150 90 L160 60 L180 80 L200 50 L220 80 L240 60 L250 90 Q200 95 150 90" fill="#fcd34d"/>
+    <circle cx="160" cy="80" r="5" fill="#ef4444"/>
+    <circle cx="200" cy="65" r="6" fill="#3b82f6"/>
+    <circle cx="240" cy="80" r="5" fill="#22c55e"/>
+  </g>
+  
+  <!-- Face -->
+  <ellipse cx="200" cy="160" rx="50" ry="60" fill="url(#krishnaSkin)"/>
+  
+  <!-- Tilak -->
+  <path d="M200 115 L195 135 L200 130 L205 135 Z" fill="#fcd34d"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="175" cy="155" rx="12" ry="10" fill="white"/>
+  <ellipse cx="225" cy="155" rx="12" ry="10" fill="white"/>
+  <circle cx="177" cy="156" r="6" fill="#1e293b"/>
+  <circle cx="227" cy="156" r="6" fill="#1e293b"/>
+  <circle cx="179" cy="154" r="2" fill="white"/>
+  <circle cx="229" cy="154" r="2" fill="white"/>
+  
+  <!-- Eyebrows -->
+  <path d="M160 140 Q175 135 190 142" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <path d="M210 142 Q225 135 240 140" fill="none" stroke="#1f2937" stroke-width="2"/>
+  
+  <!-- Nose -->
+  <path d="M200 155 L195 175 Q200 178 205 175" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+  
+  <!-- Lips (playing flute position) -->
+  <ellipse cx="200" cy="195" rx="15" ry="6" fill="#dc2626"/>
+  
+  <!-- Ears with kundalas (earrings) -->
+  <ellipse cx="145" cy="160" rx="8" ry="15" fill="url(#krishnaSkin)"/>
+  <ellipse cx="255" cy="160" rx="8" ry="15" fill="url(#krishnaSkin)"/>
+  <circle cx="145" cy="175" r="8" fill="#fcd34d"/>
+  <circle cx="255" cy="175" r="8" fill="#fcd34d"/>
+  
+  <!-- Neck -->
+  <rect x="175" y="215" width="50" height="25" fill="url(#krishnaSkin)"/>
+  
+  <!-- Vaijayanti mala (flower garland) -->
+  <g>
+    <circle cx="165" cy="250" r="6" fill="#f472b6"/>
+    <circle cx="178" cy="255" r="6" fill="#fbbf24"/>
+    <circle cx="192" cy="258" r="6" fill="#f472b6"/>
+    <circle cx="208" cy="258" r="6" fill="#fbbf24"/>
+    <circle cx="222" cy="255" r="6" fill="#f472b6"/>
+    <circle cx="235" cy="250" r="6" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Torso -->
+  <path d="M145 240 Q200 230 255 240 L260 350 Q200 360 140 350 Z" fill="url(#krishnaSkin)"/>
+  
+  <!-- Yellow dhoti -->
+  <path d="M135 340 Q200 350 265 340 L270 450 Q200 460 130 450 Z" fill="#fcd34d"/>
+  <path d="M135 340 Q145 400 175 450" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M265 340 Q255 400 225 450" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  
+  <!-- Arms -->
+  <path d="M145 250 Q90 280 70 320 Q65 340 85 350" fill="url(#krishnaSkin)" stroke="url(#krishnaSkin)" stroke-width="25" stroke-linecap="round"/>
+  <path d="M255 250 Q310 280 330 320 Q335 340 315 350" fill="url(#krishnaSkin)" stroke="url(#krishnaSkin)" stroke-width="25" stroke-linecap="round"/>
+  
+  <!-- Flute -->
+  <g filter="url(#glowEffect)" transform="translate(200, 200) rotate(-15)">
+    <rect x="-80" y="-8" width="160" height="16" rx="8" fill="url(#fluteGold)"/>
+    <circle cx="-60" cy="0" r="3" fill="#92400e"/>
+    <circle cx="-40" cy="0" r="3" fill="#92400e"/>
+    <circle cx="-20" cy="0" r="3" fill="#92400e"/>
+    <circle cx="0" cy="0" r="3" fill="#92400e"/>
+    <circle cx="20" cy="0" r="3" fill="#92400e"/>
+    <circle cx="40" cy="0" r="3" fill="#92400e"/>
+    <circle cx="60" cy="0" r="3" fill="#92400e"/>
+  </g>
+  
+  <!-- Musical notes -->
+  <g filter="url(#glowEffect)" fill="#a78bfa" font-size="18">
+    <text x="290" y="180">♪</text>
+    <text x="310" y="160">♫</text>
+    <text x="330" y="185">♪</text>
+    <text x="100" y="175">♪</text>
+    <text x="80" y="155">♫</text>
+  </g>
+  
+  <!-- Lotus seat -->
+  <g transform="translate(200, 470)">
+    <ellipse cx="0" cy="0" rx="100" ry="30" fill="#3b82f6" opacity="0.6"/>
+    <path d="M-80 0 Q-60 -30 -40 0" fill="#60a5fa"/>
+    <path d="M-50 0 Q-30 -35 -10 0" fill="#60a5fa"/>
+    <path d="M-20 0 Q0 -40 20 0" fill="#60a5fa"/>
+    <path d="M10 0 Q30 -35 50 0" fill="#60a5fa"/>
+    <path d="M40 0 Q60 -30 80 0" fill="#60a5fa"/>
+  </g>
+  
+  <!-- Cows in background (tiny) -->
+  <g opacity="0.5" transform="translate(50, 420)">
+    <ellipse cx="0" cy="0" rx="15" ry="10" fill="#fef3c7"/>
+    <circle cx="-12" cy="-5" r="6" fill="#fef3c7"/>
+  </g>
+  <g opacity="0.5" transform="translate(350, 420)">
+    <ellipse cx="0" cy="0" rx="15" ry="10" fill="#fef3c7"/>
+    <circle cx="12" cy="-5" r="6" fill="#fef3c7"/>
+  </g>
+</svg>

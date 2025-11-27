@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AmbientAudioService } from '../../services/ambient-audio.service';
 import { AudioPlayerService } from '../../services/audio-player.service';
+import { TempleBellService } from '../../services/temple-bell.service';
 
 @Component({
   selector: 'app-global-mute',
@@ -74,7 +75,8 @@ export class GlobalMuteComponent {
 
   constructor(
     private ambientAudio: AmbientAudioService,
-    private audioPlayer: AudioPlayerService
+    private audioPlayer: AudioPlayerService,
+    private templeBell: TempleBellService
   ) {
     // Load saved mute state
     const savedMute = localStorage.getItem(this.GLOBAL_MUTE_KEY);
@@ -107,6 +109,9 @@ export class GlobalMuteComponent {
     if (!this.audioPlayer.isMuted) {
       this.audioPlayer.toggleMute();
     }
+    
+    // Mute temple bell
+    this.templeBell.mute();
   }
 
   private unmuteAll(): void {
@@ -119,5 +124,8 @@ export class GlobalMuteComponent {
     if (this.audioPlayer.isMuted) {
       this.audioPlayer.toggleMute();
     }
+    
+    // Unmute temple bell
+    this.templeBell.unmute();
   }
 }

@@ -23,13 +23,14 @@ export class AudioPlayerService {
   private readonly MUTE_STATE_KEY = 'temple-audio-muted';
   private readonly VOLUME_STATE_KEY = 'temple-audio-volume';
   
-  // Audio file mapping by deity
+  // Audio file mapping by deity - uses existing audio as fallback until new files are added
   private readonly DEITY_AUDIO_FILES: Record<DeityType, string> = {
     [DeityType.HANUMAN]: 'assets/audio/mantras/hanuman-chalisa.mp3',
     [DeityType.GANESH]: 'assets/audio/aarti/ganesh-aarti.mp3',
-    [DeityType.SHIVA]: 'assets/audio/shiva/shiva-aarti.mp3',
-    [DeityType.KRISHNA]: 'assets/audio/krishna/krishna-aarti.mp3',
-    [DeityType.DURGA]: 'assets/audio/durga/durga-aarti.mp3'
+    // New deities - fallback to existing audio until dedicated files are added
+    [DeityType.SHIVA]: 'assets/audio/aarti/ganesh-aarti.mp3',    // TODO: Replace with shiva-aarti.mp3
+    [DeityType.KRISHNA]: 'assets/audio/aarti/ganesh-aarti.mp3',  // TODO: Replace with krishna-aarti.mp3
+    [DeityType.DURGA]: 'assets/audio/aarti/ganesh-aarti.mp3'     // TODO: Replace with durga-aarti.mp3
   };
   
   // Hourly schedule info

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
+import { AudioStateService } from '../../services/audio-state.service';
 
 @Component({
   selector: 'app-floating-aarti',
@@ -19,7 +20,7 @@ import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
   ]
 })
 export class FloatingAartiComponent implements OnInit, OnDestroy {
-  @Input() deityType: 'hanuman' | 'ganesh' = 'hanuman';
+  @Input() deityType: 'hanuman' | 'ganesh' | 'shiva' | 'krishna' | 'durga' = 'hanuman';
   
   showOverlay = false;
   isPerforming = false;
@@ -34,8 +35,12 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
   // Audio
   private aartiAudio: HTMLAudioElement | null = null;
   private rotationInterval: any;
+  private readonly GLOBAL_MUTE_KEY = 'temple-global-muted';
 
-  constructor(private rewardsService: DevoteeRewardsService) {}
+  constructor(
+    private rewardsService: DevoteeRewardsService,
+    private audioStateService: AudioStateService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -76,14 +81,24 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
   }
 
   private playAartiAudio(): void {
+    // Check if globally muted
+    const isGloballyMuted = localStorage.getItem(this.GLOBAL_MUTE_KEY) === 'true';
+    if (isGloballyMuted) {
+      console.log('Audio muted globally - skipping aarti audio');
+      return;
+    }
+    
     try {
       // Try to play bell/aarti sound
-      this.aartiAudio = new Audio('assets/audio/temple_bell.mp3');
+      this.aartiAudio = new Audio('assets/audio/effects/mandir_bell.mp3');
       this.aartiAudio.volume = 0.5;
       this.aartiAudio.loop = true;
       this.aartiAudio.play().catch(() => {
         console.log('Audio autoplay blocked');
       });
+      
+      // Notify audio state service that aarti is playing
+      this.audioStateService.setPlayingState(true);
     } catch (e) {
       console.log('Audio not available');
     }
@@ -119,6 +134,9 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
       this.aartiAudio.pause();
       this.aartiAudio = null;
     }
+    
+    // Notify audio state service that aarti stopped
+    this.audioStateService.setPlayingState(false);
 
     this.showOverlay = false;
   }
