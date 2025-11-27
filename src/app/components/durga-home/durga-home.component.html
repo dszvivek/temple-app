@@ -1,0 +1,131 @@
+<div class="container mx-auto px-4 py-6">
+  <!-- Sacred Background -->
+  <app-sacred-bg></app-sacred-bg>
+
+  <!-- Onboarding Welcome Ritual -->
+  <app-onboarding-welcome
+    *ngIf="showOnboarding"
+    (complete)="onOnboardingComplete()">
+  </app-onboarding-welcome>
+
+  <!-- Sticky Header with Back Navigation -->
+  <div class="sticky top-0 z-40 bg-gradient-to-r from-red-50/95 to-orange-50/95 backdrop-blur-sm -mx-4 px-4 py-3 mb-6 border-b border-red-200/50">
+    <div class="flex items-center justify-between max-w-4xl mx-auto">
+      <button 
+        (click)="navigateToTempleSelector()"
+        class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 hover:bg-white shadow-sm hover:shadow transition-all text-red-700 font-medium">
+        <span class="text-lg">←</span>
+        <span class="text-sm">{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Temples' }}</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🦁</span>
+        <span class="font-semibold text-red-800 text-sm hidden sm:inline">{{ lang.getCurrentLanguage() === 'hi' ? 'दुर्गा मंदिर' : 'Durga Temple' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Temple Header with Durga Image -->
+  <header class="text-center mb-12">
+    <div class="mb-6 hero-image-container relative" flowerOffering>
+      <!-- Decorative Border and Durga Image -->
+      <div class="deity-frame durga-frame" [class.active-aarti]="isAartiPlaying" [class.aarti-playing]="isAartiPlaying">
+        <!-- Rotating Red Flowers (only when playing) -->
+        <div class="flower-container" *ngIf="isAartiPlaying">
+          <div class="red-flower" *ngFor="let flower of [1,2,3,4,5,6,7,8,9,10,11,12]" 
+               [style.--flower-index]="flower">🌺</div>
+        </div>
+        
+        <!-- Aarti Flames (only when playing) -->
+        <div class="aarti-flames" *ngIf="isAartiPlaying">
+          <div class="aarti-flame flame-left">
+            <div class="flame">🔥</div>
+          </div>
+          <div class="aarti-flame flame-right">
+            <div class="flame">🔥</div>
+          </div>
+        </div>
+        
+        <!-- Main Durga Image -->
+        <div class="deity-image-container deity-image-wrapper-temple relative">
+          <img 
+            src="assets/images/deities/durga/Durga.png" 
+            alt="Goddess Durga"
+            class="deity-main-image w-full h-auto rounded-lg shadow-2xl"
+            loading="eager">
+          
+          <!-- Orbiting particles -->
+          <div class="orbit-container-temple">
+            <div class="orbit-particle">🌺</div>
+            <div class="orbit-particle">🪔</div>
+            <div class="orbit-particle">🦁</div>
+            <div class="orbit-particle">✨</div>
+            <div class="orbit-particle">🔱</div>
+            <div class="orbit-particle">⚔️</div>
+            <div class="orbit-particle">🌸</div>
+            <div class="orbit-particle">❤️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 class="text-2xl sm:text-3xl font-bold text-red-800 mb-2">
+      {{ lang.getCurrentLanguage() === 'hi' ? '🦁 दुर्गा मंदिर 🦁' : '🦁 Durga Temple 🦁' }}
+    </h1>
+    <p class="text-red-600 font-medium mb-2">
+      "या देवी सर्वभूतेषु शक्तिरूपेण संस्थिता"
+    </p>
+    <p class="text-gray-600 text-sm max-w-xl mx-auto">
+      {{ lang.getCurrentLanguage() === 'hi' 
+        ? 'माँ दुर्गा के दिव्य दर्शन करें - शक्ति स्वरूपा, महिषासुरमर्दिनी' 
+        : 'Seek blessings from Goddess Durga - The Divine Mother of Power' }}
+    </p>
+  </header>
+
+  <!-- Quick Actions Row -->
+  <div class="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6">
+    <button 
+      (click)="navigateToWish()"
+      class="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-red-500 to-pink-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+      <span class="text-3xl">🙏</span>
+      <span class="text-sm font-semibold">{{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}</span>
+    </button>
+    <button 
+      (click)="openDiyaModal()"
+      class="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-orange-500 to-red-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+      <span class="text-3xl">🪔</span>
+      <span class="text-sm font-semibold">{{ lang.t('diya.lightButton') }}</span>
+    </button>
+  </div>
+
+  <!-- Diya Counter -->
+  <div class="mb-6">
+    <app-diya-counter></app-diya-counter>
+  </div>
+
+  <!-- Audio Player -->
+  <div class="mb-6">
+    <app-audio-player></app-audio-player>
+  </div>
+
+  <!-- Diya Display -->
+  <div class="mb-8">
+    <app-diya-display></app-diya-display>
+  </div>
+
+  <!-- Light Diya Modal -->
+  <app-light-diya-modal
+    [isOpen]="showDiyaModal"
+    (closeModal)="closeDiyaModal()"
+    (diyaLit)="onDiyaLit($event)">
+  </app-light-diya-modal>
+
+  <!-- Devotional Quote -->
+  <div class="text-center mt-8 max-w-2xl mx-auto p-4 bg-red-50/80 rounded-xl border border-red-200">
+    <blockquote class="text-base italic text-red-800">
+      "सर्वमङ्गलमाङ्गल्ये शिवे सर्वार्थसाधिके।<br>
+      शरण्ये त्र्यम्बके गौरि नारायणि नमोऽस्तु ते॥"
+    </blockquote>
+    <p class="text-xs text-gray-500 mt-2">
+      {{ lang.getCurrentLanguage() === 'hi' ? '- दुर्गा स्तुति' : '- Durga Stuti' }}
+    </p>
+  </div>
+</div>

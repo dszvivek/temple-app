@@ -1,0 +1,238 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 50%, #ef9a9a 100%);
+}
+
+/* Hero Image Container */
+.hero-image-container {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Deity Frame with Red Flowers */
+.deity-frame.durga-frame {
+  position: relative;
+  padding: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c62828 0%, #d32f2f 50%, #b71c1c 100%);
+  box-shadow: 
+    0 0 30px rgba(198, 40, 40, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.deity-frame.durga-frame::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #d32f2f, #ef5350, #d32f2f, #e53935);
+  z-index: -1;
+  animation: shimmer 4s linear infinite;
+  background-size: 200% 200%;
+}
+
+/* Deity Image Container */
+.deity-image-container {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e53935 0%, #ef5350 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.deity-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Flower Container - For Durga */
+.flower-container {
+  position: absolute;
+  inset: -20px;
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+.red-flower {
+  position: absolute;
+  font-size: 24px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  animation: flowerPulse 2s ease-in-out infinite;
+}
+
+.red-flower:nth-child(1) { transform: rotate(0deg) translateX(130px) rotate(0deg); animation-delay: 0s; }
+.red-flower:nth-child(2) { transform: rotate(30deg) translateX(130px) rotate(-30deg); animation-delay: 0.1s; }
+.red-flower:nth-child(3) { transform: rotate(60deg) translateX(130px) rotate(-60deg); animation-delay: 0.2s; }
+.red-flower:nth-child(4) { transform: rotate(90deg) translateX(130px) rotate(-90deg); animation-delay: 0.3s; }
+.red-flower:nth-child(5) { transform: rotate(120deg) translateX(130px) rotate(-120deg); animation-delay: 0.4s; }
+.red-flower:nth-child(6) { transform: rotate(150deg) translateX(130px) rotate(-150deg); animation-delay: 0.5s; }
+.red-flower:nth-child(7) { transform: rotate(180deg) translateX(130px) rotate(-180deg); animation-delay: 0.6s; }
+.red-flower:nth-child(8) { transform: rotate(210deg) translateX(130px) rotate(-210deg); animation-delay: 0.7s; }
+.red-flower:nth-child(9) { transform: rotate(240deg) translateX(130px) rotate(-240deg); animation-delay: 0.8s; }
+.red-flower:nth-child(10) { transform: rotate(270deg) translateX(130px) rotate(-270deg); animation-delay: 0.9s; }
+.red-flower:nth-child(11) { transform: rotate(300deg) translateX(130px) rotate(-300deg); animation-delay: 1s; }
+.red-flower:nth-child(12) { transform: rotate(330deg) translateX(130px) rotate(-330deg); animation-delay: 1.1s; }
+
+/* Orbiting Particles - Temple Style */
+.orbit-container-temple {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: orbitRotate 30s linear infinite;
+  pointer-events: none;
+}
+
+.orbit-particle {
+  position: absolute;
+  font-size: 16px;
+  opacity: 0.7;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.orbit-particle:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+.orbit-particle:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.25s; }
+.orbit-particle:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 0.5s; }
+.orbit-particle:nth-child(4) { bottom: 15%; right: 15%; animation-delay: 0.75s; }
+.orbit-particle:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
+.orbit-particle:nth-child(6) { bottom: 15%; left: 15%; animation-delay: 1.25s; }
+.orbit-particle:nth-child(7) { top: 50%; left: 0; transform: translateY(-50%); animation-delay: 1.5s; }
+.orbit-particle:nth-child(8) { top: 15%; left: 15%; animation-delay: 1.75s; }
+
+/* Aarti Playing State */
+.active-aarti,
+.aarti-playing {
+  animation: divinePulse 2s ease-in-out infinite;
+  box-shadow: 
+    0 0 40px rgba(198, 40, 40, 0.6),
+    0 0 80px rgba(229, 57, 53, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Aarti Flames */
+.aarti-flames {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.aarti-flame {
+  position: absolute;
+  bottom: 10px;
+  font-size: 32px;
+  animation: flameFloat 1s ease-in-out infinite;
+}
+
+.flame-left {
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.flame-right {
+  right: -30px;
+  animation-delay: 0.5s;
+}
+
+.flame {
+  animation: flameFlicker 0.3s ease-in-out infinite alternate;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flowerPulse {
+  0%, 100% { opacity: 0.8; transform: scale(1) rotate(var(--base-rotation, 0deg)) translateX(130px); }
+  50% { opacity: 1; transform: scale(1.2) rotate(var(--base-rotation, 0deg)) translateX(130px); }
+}
+
+@keyframes orbitRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes divinePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes flameFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes flameFlicker {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Quote Section */
+blockquote {
+  line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero-image-container {
+    max-width: 240px;
+  }
+  
+  .deity-frame.durga-frame {
+    padding: 24px;
+  }
+  
+  .deity-image-container {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .red-flower {
+    font-size: 20px;
+  }
+  
+  .red-flower:nth-child(1) { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+  .red-flower:nth-child(2) { transform: rotate(30deg) translateX(110px) rotate(-30deg); }
+  .red-flower:nth-child(3) { transform: rotate(60deg) translateX(110px) rotate(-60deg); }
+  .red-flower:nth-child(4) { transform: rotate(90deg) translateX(110px) rotate(-90deg); }
+  .red-flower:nth-child(5) { transform: rotate(120deg) translateX(110px) rotate(-120deg); }
+  .red-flower:nth-child(6) { transform: rotate(150deg) translateX(110px) rotate(-150deg); }
+  .red-flower:nth-child(7) { transform: rotate(180deg) translateX(110px) rotate(-180deg); }
+  .red-flower:nth-child(8) { transform: rotate(210deg) translateX(110px) rotate(-210deg); }
+  .red-flower:nth-child(9) { transform: rotate(240deg) translateX(110px) rotate(-240deg); }
+  .red-flower:nth-child(10) { transform: rotate(270deg) translateX(110px) rotate(-270deg); }
+  .red-flower:nth-child(11) { transform: rotate(300deg) translateX(110px) rotate(-300deg); }
+  .red-flower:nth-child(12) { transform: rotate(330deg) translateX(110px) rotate(-330deg); }
+  
+  .orbit-container-temple {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .orbit-particle {
+    font-size: 14px;
+  }
+}

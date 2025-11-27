@@ -8,6 +8,9 @@ import { LiveStatsService } from './services/live-stats.service';
 import { SeoService } from './services/seo.service';
 import { HANUMAN_CONFIG } from './configs/hanuman.config';
 import { GANESH_CONFIG } from './configs/ganesh.config';
+import { SHIVA_CONFIG } from './configs/shiva.config';
+import { KRISHNA_CONFIG } from './configs/krishna.config';
+import { DURGA_CONFIG } from './configs/durga.config';
 import { slideInAnimation } from './animations/route-animations';
 import { filter } from 'rxjs/operators';
 
@@ -371,8 +374,10 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects || event.url;
         
-        // Show aarti/incense only inside temple pages (hanuman or ganesh)
-        this.isInsideTemple = url.includes('/hanuman') || url.includes('/ganesh');
+        // Show aarti/incense only inside temple pages
+        this.isInsideTemple = url.includes('/hanuman') || url.includes('/ganesh') || 
+                               url.includes('/shiva') || url.includes('/krishna') || 
+                               url.includes('/durga');
       }
     });
   }
@@ -388,6 +393,18 @@ export class AppComponent implements OnInit {
     // Register Ganesh Temple
     this.deityService.registerTemple(GANESH_CONFIG);
     console.log('🐘 Ganesh Temple registered');
+    
+    // Register Shiva Temple
+    this.deityService.registerTemple(SHIVA_CONFIG);
+    console.log('🔱 Shiva Temple registered');
+    
+    // Register Krishna Temple
+    this.deityService.registerTemple(KRISHNA_CONFIG);
+    console.log('🦚 Krishna Temple registered');
+    
+    // Register Durga Temple
+    this.deityService.registerTemple(DURGA_CONFIG);
+    console.log('🦁 Durga Temple registered');
   }
 
   /**

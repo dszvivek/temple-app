@@ -26,7 +26,10 @@ export class AudioPlayerService {
   // Audio file mapping by deity
   private readonly DEITY_AUDIO_FILES: Record<DeityType, string> = {
     [DeityType.HANUMAN]: 'assets/audio/mantras/hanuman-chalisa.mp3',
-    [DeityType.GANESH]: 'assets/audio/aarti/ganesh-aarti.mp3'
+    [DeityType.GANESH]: 'assets/audio/aarti/ganesh-aarti.mp3',
+    [DeityType.SHIVA]: 'assets/audio/shiva/shiva-aarti.mp3',
+    [DeityType.KRISHNA]: 'assets/audio/krishna/krishna-aarti.mp3',
+    [DeityType.DURGA]: 'assets/audio/durga/durga-aarti.mp3'
   };
   
   // Hourly schedule info
@@ -38,7 +41,10 @@ export class AudioPlayerService {
   // Audio duration (in seconds) - varies by deity
   private readonly AUDIO_DURATIONS: Record<DeityType, number> = {
     [DeityType.HANUMAN]: 512, // 8:32 - Hanuman Chalisa
-    [DeityType.GANESH]: 150    // 2:30 - Ganesh Aarti
+    [DeityType.GANESH]: 150,  // 2:30 - Ganesh Aarti
+    [DeityType.SHIVA]: 300,   // 5:00 - Shiva Aarti
+    [DeityType.KRISHNA]: 300, // 5:00 - Krishna Aarti
+    [DeityType.DURGA]: 300    // 5:00 - Durga Aarti
   };
   
   // 24/7 operation - no time restrictions

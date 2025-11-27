@@ -5,7 +5,10 @@
 
 export enum DeityType {
   HANUMAN = 'hanuman',
-  GANESH = 'ganesh'
+  GANESH = 'ganesh',
+  SHIVA = 'shiva',
+  KRISHNA = 'krishna',
+  DURGA = 'durga'
 }
 
 export interface Deity {

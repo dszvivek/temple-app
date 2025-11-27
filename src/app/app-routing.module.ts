@@ -30,6 +30,42 @@ const routes: Routes = [
     data: { deity: 'ganesh', animation: 'Wish' } 
   },
   
+  // Shiva Temple Routes (lazy loaded)
+  { 
+    path: 'shiva', 
+    loadChildren: () => import('./components/shiva-home/shiva-home.module').then(m => m.ShivaHomeModule),
+    data: { animation: 'Shiva' } 
+  },
+  { 
+    path: 'shiva/wish', 
+    loadChildren: () => import('./components/wish-flow/wish-flow.module').then(m => m.WishFlowModule),
+    data: { deity: 'shiva', animation: 'Wish' } 
+  },
+  
+  // Krishna Temple Routes (lazy loaded)
+  { 
+    path: 'krishna', 
+    loadChildren: () => import('./components/krishna-home/krishna-home.module').then(m => m.KrishnaHomeModule),
+    data: { animation: 'Krishna' } 
+  },
+  { 
+    path: 'krishna/wish', 
+    loadChildren: () => import('./components/wish-flow/wish-flow.module').then(m => m.WishFlowModule),
+    data: { deity: 'krishna', animation: 'Wish' } 
+  },
+  
+  // Durga Temple Routes (lazy loaded)
+  { 
+    path: 'durga', 
+    loadChildren: () => import('./components/durga-home/durga-home.module').then(m => m.DurgaHomeModule),
+    data: { animation: 'Durga' } 
+  },
+  { 
+    path: 'durga/wish', 
+    loadChildren: () => import('./components/wish-flow/wish-flow.module').then(m => m.WishFlowModule),
+    data: { deity: 'durga', animation: 'Wish' } 
+  },
+  
   // Shared Routes (lazy loaded)
   { 
     path: 'donate', 
