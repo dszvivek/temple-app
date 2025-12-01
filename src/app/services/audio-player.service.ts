@@ -442,6 +442,12 @@ export class AudioPlayerService {
         return 'Hanuman Chalisa';
       case DeityType.GANESH:
         return 'Ganesh Aarti';
+      case DeityType.SHIVA:
+        return 'Shiva Aarti';
+      case DeityType.KRISHNA:
+        return 'Krishna Aarti';
+      case DeityType.DURGA:
+        return 'Durga Aarti';
       default:
         return 'Sacred Audio';
     }
@@ -459,6 +465,12 @@ export class AudioPlayerService {
       case DeityType.HANUMAN:
         return '▶️ Play Chalisa';
       case DeityType.GANESH:
+        return '▶️ Play Aarti';
+      case DeityType.SHIVA:
+        return '▶️ Play Aarti';
+      case DeityType.KRISHNA:
+        return '▶️ Play Aarti';
+      case DeityType.DURGA:
         return '▶️ Play Aarti';
       default:
         return '▶️ Play';

@@ -48,11 +48,11 @@
         <!-- Main Durga Image -->
         <div class="deity-image-container deity-image-wrapper-temple relative">
           <img 
-            src="assets/images/deities/durga/durga-deity.svg" 
+            src="assets/images/deities/durga/durga-diety.png" 
             alt="Goddess Durga"
             class="deity-main-image w-full h-auto rounded-lg shadow-2xl"
             loading="eager"
-            onerror="this.src='assets/images/deities/ganesh/Ganesh.png'">
+            onerror="this.onerror=null; this.style.display='none'; this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'deity-placeholder flex items-center justify-center text-8xl h-64 bg-gradient-to-br from-red-100 to-pink-100 rounded-lg\'>🦁</div>');">
           
           <!-- Orbiting particles -->
           <div class="orbit-container-temple">
