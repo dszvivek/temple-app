@@ -84,7 +84,6 @@ export class GaneshHomeComponent implements OnInit, OnDestroy {
   }
 
   onDiyaLit(name: string): void {
-    console.log(`Diya lit for: ${name}`);
     // No viral share prompt - let user continue their spiritual journey
   }
 

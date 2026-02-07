@@ -51,7 +51,6 @@ export class LiveStatsService {
         this.totalWishesSubject.next(stats.totalWishes || 0);
         this.totalDiyasSubject.next(stats.totalDiyas || 0);
         this.liveDevoteesSubject.next(stats.liveDevotees || 0);
-        console.log('📊 Connected to Firebase real-time stats');
       } else {
         // Fallback to simulated stats
         this.initializeLocalStats();
@@ -114,33 +113,13 @@ export class LiveStatsService {
       this.firebaseBackend.updateDevoteePresence();
     });
     
-    // If using simulated mode, update devotee count every 10 seconds
-    interval(10000).subscribe(() => {
+    // If using simulated mode, update devotee count every 30 seconds
+    interval(30000).subscribe(() => {
       if (!this.isUsingFirebase) {
         const newCount = this.calculateLiveDevotees();
         this.liveDevoteesSubject.next(newCount);
       }
     });
-
-    // Auto-increment wishes continuously to simulate activity
-    const incrementWishes = async () => {
-      // Randomly increment by 1 or 2 wishes
-      const increment = Math.random() > 0.5 ? 1 : 2;
-      this.incrementTotalWishes(increment);
-      
-      // Also update Firebase global counter
-      for (let i = 0; i < increment; i++) {
-        await this.firebaseBackend.incrementGlobalWishCount();
-      }
-      
-      // Schedule next increment after random delay (5-12 seconds)
-      const nextDelay = 5000 + Math.random() * 7000;
-      setTimeout(incrementWishes, nextDelay);
-    };
-    
-    // Start the auto-increment cycle
-    const initialDelay = 3000 + Math.random() * 5000;
-    setTimeout(incrementWishes, initialDelay);
   }
 
   /**

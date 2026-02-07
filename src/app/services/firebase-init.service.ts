@@ -21,7 +21,6 @@ export class FirebaseInitService {
       return;
     }
 
-    console.log('🔥 Initializing Firebase...');
     this.app = initializeApp(environment.firebase);
     this.firestoreInstance = getFirestore(this.app);
     this.initialized = true;

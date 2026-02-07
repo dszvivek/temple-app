@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, interval } from 'rxjs';
+import { DeityType } from '../models/deity.model';
 
 export interface Theme {
   name: 'sunrise' | 'day' | 'sunset' | 'night';
@@ -35,6 +36,42 @@ export class ThemeService {
     night: 'bg-gradient-to-b from-indigo-900 via-purple-900 to-gray-900'
   };
 
+  // Deity-specific light themes
+  private readonly deityThemes: Record<DeityType, Record<Theme['name'], string>> = {
+    [DeityType.HANUMAN]: {
+      sunrise: 'bg-gradient-to-b from-orange-200 via-pink-100 to-yellow-50',
+      day: 'bg-gradient-to-b from-red-100 via-orange-50 to-white',
+      sunset: 'bg-gradient-to-b from-orange-400 via-pink-200 to-purple-100',
+      night: 'bg-gradient-to-b from-orange-900 via-red-900 to-gray-900'
+    },
+    [DeityType.GANESH]: {
+      sunrise: 'bg-gradient-to-b from-amber-200 via-yellow-100 to-orange-50',
+      day: 'bg-gradient-to-b from-amber-100 via-yellow-50 to-white',
+      sunset: 'bg-gradient-to-b from-amber-400 via-orange-200 to-red-100',
+      night: 'bg-gradient-to-b from-amber-900 via-yellow-900 to-gray-900'
+    },
+    [DeityType.SHIVA]: {
+      sunrise: 'bg-gradient-to-b from-indigo-200 via-purple-100 to-blue-50',
+      day: 'bg-gradient-to-b from-indigo-100 via-blue-50 to-white',
+      sunset: 'bg-gradient-to-b from-indigo-400 via-purple-200 to-pink-100',
+      night: 'bg-gradient-to-b from-indigo-950 via-purple-900 to-gray-900'
+    },
+    [DeityType.KRISHNA]: {
+      sunrise: 'bg-gradient-to-b from-blue-200 via-cyan-100 to-sky-50',
+      day: 'bg-gradient-to-b from-blue-100 via-sky-50 to-white',
+      sunset: 'bg-gradient-to-b from-blue-400 via-purple-200 to-pink-100',
+      night: 'bg-gradient-to-b from-blue-900 via-indigo-900 to-gray-900'
+    },
+    [DeityType.DURGA]: {
+      sunrise: 'bg-gradient-to-b from-red-200 via-pink-100 to-rose-50',
+      day: 'bg-gradient-to-b from-red-100 via-rose-50 to-white',
+      sunset: 'bg-gradient-to-b from-red-400 via-pink-200 to-orange-100',
+      night: 'bg-gradient-to-b from-red-900 via-rose-900 to-gray-900'
+    }
+  };
+
+  private currentDeity: DeityType = DeityType.HANUMAN;
+
   private readonly darkThemes: Record<Theme['name'], string> = {
     sunrise: 'bg-gradient-to-b from-gray-800 via-gray-900 to-black',
     day: 'bg-gradient-to-b from-gray-800 via-gray-900 to-black',
@@ -65,11 +102,6 @@ export class ThemeService {
     // Apply dark mode class
     this.applyDarkModeClass(initialDarkMode);
     
-    // Log initial theme
-    const initialTheme = this.getCurrentTheme();
-    console.log('🎨 ThemeService initialized:', initialTheme.name, 'at hour:', new Date().getHours(), 'Dark mode:', initialDarkMode);
-    console.log('🎨 Gradient classes:', initialTheme.gradient);
-    
     // Re-evaluate theme every minute
     interval(60000).subscribe(() => {
       this.updateTheme();
@@ -80,7 +112,15 @@ export class ThemeService {
   }
 
   /**
-   * Calculate current theme based on local time and dark mode
+   * Set the current deity for theme selection
+   */
+  public setDeity(deityType: DeityType): void {
+    this.currentDeity = deityType;
+    this.updateTheme();
+  }
+
+  /**
+   * Calculate current theme based on local time, deity, and dark mode
    */
   private calculateTheme(): Theme {
     const hour = new Date().getHours();
@@ -98,7 +138,15 @@ export class ThemeService {
     }
 
     const isDark = this.darkModeSubject?.value || false;
-    const gradient = isDark ? this.darkThemes[themeName] : this.themes[themeName];
+    let gradient: string;
+    
+    if (isDark) {
+      gradient = this.darkThemes[themeName];
+    } else {
+      // Use deity-specific gradient if available
+      const deityGradients = this.deityThemes[this.currentDeity];
+      gradient = deityGradients ? deityGradients[themeName] : this.themes[themeName];
+    }
 
     return {
       name: themeName,
@@ -111,9 +159,7 @@ export class ThemeService {
    */
   private updateTheme(): void {
     const newTheme = this.calculateTheme();
-    console.log('🔄 Theme update check - Current:', this.currentThemeSubject.value.name, 'New:', newTheme.name);
     if (newTheme.name !== this.currentThemeSubject.value.name || newTheme.gradient !== this.currentThemeSubject.value.gradient) {
-      console.log('✨ Theme changed to:', newTheme.name, 'Dark:', this.darkModeSubject.value);
       this.currentThemeSubject.next(newTheme);
     }
   }

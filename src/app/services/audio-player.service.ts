@@ -102,7 +102,6 @@ export class AudioPlayerService {
       
       // If deity changed and audio is playing, stop it
       if (this.currentDeityType && this.currentDeityType !== newDeityType) {
-        console.log(`🎵 Switching from ${this.currentDeityType} to ${newDeityType} - stopping audio`);
         this.stop();
         this.manualPlayback = false;
       }
@@ -135,8 +134,6 @@ export class AudioPlayerService {
       // Load new audio
       this.audio.src = audioFile;
       this.audio.volume = this.isMuted ? 0 : this.volume;
-      
-      console.log(`🎵 Loaded audio for ${this.currentDeityType}: ${audioFile}`);
     }
   }
 
@@ -184,8 +181,6 @@ export class AudioPlayerService {
     this.audio.volume = this.isMuted ? 0 : this.volume;
     this.audio.loop = false;
     this.audioEnabled = true;
-    
-    console.log(`🎵 Audio enabled for ${this.currentDeityType}: ${audioFile}`);
     
     // Setup event listeners
     this.audio.addEventListener('ended', () => {
@@ -334,7 +329,6 @@ export class AudioPlayerService {
     this.isPlaying = false;
     this.manualPlayback = false;
     this.audioStateService.setPlayingState(false);
-    console.log('🔇 Audio stopped');
   }
 
   /**

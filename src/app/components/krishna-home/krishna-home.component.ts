@@ -84,7 +84,7 @@ export class KrishnaHomeComponent implements OnInit, OnDestroy {
   }
 
   onDiyaLit(name: string): void {
-    console.log(`Diya lit for: ${name}`);
+    // Diya lit event handled
   }
 
   onOnboardingComplete(): void {

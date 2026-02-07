@@ -102,7 +102,6 @@ export class AmbientAudioService {
     this.setupEventListeners();
     
     this.assetsPreloaded = true;
-    console.log('🎵 Ambient audio assets preloaded');
   }
 
   /**

@@ -84,7 +84,6 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
     // Check if globally muted
     const isGloballyMuted = localStorage.getItem(this.GLOBAL_MUTE_KEY) === 'true';
     if (isGloballyMuted) {
-      console.log('Audio muted globally - skipping aarti audio');
       return;
     }
     
@@ -94,13 +93,13 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
       this.aartiAudio.volume = 0.5;
       this.aartiAudio.loop = true;
       this.aartiAudio.play().catch(() => {
-        console.log('Audio autoplay blocked');
+        // Audio autoplay blocked
       });
       
       // Notify audio state service that aarti is playing
       this.audioStateService.setPlayingState(true);
     } catch (e) {
-      console.log('Audio not available');
+      // Audio not available
     }
   }
 

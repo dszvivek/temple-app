@@ -7,6 +7,7 @@ import { PetalService } from '../../services/petal.service';
 import { BlessingsService, Blessing } from '../../services/blessings.service';
 import { DeityService } from '../../services/deity.service';
 import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
+import { ToastService } from '../../services/toast.service';
 import { Wish, WishCategory, WishStatus } from '../../models/wish.model';
 import { DeityType } from '../../models/deity.model';
 
@@ -49,6 +50,7 @@ export class WishFlowComponent implements OnInit {
     { value: WishCategory.EDUCATION, label: '📚 Education & Knowledge', icon: '📚' },
     { value: WishCategory.FAMILY, label: '👨‍👩‍👧 Family & Relationships', icon: '👨‍👩‍👧' },
     { value: WishCategory.CAREER, label: '💼 Career & Success', icon: '💼' },
+    { value: WishCategory.SPIRITUAL, label: '🕉️ Spiritual Growth', icon: '🕉️' },
     { value: WishCategory.GENERAL, label: '🙏 General Blessings', icon: '🙏' }
   ];
 
@@ -64,7 +66,8 @@ export class WishFlowComponent implements OnInit {
     private petalService: PetalService,
     public blessingsService: BlessingsService,
     private deityService: DeityService,
-    private rewardsService: DevoteeRewardsService
+    private rewardsService: DevoteeRewardsService,
+    private toastService: ToastService
   ) {
     // Set initial random blessing
     this.currentBlessing = this.blessingsService.getRandomBlessing();
@@ -90,7 +93,7 @@ export class WishFlowComponent implements OnInit {
    */
   async createWish(): Promise<void> {
     if (!this.wishTitle.trim()) {
-      alert('Please enter a wish title');
+      this.toastService.warning('Please enter a wish title');
       return;
     }
 
@@ -108,7 +111,7 @@ export class WishFlowComponent implements OnInit {
       this.step = 'ritual';
     } catch (error) {
       console.error('Error creating wish:', error);
-      alert('Failed to create wish. Please try again.');
+      this.toastService.error('Failed to create wish. Please try again.');
     }
   }
 
@@ -235,9 +238,11 @@ Visit and offer your prayer: ${window.location.origin}
       } else {
         // Fallback: copy to clipboard
         await navigator.clipboard.writeText(messageToShare);
-        alert(this.lang.getCurrentLanguage() === 'hi' 
-          ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
-          : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.');
+        this.toastService.success(
+          this.lang.getCurrentLanguage() === 'hi' 
+            ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
+            : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.'
+        );
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -277,7 +282,7 @@ Visit and offer your prayer: ${window.location.origin}
       this.step = 'complete';
     } catch (error) {
       console.error('Error activating wish:', error);
-      alert('Failed to submit wish. Please try again.');
+      this.toastService.error('Failed to submit wish. Please try again.');
     }
   }
 
@@ -398,6 +403,7 @@ Visit and offer your prayer: ${window.location.origin}
       'education': 'wish.education',
       'family': 'wish.family',
       'career': 'wish.career',
+      'spiritual': 'wish.spiritual',
       'general': 'wish.spiritual'
     };
     return this.lang.t(mapping[categoryValue] || 'wish.spiritual');

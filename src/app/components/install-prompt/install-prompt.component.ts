@@ -30,7 +30,6 @@ export class InstallPromptComponent implements OnInit {
 
     // Listen for app installed event
     window.addEventListener('appinstalled', () => {
-      console.log('PWA was installed');
       this.showInstallPrompt = false;
       this.deferredPrompt = null;
     });
@@ -50,8 +49,6 @@ export class InstallPromptComponent implements OnInit {
     // Wait for the user to respond to the prompt
     const { outcome } = await this.deferredPrompt.userChoice;
     
-    console.log(`User response to install prompt: ${outcome}`);
-
     // Clear the deferred prompt
     this.deferredPrompt = null;
     

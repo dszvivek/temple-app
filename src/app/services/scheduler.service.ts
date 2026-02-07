@@ -137,8 +137,6 @@ export class SchedulerService {
    * Trigger a scheduled chant
    */
   private triggerChant(schedule: ChantSchedule): void {
-    console.log(`Triggering scheduled chant: ${schedule.name}`);
-    
     // Call notification callback if registered
     if (this.notificationCallback) {
       this.notificationCallback(schedule);

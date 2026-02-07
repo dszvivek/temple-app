@@ -41,9 +41,9 @@ export const environment = {
     
     // Common Audio
     omChant: 'assets/audio/mantras/om-chant.mp3',
-    templeBell: 'assets/audio/effects/mandir_bell.wav',
-    shankh: 'assets/audio/ambient/shankh_drone.wav',
-    templeAmbience: 'assets/audio/temple_ambience.wav'
+    templeBell: 'assets/audio/effects/mandir_bell.mp3',
+    shankh: 'assets/audio/ambient/shankh_drone.mp3',
+    templeAmbience: 'assets/audio/temple_ambience.mp3'
   },
   
   // Image Assets - Deity-specific

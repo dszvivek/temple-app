@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { DeityService } from '../../services/deity.service';
+import { ToastService } from '../../services/toast.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 /**
@@ -46,7 +47,8 @@ export class ViralSharePromptComponent {
 
   constructor(
     public lang: LanguageService,
-    private deityService: DeityService
+    private deityService: DeityService,
+    private toastService: ToastService
   ) {
     this.loadShareCount();
   }
@@ -121,7 +123,7 @@ Visit and offer your prayer: ${window.location.origin}
         this.shared.emit();
         setTimeout(() => this.close(), 1500);
       } catch (err) {
-        console.log('Share cancelled or failed:', err);
+        // Share cancelled or failed
       }
     } else {
       // Fallback: Copy link to clipboard
@@ -182,9 +184,11 @@ Visit and offer your prayer: ${window.location.origin}
 🙏 Namaste 🚩`;
 
     navigator.clipboard.writeText(shareText).then(() => {
-      alert(this.lang.getCurrentLanguage() === 'hi' 
-        ? 'संदेश कॉपी हो गया! अब इसे 3 लोगों के साथ साझा करें।'
-        : 'Message copied! Now share it with 3 people.');
+      this.toastService.success(
+        this.lang.getCurrentLanguage() === 'hi' 
+          ? 'संदेश कॉपी हो गया! अब इसे 3 लोगों के साथ साझा करें।'
+          : 'Message copied! Now share it with 3 people.'
+      );
       this.incrementShareCount();
       this.shared.emit();
     });

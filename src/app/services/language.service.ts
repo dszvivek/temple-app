@@ -800,129 +800,156 @@ export class LanguageService {
   }
   
   /**
-   * Get deity-specific audio title (Hanuman Chalisa vs Ganesh Aarti)
+   * Private deity data map for all 5 deities
+   */
+  private readonly deityData: Record<DeityType, {
+    audioTitle: { hi: string; en: string };
+    enableAudio: { hi: string; en: string };
+    playing: { hi: string; en: string };
+    statusMsg: { hi: string; en: string };
+    name: { hi: string; en: string };
+    greeting: { hi: string; en: string };
+    chantButton: { hi: string; en: string };
+    chantInstructions: { hi: string; en: string };
+    ritualTitle: { hi: string; en: string };
+    blessing: { hi: string; en: string };
+  }> = {
+    [DeityType.HANUMAN]: {
+      audioTitle: { hi: 'हनुमान चालीसा', en: 'Hanuman Chalisa' },
+      enableAudio: { hi: 'हनुमान चालीसा स्वतः चलाएं – अपने घर को आशीर्वाद दें', en: 'Let Hanuman Chalisa Play Automatically – Bless Your Home' },
+      playing: { hi: 'हनुमान चालीसा का पाठ हो रहा है', en: 'Playing Hanuman Chalisa' },
+      statusMsg: { hi: 'हनुमान चालीसा हर घंटे स्वचालित रूप से चलती है', en: 'Hanuman Chalisa plays automatically every hour' },
+      name: { hi: 'श्री हनुमान जी', en: 'Lord Hanuman' },
+      greeting: { hi: 'जय श्री हनुमान', en: 'Jai Hanuman' },
+      chantButton: { hi: 'जय श्री हनुमान', en: 'Jai Hanuman' },
+      chantInstructions: { hi: '"जय श्री हनुमान" ११ बार श्रद्धा से जपें', en: 'Chant "Jai Hanuman" 11 times with devotion' },
+      ritualTitle: { hi: 'पवित्र हनुमान साधना', en: 'Sacred Hanuman Ritual' },
+      blessing: { hi: '✨ धन्यवाद! श्री हनुमान की विशेष कृपा आप पर बनी रहे', en: '✨ Thank You! May Shri Hanuman\'s Special Grace Be With You' }
+    },
+    [DeityType.GANESH]: {
+      audioTitle: { hi: 'गणेश आरती', en: 'Ganesh Aarti' },
+      enableAudio: { hi: 'गणेश आरती स्वतः चलाएं – अपने घर को आशीर्वाद दें', en: 'Let Ganesh Aarti Play Automatically – Bless Your Home' },
+      playing: { hi: 'गणेश आरती का पाठ हो रहा है', en: 'Playing Ganesh Aarti' },
+      statusMsg: { hi: 'गणेश आरती हर घंटे स्वचालित रूप से चलती है', en: 'Ganesh Aarti plays automatically every hour' },
+      name: { hi: 'श्री गणेश जी', en: 'Lord Ganesha' },
+      greeting: { hi: 'जय गणेश', en: 'Jai Ganesh' },
+      chantButton: { hi: 'जय गणेश', en: 'Jai Ganesh' },
+      chantInstructions: { hi: '"जय गणेश" ११ बार श्रद्धा से जपें', en: 'Chant "Jai Ganesh" 11 times with devotion' },
+      ritualTitle: { hi: 'पवित्र गणेश साधना', en: 'Sacred Ganesh Ritual' },
+      blessing: { hi: '✨ धन्यवाद! श्री गणेश की विशेष कृपा आप पर बनी रहे', en: '✨ Thank You! May Lord Ganesha\'s Special Grace Be With You' }
+    },
+    [DeityType.SHIVA]: {
+      audioTitle: { hi: 'शिव आरती', en: 'Shiva Aarti' },
+      enableAudio: { hi: 'शिव आरती स्वतः चलाएं – अपने घर को आशीर्वाद दें', en: 'Let Shiva Aarti Play Automatically – Bless Your Home' },
+      playing: { hi: 'शिव आरती का पाठ हो रहा है', en: 'Playing Shiva Aarti' },
+      statusMsg: { hi: 'शिव आरती हर घंटे स्वचालित रूप से चलती है', en: 'Shiva Aarti plays automatically every hour' },
+      name: { hi: 'भगवान शिव', en: 'Lord Shiva' },
+      greeting: { hi: 'ॐ नमः शिवाय', en: 'Om Namah Shivaya' },
+      chantButton: { hi: 'ॐ नमः शिवाय', en: 'Om Namah Shivaya' },
+      chantInstructions: { hi: '"ॐ नमः शिवाय" ११ बार श्रद्धा से जपें', en: 'Chant "Om Namah Shivaya" 11 times with devotion' },
+      ritualTitle: { hi: 'पवित्र शिव साधना', en: 'Sacred Shiva Ritual' },
+      blessing: { hi: '✨ धन्यवाद! भगवान शिव की विशेष कृपा आप पर बनी रहे', en: '✨ Thank You! May Lord Shiva\'s Special Grace Be With You' }
+    },
+    [DeityType.KRISHNA]: {
+      audioTitle: { hi: 'कृष्ण आरती', en: 'Krishna Aarti' },
+      enableAudio: { hi: 'कृष्ण आरती स्वतः चलाएं – अपने घर को आशीर्वाद दें', en: 'Let Krishna Aarti Play Automatically – Bless Your Home' },
+      playing: { hi: 'कृष्ण आरती का पाठ हो रहा है', en: 'Playing Krishna Aarti' },
+      statusMsg: { hi: 'कृष्ण आरती हर घंटे स्वचालित रूप से चलती है', en: 'Krishna Aarti plays automatically every hour' },
+      name: { hi: 'श्री कृष्ण जी', en: 'Lord Krishna' },
+      greeting: { hi: 'हरे कृष्ण', en: 'Hare Krishna' },
+      chantButton: { hi: 'हरे कृष्ण', en: 'Hare Krishna' },
+      chantInstructions: { hi: '"हरे कृष्ण" ११ बार श्रद्धा से जपें', en: 'Chant "Hare Krishna" 11 times with devotion' },
+      ritualTitle: { hi: 'पवित्र कृष्ण साधना', en: 'Sacred Krishna Ritual' },
+      blessing: { hi: '✨ धन्यवाद! श्री कृष्ण की विशेष कृपा आप पर बनी रहे', en: '✨ Thank You! May Lord Krishna\'s Special Grace Be With You' }
+    },
+    [DeityType.DURGA]: {
+      audioTitle: { hi: 'दुर्गा आरती', en: 'Durga Aarti' },
+      enableAudio: { hi: 'दुर्गा आरती स्वतः चलाएं – अपने घर को आशीर्वाद दें', en: 'Let Durga Aarti Play Automatically – Bless Your Home' },
+      playing: { hi: 'दुर्गा आरती का पाठ हो रहा है', en: 'Playing Durga Aarti' },
+      statusMsg: { hi: 'दुर्गा आरती हर घंटे स्वचालित रूप से चलती है', en: 'Durga Aarti plays automatically every hour' },
+      name: { hi: 'माँ दुर्गा', en: 'Goddess Durga' },
+      greeting: { hi: 'जय माता दी', en: 'Jai Mata Di' },
+      chantButton: { hi: 'जय माता दी', en: 'Jai Mata Di' },
+      chantInstructions: { hi: '"जय माता दी" ११ बार श्रद्धा से जपें', en: 'Chant "Jai Mata Di" 11 times with devotion' },
+      ritualTitle: { hi: 'पवित्र दुर्गा साधना', en: 'Sacred Durga Ritual' },
+      blessing: { hi: '✨ धन्यवाद! माँ दुर्गा की विशेष कृपा आप पर बनी रहे', en: '✨ Thank You! May Goddess Durga\'s Special Grace Be With You' }
+    }
+  };
+
+  private getDeityText(field: string): string {
+    const lang = this.currentLanguage.value;
+    const data = this.deityData[this.currentDeity] || this.deityData[DeityType.HANUMAN];
+    return (data as any)[field]?.[lang] || '';
+  }
+
+  /**
+   * Get deity-specific audio title
    */
   getAudioTitle(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' ? 'गणेश आरती' : 'Ganesh Aarti';
-    }
-    return lang === 'hi' ? 'हनुमान चालीसा' : 'Hanuman Chalisa';
+    return this.getDeityText('audioTitle');
   }
   
   /**
    * Get deity-specific enable audio button text
    */
   getEnableAudioText(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' 
-        ? 'गणेश आरती स्वतः चलाएं – अपने घर को आशीर्वाद दें'
-        : 'Let Ganesh Aarti Play Automatically – Bless Your Home';
-    }
-    return lang === 'hi'
-      ? 'हनुमान चालीसा स्वतः चलाएं – अपने घर को आशीर्वाद दें'
-      : 'Let Hanuman Chalisa Play Automatically – Bless Your Home';
+    return this.getDeityText('enableAudio');
   }
   
   /**
    * Get deity-specific "playing" status text
    */
   getPlayingText(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' ? 'गणेश आरती का पाठ हो रहा है' : 'Playing Ganesh Aarti';
-    }
-    return lang === 'hi' ? 'हनुमान चालीसा का पाठ हो रहा है' : 'Playing Hanuman Chalisa';
+    return this.getDeityText('playing');
   }
   
   /**
    * Get deity-specific status message
    */
   getStatusMessage(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' 
-        ? 'गणेश आरती हर घंटे सुबह 5 बजे से शाम 7 बजे तक चलती है'
-        : 'Ganesh Aarti plays automatically every hour from 5 AM to 7 PM';
-    }
-    return lang === 'hi'
-      ? 'हनुमान चालीसा हर घंटे सुबह 5 बजे से शाम 7 बजे तक चलती है'
-      : 'Hanuman Chalisa plays automatically every hour from 5 AM to 7 PM';
+    return this.getDeityText('statusMsg');
   }
   
   /**
    * Get deity name for general use
    */
   getDeityName(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' ? 'श्री गणेश जी' : 'Lord Ganesha';
-    }
-    return lang === 'hi' ? 'श्री हनुमान जी' : 'Lord Hanuman';
+    return this.getDeityText('name');
   }
   
   /**
    * Get deity-specific greeting
    */
   getDeityGreeting(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' ? 'जय गणेश' : 'Jai Ganesh';
-    }
-    return lang === 'hi' ? 'जय श्री हनुमान' : 'Jai Hanuman';
+    return this.getDeityText('greeting');
   }
   
   /**
    * Get deity-specific chant button text
    */
   getChantButtonText(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' ? 'जय गणेश' : 'Jai Ganesh';
-    }
-    return lang === 'hi' ? 'जय श्री हनुमान' : 'Jai Hanuman';
+    return this.getDeityText('chantButton');
   }
   
   /**
    * Get deity-specific chant instructions
    */
   getChantInstructions(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' 
-        ? '"जय गणेश" ११ बार श्रद्धा से जपें'
-        : 'Chant "Jai Ganesh" 11 times with devotion';
-    }
-    return lang === 'hi'
-      ? '"जय श्री हनुमान" ११ बार श्रद्धा से जपें'
-      : 'Chant "Jai Hanuman" 11 times with devotion';
+    return this.getDeityText('chantInstructions');
   }
   
   /**
    * Get deity-specific ritual title
    */
   getRitualTitle(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' ? 'पवित्र गणेश साधना' : 'Sacred Ganesh Ritual';
-    }
-    return lang === 'hi' ? 'पवित्र हनुमान साधना' : 'Sacred Hanuman Ritual';
+    return this.getDeityText('ritualTitle');
   }
   
   /**
    * Get deity-specific blessing text
    */
   getBlessingText(): string {
-    const lang = this.currentLanguage.value;
-    if (this.currentDeity === DeityType.GANESH) {
-      return lang === 'hi' 
-        ? '✨ धन्यवाद! श्री गणेश की विशेष कृपा आप पर बनी रहे'
-        : '✨ Thank You! May Lord Ganesha\'s Special Grace Be With You';
-    }
-    return lang === 'hi'
-      ? '✨ धन्यवाद! श्री हनुमान की विशेष कृपा आप पर बनी रहे'
-      : '✨ Thank You! May Shri Hanuman\'s Special Grace Be With You';
+    return this.getDeityText('blessing');
   }
 
   getCurrentLanguage(): Language {

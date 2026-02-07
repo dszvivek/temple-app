@@ -62,7 +62,6 @@ export class TempleBellService {
       }
 
       if (this.isMuted) {
-        console.log('Bell is muted');
         resolve();
         return;
       }
@@ -79,7 +78,6 @@ export class TempleBellService {
           playPromise
             .then(() => {
               // Successfully started playing
-              console.log('🔔 Temple bell ringing...');
               
               // Resolve when sound ends
               const endHandler = () => {

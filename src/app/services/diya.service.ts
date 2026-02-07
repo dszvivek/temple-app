@@ -124,7 +124,6 @@ export class DiyaService {
     // Award Punya Points for lighting a diya
     this.rewardsService.recordDiyaLit();
 
-    console.log(`🪔 Diya lit for ${trimmedName}`);
     return newDiya;
   }
 
@@ -164,7 +163,6 @@ export class DiyaService {
     
     if (removedCount > 0) {
       await this.saveDiyas(activeDiyas);
-      console.log(`🧹 Cleaned up ${removedCount} expired diya(s)`);
     }
     
     return removedCount;
@@ -234,7 +232,6 @@ export class DiyaService {
    */
   async clearAllDiyas(): Promise<void> {
     await this.saveDiyas([]);
-    console.log('🧹 All diyas cleared');
   }
 
   /**

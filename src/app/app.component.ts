@@ -68,7 +68,7 @@ import { filter } from 'rxjs/operators';
               {{ lang.t('footer.description') }}
             </p>
             <p class="footer-copyright">
-              {{ lang.t('footer.copyright') }}
+              © {{ currentYear }} Manokamna | Open Source PWA
             </p>
             <p class="footer-donate">
               <a routerLink="/donate" class="donate-link">
@@ -344,6 +344,7 @@ export class AppComponent implements OnInit {
   title = 'Manokamna';
   themeClasses = '';
   isInsideTemple = false; // Track if user is inside a temple page
+  currentYear = new Date().getFullYear();
 
   constructor(
     public lang: LanguageService,
@@ -362,7 +363,6 @@ export class AppComponent implements OnInit {
     
     // Initialize theme immediately
     this.themeClasses = this.themeService.getCurrentGradient();
-    console.log('🏛️ AppComponent initialized with theme classes:', this.themeClasses);
     
     // Initialize Firebase connection and presence tracking
     this.initializeBackend();
@@ -388,23 +388,18 @@ export class AppComponent implements OnInit {
   private initializeTemples(): void {
     // Register Hanuman Temple
     this.deityService.registerTemple(HANUMAN_CONFIG);
-    console.log('🙏 Hanuman Temple registered');
     
     // Register Ganesh Temple
     this.deityService.registerTemple(GANESH_CONFIG);
-    console.log('🐘 Ganesh Temple registered');
     
     // Register Shiva Temple
     this.deityService.registerTemple(SHIVA_CONFIG);
-    console.log('🔱 Shiva Temple registered');
     
     // Register Krishna Temple
     this.deityService.registerTemple(KRISHNA_CONFIG);
-    console.log('🦚 Krishna Temple registered');
     
     // Register Durga Temple
     this.deityService.registerTemple(DURGA_CONFIG);
-    console.log('🦁 Durga Temple registered');
   }
 
   /**
@@ -416,25 +411,20 @@ export class AppComponent implements OnInit {
     
     // Monitor global stats connection
     this.firebaseBackend.getGlobalStats().subscribe(stats => {
-      if (stats) {
-        console.log('📊 Connected to Firebase real-time stats:', stats);
-      } else {
-        console.log('📴 Using offline mode - Firebase not connected');
-      }
+      // Stats connected or using offline mode
     });
   }
 
   ngOnInit(): void {
-    // Subscribe to deity changes to update language context
+    // Subscribe to deity changes to update language and theme context
     this.deityService.currentDeity$.subscribe(deity => {
       this.lang.setDeityContext(deity.id);
-      console.log('🏛️ Deity context updated in app:', deity.name);
+      this.themeService.setDeity(deity.id);
     });
     
     // Subscribe to theme changes (re-evaluates every minute)
     this.themeService.currentTheme$.subscribe((theme) => {
       this.themeClasses = this.themeService.getCurrentGradient();
-      console.log('🎨 AppComponent theme updated:', theme.name, '| Classes:', this.themeClasses);
     });
   }
 

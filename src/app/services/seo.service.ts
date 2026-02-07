@@ -21,8 +21,8 @@ export class SeoService {
   private readonly pageSEOData: Record<string, PageSEO> = {
     '/': {
       title: 'Manokamna - Virtual Hindu Temple | Online Darshan & Prayers',
-      description: 'Experience divine blessings online at Manokamna. Choose from Hanuman Temple or Ganesh Temple. Light diyas, perform aarti, make wishes. Free 24/7 darshan.',
-      keywords: 'virtual temple, online darshan, hindu temple, hanuman, ganesh, spiritual, devotional'
+      description: 'Experience divine blessings online at Manokamna. Choose from Hanuman, Ganesh, Shiva, Krishna or Durga Temple. Light diyas, perform aarti, make wishes. Free 24/7 darshan.',
+      keywords: 'virtual temple, online darshan, hindu temple, hanuman, ganesh, shiva, krishna, durga, spiritual, devotional'
     },
     '/hanuman': {
       title: 'Virtual Hanuman Temple | Manokamna - Online Hanuman Darshan',
@@ -43,6 +43,36 @@ export class SeoService {
       title: 'Make a Wish to Ganesh Ji | Manokamna',
       description: 'Submit your prayers and wishes to Lord Ganesha. Seek blessings from Vighnaharta for success and obstacle removal at our virtual temple.',
       keywords: 'ganesh wish, pray to ganesha, ganpati prayers, mannat, vighnaharta blessings'
+    },
+    '/shiva': {
+      title: 'Virtual Shiva Temple | Manokamna - Online Mahadev Darshan',
+      description: 'Visit the Virtual Shiva Temple. Perform Shiva aarti, light diyas, and receive Mahadev blessings online. Om Namah Shivaya! 🔱',
+      keywords: 'shiva temple, mahadev, shiv mandir, om namah shivaya, shiva darshan, virtual shiva temple'
+    },
+    '/shiva/wish': {
+      title: 'Make a Wish to Lord Shiva | Manokamna',
+      description: 'Submit your prayers and wishes to Lord Shiva. Seek Mahadev blessings for peace and spiritual growth at our virtual temple.',
+      keywords: 'shiva wish, pray to shiva, mahadev prayers, om namah shivaya, shiva blessings'
+    },
+    '/krishna': {
+      title: 'Virtual Krishna Temple | Manokamna - Online Krishna Darshan',
+      description: 'Visit the Virtual Krishna Temple. Listen to Krishna bhajans, light diyas, and receive Govind blessings online. Hare Krishna! 🦚',
+      keywords: 'krishna temple, hare krishna, govind, krishna darshan, virtual krishna mandir, radhe krishna'
+    },
+    '/krishna/wish': {
+      title: 'Make a Wish to Lord Krishna | Manokamna',
+      description: 'Submit your prayers and wishes to Lord Krishna. Seek divine blessings from Govind for joy and wisdom at our virtual temple.',
+      keywords: 'krishna wish, pray to krishna, hare krishna prayers, govind blessings'
+    },
+    '/durga': {
+      title: 'Virtual Durga Temple | Manokamna - Online Maa Durga Darshan',
+      description: 'Visit the Virtual Durga Temple. Perform Durga aarti, light diyas, and receive Maa Durga blessings online. Jai Mata Di! 🦁',
+      keywords: 'durga temple, maa durga, durga mandir, jai mata di, durga darshan, virtual durga temple'
+    },
+    '/durga/wish': {
+      title: 'Make a Wish to Maa Durga | Manokamna',
+      description: 'Submit your prayers and wishes to Maa Durga. Seek divine protection and strength from Sherawali Maa at our virtual temple.',
+      keywords: 'durga wish, pray to durga, jai mata di, maa durga prayers, durga blessings'
     },
     '/donate': {
       title: 'Support Manokamna | Donate for Temple Development',

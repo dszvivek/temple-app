@@ -24,6 +24,7 @@ export enum WishCategory {
   EDUCATION = 'education',
   FAMILY = 'family',
   CAREER = 'career',
+  SPIRITUAL = 'spiritual',
   GENERAL = 'general'
 }
 

@@ -96,12 +96,9 @@ export class DiyaCounterService {
         const localStats = this.getLocalStatistics();
         this.todayCount$.next(localStats.today);
         this.monthCount$.next(localStats.month);
-        
-        console.log('🪔 Connected to Firebase diya counter:', stats.totalDiyas);
       } else {
         // Firebase not available, use local simulation
         if (!this.isConnectedToFirebase) {
-          console.log('🪔 Using local diya counter (Firebase unavailable)');
           this.startSimulation();
         }
       }
@@ -178,42 +175,19 @@ export class DiyaCounterService {
 
   /**
    * Simulate real-time updates from other users (fallback when Firebase unavailable)
-   * Only runs if not connected to Firebase
+   * Shows base count only - no fake incrementing
    */
   private startSimulation(): void {
-    // Only simulate if Firebase is not available
+    // Only show base stats if Firebase is not available
     if (this.isConnectedToFirebase) {
       return;
     }
     
-    // Increment every 5-10 seconds to create continuous activity
-    const incrementDiya = () => {
-      if (this.isConnectedToFirebase) {
-        // Stop simulation if Firebase connects
-        return;
-      }
-      
-      const stats = this.getLocalStatistics();
-      // Randomly increment by 1 or 2
-      const increment = Math.random() > 0.6 ? 2 : 1;
-      stats.total += increment;
-      stats.today += increment;
-      stats.month += increment;
-      this.saveStatistics(stats);
-      
-      // Update observables
-      this.totalCount$.next(stats.total);
-      this.todayCount$.next(stats.today);
-      this.monthCount$.next(stats.month);
-      
-      // Schedule next increment after random delay (5-10 seconds)
-      const nextDelay = 5000 + Math.random() * 5000;
-      setTimeout(incrementDiya, nextDelay);
-    };
-    
-    // Start the auto-increment cycle
-    const initialDelay = 3000 + Math.random() * 3000;
-    setTimeout(incrementDiya, initialDelay);
+    // Just load and display stored stats without fake incrementing
+    const stats = this.getLocalStatistics();
+    this.totalCount$.next(stats.total);
+    this.todayCount$.next(stats.today);
+    this.monthCount$.next(stats.month);
   }
 }
 

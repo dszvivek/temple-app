@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { FirebaseBackendService } from '../../services/firebase-backend.service';
+import { ToastService } from '../../services/toast.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -20,7 +21,8 @@ export class DonateComponent implements OnInit {
 
   constructor(
     public lang: LanguageService,
-    private firebaseBackend: FirebaseBackendService
+    private firebaseBackend: FirebaseBackendService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,9 @@ export class DonateComponent implements OnInit {
 
   copyUpiId(): void {
     navigator.clipboard.writeText(this.upiId).then(() => {
-      alert(this.lang.getCurrentLanguage() === 'hi' ? 'UPI ID कॉपी हो गया!' : 'UPI ID copied!');
+      this.toastService.success(
+        this.lang.getCurrentLanguage() === 'hi' ? 'UPI ID कॉपी हो गया!' : 'UPI ID copied!'
+      );
     });
   }
 
@@ -50,13 +54,13 @@ export class DonateComponent implements OnInit {
    */
   async logDonation(): Promise<void> {
     if (this.donationAmount <= 0) {
-      alert('Please enter a valid donation amount');
+      this.toastService.warning('Please enter a valid donation amount');
       return;
     }
 
     try {
       await this.firebaseBackend.logDonation(this.donationAmount, this.donationPurpose);
-      alert(
+      this.toastService.success(
         this.lang.getCurrentLanguage() === 'hi'
           ? 'धन्यवाद! आपका दान दर्ज किया गया। 🙏'
           : 'Thank you! Your donation has been recorded. 🙏'
