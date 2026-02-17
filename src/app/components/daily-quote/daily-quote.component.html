@@ -32,5 +32,10 @@
     <p class="quote-instruction">
       {{ lang.getCurrentLanguage() === 'hi' ? 'इस ज्ञान को अपने दिन में अपनाएं 🙏' : 'Embrace this wisdom in your day 🙏' }}
     </p>
+    
+    <button class="share-quote-btn" (click)="shareQuote($event)">
+      <span>📤</span>
+      <span>{{ lang.getCurrentLanguage() === 'hi' ? 'WhatsApp पर भेजें' : 'Share on WhatsApp' }}</span>
+    </button>
   </div>
 </div>

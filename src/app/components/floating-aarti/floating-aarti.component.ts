@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
 import { AudioStateService } from '../../services/audio-state.service';
+import { DailyEngagementService } from '../../services/daily-engagement.service';
+import { DigitalPrasadService } from '../../services/digital-prasad.service';
+import { DeityService } from '../../services/deity.service';
 
 @Component({
   selector: 'app-floating-aarti',
@@ -39,7 +42,10 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
 
   constructor(
     private rewardsService: DevoteeRewardsService,
-    private audioStateService: AudioStateService
+    private audioStateService: AudioStateService,
+    private engagement: DailyEngagementService,
+    private prasadService: DigitalPrasadService,
+    private deityService: DeityService
   ) {}
 
   ngOnInit(): void {}
@@ -114,6 +120,15 @@ export class FloatingAartiComponent implements OnInit, OnDestroy {
     
     // Award points
     this.rewardsService.recordAartiPerformed();
+    
+    // Track engagement
+    this.engagement.recordAction('aarti');
+    
+    // Award digital prasad after aarti
+    const deityName = this.deityService.getCurrentDeity()?.name || 'Temple';
+    setTimeout(() => {
+      this.prasadService.awardPrasad(deityName);
+    }, 1000);
     
     // Auto close after showing completion
     setTimeout(() => {

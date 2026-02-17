@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeityService } from '../../services/deity.service';
 import { LanguageService } from '../../services/language.service';
+import { SmartShareService } from '../../services/smart-share.service';
+import { DailyEngagementService } from '../../services/daily-engagement.service';
 import { DeityType } from '../../models/deity.model';
 import { Deity } from '../../models/deity.model';
 
@@ -17,7 +19,9 @@ export class TempleSelectorComponent implements OnInit {
   constructor(
     private router: Router,
     private deityService: DeityService,
-    public lang: LanguageService
+    public lang: LanguageService,
+    private shareService: SmartShareService,
+    private engagement: DailyEngagementService
   ) {}
 
   ngOnInit(): void {
@@ -92,5 +96,12 @@ export class TempleSelectorComponent implements OnInit {
       case DeityType.DURGA: return 'bg-red-600 hover:bg-red-700';
       default: return 'bg-orange-600 hover:bg-orange-700';
     }
+  }
+
+  /**
+   * Share app via WhatsApp
+   */
+  shareApp(): void {
+    this.shareService.shareOnWhatsApp();
   }
 }

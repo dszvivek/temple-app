@@ -4,8 +4,8 @@
 
 .daily-quote-container {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 80px;
+  left: 12px;
   z-index: 90;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -247,4 +247,33 @@
 
 .quote-full:hover::before {
   opacity: 1;
+}
+
+/* Share Quote Button */
+.share-quote-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+}
+
+.share-quote-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5);
+}
+
+.share-quote-btn:active {
+  transform: scale(0.98);
 }

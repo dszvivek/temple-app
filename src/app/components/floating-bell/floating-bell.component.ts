@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TempleBellService } from '../../services/temple-bell.service';
 import { TempleScheduleService } from '../../services/temple-schedule.service';
+import { DailyEngagementService } from '../../services/daily-engagement.service';
 import { Subscription } from 'rxjs';
 
 /**
@@ -25,7 +26,8 @@ export class FloatingBellComponent implements OnInit, OnDestroy {
 
   constructor(
     private bellService: TempleBellService,
-    private scheduleService: TempleScheduleService
+    private scheduleService: TempleScheduleService,
+    private engagement: DailyEngagementService
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,9 @@ export class FloatingBellComponent implements OnInit, OnDestroy {
     
     // Play bell sound
     this.bellService.ringBell();
+    
+    // Track engagement
+    this.engagement.recordAction('bell');
     
     // Trigger vibration on mobile devices
     if ('vibrate' in navigator) {

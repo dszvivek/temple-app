@@ -23,14 +23,16 @@ export class AudioPlayerService {
   private readonly MUTE_STATE_KEY = 'temple-audio-muted';
   private readonly VOLUME_STATE_KEY = 'temple-audio-volume';
   
-  // Audio file mapping by deity - uses existing audio as fallback until new files are added
+  // Audio file mapping by deity
+  // Available MP3s: hanuman-chalisa.mp3, ganesh-aarti.mp3, temple_ambience.mp3, mandir_bell.mp3, shankh_drone.mp3
+  // Shiva/Krishna/Durga use ganesh-aarti as fallback until dedicated audio files are added
+  // To add: place shiva-aarti.mp3, krishna-aarti.mp3, durga-aarti.mp3 in assets/audio/aarti/
   private readonly DEITY_AUDIO_FILES: Record<DeityType, string> = {
     [DeityType.HANUMAN]: 'assets/audio/mantras/hanuman-chalisa.mp3',
     [DeityType.GANESH]: 'assets/audio/aarti/ganesh-aarti.mp3',
-    // New deities - fallback to existing audio until dedicated files are added
-    [DeityType.SHIVA]: 'assets/audio/aarti/ganesh-aarti.mp3',    // TODO: Replace with shiva-aarti.mp3
-    [DeityType.KRISHNA]: 'assets/audio/aarti/ganesh-aarti.mp3',  // TODO: Replace with krishna-aarti.mp3
-    [DeityType.DURGA]: 'assets/audio/aarti/ganesh-aarti.mp3'     // TODO: Replace with durga-aarti.mp3
+    [DeityType.SHIVA]: 'assets/audio/aarti/ganesh-aarti.mp3',
+    [DeityType.KRISHNA]: 'assets/audio/aarti/ganesh-aarti.mp3',
+    [DeityType.DURGA]: 'assets/audio/aarti/ganesh-aarti.mp3'
   };
   
   // Hourly schedule info
@@ -40,12 +42,13 @@ export class AudioPlayerService {
   public minutesIntoHour = 0;
 
   // Audio duration (in seconds) - varies by deity
+  // Note: Shiva/Krishna/Durga currently use ganesh-aarti (150s) as fallback
   private readonly AUDIO_DURATIONS: Record<DeityType, number> = {
     [DeityType.HANUMAN]: 512, // 8:32 - Hanuman Chalisa
     [DeityType.GANESH]: 150,  // 2:30 - Ganesh Aarti
-    [DeityType.SHIVA]: 300,   // 5:00 - Shiva Aarti
-    [DeityType.KRISHNA]: 300, // 5:00 - Krishna Aarti
-    [DeityType.DURGA]: 300    // 5:00 - Durga Aarti
+    [DeityType.SHIVA]: 150,   // 2:30 - Using Ganesh Aarti (fallback)
+    [DeityType.KRISHNA]: 150, // 2:30 - Using Ganesh Aarti (fallback)
+    [DeityType.DURGA]: 150    // 2:30 - Using Ganesh Aarti (fallback)
   };
   
   // 24/7 operation - no time restrictions

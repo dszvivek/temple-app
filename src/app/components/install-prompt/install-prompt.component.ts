@@ -24,8 +24,8 @@ export class InstallPromptComponent implements OnInit {
       // Save the event for later use
       this.deferredPrompt = e;
       
-      // Show custom install prompt (set to false to disable completely)
-      this.showInstallPrompt = false; // Changed from true to false
+      // Show custom install prompt
+      this.showInstallPrompt = true;
     });
 
     // Listen for app installed event

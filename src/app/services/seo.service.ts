@@ -15,7 +15,7 @@ interface PageSEO {
 })
 export class SeoService {
   private readonly baseUrl = 'https://manokamna.online';
-  private readonly defaultImage = '/assets/images/og-image.svg';
+  private readonly defaultImage = '/assets/icons/pwa/icon-512x512.png';
   
   // SEO data for each route
   private readonly pageSEOData: Record<string, PageSEO> = {
@@ -173,8 +173,13 @@ export class SeoService {
 
   /**
    * Add structured data for specific pages
+   * Removes any previous structured data script to prevent memory leaks
    */
   addStructuredData(data: object): void {
+    // Remove existing ld+json scripts first to prevent accumulation
+    const existing = document.querySelectorAll('script[type="application/ld+json"]');
+    existing.forEach(el => el.remove());
+    
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify(data);

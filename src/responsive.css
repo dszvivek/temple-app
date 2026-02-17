@@ -197,17 +197,18 @@
 @media (orientation: landscape) and (max-height: 600px) {
   /* Reduce vertical spacing in landscape */
   .py-8 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
   }
   
-  .mb-12 {
-    margin-bottom: 2rem;
+  .mb-8, .mb-12 {
+    margin-bottom: 1rem !important;
   }
   
   /* Compact headers */
   .temple-header {
-    margin-bottom: 0.5rem;
+    font-size: 1.75rem !important;
+    margin-bottom: 0.5rem !important;
   }
   
   .temple-subheader {
@@ -217,92 +218,39 @@
 
 /* High DPI screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Optimize images for retina displays */
-  img {
-    image-rendering: -webkit-optimize-contrast;
-  }
-}
-
-/* Dark mode support (future enhancement) */
-@media (prefers-color-scheme: dark) {
-  /* Placeholder for dark mode styles */
-  /* Can be implemented later */
-}
-
-/* Print styles */
-@media print {
-  /* Hide interactive elements */
-  .fab, button, .floating-bell-btn, .floating-shankh-btn {
-    display: none !important;
-  }
-  
-  /* Optimize for print */
-  body {
-    background: white;
-  }
-  
-  .card {
-    box-shadow: none;
-    border: 1px solid #e5e7eb;
-  }
-}
-
-/* Large Screens (> 1440px) */
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-/* Landscape mode optimizations */
-@media (orientation: landscape) and (max-height: 600px) {
-  /* Reduce vertical spacing */
-  .mb-8, .mb-12 {
-    margin-bottom: 1rem !important;
-  }
-  
-  .py-8 {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-  }
-  
-  /* Compact headers */
-  .temple-header {
-    font-size: 1.75rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-}
-
-/* Print Styles */
-@media print {
-  /* Hide non-essential elements */
-  button, .btn-primary, .btn-secondary, 
-  footer, .loading-screen {
-    display: none !important;
-  }
-  
-  /* Optimize for paper */
-  body {
-    background: white;
-    color: black;
-  }
-  
-  .card {
-    border: 1px solid #ddd;
-    page-break-inside: avoid;
-  }
-}
-
-/* High DPI Displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Sharper images */
   img {
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
   }
 }
 
-/* Reduced Motion Preference */
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+  /* Keep temple theme light for now */
+}
+
+/* Print styles */
+@media print {
+  /* Hide interactive elements */
+  .fab, button, .btn-primary, .btn-secondary,
+  .floating-bell-btn, .floating-shankh-btn,
+  footer, .loading-screen {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+}
+
+/* Reduced Motion Preference (global) */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

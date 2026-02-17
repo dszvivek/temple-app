@@ -35,9 +35,9 @@ export class AmbientAudioService {
   private ambiencePlaying = new BehaviorSubject<boolean>(false);
   public isAmbiencePlaying$ = this.ambiencePlaying.asObservable();
   
-  // Temple hours: 5 AM to 7 PM
-  private readonly TEMPLE_OPEN_HOUR = 5;
-  private readonly TEMPLE_CLOSE_HOUR = 19;
+  // Temple operates 24/7 - ambient audio always available
+  private readonly TEMPLE_OPEN_HOUR = 0;
+  private readonly TEMPLE_CLOSE_HOUR = 24;
   
   private templeOpenSubject = new BehaviorSubject<boolean>(this.checkIfTempleOpen());
   public isTempleOpen$: Observable<boolean> = this.templeOpenSubject.asObservable();
@@ -250,12 +250,10 @@ export class AmbientAudioService {
   }
 
   /**
-   * Check if temple is currently open (5 AM - 7 PM)
+   * Check if temple is currently open (24/7 - always open)
    */
   private checkIfTempleOpen(): boolean {
-    const now = new Date();
-    const currentHour = now.getHours();
-    return currentHour >= this.TEMPLE_OPEN_HOUR && currentHour < this.TEMPLE_CLOSE_HOUR;
+    return true; // Temple operates 24/7
   }
 
   /**

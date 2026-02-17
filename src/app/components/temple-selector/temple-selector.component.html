@@ -122,6 +122,19 @@
 
     </div>
 
+    <!-- ===== TODAY'S SPIRITUAL DASHBOARD ===== -->
+    <app-today-dashboard></app-today-dashboard>
+
+    <!-- Quick Share Section -->
+    <div class="text-center mt-4 mb-4">
+      <button 
+        (click)="shareApp()"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95">
+        <span>📤</span>
+        <span>{{ lang.getCurrentLanguage() === 'hi' ? 'WhatsApp पर भेजें' : 'Share on WhatsApp' }}</span>
+      </button>
+    </div>
+
     <!-- Footer Info -->
     <div class="text-center bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-gray-200 shadow-sm">
       <p class="text-sm text-gray-600">

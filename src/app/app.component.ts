@@ -53,10 +53,16 @@ import { filter } from 'rxjs/operators';
       
       <!-- ========== MAIN SCROLLABLE CONTENT ========== -->
       <main class="main-content" [@slideInAnimation]="getRouteAnimationData()">
+        <!-- Streak & Engagement Banner -->
+        <app-streak-banner></app-streak-banner>
+        
         <!-- Daily Spiritual Quote -->
         <app-daily-quote></app-daily-quote>
         
         <router-outlet></router-outlet>
+        
+        <!-- Prasad Collection -->
+        <app-prasad-collection></app-prasad-collection>
         
         <!-- Enhanced Footer -->
         <footer class="app-footer">
@@ -101,6 +107,9 @@ import { filter } from 'rxjs/operators';
           </div>
         </div>
       </nav>
+      
+      <!-- Notification Permission Prompt -->
+      <app-notification-prompt></app-notification-prompt>
       
       <!-- Simpler bottom bar for non-temple pages -->
       <nav class="bottom-action-bar bottom-bar-simple" *ngIf="!isInsideTemple">

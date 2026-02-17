@@ -45,7 +45,7 @@ export class AudioPlayerComponent implements OnInit, OnDestroy {
   togglePlayback(): void {
     this.audioService.toggleManualPlayback();
     if (this.audioService.isPlaying) {
-      this.toast.info('🙏 Hanuman Chalisa playing...');
+      this.toast.info(`🙏 ${this.audioService.getAudioName()} playing...`);
     } else {
       this.toast.info('⏸️ Playback paused');
     }

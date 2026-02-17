@@ -29,6 +29,10 @@ import { ToastComponent } from './components/toast/toast.component';
 import { PunyaPointsDisplayComponent } from './components/punya-points-display/punya-points-display.component';
 import { DailyQuoteComponent } from './components/daily-quote/daily-quote.component';
 import { GlobalMuteComponent } from './components/global-mute/global-mute.component';
+import { TodayDashboardComponent } from './components/today-dashboard/today-dashboard.component';
+import { StreakBannerComponent } from './components/streak-banner/streak-banner.component';
+import { NotificationPromptComponent } from './components/notification-prompt/notification-prompt.component';
+import { PrasadCollectionComponent } from './components/prasad-collection/prasad-collection.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { GlobalMuteComponent } from './components/global-mute/global-mute.compon
     OfflineIndicatorComponent,
     ToastComponent,
     PunyaPointsDisplayComponent,
-    DailyQuoteComponent
+    DailyQuoteComponent,
+    TodayDashboardComponent,
+    StreakBannerComponent,
+    NotificationPromptComponent,
+    PrasadCollectionComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,38 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
+  // Safelist dynamic classes used in deity configs (applied via JS, not found in templates by Tailwind scanner)
+  safelist: [
+    // Gradient direction
+    'bg-gradient-to-b',
+    // Hanuman gradients (orange theme)
+    'from-orange-200', 'via-pink-100', 'to-yellow-50',
+    'from-red-100', 'via-orange-50', 'to-white',
+    'from-orange-400', 'via-pink-200', 'to-purple-100',
+    'from-orange-900', 'via-red-900', 'to-gray-900',
+    // Ganesh gradients (red/orange theme)
+    'from-red-200', 'via-orange-100',
+    'from-amber-100', 'via-yellow-50',
+    'from-red-400', 'via-orange-200', 'to-yellow-100',
+    'from-red-900', 'via-orange-900',
+    // Shiva gradients (blue/indigo theme)
+    'from-blue-200', 'via-indigo-100', 'to-purple-50',
+    'from-blue-100', 'via-indigo-50',
+    'from-indigo-400', 'via-purple-200', 'to-pink-100',
+    'from-indigo-900', 'via-purple-900',
+    // Krishna gradients (blue/cyan theme)
+    'from-blue-300', 'via-cyan-100',
+    'from-sky-100', 'via-blue-50',
+    'from-blue-400', 'to-orange-100',
+    'from-blue-900', 'via-indigo-900',
+    // Durga gradients (red/pink theme)
+    'via-pink-50', 'to-orange-50',
+    'from-red-100',
+    'to-orange-100',
+    'via-pink-900',
+    // Common
+    'to-white', 'to-gray-900',
+  ],
   theme: {
     extend: {
       colors: {

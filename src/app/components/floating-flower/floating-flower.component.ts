@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PetalService } from '../../services/petal.service';
 import { LanguageService } from '../../services/language.service';
+import { DailyEngagementService } from '../../services/daily-engagement.service';
 
 /**
  * FloatingFlowerComponent - A floating button to offer flowers on deity images
@@ -16,7 +17,8 @@ export class FloatingFlowerComponent {
   constructor(
     private router: Router,
     private petalService: PetalService,
-    public lang: LanguageService
+    public lang: LanguageService,
+    private engagement: DailyEngagementService
   ) {}
 
   /**
@@ -29,6 +31,9 @@ export class FloatingFlowerComponent {
     
     // Trigger flower offering
     this.petalService.addOffering(container, 8);
+    
+    // Track engagement
+    this.engagement.recordAction('flowers');
     
     // Haptic feedback if available
     if ('vibrate' in navigator) {

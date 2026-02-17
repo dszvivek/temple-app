@@ -28,33 +28,12 @@ export class TempleScheduleService {
     closeMinute: 0
   };
 
-  // Hanuman Chalisa plays every hour, 24/7
-  private readonly chalisaTimes = [
-    { hour: 0, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 1, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 2, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 3, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 4, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 5, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 6, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 7, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 8, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 9, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 10, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 11, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 12, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 13, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 14, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 15, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 16, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 17, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 18, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 19, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 20, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 21, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 22, minute: 0, label: 'Hanuman Chalisa' },
-    { hour: 23, minute: 0, label: 'Hanuman Chalisa' }
-  ];
+  // Sacred audio plays every hour, 24/7
+  private readonly chalisaTimes = Array.from({ length: 24 }, (_, hour) => ({
+    hour,
+    minute: 0,
+    label: 'Sacred Chant'
+  }));
 
   // Aarti times for notifications (Morning, Afternoon, Evening)
   private readonly aartiTimes = [
@@ -114,7 +93,7 @@ export class TempleScheduleService {
     } else {
       // Next chalisa is tomorrow at midnight
       nextEventTime = this.getTimeTomorrow(0, 0);
-      eventLabel = 'Hanuman Chalisa';
+      eventLabel = 'Sacred Chant';
     }
 
     return {
