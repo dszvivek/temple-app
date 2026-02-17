@@ -59,7 +59,11 @@ export interface HinduFestival {
   providedIn: 'root'
 })
 export class HinduCalendarService {
-  private panchangSubject = new BehaviorSubject<PanchangData>(this.calculatePanchang(new Date()));
+  // Initialized to null! — constructor calls updatePanchang() immediately after all
+  // class fields (TITHIS, NAKSHATRAS, YOGAS…) are assigned, so subscribers always
+  // get a valid value. Calling calculatePanchang() here would crash because the
+  // readonly arrays below are not yet assigned at field-initializer time.
+  private panchangSubject = new BehaviorSubject<PanchangData>(null!);
   public panchang$ = this.panchangSubject.asObservable();
   
   private festivalsSubject = new BehaviorSubject<HinduFestival[]>([]);
@@ -159,6 +163,14 @@ export class HinduCalendarService {
   }
 
   /**
+   * Safe modulo that always returns a non-negative integer index within [0, length)
+   */
+  private safeIdx(value: number, length: number): number {
+    const mod = ((Math.floor(value) % length) + length) % length;
+    return Math.min(Math.max(mod, 0), length - 1);
+  }
+
+  /**
    * Calculate Panchang for a given date
    * Uses algorithmic approximation based on lunar cycles
    */
@@ -169,19 +181,21 @@ export class HinduCalendarService {
     
     // Approximate tithi from lunar phase (29.53 day synodic month)
     const lunarAge = this.getLunarAge(date);
-    const tithiIndex = Math.floor(lunarAge / 2) % 15;
+    const tithiIndex = this.safeIdx(lunarAge / 2, 15);
     const paksha = lunarAge < 15 ? 'Shukla' : 'Krishna';
     
-    // Approximate nakshatra (27 nakshatras over ~27.32 day sidereal month)
-    const nakshatraIndex = Math.floor((dayOfYear * 27.32 / 365.25 + year * 13.37) % 27);
+    // Approximate nakshatra — use only dayOfYear to avoid large-number float drift
+    const nakshatraRaw = (dayOfYear * 27.32 / 365.25) + (year % 100) * 3.7;
+    const nakshatraIndex = this.safeIdx(nakshatraRaw, 27);
     const nakshatra = this.NAKSHATRAS[nakshatraIndex];
     
-    // Approximate yoga
-    const yogaIndex = Math.floor((dayOfYear * 27 / 365.25 + year * 7.5) % 27);
+    // Approximate yoga — same safe approach
+    const yogaRaw = (dayOfYear * 27 / 365.25) + (year % 100) * 2.1;
+    const yogaIndex = this.safeIdx(yogaRaw, 27);
     const yoga = this.YOGAS[yogaIndex];
     
     // Hindu month approximation
-    const hinduMonthIndex = Math.floor((date.getMonth() + (date.getDate() > 14 ? 1 : 0)) % 12);
+    const hinduMonthIndex = this.safeIdx(date.getMonth() + (date.getDate() > 14 ? 1 : 0), 12);
     const hinduMonth = this.HINDU_MONTHS[hinduMonthIndex];
     
     // Vara (day of week)
