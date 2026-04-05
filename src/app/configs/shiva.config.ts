@@ -28,7 +28,7 @@ export const SHIVA_CONFIG: TempleConfig = {
       deityId: DeityType.SHIVA,
       name: 'Shiv Aarti',
       nameHindi: 'शिव आरती',
-      audioFile: 'assets/audio/aarti/shiva-aarti.mp3',
+      audioFile: 'assets/audio/shiva/shiva-aarti.mp3',
       duration: 300, // 5 minutes
       schedule: {
         frequency: 'hourly',

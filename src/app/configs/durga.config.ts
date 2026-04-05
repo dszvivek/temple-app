@@ -28,7 +28,7 @@ export const DURGA_CONFIG: TempleConfig = {
       deityId: DeityType.DURGA,
       name: 'Durga Aarti',
       nameHindi: 'दुर्गा आरती',
-      audioFile: 'assets/audio/aarti/durga-aarti.mp3',
+      audioFile: 'assets/audio/durga/durga-aarti.mp3',
       duration: 270, // 4.5 minutes
       schedule: {
         frequency: 'hourly',

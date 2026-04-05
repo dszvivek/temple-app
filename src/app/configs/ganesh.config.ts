@@ -40,7 +40,7 @@ export const GANESH_CONFIG: TempleConfig = {
       deityId: DeityType.GANESH,
       name: 'Om Gam Ganapataye Namaha',
       nameHindi: 'ॐ गं गणपतये नमः',
-      audioFile: 'assets/audio/mantras/ganesh-mantra.mp3',
+      audioFile: 'assets/audio/ganesha/ganesh-aarti.mp3',
       duration: 120, // 2 minutes
       schedule: {
         frequency: 'custom',

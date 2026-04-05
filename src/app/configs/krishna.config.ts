@@ -28,7 +28,7 @@ export const KRISHNA_CONFIG: TempleConfig = {
       deityId: DeityType.KRISHNA,
       name: 'Krishna Aarti',
       nameHindi: 'कृष्ण आरती',
-      audioFile: 'assets/audio/aarti/krishna-aarti.mp3',
+      audioFile: 'assets/audio/krishna/krishna-aarti.mp3',
       duration: 240, // 4 minutes
       schedule: {
         frequency: 'hourly',
