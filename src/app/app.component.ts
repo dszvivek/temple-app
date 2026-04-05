@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { filter } from 'rxjs/operators';
 import { LanguageService } from './services/language.service';
 import { ThemeService } from './services/theme.service';
 import { DeityService } from './services/deity.service';
@@ -12,7 +14,7 @@ import { SHIVA_CONFIG } from './configs/shiva.config';
 import { KRISHNA_CONFIG } from './configs/krishna.config';
 import { DURGA_CONFIG } from './configs/durga.config';
 import { slideInAnimation } from './animations/route-animations';
-import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-root',
@@ -362,7 +364,8 @@ export class AppComponent implements OnInit {
     private firebaseBackend: FirebaseBackendService,
     private liveStats: LiveStatsService,
     private router: Router,
-    private seoService: SeoService
+    private seoService: SeoService,
+    private swUpdate: SwUpdate
   ) {
     // Initialize SEO service for dynamic meta tags
     this.seoService.init();
@@ -425,6 +428,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Auto-reload when a new app version is available via service worker
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.pipe(
+        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
+      ).subscribe(() => {
+        this.swUpdate.activateUpdate().then(() => document.location.reload());
+      });
+
+      // Poll for updates every 5 minutes
+      setInterval(() => this.swUpdate.checkForUpdate(), 5 * 60 * 1000);
+    }
+
     // Subscribe to deity changes to update language and theme context
     this.deityService.currentDeity$.subscribe(deity => {
       this.lang.setDeityContext(deity.id);

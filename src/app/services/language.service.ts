@@ -89,6 +89,7 @@ export interface Translations {
     family: string;
     wealth: string;
     spiritual: string;
+    general: string;
     description: string;
     descriptionPlaceholder: string;
     selectOffering: string;
