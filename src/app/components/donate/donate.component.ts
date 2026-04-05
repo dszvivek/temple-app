@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as QRCode from 'qrcode';
 import { LanguageService } from '../../services/language.service';
 import { FirebaseBackendService } from '../../services/firebase-backend.service';
 import { ToastService } from '../../services/toast.service';
@@ -26,12 +27,10 @@ export class DonateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Generate UPI payment URL
     this.upiUrl = `upi://pay?pa=${this.upiId}&pn=Temple%20App&cu=INR`;
-    
-    // Generate QR code URL using a public QR code API
-    const encodedUpiUrl = encodeURIComponent(this.upiUrl);
-    this.qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedUpiUrl}`;
+    QRCode.toDataURL(this.upiUrl, { width: 300, margin: 2 })
+      .then(url => { this.qrCodeUrl = url; })
+      .catch(() => { this.qrCodeUrl = ''; });
   }
 
   copyUpiId(): void {

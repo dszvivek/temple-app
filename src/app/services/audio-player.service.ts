@@ -24,16 +24,19 @@ export class AudioPlayerService {
   private readonly VOLUME_STATE_KEY = 'temple-audio-volume';
   
   // Audio file mapping by deity
-  // Available MP3s: hanuman-chalisa.mp3, ganesh-aarti.mp3, temple_ambience.mp3, mandir_bell.mp3, shankh_drone.mp3
-  // Shiva/Krishna/Durga use ganesh-aarti as fallback until dedicated audio files are added
-  // To add: place shiva-aarti.mp3, krishna-aarti.mp3, durga-aarti.mp3 in assets/audio/aarti/
+  // Shiva/Krishna/Durga: place shiva-aarti.mp3, krishna-aarti.mp3, durga-aarti.mp3
+  // in assets/audio/shiva/, assets/audio/krishna/, assets/audio/durga/ respectively
+  // to replace the shared sacred aarti used as fallback.
   private readonly DEITY_AUDIO_FILES: Record<DeityType, string> = {
     [DeityType.HANUMAN]: 'assets/audio/mantras/hanuman-chalisa.mp3',
     [DeityType.GANESH]: 'assets/audio/aarti/ganesh-aarti.mp3',
-    [DeityType.SHIVA]: 'assets/audio/aarti/ganesh-aarti.mp3',
-    [DeityType.KRISHNA]: 'assets/audio/aarti/ganesh-aarti.mp3',
-    [DeityType.DURGA]: 'assets/audio/aarti/ganesh-aarti.mp3'
+    [DeityType.SHIVA]: 'assets/audio/shiva/shiva-aarti.mp3',
+    [DeityType.KRISHNA]: 'assets/audio/krishna/krishna-aarti.mp3',
+    [DeityType.DURGA]: 'assets/audio/durga/durga-aarti.mp3'
   };
+
+  // Fallback audio used when a deity-specific file is not yet available
+  private readonly FALLBACK_AUDIO = 'assets/audio/aarti/ganesh-aarti.mp3';
   
   // Hourly schedule info
   public nextChantTime: Date | null = null;
@@ -42,13 +45,12 @@ export class AudioPlayerService {
   public minutesIntoHour = 0;
 
   // Audio duration (in seconds) - varies by deity
-  // Note: Shiva/Krishna/Durga currently use ganesh-aarti (150s) as fallback
   private readonly AUDIO_DURATIONS: Record<DeityType, number> = {
     [DeityType.HANUMAN]: 512, // 8:32 - Hanuman Chalisa
     [DeityType.GANESH]: 150,  // 2:30 - Ganesh Aarti
-    [DeityType.SHIVA]: 150,   // 2:30 - Using Ganesh Aarti (fallback)
-    [DeityType.KRISHNA]: 150, // 2:30 - Using Ganesh Aarti (fallback)
-    [DeityType.DURGA]: 150    // 2:30 - Using Ganesh Aarti (fallback)
+    [DeityType.SHIVA]: 300,   // ~5:00 - Om Jai Shiv Omkara (Anuradha Paudwal)
+    [DeityType.KRISHNA]: 258, // ~4:18 - Aarti Kunj Bihari Ki (Hari Om Sharan)
+    [DeityType.DURGA]: 384    // ~6:24 - Jai Ambe Gauri Aarti
   };
   
   // 24/7 operation - no time restrictions
@@ -184,7 +186,7 @@ export class AudioPlayerService {
     this.audio.volume = this.isMuted ? 0 : this.volume;
     this.audio.loop = false;
     this.audioEnabled = true;
-    
+
     // Setup event listeners
     this.audio.addEventListener('ended', () => {
       this.isPlaying = false;
@@ -192,10 +194,14 @@ export class AudioPlayerService {
       this.audioStateService.setPlayingState(false);
     });
 
-    this.audio.addEventListener('error', (e) => {
-      console.error('Audio error:', e);
-      this.isPlaying = false;
-      this.audioStateService.setPlayingState(false);
+    this.audio.addEventListener('error', () => {
+      // Deity-specific file not yet available — fall back to shared sacred aarti
+      if (this.audio && this.audio.src !== this.FALLBACK_AUDIO) {
+        this.audio.src = this.FALLBACK_AUDIO;
+      } else {
+        this.isPlaying = false;
+        this.audioStateService.setPlayingState(false);
+      }
     });
 
     // Immediately check if we should start playing
@@ -427,13 +433,15 @@ export class AudioPlayerService {
   }
 
   /**
-   * Get the name of the current audio based on deity
+   * Get the name of the current audio based on deity.
+   * Returns deity-specific name only when a dedicated file has been added;
+   * otherwise returns "Sacred Aarti" to avoid misrepresenting the audio.
    */
   getAudioName(): string {
     if (!this.currentDeityType) {
       return 'Sacred Audio';
     }
-    
+
     switch (this.currentDeityType) {
       case DeityType.HANUMAN:
         return 'Hanuman Chalisa';

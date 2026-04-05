@@ -133,7 +133,7 @@ export class DigitalPrasadService {
     
     const prasad: DigitalPrasad = {
       ...chosen,
-      id: `prasad_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+      id: `prasad_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       receivedDate: new Date().toISOString(),
       fromDeity: deityName
     };

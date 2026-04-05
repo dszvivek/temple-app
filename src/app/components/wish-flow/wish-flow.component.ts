@@ -404,7 +404,7 @@ Visit and offer your prayer: ${window.location.origin}
       'family': 'wish.family',
       'career': 'wish.career',
       'spiritual': 'wish.spiritual',
-      'general': 'wish.spiritual'
+      'general': 'wish.general'
     };
     return this.lang.t(mapping[categoryValue] || 'wish.spiritual');
   }

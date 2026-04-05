@@ -124,7 +124,12 @@ export class DevoteeRewardsService {
   private loadProfile(): DevoteeProfile {
     const saved = localStorage.getItem(this.storageKey);
     if (saved) {
-      return JSON.parse(saved);
+      try {
+        return JSON.parse(saved);
+      } catch {
+        // Corrupted data — start fresh
+        localStorage.removeItem(this.storageKey);
+      }
     }
     return this.createNewProfile();
   }

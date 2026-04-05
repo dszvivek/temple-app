@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 // Components (only eagerly loaded ones that aren't in SharedModule)
-import { HomeComponent } from './components/home/home.component';
 import { TempleSelectorComponent } from './components/temple-selector/temple-selector.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
@@ -37,8 +36,6 @@ import { PrasadCollectionComponent } from './components/prasad-collection/prasad
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    // Removed components now in SharedModule or lazy-loaded
     TempleSelectorComponent,
     LoadingScreenComponent,
     LanguageSwitcherComponent,

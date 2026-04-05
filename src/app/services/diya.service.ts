@@ -224,7 +224,7 @@ export class DiyaService {
    * Generate unique ID for diya
    */
   private generateId(): string {
-    return `diya_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `diya_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   }
 
   /**

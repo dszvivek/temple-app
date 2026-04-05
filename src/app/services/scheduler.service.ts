@@ -238,7 +238,7 @@ export class SchedulerService {
    * Generate unique ID
    */
   private generateId(): string {
-    return `schedule_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `schedule_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   }
 
   /**

@@ -253,7 +253,7 @@ export class WishService {
    * Generate a unique ID for wishes
    */
   private generateId(): string {
-    return `wish_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `wish_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   }
 
   /**

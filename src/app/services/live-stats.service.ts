@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, interval } from 'rxjs';
+import { BehaviorSubject, Observable, interval } from 'rxjs'; // interval used for presence ping
 import { FirebaseBackendService } from './firebase-backend.service';
 
 /**
@@ -25,26 +25,20 @@ export class LiveStatsService {
   public totalWishes$: Observable<number> = this.totalWishesSubject.asObservable();
   public totalDiyas$: Observable<number> = this.totalDiyasSubject.asObservable();
 
-  // Base numbers for realistic simulation (fallback)
-  private baseDevoteeCount = 500; // Starting base
-  private baseTotalWishes = 1000; // Starting total wishes
-  
   // Storage keys
   private readonly WISHES_KEY = 'temple-total-wishes';
-  private readonly DEVOTEES_SEED_KEY = 'temple-devotee-seed';
-  
+
   private isUsingFirebase = false;
 
   constructor(private firebaseBackend: FirebaseBackendService) {
     this.initializeStats();
-    this.startLiveUpdates();
+    this.startPresenceUpdates();
   }
 
   /**
-   * Initialize statistics from Firebase or localStorage fallback
+   * Initialize statistics from Firebase. Only show real data — no fabricated counts.
    */
   private initializeStats(): void {
-    // Try to connect to Firebase for real-time stats
     this.firebaseBackend.getGlobalStats().subscribe(stats => {
       if (stats) {
         this.isUsingFirebase = true;
@@ -52,73 +46,22 @@ export class LiveStatsService {
         this.totalDiyasSubject.next(stats.totalDiyas || 0);
         this.liveDevoteesSubject.next(stats.liveDevotees || 0);
       } else {
-        // Fallback to simulated stats
-        this.initializeLocalStats();
+        // Offline: show locally cached wish count, 0 for live devotees
+        const storedWishes = localStorage.getItem(this.WISHES_KEY);
+        if (storedWishes) {
+          this.totalWishesSubject.next(parseInt(storedWishes, 10));
+        }
+        this.liveDevoteesSubject.next(0);
       }
     });
-    
-    // Initial load from local storage while Firebase connects
-    this.initializeLocalStats();
   }
 
   /**
-   * Initialize from localStorage (fallback mode)
+   * Ping Firebase presence every 30 seconds so other users see this devotee online
    */
-  private initializeLocalStats(): void {
-    const storedWishes = localStorage.getItem(this.WISHES_KEY);
-    if (storedWishes) {
-      this.baseTotalWishes = parseInt(storedWishes, 10);
-    } else {
-      localStorage.setItem(this.WISHES_KEY, this.baseTotalWishes.toString());
-    }
-    
-    if (!this.isUsingFirebase) {
-      this.totalWishesSubject.next(this.baseTotalWishes);
-      const initialDevotees = this.calculateLiveDevotees();
-      this.liveDevoteesSubject.next(initialDevotees);
-    }
-  }
-
-  /**
-   * Calculate live devotees based on time of day and randomness
-   */
-  private calculateLiveDevotees(): number {
-    const now = new Date();
-    const hour = now.getHours();
-    
-    // Peak hours: 6-9 AM (morning prayers) and 6-9 PM (evening aarti)
-    let multiplier = 1.0;
-    
-    if ((hour >= 6 && hour <= 9) || (hour >= 18 && hour <= 21)) {
-      multiplier = 1.8; // 80% more during peak hours
-    } else if (hour >= 5 && hour <= 19) {
-      multiplier = 1.3; // 30% more during temple hours
-    } else {
-      multiplier = 0.7; // 30% less during night
-    }
-
-    // Add random variation (±20%)
-    const randomFactor = 0.8 + (Math.random() * 0.4);
-    
-    const count = Math.round(this.baseDevoteeCount * multiplier * randomFactor);
-    return Math.max(3, count); // Minimum 3 devotees always
-  }
-
-  /**
-   * Start live updates (every 10 seconds for devotees, 30 seconds for presence)
-   */
-  private startLiveUpdates(): void {
-    // Update devotee presence in Firebase every 30 seconds
+  private startPresenceUpdates(): void {
     interval(30000).subscribe(() => {
       this.firebaseBackend.updateDevoteePresence();
-    });
-    
-    // If using simulated mode, update devotee count every 30 seconds
-    interval(30000).subscribe(() => {
-      if (!this.isUsingFirebase) {
-        const newCount = this.calculateLiveDevotees();
-        this.liveDevoteesSubject.next(newCount);
-      }
     });
   }
 
@@ -126,15 +69,7 @@ export class LiveStatsService {
    * Increment total wishes when user submits a wish
    */
   public incrementWishCount(): void {
-    this.incrementTotalWishes(1);
-  }
-
-  /**
-   * Increment total wishes by a specific amount
-   */
-  private incrementTotalWishes(amount: number): void {
-    const newTotal = this.totalWishesSubject.value + amount;
-    this.baseTotalWishes = newTotal;
+    const newTotal = this.totalWishesSubject.value + 1;
     this.totalWishesSubject.next(newTotal);
     localStorage.setItem(this.WISHES_KEY, newTotal.toString());
   }

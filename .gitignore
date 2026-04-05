@@ -55,6 +55,10 @@ Thumbs.db
 .env.local
 .env.production.local
 
+# Production environment - contains real Firebase API key and UPI VPA
+# Copy environment.prod.ts.example to environment.prod.ts and fill in real values
+src/environments/environment.prod.ts
+
 # Firebase
 .firebase/
 firebase-debug.log
