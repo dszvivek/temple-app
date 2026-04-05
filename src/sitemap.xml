@@ -1,53 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
+
   <!-- Home / Temple Selector -->
   <url>
     <loc>https://manokamna.online/</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
+
   <!-- Hanuman Temple -->
   <url>
     <loc>https://manokamna.online/hanuman</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
   <!-- Hanuman Wish Page -->
   <url>
     <loc>https://manokamna.online/hanuman/wish</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <!-- Ganesh Temple -->
   <url>
     <loc>https://manokamna.online/ganesh</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
   <!-- Ganesh Wish Page -->
   <url>
     <loc>https://manokamna.online/ganesh/wish</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
+  <!-- Shiva Temple -->
+  <url>
+    <loc>https://manokamna.online/shiva</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Shiva Wish Page -->
+  <url>
+    <loc>https://manokamna.online/shiva/wish</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Krishna Temple -->
+  <url>
+    <loc>https://manokamna.online/krishna</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Krishna Wish Page -->
+  <url>
+    <loc>https://manokamna.online/krishna/wish</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Durga Temple -->
+  <url>
+    <loc>https://manokamna.online/durga</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Durga Wish Page -->
+  <url>
+    <loc>https://manokamna.online/durga/wish</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Donate Page -->
   <url>
     <loc>https://manokamna.online/donate</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
-  
+
 </urlset>

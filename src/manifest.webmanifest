@@ -1,61 +1,71 @@
 {
-  "name": "Manokamna - Virtual Temple",
+  "name": "Manokamna - Virtual Hindu Temple",
   "short_name": "Manokamna",
-  "description": "Virtual Hindu temple - perform aarti, light diyas, make wishes for Hanuman, Ganesh, Shiva, Krishna & Durga",
-  "theme_color": "#f97316",
+  "description": "Virtual Hindu temple - free 24/7 online darshan for Hanuman, Ganesh, Shiva, Krishna & Durga. Light diyas, perform aarti, make wishes. मनोकामना पूरी हो।",
+  "theme_color": "#ea580c",
   "background_color": "#fffbeb",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "orientation": "portrait",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["lifestyle", "religion", "entertainment"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "assets/icons/pwa/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
     },
     {
       "src": "assets/icons/pwa/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/pwa/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -64,11 +74,27 @@
       "sizes": "540x720",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Manokamna Home Screen"
+      "label": "Manokamna Virtual Temple - Home Screen"
     }
   ],
-  "categories": ["lifestyle", "religion", "entertainment"],
-  "lang": "hi",
-  "dir": "ltr",
-  "prefer_related_applications": false
+  "shortcuts": [
+    {
+      "name": "Hanuman Temple",
+      "url": "/hanuman",
+      "description": "Visit Hanuman Temple & listen to Hanuman Chalisa",
+      "icons": [{ "src": "assets/icons/pwa/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Shiva Temple",
+      "url": "/shiva",
+      "description": "Visit Shiva Temple - Om Namah Shivaya",
+      "icons": [{ "src": "assets/icons/pwa/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Make a Wish",
+      "url": "/hanuman/wish",
+      "description": "Submit your prayers and wishes",
+      "icons": [{ "src": "assets/icons/pwa/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
 }
