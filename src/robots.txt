@@ -1,21 +1,30 @@
-# Robots.txt for Manokamna - Virtual Temple
+# Robots.txt for Manokamna - Virtual Hindu Temple
 # https://manokamna.online
 
 User-agent: *
 Allow: /
+Disallow: /assets/audio/
+Disallow: /*.json$
 
-# Allow all major search engines
+# Allow all major search engines full access
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /assets/images/
+Allow: /assets/icons/
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: DuckDuckBot
 Allow: /
 
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
+
 # Sitemap location
 Sitemap: https://manokamna.online/sitemap.xml
-
-# Crawl delay to be respectful
-Crawl-delay: 1

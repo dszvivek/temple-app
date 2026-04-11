@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Home / Temple Selector -->
   <url>
     <loc>https://manokamna.online/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-in" href="https://manokamna.online/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://manokamna.online/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://manokamna.online/"/>
+    <image:image>
+      <image:loc>https://manokamna.online/assets/images/og-image.png</image:loc>
+      <image:title>Manokamna - Virtual Hindu Temple Online Darshan</image:title>
+      <image:caption>Free virtual Hindu temple for online darshan of Hanuman, Ganesh, Shiva, Krishna and Durga</image:caption>
+    </image:image>
   </url>
 
   <!-- Hanuman Temple -->
   <url>
     <loc>https://manokamna.online/hanuman</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-in" href="https://manokamna.online/hanuman"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://manokamna.online/hanuman"/>
+    <image:image>
+      <image:loc>https://manokamna.online/assets/images/deities/hanuman/hanuman-main.png</image:loc>
+      <image:title>Lord Hanuman - Virtual Hanuman Temple Online Darshan</image:title>
+      <image:caption>Bajrangbali - Virtual Hanuman Temple. Listen to Hanuman Chalisa, light diyas, perform aarti online.</image:caption>
+    </image:image>
   </url>
 
   <!-- Hanuman Wish Page -->
   <url>
     <loc>https://manokamna.online/hanuman/wish</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -29,15 +45,22 @@
   <!-- Ganesh Temple -->
   <url>
     <loc>https://manokamna.online/ganesh</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-in" href="https://manokamna.online/ganesh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://manokamna.online/ganesh"/>
+    <image:image>
+      <image:loc>https://manokamna.online/assets/images/deities/ganesh/Ganesh.png</image:loc>
+      <image:title>Lord Ganesha - Virtual Ganesh Temple Online Darshan</image:title>
+      <image:caption>Vighnaharta - Virtual Ganesh Temple. Perform Ganesh aarti, offer modak, light diyas. Ganpati Bappa Morya!</image:caption>
+    </image:image>
   </url>
 
   <!-- Ganesh Wish Page -->
   <url>
     <loc>https://manokamna.online/ganesh/wish</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -45,15 +68,22 @@
   <!-- Shiva Temple -->
   <url>
     <loc>https://manokamna.online/shiva</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-in" href="https://manokamna.online/shiva"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://manokamna.online/shiva"/>
+    <image:image>
+      <image:loc>https://manokamna.online/assets/images/deities/shiva/shiva-diety.png</image:loc>
+      <image:title>Lord Shiva - Virtual Shiva Temple Online Darshan</image:title>
+      <image:caption>Mahadev Bholenath - Virtual Shiva Temple. Om Namah Shivaya, perform Shiva aarti, offer bel patra online.</image:caption>
+    </image:image>
   </url>
 
   <!-- Shiva Wish Page -->
   <url>
     <loc>https://manokamna.online/shiva/wish</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -61,15 +91,22 @@
   <!-- Krishna Temple -->
   <url>
     <loc>https://manokamna.online/krishna</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-in" href="https://manokamna.online/krishna"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://manokamna.online/krishna"/>
+    <image:image>
+      <image:loc>https://manokamna.online/assets/images/deities/krishna/krishna-deity.png</image:loc>
+      <image:title>Lord Krishna - Virtual Krishna Temple Online Darshan</image:title>
+      <image:caption>Radhe Radhe - Virtual Krishna Temple. Hare Krishna, listen to Krishna aarti, light diyas online.</image:caption>
+    </image:image>
   </url>
 
   <!-- Krishna Wish Page -->
   <url>
     <loc>https://manokamna.online/krishna/wish</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -77,15 +114,22 @@
   <!-- Durga Temple -->
   <url>
     <loc>https://manokamna.online/durga</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-in" href="https://manokamna.online/durga"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://manokamna.online/durga"/>
+    <image:image>
+      <image:loc>https://manokamna.online/assets/images/deities/durga/durga-diety.png</image:loc>
+      <image:title>Maa Durga - Virtual Durga Temple Online Darshan</image:title>
+      <image:caption>Sherawali Mata - Virtual Durga Temple. Jai Mata Di, perform Durga aarti, Navratri puja online.</image:caption>
+    </image:image>
   </url>
 
   <!-- Durga Wish Page -->
   <url>
     <loc>https://manokamna.online/durga/wish</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -93,9 +137,10 @@
   <!-- Donate Page -->
   <url>
     <loc>https://manokamna.online/donate</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+</urlset>
 
 </urlset>

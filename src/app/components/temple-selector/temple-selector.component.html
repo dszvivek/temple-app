@@ -5,122 +5,133 @@
       <div class="inline-flex items-center justify-center gap-3 mb-4">
         <span class="text-3xl">🕉️</span>
         <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent">
-          E-Temple
+          Manokamna Virtual Temple
         </h1>
         <span class="text-3xl">🕉️</span>
       </div>
       <p class="text-base sm:text-lg text-gray-700 font-medium">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'देवता चुनें' : 'Choose Your Deity' }}
+        {{ lang.getCurrentLanguage() === 'hi' ? 'देवता चुनें' : 'Choose Your Deity for Online Darshan' }}
       </p>
       <p class="text-sm text-gray-500 mt-1">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Express your wishes' }}
+        {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Express your wishes & receive divine blessings' }}
       </p>
     </div>
 
     <!-- Temple Cards Grid - All 5 Temples -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+    <!-- SEO: each card wraps an <a> tag so Googlebot can crawl and follow all deity pages -->
+    <nav aria-label="Hindu temple directory" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
       
       <!-- Hanuman Temple Card -->
-      <div 
-        (click)="selectTemple(DeityType.HANUMAN)"
-        class="temple-card bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-xl p-4 cursor-pointer hover:border-orange-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+      <a
+        href="/hanuman"
+        (click)="$event.preventDefault(); selectTemple(DeityType.HANUMAN)"
+        aria-label="Hanuman Temple - Online Darshan"
+        class="temple-card bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-xl p-4 cursor-pointer hover:border-orange-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98] no-underline block">
         <div class="mb-3 flex justify-center">
           <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-orange-200">
-            <img src="assets/images/deities/hanuman/hanuman-main.png" alt="Lord Hanuman" class="w-full h-full object-cover" loading="eager"
+            <img src="assets/images/deities/hanuman/hanuman-main.png" alt="Lord Hanuman - Bajrangbali Virtual Temple" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="text-4xl flex items-center justify-center h-full bg-orange-100" style="display: none;">🙏</div>
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-orange-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान' : 'Hanuman' }}
+          {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान मंदिर' : 'Hanuman Temple' }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'शक्ति' : 'Strength' }}</p>
-        <button class="w-full py-2 px-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-lg">
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'बजरंगबली' : 'Bajrangbali Darshan' }}</p>
+        <span class="block w-full py-2 px-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-lg text-center">
           {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
-        </button>
-      </div>
+        </span>
+      </a>
 
       <!-- Ganesh Temple Card -->
-      <div 
-        (click)="selectTemple(DeityType.GANESH)"
-        class="temple-card bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-200 rounded-xl p-4 cursor-pointer hover:border-amber-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+      <a
+        href="/ganesh"
+        (click)="$event.preventDefault(); selectTemple(DeityType.GANESH)"
+        aria-label="Ganesh Temple - Online Ganpati Darshan"
+        class="temple-card bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-200 rounded-xl p-4 cursor-pointer hover:border-amber-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98] no-underline block">
         <div class="mb-3 flex justify-center">
           <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-amber-200">
-            <img src="assets/images/deities/ganesh/Ganesh.png" alt="Lord Ganesha" class="w-full h-full object-cover" loading="eager"
+            <img src="assets/images/deities/ganesh/Ganesh.png" alt="Lord Ganesha - Vighnaharta Virtual Temple" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="text-4xl flex items-center justify-center h-full bg-amber-100" style="display: none;">🐘</div>
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-amber-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश' : 'Ganesh' }}
+          {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'विघ्नहर्ता' : 'Obstacle Remover' }}</p>
-        <button class="w-full py-2 px-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-bold rounded-lg">
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'विघ्नहर्ता' : 'Vighnaharta Darshan' }}</p>
+        <span class="block w-full py-2 px-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-bold rounded-lg text-center">
           {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
-        </button>
-      </div>
+        </span>
+      </a>
 
       <!-- Shiva Temple Card -->
-      <div 
-        (click)="selectTemple(DeityType.SHIVA)"
-        class="temple-card bg-gradient-to-br from-indigo-50 to-purple-100 border-2 border-indigo-200 rounded-xl p-4 cursor-pointer hover:border-indigo-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+      <a
+        href="/shiva"
+        (click)="$event.preventDefault(); selectTemple(DeityType.SHIVA)"
+        aria-label="Shiva Temple - Online Mahadev Darshan"
+        class="temple-card bg-gradient-to-br from-indigo-50 to-purple-100 border-2 border-indigo-200 rounded-xl p-4 cursor-pointer hover:border-indigo-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98] no-underline block">
         <div class="mb-3 flex justify-center">
           <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-indigo-200">
-            <img src="assets/images/deities/shiva/shiva-diety.png" alt="Lord Shiva" class="w-full h-full object-cover" loading="eager"
+            <img src="assets/images/deities/shiva/shiva-diety.png" alt="Lord Shiva - Mahadev Virtual Temple" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="text-4xl flex items-center justify-center h-full bg-indigo-100" style="display: none;">🔱</div>
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-indigo-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'शिव' : 'Shiva' }}
+          {{ lang.getCurrentLanguage() === 'hi' ? 'शिव मंदिर' : 'Shiva Temple' }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'महादेव' : 'Supreme Being' }}</p>
-        <button class="w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold rounded-lg">
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'महादेव' : 'Mahadev Darshan' }}</p>
+        <span class="block w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold rounded-lg text-center">
           {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
-        </button>
+        </span>
       </div>
 
       <!-- Krishna Temple Card -->
-      <div 
-        (click)="selectTemple(DeityType.KRISHNA)"
-        class="temple-card bg-gradient-to-br from-blue-50 to-cyan-100 border-2 border-blue-200 rounded-xl p-4 cursor-pointer hover:border-blue-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+      <a
+        href="/krishna"
+        (click)="$event.preventDefault(); selectTemple(DeityType.KRISHNA)"
+        aria-label="Krishna Temple - Online Radhe Krishna Darshan"
+        class="temple-card bg-gradient-to-br from-blue-50 to-cyan-100 border-2 border-blue-200 rounded-xl p-4 cursor-pointer hover:border-blue-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98] no-underline block">
         <div class="mb-3 flex justify-center">
           <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-blue-200">
-            <img src="assets/images/deities/krishna/krishna-deity.png" alt="Lord Krishna" class="w-full h-full object-cover" loading="eager"
+            <img src="assets/images/deities/krishna/krishna-deity.png" alt="Lord Krishna - Radhe Krishna Virtual Temple" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="text-4xl flex items-center justify-center h-full bg-blue-100" style="display: none;">🦚</div>
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-blue-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'कृष्ण' : 'Krishna' }}
+          {{ lang.getCurrentLanguage() === 'hi' ? 'कृष्ण मंदिर' : 'Krishna Temple' }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'गोविंद' : 'Divine Flute' }}</p>
-        <button class="w-full py-2 px-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold rounded-lg">
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'गोविंद' : 'Radhe Krishna Darshan' }}</p>
+        <span class="block w-full py-2 px-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold rounded-lg text-center">
           {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
-        </button>
-      </div>
+        </span>
+      </a>
 
       <!-- Durga Temple Card -->
-      <div 
-        (click)="selectTemple(DeityType.DURGA)"
-        class="temple-card bg-gradient-to-br from-red-50 to-pink-100 border-2 border-red-200 rounded-xl p-4 cursor-pointer hover:border-red-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98]">
+      <a
+        href="/durga"
+        (click)="$event.preventDefault(); selectTemple(DeityType.DURGA)"
+        aria-label="Durga Temple - Online Maa Durga Darshan"
+        class="temple-card bg-gradient-to-br from-red-50 to-pink-100 border-2 border-red-200 rounded-xl p-4 cursor-pointer hover:border-red-400 hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 active:scale-[0.98] no-underline block">
         <div class="mb-3 flex justify-center">
           <div class="w-20 h-20 rounded-full overflow-hidden shadow-lg bg-white ring-2 ring-red-200">
-            <img src="assets/images/deities/durga/durga-diety.png" alt="Goddess Durga" class="w-full h-full object-cover" loading="eager"
+            <img src="assets/images/deities/durga/durga-diety.png" alt="Goddess Durga - Maa Durga Virtual Temple" class="w-full h-full object-cover" loading="eager"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="text-4xl flex items-center justify-center h-full bg-red-100" style="display: none;">🦁</div>
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-red-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'दुर्गा' : 'Durga' }}
+          {{ lang.getCurrentLanguage() === 'hi' ? 'दुर्गा मंदिर' : 'Durga Temple' }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'शक्ति' : 'Divine Power' }}</p>
-        <button class="w-full py-2 px-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold rounded-lg">
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'शक्ति' : 'Sherawali Mata Darshan' }}</p>
+        <span class="block w-full py-2 px-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold rounded-lg text-center">
           {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
-        </button>
-      </div>
+        </span>
+      </a>
 
-    </div>
+    </nav>
 
     <!-- ===== TODAY'S SPIRITUAL DASHBOARD ===== -->
     <app-today-dashboard></app-today-dashboard>
