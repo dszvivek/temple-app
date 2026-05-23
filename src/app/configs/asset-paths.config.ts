@@ -78,14 +78,14 @@ export const ASSET_PATHS = {
     aarti: {
       ganesh: 'assets/audio/aarti/ganesh-aarti.mp3',
       hanuman: {
-        version1: 'assets/audio/aarti/hanuman-aarti-1.mp3',
-        version2: 'assets/audio/aarti/hanuman-aarti-2.mp3'
+        version1: 'assets/audio/mantras/hanuman-chalisa.mp3',
+        version2: 'assets/audio/hanuman/hanuman-chalisa.mp3'
       }
     },
     
     // Mantras and Chalisas
     mantras: {
-      ganesh: 'assets/audio/mantras/ganesh-mantra.mp3',
+      ganesh: 'assets/audio/ganesha/ganesh-aarti.mp3',
       hanuman: {
         chalisa1: 'assets/audio/mantras/hanuman-chalisa-1.mp3',
         chalisa2: 'assets/audio/mantras/hanuman-chalisa-2.mp3',
@@ -97,12 +97,12 @@ export const ASSET_PATHS = {
     ambient: {
       temple: 'assets/audio/ambient/temple_ambient.mp3',
       shankh: 'assets/audio/ambient/shankh_drone.mp3',
-      omChant: 'assets/audio/ambient/om-chant.mp3'
+      omChant: 'assets/audio/ambient/shankh_drone.mp3'
     },
     
     // Sound Effects
     effects: {
-      bell: 'assets/audio/effects/mandir_bell.wav'
+      bell: 'assets/audio/effects/mandir_bell.mp3'
     }
   },
 

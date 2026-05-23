@@ -4,6 +4,7 @@ import { HinduCalendarService } from './hindu-calendar.service';
 import { DevoteeRewardsService, POINTS_CONFIG } from './devotee-rewards.service';
 import { LanguageService } from './language.service';
 import { ToastService } from './toast.service';
+import { ProductAnalyticsService, ProductEventName } from './product-analytics.service';
 
 /**
  * Daily Engagement Service
@@ -60,7 +61,8 @@ export class DailyEngagementService {
     private calendar: HinduCalendarService,
     private rewards: DevoteeRewardsService,
     private lang: LanguageService,
-    private toast: ToastService
+    private toast: ToastService,
+    private analytics: ProductAnalyticsService
   ) {
     this.initializeDaily();
     this.trackSessionTime();
@@ -68,7 +70,15 @@ export class DailyEngagementService {
   }
 
   private getToday(): string {
-    return new Date().toISOString().split('T')[0];
+    const today = new Date();
+    return this.formatLocalDate(today);
+  }
+
+  private formatLocalDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   private getDefaultData(): DailyEngagementData {
@@ -199,6 +209,8 @@ export class DailyEngagementService {
     const data = this.engagementSubject.value;
     let pointsEarned = 0;
 
+    this.analytics.track(this.getEventNameForAction(action), { action });
+
     // Update tracking flags
     switch (action) {
       case 'diya': data.diyaLit = true; break;
@@ -219,6 +231,11 @@ export class DailyEngagementService {
           challenge.completed = true;
           data.totalChallengesCompleted++;
           pointsEarned += challenge.points;
+          this.analytics.track('daily_challenge_completed', {
+            challengeId: challenge.id,
+            action: challenge.action,
+            points: challenge.points
+          });
           
           const isHi = this.lang.getCurrentLanguage() === 'hi';
           this.toast.success(
@@ -237,6 +254,10 @@ export class DailyEngagementService {
       const bonusPoints = 100;
       pointsEarned += bonusPoints;
       data.bonusPointsEarned += bonusPoints;
+      this.analytics.track('daily_loop_completed', {
+        challengeCount: data.challenges.length,
+        bonusPoints
+      });
       
       const isHi = this.lang.getCurrentLanguage() === 'hi';
       setTimeout(() => {
@@ -256,6 +277,19 @@ export class DailyEngagementService {
 
     this.engagementSubject.next(data);
     this.save();
+  }
+
+  private getEventNameForAction(action: string): ProductEventName {
+    switch (action) {
+      case 'diya':
+        return 'diya_lit';
+      case 'aarti':
+        return 'audio_started';
+      case 'wish':
+        return 'wish_submitted';
+      default:
+        return 'ritual_action';
+    }
   }
 
   /**

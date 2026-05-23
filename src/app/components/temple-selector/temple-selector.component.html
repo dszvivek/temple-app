@@ -1,25 +1,116 @@
-<div class="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-b from-orange-50 via-yellow-50 to-white">
+<div class="min-h-screen flex items-start justify-center px-4 py-6 bg-gradient-to-b from-orange-50 via-yellow-50 to-white">
   <div class="max-w-5xl w-full">
     <!-- Header -->
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center justify-center gap-3 mb-4">
+    <div class="text-center mb-5">
+      <div class="inline-flex items-center justify-center gap-3 mb-3">
         <span class="text-3xl">🕉️</span>
         <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent">
           Manokamna Virtual Temple
         </h1>
         <span class="text-3xl">🕉️</span>
       </div>
-      <p class="text-base sm:text-lg text-gray-700 font-medium">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'देवता चुनें' : 'Choose Your Deity for Online Darshan' }}
+      <p class="text-base sm:text-lg text-gray-700 font-semibold">
+        {{ getDailyRitualTitle() }}
       </p>
       <p class="text-sm text-gray-500 mt-1">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Express your wishes & receive divine blessings' }}
+        {{ getDailyRitualSubtitle() }}
       </p>
+    </div>
+
+    <!-- Primary Daily Devotional Loop -->
+    <section class="daily-loop-card mb-6" aria-label="Today's devotional practice">
+      <div class="daily-loop-content">
+        <div class="daily-loop-icon">
+          <img 
+            *ngIf="todaysDeityType === DeityType.HANUMAN"
+            src="assets/images/deities/hanuman/hanuman-main.png"
+            alt="Today's Hanuman darshan"
+            loading="eager">
+          <img 
+            *ngIf="todaysDeityType === DeityType.GANESH"
+            src="assets/images/deities/ganesh/Ganesh.png"
+            alt="Today's Ganesh darshan"
+            loading="eager">
+          <img 
+            *ngIf="todaysDeityType === DeityType.SHIVA"
+            src="assets/images/deities/shiva/shiva-diety.png"
+            alt="Today's Shiva darshan"
+            loading="eager">
+          <img 
+            *ngIf="todaysDeityType === DeityType.KRISHNA"
+            src="assets/images/deities/krishna/krishna-deity.png"
+            alt="Today's Krishna darshan"
+            loading="eager">
+          <img 
+            *ngIf="todaysDeityType === DeityType.DURGA"
+            src="assets/images/deities/durga/durga-diety.png"
+            alt="Today's Durga darshan"
+            loading="eager">
+        </div>
+
+        <div class="daily-loop-copy">
+          <span class="daily-loop-kicker">
+            {{ lang.getCurrentLanguage() === 'hi' ? 'आज का देवता' : "Today's focus" }}
+          </span>
+          <h2>{{ getTodaysDeityName() }}</h2>
+          <div class="daily-loop-steps">
+            <span *ngFor="let step of getDailyRitualSteps(); let last = last">
+              {{ step }}<b *ngIf="!last">•</b>
+            </span>
+          </div>
+        </div>
+
+        <div class="daily-loop-actions">
+          <button type="button" class="primary-darshan-button" (click)="startTodaysDarshan()">
+            {{ lang.getCurrentLanguage() === 'hi' ? 'आज का दर्शन शुरू करें' : "Start Today's Darshan" }}
+          </button>
+          <button type="button" class="secondary-wish-button" (click)="startTodaysWish()">
+            {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="sankalp-strip" *ngIf="activePractice">
+        <div class="sankalp-copy">
+          <span class="sankalp-label">
+            {{ needsSankalpToday()
+              ? (lang.getCurrentLanguage() === 'hi' ? 'आज का संकल्प बाकी है' : "Today's sankalp is waiting")
+              : (lang.getCurrentLanguage() === 'hi' ? 'संकल्प अभ्यास' : 'Wish practice') }}
+          </span>
+          <strong>
+            {{ activePractice.status === 'completed'
+              ? (lang.getCurrentLanguage() === 'hi' ? '14 दिन पूरे हुए' : '14 days complete')
+              : (lang.getCurrentLanguage() === 'hi' ? 'दिन ' + getSankalpDay() + ' / ' + activePractice.totalDays : 'Day ' + getSankalpDay() + ' of ' + activePractice.totalDays) }}
+          </strong>
+          <span class="sankalp-title">{{ activePractice.title }}</span>
+        </div>
+        <div class="sankalp-progress" aria-hidden="true">
+          <span [style.width.%]="getSankalpProgress()"></span>
+        </div>
+        <button 
+          *ngIf="activePractice.status !== 'completed'"
+          type="button" 
+          class="sankalp-button" 
+          (click)="continueSankalp()">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'संकल्प जारी रखें' : 'Continue Sankalp' }}
+        </button>
+        <button 
+          *ngIf="activePractice.status === 'completed'"
+          type="button" 
+          class="sankalp-button" 
+          (click)="renewSankalp()">
+          {{ lang.getCurrentLanguage() === 'hi' ? 'फिर 14 दिन करें' : 'Renew 14 Days' }}
+        </button>
+      </div>
+    </section>
+
+    <div class="section-label">
+      {{ lang.getCurrentLanguage() === 'hi' ? 'या दूसरा मंदिर चुनें' : 'Or choose another temple' }}
     </div>
 
     <!-- Temple Cards Grid - All 5 Temples -->
     <!-- SEO: each card wraps an <a> tag so Googlebot can crawl and follow all deity pages -->
-    <nav aria-label="Hindu temple directory" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+    <nav aria-label="Hindu temple directory" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
       
       <!-- Hanuman Temple Card -->
       <a

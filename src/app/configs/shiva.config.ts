@@ -40,7 +40,7 @@ export const SHIVA_CONFIG: TempleConfig = {
       deityId: DeityType.SHIVA,
       name: 'Om Namah Shivaya',
       nameHindi: 'ॐ नमः शिवाय',
-      audioFile: 'assets/audio/mantras/om-namah-shivaya.mp3',
+      audioFile: 'assets/audio/shiva/shiva-aarti.mp3',
       duration: 180, // 3 minutes
       schedule: {
         frequency: 'custom',

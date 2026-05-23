@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HinduCalendarService, PanchangData, HinduFestival } from '../../services/hindu-calendar.service';
 import { DailyEngagementService, DailyChallenge } from '../../services/daily-engagement.service';
 import { LanguageService } from '../../services/language.service';
 import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
+import { ProductAnalyticsService } from '../../services/product-analytics.service';
 
 @Component({
   selector: 'app-today-dashboard',
@@ -127,17 +129,24 @@ import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
         </div>
         
         <div class="challenges-list">
-          <div class="challenge-item" *ngFor="let challenge of challenges; trackBy: trackChallenge"
-               [class.completed]="challenge.completed">
+          <button type="button" class="challenge-item" *ngFor="let challenge of challenges; trackBy: trackChallenge"
+               [class.completed]="challenge.completed"
+               [disabled]="challenge.completed"
+               (click)="startChallenge(challenge)">
             <span class="challenge-icon">{{ challenge.completed ? '✅' : challenge.icon }}</span>
             <div class="challenge-info">
               <span class="challenge-name">{{ isHindi ? challenge.titleHi : challenge.title }}</span>
               <span class="challenge-desc">{{ isHindi ? challenge.descriptionHi : challenge.description }}</span>
             </div>
-            <span class="challenge-points" [class.earned]="challenge.completed">
-              +{{ challenge.points }}
-            </span>
-          </div>
+            <div class="challenge-meta">
+              <span class="challenge-points" [class.earned]="challenge.completed">
+                +{{ challenge.points }}
+              </span>
+              <span class="challenge-action" *ngIf="!challenge.completed">
+                {{ isHindi ? 'शुरू करें' : 'Start' }}
+              </span>
+            </div>
+          </button>
         </div>
 
         <div class="all-done-banner" *ngIf="allCompleted">
@@ -444,13 +453,23 @@ import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
       gap: 10px;
       padding: 10px 12px;
       background: rgba(255, 237, 213, 0.4);
+      border: 0;
       border-radius: 12px;
       transition: all 0.3s ease;
+      text-align: left;
+      cursor: pointer;
+      width: 100%;
     }
 
     .challenge-item.completed {
       background: rgba(16, 185, 129, 0.1);
       opacity: 0.7;
+      cursor: default;
+    }
+
+    .challenge-item:not(.completed):hover {
+      background: rgba(255, 237, 213, 0.72);
+      transform: translateY(-1px);
     }
 
     .challenge-icon { font-size: 1.2rem; }
@@ -460,6 +479,7 @@ import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
       display: flex;
       flex-direction: column;
       gap: 2px;
+      min-width: 0;
     }
 
     .challenge-name {
@@ -485,6 +505,20 @@ import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
       background: rgba(251, 191, 36, 0.2);
       padding: 2px 8px;
       border-radius: 10px;
+    }
+
+    .challenge-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .challenge-action {
+      color: #c2410c;
+      font-size: 0.65rem;
+      font-weight: 800;
     }
 
     .challenge-points.earned {
@@ -706,6 +740,8 @@ export class TodayDashboardComponent implements OnInit, OnDestroy {
     private calendar: HinduCalendarService,
     private engagement: DailyEngagementService,
     private rewards: DevoteeRewardsService,
+    private router: Router,
+    private analytics: ProductAnalyticsService,
     public lang: LanguageService
   ) {}
 
@@ -753,6 +789,55 @@ export class TodayDashboardComponent implements OnInit, OnDestroy {
 
   toggleFestivals(): void {
     this.showFestivals = !this.showFestivals;
+  }
+
+  startChallenge(challenge: DailyChallenge): void {
+    if (challenge.completed) {
+      return;
+    }
+
+    this.analytics.track('daily_challenge_started', {
+      challengeId: challenge.id,
+      action: challenge.action
+    });
+
+    if (challenge.action === 'quote') {
+      this.engagement.recordAction('quote');
+      return;
+    }
+
+    this.router.navigate(this.getChallengeRoute(challenge.action));
+  }
+
+  private getChallengeRoute(action: string): string[] {
+    switch (action) {
+      case 'wish':
+        return [`/${this.getRecommendedDeity()}/wish`];
+      case 'visit_shiva':
+        return ['/shiva'];
+      case 'visit_durga':
+        return ['/durga'];
+      case 'aarti':
+        return ['/hanuman'];
+      case 'diya':
+      case 'bell':
+      case 'flowers':
+      default:
+        return [`/${this.getRecommendedDeity()}`];
+    }
+  }
+
+  private getRecommendedDeity(): string {
+    const day = new Date().getDay();
+    switch (day) {
+      case 1: return 'shiva';
+      case 2: return 'hanuman';
+      case 3: return 'ganesh';
+      case 4: return 'krishna';
+      case 5: return 'durga';
+      case 6: return 'hanuman';
+      default: return 'ganesh';
+    }
   }
 
   trackChallenge(index: number, challenge: DailyChallenge): string {

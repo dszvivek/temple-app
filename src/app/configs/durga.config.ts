@@ -40,7 +40,7 @@ export const DURGA_CONFIG: TempleConfig = {
       deityId: DeityType.DURGA,
       name: 'Durga Chalisa',
       nameHindi: 'दुर्गा चालीसा',
-      audioFile: 'assets/audio/mantras/durga-chalisa.mp3',
+      audioFile: 'assets/audio/durga/durga-aarti.mp3',
       duration: 480, // 8 minutes
       schedule: {
         frequency: 'custom',

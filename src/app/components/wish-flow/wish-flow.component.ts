@@ -8,6 +8,8 @@ import { BlessingsService, Blessing } from '../../services/blessings.service';
 import { DeityService } from '../../services/deity.service';
 import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
 import { ToastService } from '../../services/toast.service';
+import { ProductAnalyticsService } from '../../services/product-analytics.service';
+import { WishPracticeService } from '../../services/wish-practice.service';
 import { Wish, WishCategory, WishStatus } from '../../models/wish.model';
 import { DeityType } from '../../models/deity.model';
 
@@ -67,7 +69,9 @@ export class WishFlowComponent implements OnInit {
     public blessingsService: BlessingsService,
     private deityService: DeityService,
     private rewardsService: DevoteeRewardsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private analytics: ProductAnalyticsService,
+    private wishPractice: WishPracticeService
   ) {
     // Set initial random blessing
     this.currentBlessing = this.blessingsService.getRandomBlessing();
@@ -81,9 +85,17 @@ export class WishFlowComponent implements OnInit {
         this.deityService.setDeity(this.currentDeity);
         // Set language service deity context for proper translations
         this.lang.setDeityContext(this.currentDeity);
+        this.analytics.track('wish_started', {
+          deity: this.currentDeity,
+          entryPoint: 'wish_route'
+        });
       } else {
         this.currentDeity = this.deityService.getCurrentDeity().id;
         this.lang.setDeityContext(this.currentDeity);
+        this.analytics.track('wish_started', {
+          deity: this.currentDeity,
+          entryPoint: 'wish_route'
+        });
       }
     });
   }
@@ -109,8 +121,14 @@ export class WishFlowComponent implements OnInit {
 
       // Move to ritual step instead of completing immediately
       this.step = 'ritual';
+      this.analytics.track('wish_created', {
+        deity: this.currentDeity,
+        category: this.selectedCategory,
+        offeringType: this.offeringType
+      });
     } catch (error) {
       console.error('Error creating wish:', error);
+      this.analytics.trackError(error, 'wish_create');
       this.toastService.error('Failed to create wish. Please try again.');
     }
   }
@@ -235,9 +253,17 @@ Visit and offer your prayer: ${window.location.origin}
           text: messageToShare,
           url: window.location.origin
         });
+        this.analytics.track('share_sent', {
+          platform: 'native',
+          context: 'wish_flow'
+        });
       } else {
         // Fallback: copy to clipboard
         await navigator.clipboard.writeText(messageToShare);
+        this.analytics.track('share_sent', {
+          platform: 'copy',
+          context: 'wish_flow'
+        });
         this.toastService.success(
           this.lang.getCurrentLanguage() === 'hi' 
             ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
@@ -246,6 +272,7 @@ Visit and offer your prayer: ${window.location.origin}
       }
     } catch (error) {
       console.error('Error sharing:', error);
+      this.analytics.trackError(error, 'wish_share');
       // User cancelled or error - that's okay
     }
   }
@@ -262,6 +289,11 @@ Visit and offer your prayer: ${window.location.origin}
       
       // Award Punya Points for making a wish
       this.rewardsService.recordWishMade();
+      this.wishPractice.startPractice(this.currentWish);
+      this.analytics.track('wish_submitted', {
+        deity: this.currentDeity,
+        category: this.currentWish.category
+      });
       
       // Get a new random blessing for the completion message
       this.currentBlessing = this.blessingsService.getRandomBlessing();
@@ -282,6 +314,7 @@ Visit and offer your prayer: ${window.location.origin}
       this.step = 'complete';
     } catch (error) {
       console.error('Error activating wish:', error);
+      this.analytics.trackError(error, 'wish_activate');
       this.toastService.error('Failed to submit wish. Please try again.');
     }
   }

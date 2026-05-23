@@ -25,6 +25,7 @@ export const environment = {
   upiVpa: 'dszvivek@icici',
   
   // App Configuration
+  appUrl: 'https://manokamna.online',
   appName: 'Manokamna',
   appNameHindi: 'ई-दर्शन मंदिर',
   version: '1.0.0',
@@ -33,14 +34,14 @@ export const environment = {
   audioAssets: {
     // Hanuman Temple Audio
     hanumanChalisa: 'assets/audio/mantras/hanuman-chalisa.mp3',
-    hanumanAarti: 'assets/audio/hanuman-aarti.mp3',
+    hanumanAarti: 'assets/audio/mantras/hanuman-chalisa.mp3',
     
     // Ganesh Temple Audio
-    ganeshAarti: 'assets/audio/ganesh-aarti.mp3',
-    ganeshMantra: 'assets/audio/mantras/ganesh-mantra.mp3',
+    ganeshAarti: 'assets/audio/aarti/ganesh-aarti.mp3',
+    ganeshMantra: 'assets/audio/ganesha/ganesh-aarti.mp3',
     
     // Common Audio
-    omChant: 'assets/audio/mantras/om-chant.mp3',
+    omChant: 'assets/audio/ambient/shankh_drone.mp3',
     templeBell: 'assets/audio/effects/mandir_bell.mp3',
     shankh: 'assets/audio/ambient/shankh_drone.mp3',
     templeAmbience: 'assets/audio/temple_ambience.mp3'

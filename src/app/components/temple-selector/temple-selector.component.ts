@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { DeityService } from '../../services/deity.service';
 import { LanguageService } from '../../services/language.service';
 import { SmartShareService } from '../../services/smart-share.service';
 import { DailyEngagementService } from '../../services/daily-engagement.service';
+import { ProductAnalyticsService } from '../../services/product-analytics.service';
+import { WishPractice, WishPracticeService } from '../../services/wish-practice.service';
 import { DeityType } from '../../models/deity.model';
 import { Deity } from '../../models/deity.model';
 
@@ -12,28 +15,143 @@ import { Deity } from '../../models/deity.model';
   templateUrl: './temple-selector.component.html',
   styleUrls: ['./temple-selector.component.css']
 })
-export class TempleSelectorComponent implements OnInit {
+export class TempleSelectorComponent implements OnInit, OnDestroy {
   deities: Deity[] = [];
+  todaysDeityType = DeityType.HANUMAN;
+  todaysDeity?: Deity;
+  activePractice: WishPractice | null = null;
   DeityType = DeityType; // Expose enum to template
+  private practiceSub?: Subscription;
 
   constructor(
     private router: Router,
     private deityService: DeityService,
     public lang: LanguageService,
     private shareService: SmartShareService,
-    private engagement: DailyEngagementService
+    private engagement: DailyEngagementService,
+    private analytics: ProductAnalyticsService,
+    private wishPractice: WishPracticeService
   ) {}
 
   ngOnInit(): void {
     this.deities = this.deityService.getAllDeities();
+    this.todaysDeityType = this.getRecommendedDeity();
+    this.todaysDeity = this.deities.find(deity => deity.id === this.todaysDeityType);
+    this.practiceSub = this.wishPractice.practice$.subscribe(practice => {
+      this.activePractice = practice;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.practiceSub?.unsubscribe();
   }
 
   /**
    * Select a temple and navigate to it
    */
-  selectTemple(deityType: DeityType): void {
+  selectTemple(deityType: DeityType, entryPoint = 'temple_card'): void {
+    this.analytics.track('temple_selected', {
+      deity: deityType,
+      entryPoint
+    });
     this.deityService.setDeity(deityType);
     this.router.navigate([`/${deityType}`]);
+  }
+
+  startTodaysDarshan(): void {
+    this.analytics.track('daily_darshan_started', {
+      deity: this.todaysDeityType,
+      entryPoint: 'home_primary_cta'
+    });
+    this.selectTemple(this.todaysDeityType, 'home_primary_cta');
+  }
+
+  startTodaysWish(): void {
+    this.analytics.track('wish_started', {
+      deity: this.todaysDeityType,
+      entryPoint: 'home_daily_loop'
+    });
+    this.deityService.setDeity(this.todaysDeityType);
+    this.router.navigate([`/${this.todaysDeityType}/wish`]);
+  }
+
+  continueSankalp(): void {
+    if (!this.activePractice) {
+      return;
+    }
+
+    this.wishPractice.completeToday();
+    this.analytics.track('ritual_action', {
+      action: 'sankalp_continue_clicked',
+      deity: this.activePractice.deityId,
+      currentDay: this.getSankalpDay()
+    });
+    this.router.navigate([`/${this.activePractice.deityId}`]);
+  }
+
+  renewSankalp(): void {
+    const renewed = this.wishPractice.renewPractice();
+    if (!renewed) {
+      return;
+    }
+
+    this.router.navigate([`/${renewed.deityId}`]);
+  }
+
+  getSankalpDay(): number {
+    return this.wishPractice.getCurrentDay(this.activePractice);
+  }
+
+  getSankalpProgress(): number {
+    if (!this.activePractice) {
+      return 0;
+    }
+    return Math.round((this.getSankalpDay() / this.activePractice.totalDays) * 100);
+  }
+
+  needsSankalpToday(): boolean {
+    return this.wishPractice.needsTodayPractice(this.activePractice);
+  }
+
+  getDailyRitualTitle(): string {
+    return this.lang.getCurrentLanguage() === 'hi'
+      ? 'आज का छोटा दर्शन'
+      : "Today's Simple Darshan";
+  }
+
+  getDailyRitualSubtitle(): string {
+    const deityName = this.lang.getCurrentLanguage() === 'hi'
+      ? this.todaysDeity?.nameHindi
+      : this.todaysDeity?.name;
+
+    return this.lang.getCurrentLanguage() === 'hi'
+      ? `${deityName || 'भगवान'} के साथ 2 मिनट की साधना`
+      : `A 2-minute practice with ${deityName || 'the deity'}`;
+  }
+
+  getDailyRitualSteps(): string[] {
+    return this.lang.getCurrentLanguage() === 'hi'
+      ? ['घंटी बजाएं', 'दीया जलाएं', 'मनोकामना करें']
+      : ['Ring the bell', 'Light a diya', 'Make a wish'];
+  }
+
+  getTodaysDeityName(): string {
+    return this.lang.getCurrentLanguage() === 'hi'
+      ? this.todaysDeity?.nameHindi || 'आज का देवता'
+      : this.todaysDeity?.name || "Today's deity";
+  }
+
+  private getRecommendedDeity(): DeityType {
+    const day = new Date().getDay();
+    switch (day) {
+      case 1: return DeityType.SHIVA;
+      case 2: return DeityType.HANUMAN;
+      case 3: return DeityType.GANESH;
+      case 4: return DeityType.KRISHNA;
+      case 5: return DeityType.DURGA;
+      case 6: return DeityType.HANUMAN;
+      default: return DeityType.GANESH;
+    }
   }
 
   /**

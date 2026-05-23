@@ -40,7 +40,7 @@ export const KRISHNA_CONFIG: TempleConfig = {
       deityId: DeityType.KRISHNA,
       name: 'Hare Krishna Mahamantra',
       nameHindi: 'हरे कृष्ण महामंत्र',
-      audioFile: 'assets/audio/mantras/hare-krishna.mp3',
+      audioFile: 'assets/audio/krishna/krishna-aarti.mp3',
       duration: 300, // 5 minutes
       schedule: {
         frequency: 'custom',

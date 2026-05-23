@@ -81,7 +81,7 @@ export class SchedulerService {
         name: 'Evening Aarti',
         time: '18:00',
         enabled: true,
-        audioUrl: 'assets/audio/aarti/hanuman-aarti.mp3'
+        audioUrl: 'assets/audio/mantras/hanuman-chalisa.mp3'
       },
       {
         id: 'night_prayer',

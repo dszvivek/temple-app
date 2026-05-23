@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
+import { ProductAnalyticsService } from '../../services/product-analytics.service';
 
 /**
  * NotificationPromptComponent - Gentle push notification opt-in
@@ -136,7 +137,10 @@ export class NotificationPromptComponent implements OnInit {
     return this.lang.getCurrentLanguage() === 'hi';
   }
 
-  constructor(public lang: LanguageService) {}
+  constructor(
+    public lang: LanguageService,
+    private analytics: ProductAnalyticsService
+  ) {}
 
   ngOnInit(): void {
     this.checkShouldShow();
@@ -165,6 +169,7 @@ export class NotificationPromptComponent implements OnInit {
     if (visits >= 3) {
       setTimeout(() => {
         this.visible = true;
+        this.analytics.track('notification_prompt_shown', { visits });
       }, 5000); // Show after 5 seconds of browsing
     }
   }
@@ -172,6 +177,9 @@ export class NotificationPromptComponent implements OnInit {
   async enableNotifications(): Promise<void> {
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
+      this.analytics.track('notification_opt_in', {
+        permission
+      });
       if (permission === 'granted') {
         // Show a welcome notification
         new Notification('🙏 Manokamna', {

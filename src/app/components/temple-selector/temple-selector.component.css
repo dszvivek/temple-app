@@ -18,6 +18,179 @@
   animation: cardSlideIn 0.6s ease-out both;
 }
 
+.daily-loop-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 237, 0.92));
+  border: 1px solid rgba(234, 88, 12, 0.22);
+  border-radius: 14px;
+  box-shadow: 0 10px 32px rgba(154, 52, 18, 0.12);
+  padding: 18px;
+}
+
+.daily-loop-content {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+}
+
+.daily-loop-icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff7ed;
+  border: 2px solid rgba(251, 146, 60, 0.35);
+  box-shadow: 0 8px 22px rgba(154, 52, 18, 0.16);
+}
+
+.daily-loop-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.daily-loop-copy {
+  min-width: 0;
+}
+
+.daily-loop-kicker {
+  display: block;
+  color: #c2410c;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.daily-loop-copy h2 {
+  color: #7c2d12;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.daily-loop-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  color: #92400e;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.daily-loop-steps b {
+  color: #f97316;
+  margin-left: 7px;
+}
+
+.daily-loop-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 210px;
+}
+
+.primary-darshan-button,
+.secondary-wish-button {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.primary-darshan-button {
+  background: linear-gradient(135deg, #ea580c, #dc2626);
+  color: white;
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.22);
+}
+
+.secondary-wish-button {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.primary-darshan-button:active,
+.secondary-wish-button:active {
+  transform: scale(0.98);
+}
+
+.section-label {
+  color: #92400e;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.sankalp-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px auto;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(234, 88, 12, 0.16);
+}
+
+.sankalp-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sankalp-label {
+  color: #c2410c;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sankalp-copy strong {
+  color: #7c2d12;
+  font-size: 0.92rem;
+}
+
+.sankalp-title {
+  color: #92400e;
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sankalp-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(249, 115, 22, 0.16);
+  overflow: hidden;
+}
+
+.sankalp-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #16a34a);
+}
+
+.sankalp-button {
+  border: 0;
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 0 14px;
+  color: #7c2d12;
+  background: #fef3c7;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .temple-card:nth-child(1) {
   animation-delay: 0.1s;
 }
@@ -95,6 +268,41 @@
 .temple-card:active {
   transform: scale(1.02) translateY(-4px);
   transition: all 0.1s ease;
+}
+
+@media (max-width: 760px) {
+  .daily-loop-content {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .daily-loop-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .daily-loop-actions {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .sankalp-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .daily-loop-card {
+    padding: 14px;
+  }
+
+  .daily-loop-copy h2 {
+    font-size: 1.16rem;
+  }
+
+  .daily-loop-steps {
+    font-size: 0.78rem;
+  }
 }
 
 /* Glowing animated border for deity images */

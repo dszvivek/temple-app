@@ -8,6 +8,7 @@ import { DeityService } from './services/deity.service';
 import { FirebaseBackendService } from './services/firebase-backend.service';
 import { LiveStatsService } from './services/live-stats.service';
 import { SeoService } from './services/seo.service';
+import { ProductAnalyticsService } from './services/product-analytics.service';
 import { HANUMAN_CONFIG } from './configs/hanuman.config';
 import { GANESH_CONFIG } from './configs/ganesh.config';
 import { SHIVA_CONFIG } from './configs/shiva.config';
@@ -56,10 +57,10 @@ import { slideInAnimation } from './animations/route-animations';
       <!-- ========== MAIN SCROLLABLE CONTENT ========== -->
       <main class="main-content" [@slideInAnimation]="getRouteAnimationData()">
         <!-- Streak & Engagement Banner -->
-        <app-streak-banner></app-streak-banner>
+        <app-streak-banner *ngIf="isInsideTemple"></app-streak-banner>
         
         <!-- Daily Spiritual Quote -->
-        <app-daily-quote></app-daily-quote>
+        <app-daily-quote *ngIf="isInsideTemple"></app-daily-quote>
         
         <router-outlet></router-outlet>
         
@@ -77,12 +78,6 @@ import { slideInAnimation } from './animations/route-animations';
             </p>
             <p class="footer-copyright">
               © {{ currentYear }} Manokamna | Open Source PWA
-            </p>
-            <p class="footer-donate">
-              <a routerLink="/donate" class="donate-link">
-                <span>💝</span>
-                <span>{{ lang.t('home.supportButton') }}</span>
-              </a>
             </p>
           </div>
         </footer>
@@ -111,16 +106,7 @@ import { slideInAnimation } from './animations/route-animations';
       </nav>
       
       <!-- Notification Permission Prompt -->
-      <app-notification-prompt></app-notification-prompt>
-      
-      <!-- Simpler bottom bar for non-temple pages -->
-      <nav class="bottom-action-bar bottom-bar-simple" *ngIf="!isInsideTemple">
-        <div class="action-bar-content">
-          <app-floating-bell></app-floating-bell>
-          <app-floating-shankh></app-floating-shankh>
-          <app-floating-flower></app-floating-flower>
-        </div>
-      </nav>
+      <app-notification-prompt *ngIf="isInsideTemple"></app-notification-prompt>
     </div>
   `,
   styles: [`
@@ -365,7 +351,8 @@ export class AppComponent implements OnInit {
     private liveStats: LiveStatsService,
     private router: Router,
     private seoService: SeoService,
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
+    private analytics: ProductAnalyticsService
   ) {
     // Initialize SEO service for dynamic meta tags
     this.seoService.init();
@@ -390,6 +377,11 @@ export class AppComponent implements OnInit {
         this.isInsideTemple = url.includes('/hanuman') || url.includes('/ganesh') || 
                                url.includes('/shiva') || url.includes('/krishna') || 
                                url.includes('/durga');
+
+        this.analytics.track('page_view', {
+          path: url.split('?')[0],
+          insideTemple: this.isInsideTemple
+        });
       }
     });
   }
@@ -428,6 +420,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.analytics.captureReferral();
+    this.analytics.track('app_load', {
+      path: this.router.url.split('?')[0]
+    });
+
     // Auto-reload when a new app version is available via service worker
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.pipe(

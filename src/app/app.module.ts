@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -12,6 +12,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { AppErrorHandlerService } from './services/app-error-handler.service';
 
 // Components (only eagerly loaded ones that aren't in SharedModule)
 import { TempleSelectorComponent } from './components/temple-selector/temple-selector.component';
@@ -69,6 +70,7 @@ import { PrasadCollectionComponent } from './components/prasad-collection/prasad
     })
   ],
   providers: [
+    { provide: ErrorHandler, useClass: AppErrorHandlerService },
     // Firebase providers are required for AngularFire services
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())

@@ -3,6 +3,8 @@ import { LanguageService } from './language.service';
 import { DevoteeRewardsService, POINTS_CONFIG } from './devotee-rewards.service';
 import { DailyEngagementService } from './daily-engagement.service';
 import { ToastService } from './toast.service';
+import { environment } from '../../environments/environment';
+import { ProductAnalyticsService } from './product-analytics.service';
 
 /**
  * Smart Sharing Service
@@ -17,18 +19,21 @@ export interface ShareContent {
   hashtags?: string[];
 }
 
+export type BlessingShareContext = 'diya' | 'prasad' | 'aarti' | 'festival' | 'streak';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SmartShareService {
   private readonly SHARE_STATS_KEY = 'temple_share_stats';
-  private readonly APP_URL = 'https://manokamna.web.app';
+  private readonly APP_URL = environment.appUrl;
   
   constructor(
     private lang: LanguageService,
     private rewards: DevoteeRewardsService,
     private engagement: DailyEngagementService,
-    private toast: ToastService
+    private toast: ToastService,
+    private analytics: ProductAnalyticsService
   ) {}
 
   /**
@@ -126,9 +131,13 @@ export class SmartShareService {
   shareBlessingOnWhatsApp(blessing: string): void {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     const message = isHi
-      ? `${blessing}\n\n🙏 यह आशीर्वाद आपको मनोकामना वर्चुअल मंदिर से प्राप्त हुआ है\n${this.APP_URL}?ref=blessing`
-      : `${blessing}\n\n🙏 This blessing was received from Manokamna Virtual Temple\n${this.APP_URL}?ref=blessing`;
+      ? `${blessing}\n\nयह आशीर्वाद आपके लिए भेजा गया है।\n${this.getReferralUrl('blessing')}`
+      : `${blessing}\n\nThis blessing was sent for you.\n${this.getReferralUrl('blessing')}`;
     this.shareOnWhatsApp(message);
+  }
+
+  shareContextualBlessing(context: BlessingShareContext, detail?: string): void {
+    this.shareOnWhatsApp(this.getContextualBlessingMessage(context, detail));
   }
 
   /**
@@ -159,27 +168,47 @@ export class SmartShareService {
   getShareMessage(): string {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     if (isHi) {
-      return `🙏 मनोकामना - वर्चुअल मंदिर 🙏\n\n` +
-        `अब अपने फोन पर ही करें हनुमान, गणेश, शिव, कृष्ण और दुर्गा मंदिर के दर्शन!\n\n` +
-        `🪔 दीये जलाएं\n` +
-        `📿 आरती-चालीसा सुनें\n` +
-        `🔔 घंटी बजाएं\n` +
-        `⭐ मनोकामना करें\n` +
-        `🌺 फूल चढ़ाएं\n` +
-        `🧘 ध्यान करें\n\n` +
-        `जय हो! 🙏\n\n` +
-        `${this.APP_URL}?ref=share`;
+      return `आज आपके लिए एक छोटा सा आशीर्वाद भेज रहा/रही हूं।\n\n` +
+        `दीया जलाएं, शांत मन से दर्शन करें, और अपने प्रियजनों के लिए शुभकामना करें।\n\n` +
+        `${this.getReferralUrl('blessing_share')}`;
     }
-    return `🙏 Manokamna - Virtual Temple 🙏\n\n` +
-      `Visit Hanuman, Ganesh, Shiva, Krishna & Durga temples on your phone!\n\n` +
-      `🪔 Light diyas for loved ones\n` +
-      `📿 Listen to Aarti & Chalisa\n` +
-      `🔔 Ring temple bells\n` +
-      `⭐ Make divine wishes\n` +
-      `🌺 Offer flowers\n` +
-      `🧘 Meditate peacefully\n\n` +
-      `Jai Ho! 🙏\n\n` +
-      `${this.APP_URL}?ref=share`;
+    return `Sending you a small blessing today.\n\n` +
+      `Light a diya, take a quiet darshan, and offer a wish for someone you love.\n\n` +
+      `${this.getReferralUrl('blessing_share')}`;
+  }
+
+  private getContextualBlessingMessage(context: BlessingShareContext, detail?: string): string {
+    const isHi = this.lang.getCurrentLanguage() === 'hi';
+    const url = this.getReferralUrl(context);
+
+    const messages: Record<BlessingShareContext, { hi: string; en: string }> = {
+      diya: {
+        hi: 'मैंने आपके लिए एक दीया जलाया है। यह प्रकाश आपके घर में शांति और शुभता लाए।',
+        en: 'I lit a diya for you. May this light bring peace and goodness to your home.'
+      },
+      prasad: {
+        hi: 'आपके लिए प्रसाद का आशीर्वाद भेज रहा/रही हूं। श्रद्धा और शांति बनी रहे।',
+        en: 'Sending prasad blessings for you. May devotion and peace stay with you.'
+      },
+      aarti: {
+        hi: 'आज की आरती का आशीर्वाद आपके लिए। मन शांत रहे और दिन मंगलमय हो।',
+        en: "Sharing today's aarti blessing with you. May your mind be peaceful and your day auspicious."
+      },
+      festival: {
+        hi: `${detail || 'त्योहार'} की शुभकामनाएं। यह दिन आपके परिवार के लिए मंगल और आनंद लाए।`,
+        en: `Blessings for ${detail || 'this festival'}. May this day bring joy and auspiciousness to your family.`
+      },
+      streak: {
+        hi: `${detail || 'भक्ति'} का संकल्प जारी है। आपके लिए भी शांति और शुभता की प्रार्थना।`,
+        en: `${detail || 'Devotion'} continues. Praying for peace and goodness for you too.`
+      }
+    };
+
+    return `${isHi ? messages[context].hi : messages[context].en}\n\n${url}`;
+  }
+
+  private getReferralUrl(ref: string): string {
+    return `${this.APP_URL}?ref=${encodeURIComponent(ref)}`;
   }
 
   /**
@@ -195,6 +224,10 @@ export class SmartShareService {
            : `🙏 Thanks for sharing! +${POINTS_CONFIG.shareApp} Punya Points`,
       3000
     );
+    this.analytics.track('share_sent', {
+      platform,
+      totalShares: this.getTotalShares() + 1
+    });
 
     // Update share stats
     try {

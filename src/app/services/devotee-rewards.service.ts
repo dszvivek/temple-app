@@ -159,7 +159,7 @@ export class DevoteeRewardsService {
       prasadShared: 0,
       aartiPerformed: 0
     };
-    this.saveProfile(profile);
+    localStorage.setItem(this.storageKey, JSON.stringify(profile));
     return profile;
   }
 
@@ -169,7 +169,15 @@ export class DevoteeRewardsService {
   }
 
   private getTodayDate(): string {
-    return new Date().toISOString().split('T')[0];
+    const today = new Date();
+    return this.formatLocalDate(today);
+  }
+
+  private formatLocalDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   private checkDailyVisit(): void {
@@ -184,7 +192,7 @@ export class DevoteeRewardsService {
       // Check streak
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const yesterdayStr = this.formatLocalDate(yesterday);
 
       if (lastVisit === yesterdayStr) {
         // Continue streak
