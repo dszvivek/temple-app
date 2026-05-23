@@ -15,11 +15,11 @@
         (click)="navigateToTempleSelector()"
         class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 hover:bg-white shadow-sm hover:shadow transition-all text-orange-700 font-medium">
         <span class="text-lg">←</span>
-        <span class="text-sm">{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Temples' }}</span>
+        <span class="text-sm">{{ lang.t('templeSelector.chooseTemple') }}</span>
       </button>
       <div class="flex items-center gap-2">
         <span class="text-2xl">🚩</span>
-        <span class="font-semibold text-orange-800 text-sm hidden sm:inline">{{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान मंदिर' : 'Hanuman Temple' }}</span>
+        <span class="font-semibold text-orange-800 text-sm hidden sm:inline">{{ lang.getTempleLabel('hanuman') }}</span>
       </div>
     </div>
   </div>
@@ -71,13 +71,13 @@
       </div>
     </div>
     <h1 class="text-2xl sm:text-3xl font-bold text-orange-800 mb-2">
-      {{ lang.getCurrentLanguage() === 'hi' ? '🙏 हनुमान मंदिर 🙏' : '🙏 Hanuman Temple 🙏' }}
+      🙏 {{ lang.getTempleLabel('hanuman') }} 🙏
     </h1>
     <p class="text-orange-600 font-medium mb-2">
       "संकट मोचन हनुमान"
     </p>
     <p class="text-gray-600 text-sm max-w-xl mx-auto">
-      {{ lang.t('home.welcomeSubtitle') }}
+      {{ lang.getTempleHomeDescription('hanuman') }}
     </p>
   </header>
 
@@ -125,6 +125,6 @@
       "बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।<br>
       बल बुद्धि विद्या देहु मोहिं, हरहु कलेश विकार॥"
     </blockquote>
-    <p class="text-xs text-gray-500 mt-2">- Hanuman Chalisa</p>
+    <p class="text-xs text-gray-500 mt-2">- {{ lang.getTempleQuoteSource('hanuman') }}</p>
   </div>
 </div>

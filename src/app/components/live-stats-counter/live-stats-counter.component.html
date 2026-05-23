@@ -9,10 +9,7 @@
       <div class="text-lg font-bold text-gray-800" @counterUpdate>
         {{ formatNumber(liveDevotees) }}
       </div>
-      <div class="text-xs text-gray-500">
-        <span *ngIf="lang.getCurrentLanguage() === 'hi'">ऑनलाइन</span>
-        <span *ngIf="lang.getCurrentLanguage() === 'en'">Online</span>
-      </div>
+      <div class="text-xs text-gray-500">{{ lang.t('stats.online') }}</div>
     </div>
   </div>
 
@@ -26,10 +23,7 @@
       <div class="text-lg font-bold text-gray-800" @counterUpdate>
         {{ formatNumber(totalWishes) }}
       </div>
-      <div class="text-xs text-gray-500">
-        <span *ngIf="lang.getCurrentLanguage() === 'hi'">मनोकामनाएँ</span>
-        <span *ngIf="lang.getCurrentLanguage() === 'en'">Wishes</span>
-      </div>
+      <div class="text-xs text-gray-500">{{ lang.t('stats.wishes') }}</div>
     </div>
   </div>
 </div>

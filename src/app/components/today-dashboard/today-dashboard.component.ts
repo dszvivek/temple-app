@@ -19,7 +19,7 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
           <div class="panchang-title-row">
             <span class="panchang-icon">🕉️</span>
             <h3 class="panchang-title">
-              {{ isHindi ? 'आज का पंचांग' : "Today's Panchang" }}
+              {{ lang.t('dashboard.panchangTitle') }}
             </h3>
             <span class="expand-icon" [class.rotated]="showPanchangDetails">▼</span>
           </div>
@@ -27,18 +27,18 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
           <!-- Quick Info Always Visible -->
           <div class="panchang-quick">
             <div class="quick-item">
-              <span class="quick-label">{{ isHindi ? 'तिथि' : 'Tithi' }}</span>
-              <span class="quick-value">{{ isHindi ? panchang.tithi.nameHi : panchang.tithi.name }}</span>
+              <span class="quick-label">{{ lang.t('dashboard.tithi') }}</span>
+              <span class="quick-value">{{ getLocalizedText(panchang.tithi.name, panchang.tithi.nameHi) }}</span>
             </div>
             <div class="quick-divider">•</div>
             <div class="quick-item">
-              <span class="quick-label">{{ isHindi ? 'पक्ष' : 'Paksha' }}</span>
-              <span class="quick-value">{{ isHindi ? panchang.pakshaHi : panchang.paksha }}</span>
+              <span class="quick-label">{{ lang.t('dashboard.paksha') }}</span>
+              <span class="quick-value">{{ getLocalizedText(panchang.paksha, panchang.pakshaHi) }}</span>
             </div>
             <div class="quick-divider">•</div>
             <div class="quick-item">
-              <span class="quick-label">{{ isHindi ? 'वार' : 'Day' }}</span>
-              <span class="quick-value">{{ isHindi ? panchang.varaHi : panchang.vara }}</span>
+              <span class="quick-label">{{ lang.t('dashboard.day') }}</span>
+              <span class="quick-value">{{ getLocalizedText(panchang.vara, panchang.varaHi) }}</span>
             </div>
           </div>
         </div>
@@ -48,42 +48,42 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
           <div class="detail-grid">
             <div class="detail-item">
               <span class="detail-icon">🌙</span>
-              <span class="detail-label">{{ isHindi ? 'नक्षत्र' : 'Nakshatra' }}</span>
-              <span class="detail-value">{{ isHindi ? panchang.nakshatraHi : panchang.nakshatra }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.nakshatra') }}</span>
+              <span class="detail-value">{{ getLocalizedText(panchang.nakshatra, panchang.nakshatraHi) }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">⚡</span>
-              <span class="detail-label">{{ isHindi ? 'योग' : 'Yoga' }}</span>
-              <span class="detail-value">{{ isHindi ? panchang.yogaHi : panchang.yoga }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.yoga') }}</span>
+              <span class="detail-value">{{ getLocalizedText(panchang.yoga, panchang.yogaHi) }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">📅</span>
-              <span class="detail-label">{{ isHindi ? 'हिंदू मास' : 'Hindu Month' }}</span>
-              <span class="detail-value">{{ isHindi ? panchang.hinduMonthHi : panchang.hinduMonth }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.hinduMonth') }}</span>
+              <span class="detail-value">{{ getLocalizedText(panchang.hinduMonth, panchang.hinduMonthHi) }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">🌅</span>
-              <span class="detail-label">{{ isHindi ? 'सूर्योदय' : 'Sunrise' }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.sunrise') }}</span>
               <span class="detail-value">{{ panchang.sunrise }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">🌇</span>
-              <span class="detail-label">{{ isHindi ? 'सूर्यास्त' : 'Sunset' }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.sunset') }}</span>
               <span class="detail-value">{{ panchang.sunset }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">⚠️</span>
-              <span class="detail-label">{{ isHindi ? 'राहुकाल' : 'Rahukaal' }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.rahukaal') }}</span>
               <span class="detail-value rahu">{{ panchang.rahukaal }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">🎨</span>
-              <span class="detail-label">{{ isHindi ? 'शुभ रंग' : 'Lucky Color' }}</span>
-              <span class="detail-value">{{ isHindi ? panchang.auspiciousColorHi : panchang.auspiciousColor }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.luckyColor') }}</span>
+              <span class="detail-value">{{ getLocalizedText(panchang.auspiciousColor, panchang.auspiciousColorHi) }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-icon">🔢</span>
-              <span class="detail-label">{{ isHindi ? 'शुभ अंक' : 'Lucky Number' }}</span>
+              <span class="detail-label">{{ lang.t('dashboard.luckyNumber') }}</span>
               <span class="detail-value">{{ panchang.luckyNumber }}</span>
             </div>
           </div>
@@ -91,15 +91,15 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
           <!-- Today's Deity -->
           <div class="todays-deity">
             <span class="deity-badge" [class.auspicious]="panchang.isAuspicious">
-              {{ isHindi ? panchang.varaDeityHi : panchang.varaDeity }}
+              {{ getLocalizedText(panchang.varaDeity, panchang.varaDeityHi) }}
               {{ panchang.isAuspicious ? '✨' : '' }}
             </span>
-            <span class="deity-label">{{ isHindi ? 'आज के अधिष्ठाता देवता' : "Today's Presiding Deity" }}</span>
+            <span class="deity-label">{{ lang.t('dashboard.todayPresidingDeity') }}</span>
           </div>
 
           <!-- Tithi Significance -->
           <div class="tithi-significance">
-            <p>{{ isHindi ? panchang.tithi.significanceHi : panchang.tithi.significance }}</p>
+            <p>{{ getLocalizedText(panchang.tithi.significance, panchang.tithi.significanceHi) }}</p>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
       <!-- 🌟 SPECIAL MESSAGE OF THE DAY -->
       <div class="special-message-card" *ngIf="panchang.specialMessage">
         <p class="special-message">
-          {{ isHindi ? panchang.specialMessageHi : panchang.specialMessage }}
+          {{ getLocalizedText(panchang.specialMessage, panchang.specialMessageHi) }}
         </p>
       </div>
 
@@ -115,7 +115,7 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
       <div class="challenges-card glass-card" *ngIf="challenges.length > 0">
         <div class="challenges-header">
           <h3 class="challenges-title">
-            {{ isHindi ? '🎯 आज की चुनौतियां' : '🎯 Daily Challenges' }}
+            🎯 {{ lang.t('dashboard.dailyChallengesTitle') }}
           </h3>
           <div class="challenges-progress">
             <div class="progress-ring">
@@ -135,22 +135,22 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
                (click)="startChallenge(challenge)">
             <span class="challenge-icon">{{ challenge.completed ? '✅' : challenge.icon }}</span>
             <div class="challenge-info">
-              <span class="challenge-name">{{ isHindi ? challenge.titleHi : challenge.title }}</span>
-              <span class="challenge-desc">{{ isHindi ? challenge.descriptionHi : challenge.description }}</span>
+              <span class="challenge-name">{{ getLocalizedText(challenge.title, challenge.titleHi) }}</span>
+              <span class="challenge-desc">{{ getLocalizedText(challenge.description, challenge.descriptionHi) }}</span>
             </div>
             <div class="challenge-meta">
               <span class="challenge-points" [class.earned]="challenge.completed">
                 +{{ challenge.points }}
               </span>
               <span class="challenge-action" *ngIf="!challenge.completed">
-                {{ isHindi ? 'शुरू करें' : 'Start' }}
+                {{ lang.t('dashboard.startChallenge') }}
               </span>
             </div>
           </button>
         </div>
 
         <div class="all-done-banner" *ngIf="allCompleted">
-          🎉 {{ isHindi ? 'सभी चुनौतियां पूरी! कल फिर आएं!' : 'All done! Come back tomorrow for new challenges!' }}
+          🎉 {{ lang.t('dashboard.allChallengesComplete') }}
         </div>
       </div>
 
@@ -158,7 +158,7 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
       <div class="festivals-card glass-card" *ngIf="festivals.length > 0" (click)="toggleFestivals()">
         <div class="festivals-header">
           <h3 class="festivals-title">
-            {{ isHindi ? '🎪 आगामी त्योहार' : '🎪 Upcoming Festivals' }}
+            🎪 {{ lang.t('dashboard.upcomingFestivalsTitle') }}
           </h3>
           <span class="expand-icon" [class.rotated]="showFestivals">▼</span>
         </div>
@@ -168,11 +168,9 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
           <div class="festival-countdown" [class.today]="festivals[0].isToday">
             <span class="festival-emoji">{{ festivals[0].emoji }}</span>
             <div class="festival-info">
-              <span class="festival-name">{{ isHindi ? festivals[0].nameHi : festivals[0].name }}</span>
+              <span class="festival-name">{{ getLocalizedText(festivals[0].name, festivals[0].nameHi) }}</span>
               <span class="festival-date">
-                {{ festivals[0].isToday 
-                  ? (isHindi ? '🎉 आज!' : '🎉 Today!') 
-                  : (isHindi ? festivals[0].daysAway + ' दिन बाद' : 'in ' + festivals[0].daysAway + ' days') }}
+                {{ getFestivalCountdown(festivals[0]) }}
               </span>
             </div>
           </div>
@@ -184,13 +182,11 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
                [class.today]="festival.isToday">
             <span class="fest-emoji">{{ festival.emoji }}</span>
             <div class="fest-details">
-              <span class="fest-name">{{ isHindi ? festival.nameHi : festival.name }}</span>
-              <span class="fest-desc">{{ isHindi ? festival.descriptionHi : festival.description }}</span>
+              <span class="fest-name">{{ getLocalizedText(festival.name, festival.nameHi) }}</span>
+              <span class="fest-desc">{{ getLocalizedText(festival.description, festival.descriptionHi) }}</span>
             </div>
             <span class="fest-days">
-              {{ festival.isToday 
-                ? '🎉' 
-                : festival.daysAway + (isHindi ? ' दिन' : 'd') }}
+              {{ getFestivalDayBadge(festival) }}
             </span>
           </div>
         </div>
@@ -205,7 +201,7 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
           </div>
           <div class="streak-info">
             <span class="streak-label">
-              {{ isHindi ? 'दिन की लगातार भक्ति' : 'Day Devotion Streak' }}
+              {{ lang.t('dashboard.devotionStreak') }}
             </span>
             <span class="streak-encourage">
               {{ getStreakMessage() }}
@@ -856,20 +852,39 @@ export class TodayDashboardComponent implements OnInit, OnDestroy {
     return '🌱';
   }
 
+  getLocalizedText(english?: string | null, hindi?: string | null): string {
+    return this.isHindi ? (hindi || english || '') : (english || hindi || '');
+  }
+
+  getFestivalCountdown(festival: HinduFestival): string {
+    if (festival.isToday) {
+      return this.lang.t('dashboard.festivalToday');
+    }
+
+    return this.lang.format('dashboard.festivalInDays', { count: festival.daysAway });
+  }
+
+  getFestivalDayBadge(festival: HinduFestival): string {
+    if (festival.isToday) {
+      return '🎉';
+    }
+
+    return this.lang.format('dashboard.festivalDayShort', { count: festival.daysAway });
+  }
+
   getStreakMessage(): string {
-    const isHi = this.isHindi;
     if (this.streak >= 100) {
-      return isHi ? '💎 आप सच्चे भक्त हैं! 100+ दिन!' : '💎 You are a true devotee! 100+ days!';
+      return this.lang.t('dashboard.streakTrueDevotee');
     }
     if (this.streak >= 30) {
-      return isHi ? '⭐ एक पूरा महीना! अद्भुत!' : '⭐ A full month! Amazing!';
+      return this.lang.t('dashboard.streakMonth');
     }
     if (this.streak >= 7) {
-      return isHi ? '🔥 एक सप्ताह पूरा! शानदार!' : '🔥 One week strong! Brilliant!';
+      return this.lang.t('dashboard.streakWeek');
     }
     if (this.streak >= 3) {
-      return isHi ? '✨ लगातार बढ़ रहे हैं!' : '✨ Keep going, growing stronger!';
+      return this.lang.t('dashboard.streakGrowing');
     }
-    return isHi ? '🌱 यात्रा शुरू हुई! कल भी आएं!' : '🌱 Journey started! Come back tomorrow!';
+    return this.lang.t('dashboard.streakStarted');
   }
 }

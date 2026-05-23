@@ -23,7 +23,7 @@ import { LanguageService } from '../../services/language.service';
         <div class="header-left">
           <span class="header-icon">📿</span>
           <h3 class="header-title">
-            {{ isHindi ? 'मेरा प्रसाद संग्रह' : 'My Prasad Collection' }}
+            {{ lang.t('prasadCollection.title') }}
           </h3>
         </div>
         <div class="header-right">
@@ -40,9 +40,7 @@ import { LanguageService } from '../../services/language.service';
           <div class="progress-fill" [style.width.%]="collectionPercent"></div>
         </div>
         <span class="progress-label">
-          {{ isHindi 
-            ? uniqueCount + '/' + totalPossible + ' अद्वितीय प्रसाद' 
-            : uniqueCount + '/' + totalPossible + ' unique prasad collected' }}
+          {{ getProgressLabel() }}
         </span>
       </div>
 
@@ -51,13 +49,13 @@ import { LanguageService } from '../../services/language.service';
         <!-- Rarity sections -->
         <div class="rarity-section" *ngIf="divineItems.length > 0">
           <div class="rarity-label divine-label">
-            ✨ {{ isHindi ? 'दिव्य' : 'DIVINE' }} ({{ divineItems.length }})
+            ✨ {{ getRarityText('divine') }} ({{ divineItems.length }})
           </div>
           <div class="items-row">
             <div class="prasad-item divine" *ngFor="let p of divineItems; trackBy: trackPrasad" 
                  (click)="selectPrasad(p); $event.stopPropagation()">
               <span class="item-emoji">{{ p.emoji }}</span>
-              <span class="item-name">{{ isHindi ? p.nameHi : p.name }}</span>
+              <span class="item-name">{{ getPrasadName(p) }}</span>
               <span class="item-deity">{{ p.fromDeity }}</span>
             </div>
           </div>
@@ -65,13 +63,13 @@ import { LanguageService } from '../../services/language.service';
 
         <div class="rarity-section" *ngIf="rareItems.length > 0">
           <div class="rarity-label rare-label">
-            💎 {{ isHindi ? 'दुर्लभ' : 'RARE' }} ({{ rareItems.length }})
+            💎 {{ getRarityText('rare') }} ({{ rareItems.length }})
           </div>
           <div class="items-row">
             <div class="prasad-item rare" *ngFor="let p of rareItems; trackBy: trackPrasad"
                  (click)="selectPrasad(p); $event.stopPropagation()">
               <span class="item-emoji">{{ p.emoji }}</span>
-              <span class="item-name">{{ isHindi ? p.nameHi : p.name }}</span>
+              <span class="item-name">{{ getPrasadName(p) }}</span>
               <span class="item-deity">{{ p.fromDeity }}</span>
             </div>
           </div>
@@ -79,13 +77,13 @@ import { LanguageService } from '../../services/language.service';
 
         <div class="rarity-section" *ngIf="uncommonItems.length > 0">
           <div class="rarity-label uncommon-label">
-            🌟 {{ isHindi ? 'विशेष' : 'SPECIAL' }} ({{ uncommonItems.length }})
+            🌟 {{ getRarityText('uncommon') }} ({{ uncommonItems.length }})
           </div>
           <div class="items-row">
             <div class="prasad-item uncommon" *ngFor="let p of uncommonItems; trackBy: trackPrasad"
                  (click)="selectPrasad(p); $event.stopPropagation()">
               <span class="item-emoji">{{ p.emoji }}</span>
-              <span class="item-name">{{ isHindi ? p.nameHi : p.name }}</span>
+              <span class="item-name">{{ getPrasadName(p) }}</span>
               <span class="item-deity">{{ p.fromDeity }}</span>
             </div>
           </div>
@@ -93,13 +91,13 @@ import { LanguageService } from '../../services/language.service';
 
         <div class="rarity-section" *ngIf="commonItems.length > 0">
           <div class="rarity-label common-label">
-            🙏 {{ isHindi ? 'सामान्य' : 'COMMON' }} ({{ commonItems.length }})
+            🙏 {{ getRarityText('common') }} ({{ commonItems.length }})
           </div>
           <div class="items-row">
             <div class="prasad-item common" *ngFor="let p of commonItems; trackBy: trackPrasad"
                  (click)="selectPrasad(p); $event.stopPropagation()">
               <span class="item-emoji">{{ p.emoji }}</span>
-              <span class="item-name">{{ isHindi ? p.nameHi : p.name }}</span>
+              <span class="item-name">{{ getPrasadName(p) }}</span>
               <span class="item-deity">{{ p.fromDeity }}</span>
             </div>
           </div>
@@ -109,9 +107,7 @@ import { LanguageService } from '../../services/language.service';
         <div class="empty-state" *ngIf="collection.length === 0">
           <span class="empty-icon">🪔</span>
           <p class="empty-text">
-            {{ isHindi 
-              ? 'आरती करें और दिव्य प्रसाद प्राप्त करें!' 
-              : 'Perform Aarti to receive divine Prasad!' }}
+            {{ lang.t('prasadCollection.emptyMessage') }}
           </p>
         </div>
       </div>
@@ -124,16 +120,16 @@ import { LanguageService } from '../../services/language.service';
           <div class="modal-rarity" [class]="selectedPrasad.rarity + '-badge'">
             {{ getRarityLabel(selectedPrasad.rarity) }}
           </div>
-          <h4 class="modal-name">{{ isHindi ? selectedPrasad.nameHi : selectedPrasad.name }}</h4>
-          <p class="modal-desc">{{ isHindi ? selectedPrasad.descriptionHi : selectedPrasad.description }}</p>
+          <h4 class="modal-name">{{ getPrasadName(selectedPrasad) }}</h4>
+          <p class="modal-desc">{{ getPrasadDescription(selectedPrasad) }}</p>
           <p class="modal-from">
-            {{ isHindi ? 'से प्राप्त: ' : 'From: ' }} {{ selectedPrasad.fromDeity }}
+            {{ lang.t('prasadCollection.fromLabel') }} {{ selectedPrasad.fromDeity }}
           </p>
           <p class="modal-date">
             {{ formatDate(selectedPrasad.receivedDate) }}
           </p>
           <button class="modal-share-btn" (click)="sharePrasad(selectedPrasad)">
-            {{ isHindi ? '📤 WhatsApp पर साझा करें' : '📤 Share on WhatsApp' }}
+            {{ lang.t('prasadCollection.shareWhatsApp') }}
           </button>
         </div>
       </div>
@@ -556,13 +552,40 @@ export class PrasadCollectionComponent implements OnInit, OnDestroy {
     return prasad.id;
   }
 
-  getRarityLabel(rarity: string): string {
-    const isHi = this.isHindi;
+  getProgressLabel(): string {
+    return this.lang.format('prasadCollection.progressLabel', {
+      count: this.uniqueCount,
+      total: this.totalPossible
+    });
+  }
+
+  getPrasadName(prasad: DigitalPrasad): string {
+    return this.isHindi ? prasad.nameHi : prasad.name;
+  }
+
+  getPrasadDescription(prasad: DigitalPrasad): string {
+    return this.isHindi ? prasad.descriptionHi : prasad.description;
+  }
+
+  getRarityText(rarity: string): string {
     switch (rarity) {
-      case 'divine': return isHi ? '✨ दिव्य' : '✨ DIVINE';
-      case 'rare': return isHi ? '💎 दुर्लभ' : '💎 RARE';
-      case 'uncommon': return isHi ? '🌟 विशेष' : '🌟 SPECIAL';
-      default: return isHi ? '🙏 सामान्य' : '🙏 COMMON';
+      case 'divine':
+        return this.lang.t('prasadCollection.rarityDivine');
+      case 'rare':
+        return this.lang.t('prasadCollection.rarityRare');
+      case 'uncommon':
+        return this.lang.t('prasadCollection.rarityUncommon');
+      default:
+        return this.lang.t('prasadCollection.rarityCommon');
+    }
+  }
+
+  getRarityLabel(rarity: string): string {
+    switch (rarity) {
+      case 'divine': return `✨ ${this.lang.t('prasadCollection.rarityDivine')}`;
+      case 'rare': return `💎 ${this.lang.t('prasadCollection.rarityRare')}`;
+      case 'uncommon': return `🌟 ${this.lang.t('prasadCollection.rarityUncommon')}`;
+      default: return `🙏 ${this.lang.t('prasadCollection.rarityCommon')}`;
     }
   }
 

@@ -39,7 +39,7 @@ import { LanguageService } from '../../services/language.service';
         <!-- Message -->
         <div class="streak-message">
           <span class="message-text">{{ getMessage() }}</span>
-          <span class="sub-text" *ngIf="!expanded">{{ isHindi ? 'टैप करें' : 'Tap to expand' }}</span>
+          <span class="sub-text" *ngIf="!expanded">{{ lang.t('streak.tapToExpand') }}</span>
         </div>
         
         <!-- Level Badge -->
@@ -54,18 +54,18 @@ import { LanguageService } from '../../services/language.service';
         <div class="detail-row">
           <div class="detail-item">
             <span class="detail-icon">📅</span>
-            <span class="detail-label">{{ isHindi ? 'लगातार दिन' : 'Day Streak' }}</span>
+            <span class="detail-label">{{ lang.t('rewards.dayStreak') }}</span>
             <span class="detail-value">{{ streak }}</span>
           </div>
           <div class="detail-item">
             <span class="detail-icon">⭐</span>
-            <span class="detail-label">{{ isHindi ? 'पुण्य अंक' : 'Punya Points' }}</span>
+            <span class="detail-label">{{ lang.t('rewards.pointsLabel') }}</span>
             <span class="detail-value">{{ totalPoints }}</span>
           </div>
           <div class="detail-item">
             <span class="detail-icon">🏆</span>
-            <span class="detail-label">{{ isHindi ? 'स्तर' : 'Level' }}</span>
-            <span class="detail-value">{{ levelName }}</span>
+            <span class="detail-label">{{ lang.t('streak.levelLabel') }}</span>
+            <span class="detail-value">{{ getLevelName() }}</span>
           </div>
         </div>
         
@@ -74,16 +74,12 @@ import { LanguageService } from '../../services/language.service';
           <div class="milestone-bar">
             <div class="milestone-fill" [style.width.%]="milestoneProgress"></div>
           </div>
-          <span class="milestone-label">
-            {{ isHindi 
-              ? streak + '/' + nextMilestone + ' दिन अगले मील के पत्थर तक'
-              : streak + '/' + nextMilestone + ' days to next milestone' }}
-          </span>
+          <span class="milestone-label">{{ getMilestoneLabel() }}</span>
         </div>
         
         <!-- Motivation -->
         <div class="motivation-text" *ngIf="isMilestone">
-          🎉 {{ isHindi ? 'बधाई! आपने ' + streak + ' दिन पूरे किए!' : 'Congratulations! ' + streak + ' day streak!' }}
+          🎉 {{ getMilestoneCongrats() }}
         </div>
       </div>
     </div>
@@ -291,7 +287,6 @@ export class StreakBannerComponent implements OnInit, OnDestroy {
   streak = 0;
   totalPoints = 0;
   level = 1;
-  levelName = '';
   completedChallenges = 0;
   totalChallenges = 0;
   isMilestone = false;
@@ -305,10 +300,6 @@ export class StreakBannerComponent implements OnInit, OnDestroy {
   private refreshInterval?: any;
   
   private readonly milestones = [7, 21, 40, 51, 72, 108, 365];
-  
-  get isHindi(): boolean {
-    return this.lang.getCurrentLanguage() === 'hi';
-  }
 
   constructor(
     private engagement: DailyEngagementService,
@@ -337,7 +328,6 @@ export class StreakBannerComponent implements OnInit, OnDestroy {
     const profile = this.rewards.getProfile();
     this.totalPoints = profile.points?.total || 0;
     this.level = profile.level || 1;
-    this.levelName = profile.levelName || 'Seeker';
     
     // Challenges
     const challenges = this.engagement.getDailyChallenges();
@@ -358,40 +348,59 @@ export class StreakBannerComponent implements OnInit, OnDestroy {
     this.milestoneProgress = range > 0 ? ((this.streak - prevMilestone) / range) * 100 : 0;
   }
 
+  getLevelName(): string {
+    const profile = this.rewards.getProfile();
+    if (this.lang.getCurrentLanguage() === 'hi') {
+      return profile.levelNameHi || profile.levelName || 'साधक';
+    }
+    return profile.levelName || 'Seeker';
+  }
+
+  getMilestoneLabel(): string {
+    return this.lang.format('streak.nextMilestone', {
+      streak: this.streak,
+      nextMilestone: this.nextMilestone
+    });
+  }
+
+  getMilestoneCongrats(): string {
+    return this.lang.format('streak.milestoneCongrats', {
+      streak: this.streak
+    });
+  }
+
   getMessage(): string {
-    const isHindi = this.isHindi;
-    
     if (this.streak === 0) {
-      return isHindi ? 'आज अपनी साधना शुरू करें!' : 'Start your spiritual journey today!';
+      return this.lang.t('streak.startMessage');
     }
     if (this.streak === 1) {
-      return isHindi ? 'पहला दिन! शुभ शुरुआत 🌱' : 'Day 1! Great start 🌱';
+      return this.lang.t('streak.dayOneMessage');
     }
     if (this.streak < 7) {
-      return isHindi ? this.streak + ' दिन! जारी रखें 💪' : this.streak + ' days! Keep going 💪';
+      return this.lang.format('streak.keepGoingMessage', { streak: this.streak });
     }
     if (this.streak === 7) {
-      return isHindi ? '7 दिन! एक सप्ताह पूरा! 🎉' : '7 days! One week complete! 🎉';
+      return this.lang.t('streak.weekCompleteMessage');
     }
     if (this.streak < 21) {
-      return isHindi ? this.streak + ' दिन की साधना! 🙏' : this.streak + ' day devotion! 🙏';
+      return this.lang.format('streak.devotionMessage', { streak: this.streak });
     }
     if (this.streak === 21) {
-      return isHindi ? '21 दिन! आदत बन गई! ✨' : '21 days! Habit formed! ✨';
+      return this.lang.t('streak.habitFormedMessage');
     }
     if (this.streak < 40) {
-      return isHindi ? this.streak + ' दिन! अद्भुत भक्ति! 🕉️' : this.streak + ' days! Amazing devotion! 🕉️';
+      return this.lang.format('streak.amazingMessage', { streak: this.streak });
     }
     if (this.streak === 40) {
-      return isHindi ? '40 दिन! मंडल पूरा! 🪔' : '40 days! Mandala complete! 🪔';
+      return this.lang.t('streak.mandalaCompleteMessage');
     }
     if (this.streak < 108) {
-      return isHindi ? this.streak + ' दिन! सच्चा भक्त! 🌺' : this.streak + ' days! True devotee! 🌺';
+      return this.lang.format('streak.trueDevoteeMessage', { streak: this.streak });
     }
     if (this.streak === 108) {
-      return isHindi ? '108 दिन! पवित्र संख्या! 📿' : '108 days! Sacred number! 📿';
+      return this.lang.t('streak.sacredNumberMessage');
     }
-    return isHindi ? this.streak + ' दिन! महान साधक! 👑' : this.streak + ' days! Great seeker! 👑';
+    return this.lang.format('streak.greatSeekerMessage', { streak: this.streak });
   }
 
   getLevelIcon(): string {

@@ -71,8 +71,8 @@ export class SmartShareService {
   shareOnTwitter(): void {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     const text = isHi 
-      ? '🙏 मनोकामना - अपने फोन पर करें मंदिर दर्शन और मनोकामना पूरी करें! #मनोकामना #वर्चुअलमंदिर' 
-      : '🙏 Manokamna - Visit virtual temples and make divine wishes! #Manokamna #VirtualTemple';
+      ? '🙏 मनोकामना डिजिटल मंदिर में दर्शन करें, दीया जलाएँ और श्रद्धा से मनोकामना अर्पित करें। #मनोकामना #डिजिटलमंदिर' 
+      : '🙏 Visit Manokamna Digital Temple for darshan, light a diya, and offer a heartfelt wish. #Manokamna #DigitalTemple';
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(this.APP_URL)}`;
     window.open(url, '_blank', 'width=600,height=400');
     this.recordShare('twitter');
@@ -85,10 +85,10 @@ export class SmartShareService {
     try {
       await navigator.clipboard.writeText(`${this.APP_URL}?ref=copy`);
       const isHi = this.lang.getCurrentLanguage() === 'hi';
-      this.toast.success(isHi ? '📋 लिंक कॉपी हो गया!' : '📋 Link copied!');
+      this.toast.success(isHi ? '📋 मंदिर लिंक कॉपी हो गया' : '📋 Temple link copied');
       this.recordShare('copy_link');
     } catch {
-      this.toast.error('Could not copy link');
+      this.toast.error(this.lang.t('common.copyFailed'));
     }
   }
 
@@ -103,7 +103,7 @@ export class SmartShareService {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     try {
       await navigator.share({
-        title: isHi ? 'मनोकामना - वर्चुअल मंदिर' : 'Manokamna - Virtual Temple',
+        title: isHi ? 'मनोकामना - डिजिटल दर्शन मंदिर' : 'Manokamna - Digital Temple for Darshan',
         text: this.getShareMessage(),
         url: `${this.APP_URL}?ref=native_share`
       });
@@ -131,9 +131,25 @@ export class SmartShareService {
   shareBlessingOnWhatsApp(blessing: string): void {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     const message = isHi
-      ? `${blessing}\n\nयह आशीर्वाद आपके लिए भेजा गया है।\n${this.getReferralUrl('blessing')}`
-      : `${blessing}\n\nThis blessing was sent for you.\n${this.getReferralUrl('blessing')}`;
+      ? `${blessing}\n\nयह आशीर्वाद स्नेह और शुभकामना के साथ आपके लिए भेजा गया है। चाहें तो यहाँ दर्शन करें:\n${this.getReferralUrl('blessing')}`
+      : `${blessing}\n\nThis blessing was sent with love and goodwill. If you wish, you can take darshan here:\n${this.getReferralUrl('blessing')}`;
     this.shareOnWhatsApp(message);
+  }
+
+  getTempleInviteShareData(deityName: string): ShareContent {
+    const isHi = this.lang.getCurrentLanguage() === 'hi';
+
+    return {
+      title: isHi ? `🚩 ${deityName} का डिजिटल मंदिर` : `🚩 ${deityName} Digital Temple`,
+      text: this.getTempleInviteText(deityName),
+      url: this.getReferralUrl('temple_invite')
+    };
+  }
+
+  getTempleInviteCopiedMessage(): string {
+    return this.lang.getCurrentLanguage() === 'hi'
+      ? 'मंदिर का आमंत्रण कॉपी हो गया। अब इसे WhatsApp, Email या किसी भी माध्यम से भेज सकते हैं।'
+      : 'Temple invite copied. You can now share it through WhatsApp, email, or any platform.';
   }
 
   shareContextualBlessing(context: BlessingShareContext, detail?: string): void {
@@ -146,8 +162,8 @@ export class SmartShareService {
   shareFestivalGreeting(festivalName: string, festivalNameHi: string): void {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     const message = isHi
-      ? `🎉 ${festivalNameHi} की हार्दिक शुभकामनाएं! 🙏\n\nआइए मनोकामना वर्चुअल मंदिर में दर्शन करें और आशीर्वाद प्राप्त करें!\n\n🪔 ${this.APP_URL}?ref=festival`
-      : `🎉 Happy ${festivalName}! 🙏\n\nVisit Manokamna Virtual Temple for divine blessings!\n\n🪔 ${this.APP_URL}?ref=festival`;
+      ? `🎉 ${festivalNameHi} की मंगलकामनाएँ! 🙏\n\nइस पावन अवसर पर दर्शन, प्रार्थना और आशीर्वाद के लिए मनोकामना डिजिटल मंदिर में आइए।\n\n🪔 ${this.APP_URL}?ref=festival`
+      : `🎉 Blessings for ${festivalName}! 🙏\n\nOn this sacred occasion, visit Manokamna Digital Temple for darshan, prayer, and blessings.\n\n🪔 ${this.APP_URL}?ref=festival`;
     this.shareOnWhatsApp(message);
   }
 
@@ -157,9 +173,9 @@ export class SmartShareService {
   getMorningShareMessage(): string {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     if (isHi) {
-      return `🙏 शुभ प्रभात! 🌅\n\nआज का दिन मंगलमय हो! मनोकामना मंदिर में आकर आशीर्वाद लें।\n\n🪔 दीये जलाएं\n📿 मंत्र सुनें\n⭐ मनोकामना करें\n\n${this.APP_URL}?ref=morning`;
+      return `🙏 शुभ प्रभात! 🌅\n\nदिन की शुरुआत कुछ शांत क्षणों, दर्शन और प्रार्थना से करें।\n\n🪔 दीया जलाएँ\n📿 मंत्र सुनें\n⭐ मनोकामना अर्पित करें\n\n${this.APP_URL}?ref=morning`;
     }
-    return `🙏 Good Morning! 🌅\n\nMay your day be blessed! Visit Manokamna Temple for divine darshan.\n\n🪔 Light diyas\n📿 Listen to mantras\n⭐ Make a divine wish\n\n${this.APP_URL}?ref=morning`;
+    return `🙏 Good Morning! 🌅\n\nBegin the day with a few quiet moments of darshan and prayer.\n\n🪔 Light a diya\n📿 Listen to mantras\n⭐ Offer a heartfelt wish\n\n${this.APP_URL}?ref=morning`;
   }
 
   /**
@@ -168,13 +184,51 @@ export class SmartShareService {
   getShareMessage(): string {
     const isHi = this.lang.getCurrentLanguage() === 'hi';
     if (isHi) {
-      return `आज आपके लिए एक छोटा सा आशीर्वाद भेज रहा/रही हूं।\n\n` +
-        `दीया जलाएं, शांत मन से दर्शन करें, और अपने प्रियजनों के लिए शुभकामना करें।\n\n` +
+      return `आज यह पावन डिजिटल मंदिर आपके साथ साझा कर रहा/रही हूँ।\n\n` +
+        `जब चाहें, यहाँ शांत मन से दर्शन करें, दीया जलाएँ और अपनी मनोकामना श्रद्धा से अर्पित करें।\n\n` +
         `${this.getReferralUrl('blessing_share')}`;
     }
-    return `Sending you a small blessing today.\n\n` +
-      `Light a diya, take a quiet darshan, and offer a wish for someone you love.\n\n` +
+    return `Sharing this sacred digital temple with you today.\n\n` +
+      `Come here for a quiet darshan, light a diya, and offer a heartfelt wish whenever you need a peaceful moment.\n\n` +
       `${this.getReferralUrl('blessing_share')}`;
+  }
+
+  private getTempleInviteText(deityName: string): string {
+    const isHi = this.lang.getCurrentLanguage() === 'hi';
+
+    if (isHi) {
+      return [
+        `जब भी मन को शांत करना हो, ${deityName} के इस ऑनलाइन मंदिर में दर्शन के लिए आएँ।`,
+        '',
+        'यहाँ आप:',
+        '🪔 दीया जला सकते हैं',
+        '🔔 घंटी बजाकर दर्शन शुरू कर सकते हैं',
+        '🌺 श्रद्धा से पुष्प अर्पित कर सकते हैं',
+        `📿 अपनी मनोकामना ${deityName} के चरणों में समर्पित कर सकते हैं`,
+        '🎵 आरती, मंत्र और घंटेवार पाठ सुन सकते हैं',
+        '',
+        '✅ बिना लॉगिन',
+        '✅ मोबाइल और डेस्कटॉप दोनों पर',
+        '✅ आपकी निजी मनोकामनाएँ आपके अपने डिवाइस पर रहती हैं',
+        '✅ सेवा सभी के लिए निःशुल्क है'
+      ].join('\n');
+    }
+
+    return [
+      `Whenever you need a quiet moment, visit this online temple of ${deityName} for darshan.`,
+      '',
+      'Inside the temple you can:',
+      '🪔 Light a diya',
+      '🔔 Ring the bell to begin darshan',
+      '🌺 Offer flowers with devotion',
+      `📿 Place a personal wish before ${deityName}`,
+      '🎵 Listen to aarti, mantras, and hourly recitations',
+      '',
+      '✅ No login required',
+      '✅ Works on mobile and desktop',
+      '✅ Personal wishes stay on your own device',
+      '✅ Free for every devotee'
+    ].join('\n');
   }
 
   private getContextualBlessingMessage(context: BlessingShareContext, detail?: string): string {

@@ -272,7 +272,12 @@ export class DailyEngagementService {
 
     // Award points
     if (pointsEarned > 0) {
-      this.rewards.addPoints('completeRitual', `Daily challenge: ${action}`);
+      this.rewards.addPoints(
+        'completeRitual',
+        this.lang.format('rewards.activityDailyChallenge', {
+          action: this.getChallengeActionLabel(action)
+        })
+      );
     }
 
     this.engagementSubject.next(data);
@@ -302,7 +307,12 @@ export class DailyEngagementService {
       
       // Award time-based points every 5 minutes
       if (data.totalTimeSpent % 5 === 0 && data.totalTimeSpent <= 30) {
-        this.rewards.addPoints('dailyVisit', `${data.totalTimeSpent} minutes in temple`);
+        this.rewards.addPoints(
+          'dailyVisit',
+          this.lang.format('rewards.activityMinutesInTemple', {
+            minutes: data.totalTimeSpent
+          })
+        );
       }
       
       this.engagementSubject.next(data);
@@ -395,5 +405,20 @@ export class DailyEngagementService {
     } catch {
       // Ignore
     }
+  }
+
+  private getChallengeActionLabel(action: string): string {
+    const keyMap: Record<string, string> = {
+      diya: 'rewards.challengeActionDiya',
+      bell: 'rewards.challengeActionBell',
+      flowers: 'rewards.challengeActionFlowers',
+      quote: 'rewards.challengeActionQuote',
+      aarti: 'rewards.challengeActionAarti',
+      wish: 'rewards.challengeActionWish',
+      visit_shiva: 'rewards.challengeActionVisitShiva',
+      visit_durga: 'rewards.challengeActionVisitDurga'
+    };
+
+    return this.lang.t(keyMap[action] || action);
   }
 }

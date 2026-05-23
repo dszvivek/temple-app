@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MeditationService } from '../../services/meditation.service';
 import { TempleBellService } from '../../services/temple-bell.service';
+import { LanguageService } from '../../services/language.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -27,7 +28,8 @@ export class MeditationTimerComponent implements OnInit, OnDestroy {
 
   constructor(
     public meditationService: MeditationService,
-    private templeBellService: TempleBellService
+    private templeBellService: TempleBellService,
+    public lang: LanguageService
   ) {}
 
   ngOnInit(): void {

@@ -12,7 +12,7 @@ export const GANESH_CONFIG: TempleConfig = {
     name: 'Ganesha Ji',
     nameHindi: 'श्री गणेश जी',
     description: 'Lord Ganesha - Remover of Obstacles',
-    descriptionHindi: 'विघ्नहर्ता गणेश - विघ्नों के निवारक',
+    descriptionHindi: 'विघ्नहर्ता गणेश - बुद्धि और मंगल के देव',
     icon: '🐘',
     color: 'red',
     gradients: {

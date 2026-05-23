@@ -1,8 +1,8 @@
 <button
   (click)="offerFlowers()"
   class="floating-flower-btn"
-  [attr.aria-label]="lang.getCurrentLanguage() === 'hi' ? 'पुष्प अर्पित करें' : 'Offer Flowers'"
-  [attr.title]="lang.getCurrentLanguage() === 'hi' ? 'पुष्प अर्पित करें' : 'Offer Flowers'">
+  [attr.aria-label]="lang.t('flowerControl.offerAction')"
+  [attr.title]="lang.t('flowerControl.offerAction')">
   <div class="flower-icon">🌺</div>
-  <div class="flower-label">{{ lang.getCurrentLanguage() === 'hi' ? 'पुष्प' : 'Flowers' }}</div>
+  <div class="flower-label">{{ lang.t('flowerControl.label') }}</div>
 </button>

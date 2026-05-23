@@ -5,7 +5,7 @@
       <div class="inline-flex items-center justify-center gap-3 mb-3">
         <span class="text-3xl">🕉️</span>
         <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent">
-          Manokamna Virtual Temple
+          {{ lang.t('templeSelector.headerTitle') }}
         </h1>
         <span class="text-3xl">🕉️</span>
       </div>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Primary Daily Devotional Loop -->
-    <section class="daily-loop-card mb-6" aria-label="Today's devotional practice">
+    <section class="daily-loop-card mb-6" [attr.aria-label]="lang.t('templeSelector.dailyLoopAriaLabel')">
       <div class="daily-loop-content">
         <div class="daily-loop-icon">
           <img 
@@ -50,7 +50,7 @@
 
         <div class="daily-loop-copy">
           <span class="daily-loop-kicker">
-            {{ lang.getCurrentLanguage() === 'hi' ? 'आज का देवता' : "Today's focus" }}
+            {{ lang.t('templeSelector.todayFocus') }}
           </span>
           <h2>{{ getTodaysDeityName() }}</h2>
           <div class="daily-loop-steps">
@@ -62,26 +62,18 @@
 
         <div class="daily-loop-actions">
           <button type="button" class="primary-darshan-button" (click)="startTodaysDarshan()">
-            {{ lang.getCurrentLanguage() === 'hi' ? 'आज का दर्शन शुरू करें' : "Start Today's Darshan" }}
+            {{ lang.t('templeSelector.startDarshan') }}
           </button>
           <button type="button" class="secondary-wish-button" (click)="startTodaysWish()">
-            {{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}
+            {{ lang.t('templeSelector.startWish') }}
           </button>
         </div>
       </div>
 
       <div class="sankalp-strip" *ngIf="activePractice">
         <div class="sankalp-copy">
-          <span class="sankalp-label">
-            {{ needsSankalpToday()
-              ? (lang.getCurrentLanguage() === 'hi' ? 'आज का संकल्प बाकी है' : "Today's sankalp is waiting")
-              : (lang.getCurrentLanguage() === 'hi' ? 'संकल्प अभ्यास' : 'Wish practice') }}
-          </span>
-          <strong>
-            {{ activePractice.status === 'completed'
-              ? (lang.getCurrentLanguage() === 'hi' ? '14 दिन पूरे हुए' : '14 days complete')
-              : (lang.getCurrentLanguage() === 'hi' ? 'दिन ' + getSankalpDay() + ' / ' + activePractice.totalDays : 'Day ' + getSankalpDay() + ' of ' + activePractice.totalDays) }}
-          </strong>
+          <span class="sankalp-label">{{ getSankalpLabel() }}</span>
+          <strong>{{ getSankalpProgressLabel() }}</strong>
           <span class="sankalp-title">{{ activePractice.title }}</span>
         </div>
         <div class="sankalp-progress" aria-hidden="true">
@@ -92,20 +84,20 @@
           type="button" 
           class="sankalp-button" 
           (click)="continueSankalp()">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'संकल्प जारी रखें' : 'Continue Sankalp' }}
+          {{ lang.t('templeSelector.continueSankalp') }}
         </button>
         <button 
           *ngIf="activePractice.status === 'completed'"
           type="button" 
           class="sankalp-button" 
           (click)="renewSankalp()">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'फिर 14 दिन करें' : 'Renew 14 Days' }}
+          {{ lang.t('templeSelector.renewSankalp') }}
         </button>
       </div>
     </section>
 
     <div class="section-label">
-      {{ lang.getCurrentLanguage() === 'hi' ? 'या दूसरा मंदिर चुनें' : 'Or choose another temple' }}
+      {{ lang.t('templeSelector.chooseAnotherTemple') }}
     </div>
 
     <!-- Temple Cards Grid - All 5 Temples -->
@@ -126,11 +118,11 @@
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-orange-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'हनुमान मंदिर' : 'Hanuman Temple' }}
+          {{ lang.getTempleLabel(DeityType.HANUMAN) }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'बजरंगबली' : 'Bajrangbali Darshan' }}</p>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getTempleCardSubtitle(DeityType.HANUMAN) }}</p>
         <span class="block w-full py-2 px-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-lg text-center">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+          {{ lang.t('templeSelector.enterTemple') }} →
         </span>
       </a>
 
@@ -148,11 +140,11 @@
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-amber-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}
+          {{ lang.getTempleLabel(DeityType.GANESH) }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'विघ्नहर्ता' : 'Vighnaharta Darshan' }}</p>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getTempleCardSubtitle(DeityType.GANESH) }}</p>
         <span class="block w-full py-2 px-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-bold rounded-lg text-center">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+          {{ lang.t('templeSelector.enterTemple') }} →
         </span>
       </a>
 
@@ -170,11 +162,11 @@
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-indigo-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'शिव मंदिर' : 'Shiva Temple' }}
+          {{ lang.getTempleLabel(DeityType.SHIVA) }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'महादेव' : 'Mahadev Darshan' }}</p>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getTempleCardSubtitle(DeityType.SHIVA) }}</p>
         <span class="block w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold rounded-lg text-center">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+          {{ lang.t('templeSelector.enterTemple') }} →
         </span>
       </a>
 
@@ -192,11 +184,11 @@
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-blue-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'कृष्ण मंदिर' : 'Krishna Temple' }}
+          {{ lang.getTempleLabel(DeityType.KRISHNA) }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'गोविंद' : 'Radhe Krishna Darshan' }}</p>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getTempleCardSubtitle(DeityType.KRISHNA) }}</p>
         <span class="block w-full py-2 px-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold rounded-lg text-center">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+          {{ lang.t('templeSelector.enterTemple') }} →
         </span>
       </a>
 
@@ -214,11 +206,11 @@
           </div>
         </div>
         <h2 class="text-sm font-bold text-center text-red-800 mb-1">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'दुर्गा मंदिर' : 'Durga Temple' }}
+          {{ lang.getTempleLabel(DeityType.DURGA) }}
         </h2>
-        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getCurrentLanguage() === 'hi' ? 'शक्ति' : 'Sherawali Mata Darshan' }}</p>
+        <p class="text-center text-gray-500 text-xs mb-2">{{ lang.getTempleCardSubtitle(DeityType.DURGA) }}</p>
         <span class="block w-full py-2 px-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold rounded-lg text-center">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'प्रवेश' : 'Enter' }} →
+          {{ lang.t('templeSelector.enterTemple') }} →
         </span>
       </a>
 
@@ -233,16 +225,14 @@
         (click)="shareApp()"
         class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95">
         <span>📤</span>
-        <span>{{ lang.getCurrentLanguage() === 'hi' ? 'WhatsApp पर भेजें' : 'Share on WhatsApp' }}</span>
+        <span>{{ lang.t('templeSelector.shareWhatsApp') }}</span>
       </button>
     </div>
 
     <!-- Footer Info -->
     <div class="text-center bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-gray-200 shadow-sm">
       <p class="text-sm text-gray-600">
-        {{ lang.getCurrentLanguage() === 'hi' 
-          ? '💡 आप किसी भी समय मंदिर बदल सकते हैं' 
-          : '💡 You can switch temples anytime' }}
+        💡 {{ lang.t('templeSelector.switchTempleAnytime') }}
       </p>
     </div>
   </div>

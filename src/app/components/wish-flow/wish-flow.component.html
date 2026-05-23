@@ -203,7 +203,7 @@
           <span>🔔</span> {{ lang.t('wish.ringBell') }}
         </h3>
         <p class="text-xs text-gray-500 mb-4">
-          {{ lang.getCurrentLanguage() === 'hi' ? 'घंटी को ' + requiredBellTaps + ' बार बजाएं' : 'Tap ' + requiredBellTaps + ' times' }}
+          {{ lang.format('wish.bellTapInstruction', { count: requiredBellTaps }) }}
         </p>
         
         <button 
@@ -279,7 +279,7 @@
     </div>
 
     <div *ngIf="!isRitualComplete" class="bg-yellow-50 border border-yellow-300 rounded-xl p-4 text-sm text-yellow-800 font-medium">
-      {{ lang.getCurrentLanguage() === 'hi' ? 'अपनी मनोकामना सबमिट करने के लिए कृपया दोनों अनुष्ठान पूरे करें' : 'Complete both rituals to submit your wish' }}
+      {{ lang.t('wish.completeBothRituals') }}
     </div>
   </div>
 
@@ -320,12 +320,10 @@
         <span class="text-2xl">🪔</span>
         <div>
           <h3 class="text-base font-bold text-orange-900">
-            {{ lang.getCurrentLanguage() === 'hi' ? '14 दिन का संकल्प शुरू हुआ' : '14-Day Sankalp Started' }}
+            {{ lang.t('wish.sankalpStartedTitle') }}
           </h3>
           <p class="text-sm text-orange-800 mt-1">
-            {{ lang.getCurrentLanguage() === 'hi' 
-              ? 'हर दिन वापस आएं, छोटा दर्शन करें, और इसी मनोकामना को श्रद्धा से याद रखें।'
-              : 'Come back each day, complete a short darshan, and keep this wish in mindful practice.' }}
+            {{ lang.t('wish.sankalpStartedText') }}
           </p>
         </div>
       </div>
@@ -336,9 +334,7 @@
       <div class="text-center mb-4">
         <span class="text-4xl">🙏</span>
         <h3 class="text-lg font-bold text-orange-800 mt-2">
-          {{ lang.getCurrentLanguage() === 'hi' 
-             ? lang.getDeityName() + ' का आशीर्वाद' 
-             : 'Blessing from ' + lang.getDeityName() }}
+          {{ lang.format('wish.blessingFrom', { deity: lang.getDeityName() }) }}
         </h3>
       </div>
       <p class="text-base md:text-lg font-medium text-gray-800 leading-relaxed text-center mb-4"
@@ -348,7 +344,7 @@
       <button 
         (click)="getNewBlessing()"
         class="text-sm text-orange-600 hover:text-orange-700 font-semibold transition-colors">
-        🔄 {{ lang.getCurrentLanguage() === 'hi' ? 'नया आशीर्वाद पाएं' : 'Get Another Blessing' }}
+        🔄 {{ lang.t('wish.getAnotherBlessing') }}
       </button>
     </div>
 
@@ -439,7 +435,7 @@
 
       <!-- Note -->
       <p class="text-xs text-gray-600 mt-4 bg-white/50 rounded-lg p-3">
-        <strong>{{ lang.getCurrentLanguage() === 'hi' ? 'नोट:' : 'Note:' }}</strong> {{ lang.t('wish.optionalNote') }}
+        <strong>{{ lang.t('wish.noteLabel') }}</strong> {{ lang.t('wish.optionalNote') }}
       </p>
     </div>
 
@@ -475,7 +471,7 @@
         (click)="shareTemple()" 
         class="w-full py-3 px-4 text-gray-500 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm">
         <span>📤</span>
-        {{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर की जानकारी साझा करें' : 'Share Temple Info' }}
+        {{ lang.t('wish.shareTempleInfo') }}
       </button>
     </div>
   </div>

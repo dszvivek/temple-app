@@ -15,11 +15,11 @@
         (click)="navigateToTempleSelector()"
         class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 hover:bg-white shadow-sm hover:shadow transition-all text-amber-700 font-medium">
         <span class="text-lg">←</span>
-        <span class="text-sm">{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Temples' }}</span>
+        <span class="text-sm">{{ lang.t('templeSelector.chooseTemple') }}</span>
       </button>
       <div class="flex items-center gap-2">
         <span class="text-2xl">🐘</span>
-        <span class="font-semibold text-amber-800 text-sm hidden sm:inline">{{ lang.getCurrentLanguage() === 'hi' ? 'गणेश मंदिर' : 'Ganesh Temple' }}</span>
+        <span class="font-semibold text-amber-800 text-sm hidden sm:inline">{{ lang.getTempleLabel('ganesh') }}</span>
       </div>
     </div>
   </div>
@@ -75,15 +75,13 @@
       </div>
     </div>
     <h1 class="text-2xl sm:text-3xl font-bold text-amber-800 mb-2">
-      {{ lang.getCurrentLanguage() === 'hi' ? '🐘 गणेश मंदिर 🐘' : '🐘 Ganesh Temple 🐘' }}
+      🐘 {{ lang.getTempleLabel('ganesh') }} 🐘
     </h1>
     <p class="text-amber-600 font-medium mb-2">
       "विघ्नहर्ता गणेश"
     </p>
     <p class="text-gray-600 text-sm max-w-xl mx-auto">
-      {{ lang.getCurrentLanguage() === 'hi' 
-        ? 'सभी बाधाओं के निवारक भगवान गणेश के दिव्य दर्शन करें' 
-        : 'Seek blessings from Lord Ganesha, the remover of all obstacles' }}
+      {{ lang.getTempleHomeDescription('ganesh') }}
     </p>
   </header>
 
@@ -93,7 +91,7 @@
       (click)="navigateToWish()"
       class="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-amber-500 to-red-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
       <span class="text-3xl">🙏</span>
-      <span class="text-sm font-semibold">{{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}</span>
+      <span class="text-sm font-semibold">{{ lang.t('home.makeWish') }}</span>
     </button>
     <button 
       (click)="openDiyaModal()"
@@ -132,7 +130,7 @@
       निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥"
     </blockquote>
     <p class="text-xs text-gray-500 mt-2">
-      {{ lang.getCurrentLanguage() === 'hi' ? '- गणेश स्तोत्र' : '- Ganesh Stotra' }}
+      - {{ lang.getTempleQuoteSource('ganesh') }}
     </p>
   </div>
 </div>

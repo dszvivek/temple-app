@@ -114,9 +114,7 @@ export class TempleSelectorComponent implements OnInit, OnDestroy {
   }
 
   getDailyRitualTitle(): string {
-    return this.lang.getCurrentLanguage() === 'hi'
-      ? 'आज का छोटा दर्शन'
-      : "Today's Simple Darshan";
+    return this.lang.t('templeSelector.dailyDarshanTitle');
   }
 
   getDailyRitualSubtitle(): string {
@@ -124,21 +122,40 @@ export class TempleSelectorComponent implements OnInit, OnDestroy {
       ? this.todaysDeity?.nameHindi
       : this.todaysDeity?.name;
 
-    return this.lang.getCurrentLanguage() === 'hi'
-      ? `${deityName || 'भगवान'} के साथ 2 मिनट की साधना`
-      : `A 2-minute practice with ${deityName || 'the deity'}`;
+    return this.lang.format('templeSelector.dailyDarshanSubtitle', {
+      deity: deityName || this.lang.t('templeSelector.todayDeityFallback')
+    });
   }
 
   getDailyRitualSteps(): string[] {
-    return this.lang.getCurrentLanguage() === 'hi'
-      ? ['घंटी बजाएं', 'दीया जलाएं', 'मनोकामना करें']
-      : ['Ring the bell', 'Light a diya', 'Make a wish'];
+    return this.lang.t('templeSelector.dailyRitualSteps');
   }
 
   getTodaysDeityName(): string {
     return this.lang.getCurrentLanguage() === 'hi'
-      ? this.todaysDeity?.nameHindi || 'आज का देवता'
-      : this.todaysDeity?.name || "Today's deity";
+      ? this.todaysDeity?.nameHindi || this.lang.t('templeSelector.todayDeityFallback')
+      : this.todaysDeity?.name || this.lang.t('templeSelector.todayDeityFallback');
+  }
+
+  getSankalpLabel(): string {
+    return this.needsSankalpToday()
+      ? this.lang.t('templeSelector.sankalpWaiting')
+      : this.lang.t('templeSelector.sankalpPractice');
+  }
+
+  getSankalpProgressLabel(): string {
+    if (!this.activePractice) {
+      return '';
+    }
+
+    if (this.activePractice.status === 'completed') {
+      return this.lang.t('templeSelector.sankalpComplete');
+    }
+
+    return this.lang.format('templeSelector.sankalpDay', {
+      day: this.getSankalpDay(),
+      total: this.activePractice.totalDays
+    });
   }
 
   private getRecommendedDeity(): DeityType {

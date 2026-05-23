@@ -35,9 +35,7 @@ export class DonateComponent implements OnInit {
 
   copyUpiId(): void {
     navigator.clipboard.writeText(this.upiId).then(() => {
-      this.toastService.success(
-        this.lang.getCurrentLanguage() === 'hi' ? 'UPI ID कॉपी हो गया!' : 'UPI ID copied!'
-      );
+      this.toastService.success(this.lang.t('donate.copySuccess'));
     });
   }
 
@@ -53,17 +51,13 @@ export class DonateComponent implements OnInit {
    */
   async logDonation(): Promise<void> {
     if (this.donationAmount <= 0) {
-      this.toastService.warning('Please enter a valid donation amount');
+      this.toastService.warning(this.lang.t('donate.invalidAmount'));
       return;
     }
 
     try {
       await this.firebaseBackend.logDonation(this.donationAmount, this.donationPurpose);
-      this.toastService.success(
-        this.lang.getCurrentLanguage() === 'hi'
-          ? 'धन्यवाद! आपका दान दर्ज किया गया। 🙏'
-          : 'Thank you! Your donation has been recorded. 🙏'
-      );
+      this.toastService.success(this.lang.t('donate.loggedSuccess'));
       this.donationAmount = 0;
       this.showDonationInput = false;
     } catch (error) {

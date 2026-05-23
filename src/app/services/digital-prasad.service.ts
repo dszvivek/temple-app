@@ -51,7 +51,7 @@ export class DigitalPrasadService {
       shareMessage: '🔴 Received Kumkum Tilak from Manokamna Temple. Divine protection for you! 🙏', 
       shareMessageHi: '🔴 मनोकामना मंदिर से कुमकुम तिलक प्राप्त हुआ। आपकी दिव्य रक्षा हो! 🙏' },
     { name: 'Prasad Laddu', nameHi: 'प्रसाद का लड्डू', emoji: '🟡', rarity: 'common',
-      description: 'A sweet laddu blessed by the deity', descriptionHi: 'भगवान का आशीर्वाद प्राप्त मिठा लड्डू',
+      description: 'A sweet laddu blessed by the deity', descriptionHi: 'भगवान का आशीर्वाद प्राप्त मीठा लड्डू',
       shareMessage: '🟡 Got a blessed Laddu from Manokamna Temple! Sweet blessings for you 🙏', 
       shareMessageHi: '🟡 मनोकामना मंदिर से आशीर्वाद प्राप्त लड्डू मिला! आपके लिए मीठे आशीर्वाद 🙏' },
     { name: 'Sacred Thread', nameHi: 'पवित्र धागा', emoji: '🧵', rarity: 'common',
@@ -101,7 +101,7 @@ export class DigitalPrasadService {
       shareMessage: '☸️ I received the DIVINE Sudarshan Chakra blessing from Manokamna Temple! Supreme protection! 🙏✨', 
       shareMessageHi: '☸️ मनोकामना मंदिर से दिव्य सुदर्शन चक्र आशीर्वाद प्राप्त! परम सुरक्षा! 🙏✨' },
     { name: 'Shiva\'s Third Eye Blessing', nameHi: 'शिव की तृतीय नेत्र कृपा', emoji: '👁️', rarity: 'divine',
-      description: 'The rarest blessing - Lord Shiva\'s inner vision', descriptionHi: 'दुर्लभतम आशीर्वाद - महादेव का अंतर्दृष्टि',
+      description: 'The rarest blessing - Lord Shiva\'s inner vision', descriptionHi: 'दुर्लभतम आशीर्वाद - महादेव की अंतर्दृष्टि',
       shareMessage: '👁️ DIVINE blessing! Shiva\'s Third Eye vision from Manokamna Temple! Ultimate wisdom! 🔱🙏', 
       shareMessageHi: '👁️ दिव्य आशीर्वाद! मनोकामना मंदिर से शिव की तृतीय नेत्र कृपा! परम ज्ञान! 🔱🙏' },
     { name: 'Krishna\'s Flute Melody', nameHi: 'कृष्ण की बांसुरी धुन', emoji: '🎵', rarity: 'divine',
@@ -149,7 +149,7 @@ export class DigitalPrasadService {
 
     // Show toast with rarity indication
     const isHi = this.lang.getCurrentLanguage() === 'hi';
-    const rarityLabel = this.getRarityLabel(rarity, isHi);
+    const rarityLabel = this.getRarityToastLabel(rarity);
     this.toast.success(
       `${prasad.emoji} ${rarityLabel} ${isHi ? prasad.nameHi : prasad.name}!`,
       rarity === 'divine' ? 6000 : rarity === 'rare' ? 4000 : 3000
@@ -158,12 +158,16 @@ export class DigitalPrasadService {
     return prasad;
   }
 
-  private getRarityLabel(rarity: string, isHi: boolean): string {
+  private getRarityToastLabel(rarity: DigitalPrasad['rarity']): string {
     switch (rarity) {
-      case 'divine': return isHi ? '✨ दिव्य प्रसाद:' : '✨ DIVINE Prasad:';
-      case 'rare': return isHi ? '💎 दुर्लभ प्रसाद:' : '💎 Rare Prasad:';
-      case 'uncommon': return isHi ? '🌟 विशेष प्रसाद:' : '🌟 Special Prasad:';
-      default: return isHi ? '🙏 प्रसाद:' : '🙏 Prasad:';
+      case 'divine':
+        return this.lang.t('prasadCollection.toastDivine');
+      case 'rare':
+        return this.lang.t('prasadCollection.toastRare');
+      case 'uncommon':
+        return this.lang.t('prasadCollection.toastUncommon');
+      default:
+        return this.lang.t('prasadCollection.toastCommon');
     }
   }
 

@@ -96,4 +96,8 @@ export class PunyaPointsDisplayComponent implements OnInit, OnDestroy {
     ];
     return colors[Math.min(level - 1, colors.length - 1)];
   }
+
+  getActivityDescription(description: string): string {
+    return this.rewardsService.localizeActivityDescription(description);
+  }
 }

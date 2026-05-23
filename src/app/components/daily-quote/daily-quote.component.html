@@ -9,7 +9,7 @@
   <!-- Mini Version (collapsed) -->
   <div class="quote-mini" *ngIf="!isExpanded">
     <span class="quote-icon">{{ currentQuote.icon }}</span>
-    <span class="quote-label">{{ lang.getCurrentLanguage() === 'hi' ? 'आज का संदेश' : "Today's Wisdom" }}</span>
+    <span class="quote-label">{{ lang.t('dailyQuote.label') }}</span>
     <span class="expand-icon">▼</span>
   </div>
   
@@ -30,12 +30,12 @@
     <div class="decorative-line"></div>
     
     <p class="quote-instruction">
-      {{ lang.getCurrentLanguage() === 'hi' ? 'इस ज्ञान को अपने दिन में अपनाएं 🙏' : 'Embrace this wisdom in your day 🙏' }}
+      {{ lang.t('dailyQuote.instruction') }}
     </p>
     
     <button class="share-quote-btn" (click)="shareQuote($event)">
       <span>📤</span>
-      <span>{{ lang.getCurrentLanguage() === 'hi' ? 'WhatsApp पर भेजें' : 'Share on WhatsApp' }}</span>
+      <span>{{ lang.t('dailyQuote.shareButton') }}</span>
     </button>
   </div>
 </div>

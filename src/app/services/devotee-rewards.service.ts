@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { LanguageService } from './language.service';
 
 export interface PunyaPoints {
   total: number;
@@ -117,7 +118,7 @@ export class DevoteeRewardsService {
   private pointsAnimationSubject = new BehaviorSubject<{ points: number; message: string } | null>(null);
   public pointsAnimation$ = this.pointsAnimationSubject.asObservable();
 
-  constructor() {
+  constructor(private lang: LanguageService) {
     this.checkDailyVisit();
   }
 
@@ -198,23 +199,28 @@ export class DevoteeRewardsService {
         // Continue streak
         profile.streak.currentStreak++;
         const streakBonus = POINTS_CONFIG.consecutiveDay * profile.streak.currentStreak;
-        this.addPointsInternal(profile, POINTS_CONFIG.dailyVisit + streakBonus, 'Daily visit + streak bonus');
+        this.addPointsInternal(
+          profile,
+          POINTS_CONFIG.dailyVisit + streakBonus,
+          this.lang.t('rewards.activityDailyVisitStreakBonus'),
+          'dailyVisit'
+        );
         
         // Check for weekly/monthly bonuses
         if (profile.streak.currentStreak === 7) {
-          this.addPointsInternal(profile, POINTS_CONFIG.weeklyBonus, '🎉 7-day streak bonus!');
+          this.addPointsInternal(profile, POINTS_CONFIG.weeklyBonus, this.lang.t('rewards.activityWeeklyBonus'), 'weeklyBonus');
         }
         if (profile.streak.currentStreak === 30) {
-          this.addPointsInternal(profile, POINTS_CONFIG.monthlyBonus, '🎊 30-day streak bonus!');
+          this.addPointsInternal(profile, POINTS_CONFIG.monthlyBonus, this.lang.t('rewards.activityMonthlyBonus'), 'monthlyBonus');
         }
       } else if (lastVisit !== '') {
         // Streak broken
         profile.streak.currentStreak = 1;
-        this.addPointsInternal(profile, POINTS_CONFIG.dailyVisit, 'Daily visit');
+        this.addPointsInternal(profile, POINTS_CONFIG.dailyVisit, this.lang.t('rewards.activityDailyVisit'), 'dailyVisit');
       } else {
         // First visit ever
         profile.streak.currentStreak = 1;
-        this.addPointsInternal(profile, POINTS_CONFIG.dailyVisit, 'Welcome to the temple!');
+        this.addPointsInternal(profile, POINTS_CONFIG.dailyVisit, this.lang.t('rewards.activityWelcome'), 'dailyVisit');
         this.awardBadge('first_visit');
       }
 
@@ -230,7 +236,7 @@ export class DevoteeRewardsService {
     }
   }
 
-  private addPointsInternal(profile: DevoteeProfile, points: number, description: string): void {
+  private addPointsInternal(profile: DevoteeProfile, points: number, description: string, type = 'points'): void {
     profile.points.total += points;
     profile.points.todayEarned += points;
     profile.points.weeklyEarned += points;
@@ -239,7 +245,7 @@ export class DevoteeRewardsService {
 
     // Add to activity log
     profile.activities.unshift({
-      type: 'points',
+      type,
       points,
       timestamp: new Date().toISOString(),
       description
@@ -259,7 +265,7 @@ export class DevoteeRewardsService {
     const points = POINTS_CONFIG[activityType];
     const message = customMessage || this.getActivityMessage(activityType);
     
-    this.addPointsInternal(profile, points, message);
+    this.addPointsInternal(profile, points, message, activityType);
     this.saveProfile(profile);
 
     // Trigger animation
@@ -269,22 +275,79 @@ export class DevoteeRewardsService {
 
   private getActivityMessage(type: keyof typeof POINTS_CONFIG): string {
     const messages: Record<string, string> = {
-      dailyVisit: 'Daily temple visit',
-      consecutiveDay: 'Streak bonus',
-      lightDiya: 'Lit a diya 🪔',
-      makeWish: 'Made a wish 🙏',
-      completeRitual: 'Completed ritual',
-      performAarti: 'Performed aarti 🎵',
-      ringBell: 'Rang temple bell 🔔',
-      offerFlowers: 'Offered flowers 🌺',
-      shareApp: 'Shared temple 📤',
-      receivePrasad: 'Received prasad 🍬',
-      sharePrasad: 'Shared prasad',
-      meditation: 'Meditation session 🧘',
-      weeklyBonus: '7-day streak!',
-      monthlyBonus: '30-day streak!'
+      dailyVisit: 'rewards.activityDailyVisit',
+      consecutiveDay: 'rewards.activityDailyVisitStreakBonus',
+      lightDiya: 'rewards.activityLightDiya',
+      makeWish: 'rewards.activityMakeWish',
+      completeRitual: 'rewards.activityCompleteRitual',
+      performAarti: 'rewards.activityPerformAarti',
+      ringBell: 'rewards.activityRingBell',
+      offerFlowers: 'rewards.activityOfferFlowers',
+      shareApp: 'rewards.activityShareApp',
+      receivePrasad: 'rewards.activityReceivePrasad',
+      sharePrasad: 'rewards.activitySharePrasad',
+      meditation: 'rewards.activityMeditation',
+      weeklyBonus: 'rewards.activityWeeklyBonus',
+      monthlyBonus: 'rewards.activityMonthlyBonus'
     };
-    return messages[type] || 'Activity completed';
+    return this.lang.t(messages[type] || 'rewards.activityCompleteRitual');
+  }
+
+  public localizeActivityDescription(description: string): string {
+    const exactMap: Record<string, string> = {
+      'Daily visit + streak bonus': 'rewards.activityDailyVisitStreakBonus',
+      'Daily visit': 'rewards.activityDailyVisit',
+      'Welcome to the temple!': 'rewards.activityWelcome',
+      'Lit a diya 🪔': 'rewards.activityLightDiya',
+      'Made a wish 🙏': 'rewards.activityMakeWish',
+      'Completed ritual': 'rewards.activityCompleteRitual',
+      'Performed aarti 🎵': 'rewards.activityPerformAarti',
+      'Rang temple bell 🔔': 'rewards.activityRingBell',
+      'Offered flowers 🌺': 'rewards.activityOfferFlowers',
+      'Shared temple 📤': 'rewards.activityShareApp',
+      'Received prasad 🍬': 'rewards.activityReceivePrasad',
+      'Shared prasad': 'rewards.activitySharePrasad',
+      'Meditation session 🧘': 'rewards.activityMeditation',
+      '7-day streak!': 'rewards.activityWeeklyBonus',
+      '🎉 7-day streak bonus!': 'rewards.activityWeeklyBonus',
+      '30-day streak!': 'rewards.activityMonthlyBonus',
+      '🎊 30-day streak bonus!': 'rewards.activityMonthlyBonus'
+    };
+
+    if (exactMap[description]) {
+      return this.lang.t(exactMap[description]);
+    }
+
+    const challengeMatch = description.match(/^Daily challenge:\s*(.+)$/i);
+    if (challengeMatch) {
+      return this.lang.format('rewards.activityDailyChallenge', {
+        action: this.getChallengeActionLabel(challengeMatch[1])
+      });
+    }
+
+    const minutesMatch = description.match(/^(\d+)\s+minutes in temple$/i);
+    if (minutesMatch) {
+      return this.lang.format('rewards.activityMinutesInTemple', {
+        minutes: minutesMatch[1]
+      });
+    }
+
+    return description;
+  }
+
+  private getChallengeActionLabel(action: string): string {
+    const keyMap: Record<string, string> = {
+      diya: 'rewards.challengeActionDiya',
+      bell: 'rewards.challengeActionBell',
+      flowers: 'rewards.challengeActionFlowers',
+      quote: 'rewards.challengeActionQuote',
+      aarti: 'rewards.challengeActionAarti',
+      wish: 'rewards.challengeActionWish',
+      visit_shiva: 'rewards.challengeActionVisitShiva',
+      visit_durga: 'rewards.challengeActionVisitDurga'
+    };
+
+    return this.lang.t(keyMap[action] || action);
   }
 
   private updateLevel(profile: DevoteeProfile): void {
@@ -338,14 +401,14 @@ export class DevoteeRewardsService {
   public recordDiyaLit(): void {
     this.addPoints('lightDiya');
     const profile = this.profileSubject.value;
-    const diyaCount = profile.activities.filter(a => a.description.includes('diya')).length;
+    const diyaCount = profile.activities.filter(a => a.type === 'lightDiya' || /diya|दीया/i.test(a.description)).length;
     this.checkAndAwardBadges('diyas', diyaCount);
   }
 
   public recordWishMade(): void {
     this.addPoints('makeWish');
     const profile = this.profileSubject.value;
-    const wishCount = profile.activities.filter(a => a.description.includes('wish')).length;
+    const wishCount = profile.activities.filter(a => a.type === 'makeWish' || /wish|मनोकामना/i.test(a.description)).length;
     this.checkAndAwardBadges('wishes', wishCount);
   }
 

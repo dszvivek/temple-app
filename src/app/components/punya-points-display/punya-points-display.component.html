@@ -3,7 +3,7 @@
   <div class="points-popup" [@pointsPopup]>
     <div class="points-content">
       <span class="points-value">+{{ pointsAnimation.points }}</span>
-      <span class="points-label">Punya Points</span>
+      <span class="points-label">{{ lang.t('rewards.pointsLabel') }}</span>
       <span class="points-message">{{ pointsAnimation.message }}</span>
     </div>
   </div>
@@ -36,7 +36,7 @@
 <ng-container *ngIf="showProfilePanel && profile">
   <div class="profile-panel">
     <div class="panel-header">
-      <h3>{{ lang.getCurrentLanguage() === 'hi' ? 'आपकी आध्यात्मिक यात्रा' : 'Your Spiritual Journey' }}</h3>
+      <h3>{{ lang.t('rewards.spiritualJourney') }}</h3>
       <button class="close-panel" (click)="toggleProfilePanel()">✕</button>
     </div>
 
@@ -46,7 +46,7 @@
         <div class="level-icon" [class]="getLevelColor()">{{ profile.level }}</div>
         <div class="level-details">
           <p class="level-name">{{ lang.getCurrentLanguage() === 'hi' ? profile.levelNameHi : profile.levelName }}</p>
-          <p class="level-points">{{ profile.points.total }} / {{ profile.nextLevelPoints }} points</p>
+          <p class="level-points">{{ profile.points.total }} / {{ profile.nextLevelPoints }} {{ lang.t('rewards.pointsLabel') }}</p>
         </div>
       </div>
       <div class="level-progress-bar">
@@ -59,28 +59,28 @@
       <div class="stat-box">
         <span class="stat-icon">🔥</span>
         <span class="stat-value">{{ profile.streak.currentStreak }}</span>
-        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'दिन की श्रृंखला' : 'Day Streak' }}</span>
+        <span class="stat-label">{{ lang.t('rewards.dayStreak') }}</span>
       </div>
       <div class="stat-box">
         <span class="stat-icon">🏛️</span>
         <span class="stat-value">{{ profile.streak.totalVisits }}</span>
-        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'कुल यात्राएं' : 'Total Visits' }}</span>
+        <span class="stat-label">{{ lang.t('rewards.totalVisits') }}</span>
       </div>
       <div class="stat-box">
         <span class="stat-icon">🪔</span>
         <span class="stat-value">{{ profile.aartiPerformed }}</span>
-        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'आरती की' : 'Aartis Done' }}</span>
+        <span class="stat-label">{{ lang.t('rewards.aartisDone') }}</span>
       </div>
       <div class="stat-box">
         <span class="stat-icon">🍬</span>
         <span class="stat-value">{{ profile.prasadReceived }}</span>
-        <span class="stat-label">{{ lang.getCurrentLanguage() === 'hi' ? 'प्रसाद मिला' : 'Prasad Received' }}</span>
+        <span class="stat-label">{{ lang.t('rewards.prasadReceived') }}</span>
       </div>
     </div>
 
     <!-- Badges Section -->
     <div class="badges-section">
-      <h4>{{ lang.getCurrentLanguage() === 'hi' ? 'अर्जित बैज' : 'Earned Badges' }} ({{ profile.badges.length }})</h4>
+      <h4>{{ lang.t('rewards.earnedBadges') }} ({{ profile.badges.length }})</h4>
       <ng-container *ngIf="profile.badges.length > 0">
         <div class="badges-grid">
           <div *ngFor="let badge of profile.badges" class="badge-item" [@badgeEarned]>
@@ -90,17 +90,17 @@
         </div>
       </ng-container>
       <p *ngIf="profile.badges.length === 0" class="no-badges">
-        {{ lang.getCurrentLanguage() === 'hi' ? 'अभी तक कोई बैज नहीं। गतिविधियां जारी रखें!' : 'No badges yet. Keep up the activities!' }}
+        {{ lang.t('rewards.noBadges') }}
       </p>
     </div>
 
     <!-- Recent Activity -->
     <div class="activity-section">
-      <h4>{{ lang.getCurrentLanguage() === 'hi' ? 'हाल की गतिविधि' : 'Recent Activity' }}</h4>
+      <h4>{{ lang.t('rewards.recentActivity') }}</h4>
       <div class="activity-list">
         <div *ngFor="let activity of profile.activities.slice(0, 5)" class="activity-item">
           <span class="activity-points">+{{ activity.points }}</span>
-          <span class="activity-desc">{{ activity.description }}</span>
+          <span class="activity-desc">{{ getActivityDescription(activity.description) }}</span>
         </div>
       </div>
     </div>

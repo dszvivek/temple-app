@@ -15,11 +15,11 @@
         (click)="navigateToTempleSelector()"
         class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 hover:bg-white shadow-sm hover:shadow transition-all text-red-700 font-medium">
         <span class="text-lg">←</span>
-        <span class="text-sm">{{ lang.getCurrentLanguage() === 'hi' ? 'मंदिर चुनें' : 'Temples' }}</span>
+        <span class="text-sm">{{ lang.t('templeSelector.chooseTemple') }}</span>
       </button>
       <div class="flex items-center gap-2">
         <span class="text-2xl">🦁</span>
-        <span class="font-semibold text-red-800 text-sm hidden sm:inline">{{ lang.getCurrentLanguage() === 'hi' ? 'दुर्गा मंदिर' : 'Durga Temple' }}</span>
+        <span class="font-semibold text-red-800 text-sm hidden sm:inline">{{ lang.getTempleLabel('durga') }}</span>
       </div>
     </div>
   </div>
@@ -69,15 +69,13 @@
       </div>
     </div>
     <h1 class="text-2xl sm:text-3xl font-bold text-red-800 mb-2">
-      {{ lang.getCurrentLanguage() === 'hi' ? '🦁 दुर्गा मंदिर 🦁' : '🦁 Durga Temple 🦁' }}
+      🦁 {{ lang.getTempleLabel('durga') }} 🦁
     </h1>
     <p class="text-red-600 font-medium mb-2">
       "या देवी सर्वभूतेषु शक्तिरूपेण संस्थिता"
     </p>
     <p class="text-gray-600 text-sm max-w-xl mx-auto">
-      {{ lang.getCurrentLanguage() === 'hi' 
-        ? 'माँ दुर्गा के दिव्य दर्शन करें - शक्ति स्वरूपा, महिषासुरमर्दिनी' 
-        : 'Seek blessings from Goddess Durga - The Divine Mother of Power' }}
+      {{ lang.getTempleHomeDescription('durga') }}
     </p>
   </header>
 
@@ -87,7 +85,7 @@
       (click)="navigateToWish()"
       class="flex flex-col items-center gap-2 p-4 bg-gradient-to-br from-red-500 to-pink-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
       <span class="text-3xl">🙏</span>
-      <span class="text-sm font-semibold">{{ lang.getCurrentLanguage() === 'hi' ? 'मनोकामना करें' : 'Make a Wish' }}</span>
+      <span class="text-sm font-semibold">{{ lang.t('home.makeWish') }}</span>
     </button>
     <button 
       (click)="openDiyaModal()"
@@ -126,7 +124,7 @@
       शरण्ये त्र्यम्बके गौरि नारायणि नमोऽस्तु ते॥"
     </blockquote>
     <p class="text-xs text-gray-500 mt-2">
-      {{ lang.getCurrentLanguage() === 'hi' ? '- दुर्गा स्तुति' : '- Durga Stuti' }}
+      - {{ lang.getTempleQuoteSource('durga') }}
     </p>
   </div>
 </div>

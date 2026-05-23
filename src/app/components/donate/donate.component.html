@@ -23,7 +23,7 @@
       <div class="inline-block p-4 bg-white rounded-lg border-4 border-saffron-200 shadow-lg">
         <img 
           [src]="qrCodeUrl" 
-          alt="UPI QR Code" 
+          [alt]="lang.t('donate.qrAlt')" 
           class="w-64 h-64 mx-auto"
           onerror="this.style.display='none'"
         />
@@ -48,7 +48,8 @@
       <button 
         (click)="copyUpiId()" 
         class="bg-saffron-600 text-white px-4 py-2 rounded-lg hover:bg-saffron-700 transition-colors flex-shrink-0"
-        title="Copy UPI ID">
+        [attr.title]="lang.t('donate.copyButtonTitle')"
+        [attr.aria-label]="lang.t('donate.copyButtonTitle')">
         📋
       </button>
     </div>

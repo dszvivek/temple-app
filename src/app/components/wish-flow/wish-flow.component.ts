@@ -7,6 +7,7 @@ import { PetalService } from '../../services/petal.service';
 import { BlessingsService, Blessing } from '../../services/blessings.service';
 import { DeityService } from '../../services/deity.service';
 import { DevoteeRewardsService } from '../../services/devotee-rewards.service';
+import { SmartShareService } from '../../services/smart-share.service';
 import { ToastService } from '../../services/toast.service';
 import { ProductAnalyticsService } from '../../services/product-analytics.service';
 import { WishPracticeService } from '../../services/wish-practice.service';
@@ -69,6 +70,7 @@ export class WishFlowComponent implements OnInit {
     public blessingsService: BlessingsService,
     private deityService: DeityService,
     private rewardsService: DevoteeRewardsService,
+    private shareService: SmartShareService,
     private toastService: ToastService,
     private analytics: ProductAnalyticsService,
     private wishPractice: WishPracticeService
@@ -105,7 +107,7 @@ export class WishFlowComponent implements OnInit {
    */
   async createWish(): Promise<void> {
     if (!this.wishTitle.trim()) {
-      this.toastService.warning('Please enter a wish title');
+      this.toastService.warning(this.lang.t('wish.enterWishTitle'));
       return;
     }
 
@@ -203,55 +205,16 @@ export class WishFlowComponent implements OnInit {
     const deityName = this.lang.getCurrentLanguage() === 'hi' 
       ? currentDeity.nameHindi 
       : currentDeity.name;
-
-    const hindiMessage = `🚩 ${deityName} का डिजिटल ई-मंदिर अब 24×7 खुला है 🚩
-
-यह कोई भौतिक मंदिर नहीं — एक ऑनलाइन पवित्र स्थल है,
-जहाँ हज़ारों भक्त हर दिन दर्शन कर रहे हैं और मनोकामनाएँ अर्पित कर रहे हैं।
-
-यहाँ आप अपने मोबाइल से ही:
-🕯️ दीया जला सकते हैं  
-🔔 मंदिर की घंटी बजा सकते हैं  
-📿 अपनी मनोकामना लिखकर ${deityName} को समर्पित कर सकते हैं  
-🎵 दिव्य मंत्र और आरती सुन सकते हैं  
-
-✅ कोई लॉगिन नहीं  
-✅ कोई ऐप डाउनलोड नहीं  
-✅ मनोकामनाएँ निजी रहती हैं (केवल आपके फ़ोन में)  
-✅ शुद्ध भक्ति, बिना किसी शुल्क के  
-
-🌐 दर्शन हेतु पधारें: ${window.location.origin}  
-🙏 "डिजिटल मंदिर, पर भक्ति वही"  
-🚩 नमस्ते`;
-
-    const englishMessage = `🚩 The ${deityName} Digital Temple is now open 24×7 🚩
-
-This is not a physical temple — it is a sacred online space
-created for those who wish to pray, offer devotion, and submit
-their wishes from anywhere in the world.
-
-Inside the digital temple, you can:
-🕯️ Light a virtual Diya
-🔔 Ring the temple bell
-📿 Write and offer your personal wish to ${deityName}
-🎵 Listen to divine mantras and aartis
-
-✅ No login required
-✅ No app to install
-✅ Your wishes stay private on your own device
-✅ 100% free — devotion only, no mandatory donation
-
-Visit and offer your prayer: ${window.location.origin}  
-🙏 Namaste 🚩`;
-
-    const messageToShare = this.lang.getCurrentLanguage() === 'hi' ? hindiMessage : englishMessage;
+    const shareData = this.shareService.getTempleInviteShareData(deityName);
+    const messageToShare = `${shareData.text}\n\n${shareData.url}`;
 
     try {
       // Try native Web Share API first (works on mobile)
       if (navigator.share) {
         await navigator.share({
-          text: messageToShare,
-          url: window.location.origin
+          title: shareData.title,
+          text: shareData.text,
+          url: shareData.url
         });
         this.analytics.track('share_sent', {
           platform: 'native',
@@ -264,11 +227,7 @@ Visit and offer your prayer: ${window.location.origin}
           platform: 'copy',
           context: 'wish_flow'
         });
-        this.toastService.success(
-          this.lang.getCurrentLanguage() === 'hi' 
-            ? 'मंदिर की जानकारी कॉपी हो गई! अब आप इसे WhatsApp, Email या किसी भी माध्यम से साझा कर सकते हैं।'
-            : 'Temple info copied to clipboard! You can now share it via WhatsApp, Email, or any platform.'
-        );
+        this.toastService.success(this.shareService.getTempleInviteCopiedMessage());
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -315,7 +274,7 @@ Visit and offer your prayer: ${window.location.origin}
     } catch (error) {
       console.error('Error activating wish:', error);
       this.analytics.trackError(error, 'wish_activate');
-      this.toastService.error('Failed to submit wish. Please try again.');
+      this.toastService.error(this.lang.t('wish.submitFailed'));
     }
   }
 

@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-purple-100 to-pink-100 border-b border-purple-200">
       <div class="flex items-center gap-2">
         <span class="text-2xl">🧘</span>
-        <span class="font-bold text-purple-800">Meditation Timer</span>
+        <span class="font-bold text-purple-800">{{ lang.t('meditation.title') }}</span>
       </div>
       <button 
         (click)="toggleStats()"
@@ -24,19 +24,19 @@
         <div class="grid grid-cols-4 gap-2">
           <div class="bg-purple-50 rounded-xl p-3 text-center">
             <div class="text-xl font-bold text-purple-700">{{ stats.totalSessions }}</div>
-            <div class="text-xs text-purple-600">Sessions</div>
+            <div class="text-xs text-purple-600">{{ lang.t('meditation.sessions') }}</div>
           </div>
           <div class="bg-purple-50 rounded-xl p-3 text-center">
             <div class="text-xl font-bold text-purple-700">{{ stats.totalMinutes }}</div>
-            <div class="text-xs text-purple-600">Minutes</div>
+            <div class="text-xs text-purple-600">{{ lang.t('meditation.minutes') }}</div>
           </div>
           <div class="bg-orange-50 rounded-xl p-3 text-center">
             <div class="text-xl font-bold text-orange-600">{{ stats.currentStreak }}</div>
-            <div class="text-xs text-orange-600">🔥 Streak</div>
+            <div class="text-xs text-orange-600">{{ lang.t('meditation.streak') }}</div>
           </div>
           <div class="bg-green-50 rounded-xl p-3 text-center">
             <div class="text-xl font-bold text-green-600">{{ stats.longestStreak }}</div>
-            <div class="text-xs text-green-600">Best</div>
+            <div class="text-xs text-green-600">{{ lang.t('meditation.best') }}</div>
           </div>
         </div>
       </div>
@@ -74,14 +74,14 @@
           </svg>
           <div class="absolute inset-0 flex flex-col items-center justify-center">
             <div class="text-4xl font-bold text-purple-700">{{ getFormattedTime() }}</div>
-            <div class="text-sm text-gray-500">remaining</div>
+            <div class="text-sm text-gray-500">{{ lang.t('meditation.remaining') }}</div>
           </div>
         </div>
 
         <button 
           (click)="stopMeditation()"
           class="py-3 px-8 bg-red-100 text-red-600 font-bold rounded-xl hover:bg-red-200 transition-all">
-          ⏹️ End Session
+          {{ lang.t('meditation.endSession') }}
         </button>
       </div>
 
@@ -92,14 +92,14 @@
           (click)="startMeditation(preset)"
           class="py-4 px-2 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-lg transition-all group">
           <span class="block text-2xl font-bold text-purple-700 group-hover:scale-110 transition-transform">{{ preset }}</span>
-          <span class="block text-xs text-purple-500">min</span>
+          <span class="block text-xs text-purple-500">{{ lang.t('meditation.minuteUnit') }}</span>
         </button>
       </div>
 
       <!-- Info Message -->
       <div class="mt-4 bg-purple-50 rounded-xl p-3 text-center border border-purple-200">
         <p class="text-sm text-purple-700">
-          🕉️ Find peace in stillness. Meditate daily!
+          {{ lang.t('meditation.infoMessage') }}
         </p>
       </div>
     </div>

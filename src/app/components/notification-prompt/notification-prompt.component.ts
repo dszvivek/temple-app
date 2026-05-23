@@ -15,24 +15,16 @@ import { ProductAnalyticsService } from '../../services/product-analytics.servic
       <div class="notif-content">
         <div class="notif-icon">🔔</div>
         <div class="notif-text">
-          <p class="notif-title">
-            {{ isHindi 
-              ? '🙏 रोज़ सुबह आरती का अलर्ट पाएं' 
-              : '🙏 Get daily morning aarti alerts' }}
-          </p>
-          <p class="notif-desc">
-            {{ isHindi
-              ? 'सुबह और शाम की आरती, त्योहार, और विशेष दिनों की याद दिलाने दें'
-              : 'Get reminders for morning & evening aarti, festivals, and special days' }}
-          </p>
+          <p class="notif-title">{{ lang.t('notifications.promptTitle') }}</p>
+          <p class="notif-desc">{{ lang.t('notifications.promptDescription') }}</p>
         </div>
       </div>
       <div class="notif-actions">
         <button class="notif-btn enable" (click)="enableNotifications()">
-          {{ isHindi ? '✅ हाँ, याद दिलाएं' : '✅ Yes, remind me' }}
+          {{ lang.t('notifications.enableButton') }}
         </button>
         <button class="notif-btn later" (click)="dismiss()">
-          {{ isHindi ? 'बाद में' : 'Later' }}
+          {{ lang.t('notifications.laterButton') }}
         </button>
       </div>
     </div>
@@ -132,10 +124,6 @@ export class NotificationPromptComponent implements OnInit {
   
   private readonly DISMISS_KEY = 'temple_notif_dismissed';
   private readonly VISIT_COUNT_KEY = 'temple_visit_count';
-  
-  get isHindi(): boolean {
-    return this.lang.getCurrentLanguage() === 'hi';
-  }
 
   constructor(
     public lang: LanguageService,
@@ -182,10 +170,8 @@ export class NotificationPromptComponent implements OnInit {
       });
       if (permission === 'granted') {
         // Show a welcome notification
-        new Notification('🙏 Manokamna', {
-          body: this.lang.getCurrentLanguage() === 'hi' 
-            ? 'अब आपको रोज़ आरती और त्योहार की याद मिलेगी!' 
-            : 'You will now receive daily aarti and festival reminders!',
+        new Notification(this.lang.t('notifications.systemTitle'), {
+          body: this.lang.t('notifications.welcomeBody'),
           icon: '/assets/icons/pwa/icon-192x192.png'
         });
       }

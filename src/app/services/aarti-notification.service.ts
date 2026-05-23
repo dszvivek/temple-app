@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TempleScheduleService } from './temple-schedule.service';
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class AartiNotificationService {
   private checkInterval?: any;
   private permissionGranted = false;
 
-  constructor(private scheduleService: TempleScheduleService) {
+  constructor(
+    private scheduleService: TempleScheduleService,
+    private lang: LanguageService
+  ) {
     this.initializeNotifications();
   }
 
@@ -173,8 +177,10 @@ export class AartiNotificationService {
       return;
     }
 
-    const notification = new Notification('🙏 Manokamna', {
-      body: `${aarti.emoji} ${aarti.label} is starting now!\nJoin us in devotion.`,
+    const label = this.getLocalizedAartiLabel(aarti);
+
+    const notification = new Notification(this.lang.t('notifications.systemTitle'), {
+      body: `${aarti.emoji} ${this.lang.format('notifications.aartiStarting', { label })}\n${this.lang.t('notifications.joinInDevotion')}`,
       icon: 'assets/icons/icon-192x192.png',
       badge: 'assets/icons/icon-72x72.png',
       tag: `aarti-${aarti.hour}`,
@@ -192,6 +198,22 @@ export class AartiNotificationService {
       window.focus();
       notification.close();
     };
+  }
+
+  private getLocalizedAartiLabel(aarti: { hour: number; minute: number; label: string }): string {
+    if (aarti.hour === 8 && aarti.minute === 0) {
+      return this.lang.t('notifications.morningAarti');
+    }
+
+    if (aarti.hour === 13 && aarti.minute === 0) {
+      return this.lang.t('notifications.afternoonAarti');
+    }
+
+    if (aarti.hour === 19 && aarti.minute === 0) {
+      return this.lang.t('notifications.eveningAarti');
+    }
+
+    return aarti.label;
   }
 
   /**

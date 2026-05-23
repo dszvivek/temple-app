@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, interval } from 'rxjs';
 import { DevModeService } from './dev-mode.service';
+import { LanguageService } from './language.service';
 
 /**
  * Chant Schedule Entry
@@ -28,7 +29,10 @@ export class SchedulerService {
   private checkInterval: any;
   private notificationCallback?: (schedule: ChantSchedule) => void;
 
-  constructor(private devMode: DevModeService) {
+  constructor(
+    private devMode: DevModeService,
+    private lang: LanguageService
+  ) {
     this.loadSchedule();
     this.startScheduleChecker();
   }
@@ -151,8 +155,8 @@ export class SchedulerService {
    */
   private showNotification(schedule: ChantSchedule): void {
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('Temple Chant Reminder', {
-        body: `It's time for ${schedule.name}`,
+      new Notification(this.lang.t('notifications.chantReminderTitle'), {
+        body: this.lang.format('notifications.chantReminderBody', { name: schedule.name }),
         icon: 'assets/icons/icon-192x192.png',
         badge: 'assets/icons/icon-72x72.png',
         tag: schedule.id,
